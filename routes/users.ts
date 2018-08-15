@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 
 import { Response } from 'express';
-import {User} from "../src/entity/User"
+import {User} from "../database/entity/User"
 
 
 /* GET users listing. */

@@ -2,13 +2,17 @@
 
 <head>
     <title>{{ title | capitalize }}</title>
-    <link rel="stylesheet" href="/stylesheets/style.css">
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 
 <body>
-{% block content %}
-    This is the default content
-{% endblock %}
+
+<div class="container">
+    {% block content %}
+        This is the default content
+    {% endblock %}
+</div>
+
 </body>
 
 </html>

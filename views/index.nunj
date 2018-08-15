@@ -7,7 +7,13 @@
     <a href="/auth/twitch">login</a>
 
     {% if isAuth %}
-        {{ user.username }}
+        <div class="card bg-primary"  style="width: 200px;">
+            <img class="card-img" src="{{ user.avatar }}">
+
+            <div class="card-body">
+                {{ user.username }}
+            </div>
+        </div>
     {% endif %}
 
 {% endblock %}

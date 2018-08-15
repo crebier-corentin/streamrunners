@@ -10,7 +10,7 @@ const twitchStrategy = require("passport-twitch").Strategy;
 
 import "reflect-metadata";
 import {createConnection} from "typeorm";
-import {User} from "./src/entity/User";
+import {User} from "./database/entity/User";
 
 require('dotenv').config();
 
@@ -61,7 +61,16 @@ createConnection().then(async connection => {
             let users = await User.find({twitchId: profile.id});
 
             if (users.length > 0) {
-                done(null, users[0]);
+                //Met à jour
+                let user = users[0];
+
+                user.username = profile._json.display_name;
+                user.email = profile._json.email;
+                user.avatar = profile._json.logo;
+
+                await user.save();
+
+                done(null, user);
             }
             else {
                 let newUser = new User();

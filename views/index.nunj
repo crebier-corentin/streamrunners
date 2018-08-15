@@ -1,0 +1,13 @@
+{% extends "master.nunj" %}
+
+{% block content %}
+
+    <h1>{{ name }}</h1>
+
+    <a href="/auth/twitch">login</a>
+
+    {% if isAuth %}
+        {{ user.username }}
+    {% endif %}
+
+{% endblock %}

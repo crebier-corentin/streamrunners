@@ -1,0 +1,14 @@
+<html>
+
+<head>
+    <title>{{ title | capitalize }}</title>
+    <link rel="stylesheet" href="/stylesheets/style.css">
+</head>
+
+<body>
+{% block content %}
+    This is the default content
+{% endblock %}
+</body>
+
+</html>

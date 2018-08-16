@@ -4,14 +4,14 @@
 
     <h1>{{ name }}</h1>
 
-    <a href="/auth/twitch">login</a>
+    <a class="btn btn-primary" href="/auth/twitch">Se connecter avec Twitch.Tv <i class="fab fa-twitch"></i></a>
 
-    {% if isAuth %}
+    {% if req.isAuthenticated() %}
         <div class="card bg-primary"  style="width: 200px;">
-            <img class="card-img" src="{{ user.avatar }}">
+            <img class="card-img" src="{{ req.user.avatar }}">
 
             <div class="card-body">
-                {{ user.username }}
+                {{ req.user.username }}
             </div>
         </div>
     {% endif %}

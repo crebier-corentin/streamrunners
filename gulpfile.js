@@ -2,6 +2,9 @@
 
 var gulp = require('gulp');
 
+var concat = require('gulp-concat');
+var sourcemaps = require('gulp-sourcemaps');
+
 var postcss = require('gulp-postcss');
 var autoprefixer = require('autoprefixer');
 var cssnano = require('cssnano');
@@ -17,6 +20,7 @@ gulp.task('sass', function () {
         .pipe(gulp.dest('./public/css/'));
 });
 
-gulp.task('sass:watch', function () {
+gulp.task('watch', function () {
     gulp.watch('./asset/sass/**/*.scss', ['sass']);
+    gulp.watch('./asset/js/**/*.js', ['bundle']);
 });

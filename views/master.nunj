@@ -1,11 +1,54 @@
 <html>
 
 <head>
-    <title>{{ title | capitalize }}</title>
+    <title>{{ title | default("Titre") | capitalize }}</title>
+    <link rel="stylesheet"
+          href="https://use.fontawesome.com/releases/v5.2.0/css/all.css"
+          integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ"
+          crossorigin="anonymous">
     <link rel="stylesheet" href="/css/style.css">
 </head>
 
 <body>
+{# Navbar #}
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">TwitchView</a>
+    <button class="navbar-toggler"
+            type="button"
+            data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent"
+            aria-expanded="false"
+            aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+
+            <li class="nav-item">
+                <a class="nav-link" href="#">Page d'acceuil</a>
+            </li>
+
+        </ul>
+
+        <ul class="navbar-nav ml-auto">
+
+            {% if req.isAuthenticated() %}
+                <li class="nav-item">
+                    <a class="nav-link" href="#">{{ req.user.username }}</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/logout">Se déconnecter</a>
+                </li>
+            {% else %}
+
+
+            {% endif %}
+        </ul>
+
+    </div>
+</nav>
 
 <div class="container">
     {% block content %}
@@ -14,5 +57,12 @@
 </div>
 
 </body>
+
+<script src="/js/bundle.js"></script>
+
+{% block script %}
+
+{% endblock %}
+
 
 </html>

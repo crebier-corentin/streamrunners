@@ -35,6 +35,12 @@ createConnection().then(async connection => {
         noCache: isDev
     });
 
+    app.use(function (req, res, next) {
+        njk.env.addGlobal("req", req);
+        next();
+
+    });
+
     app.use(logger('dev'));
     app.use(express.json());
     app.use(express.urlencoded({extended: false}));
@@ -105,8 +111,7 @@ createConnection().then(async connection => {
 
     app.get("/auth/twitch", passport.authenticate("twitch"));
     app.get("/auth/twitch/callback", passport.authenticate("twitch", {failureRedirect: "/"}), function (req, res) {
-
-        res.send(req.user);
+        res.redirect("/");
     });
 
 }).catch(error => console.log(error));

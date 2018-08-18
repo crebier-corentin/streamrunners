@@ -27,7 +27,7 @@ createConnection().then(async connection => {
 
     const isDev = app.get('env') === 'development';
 
-    //Nunjuncks
+    //Nunjucks
     app.set('views', __dirname + '/views');
     app.set("view engine", "nunj");
     const njk = expressNunjucks(app, {
@@ -36,6 +36,7 @@ createConnection().then(async connection => {
     });
 
     app.use(function (req, res, next) {
+        //req in nunjunk
         njk.env.addGlobal("req", req);
         next();
 

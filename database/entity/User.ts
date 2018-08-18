@@ -1,4 +1,5 @@
-import {Entity, PrimaryGeneratedColumn, Column, BaseEntity} from "typeorm";
+import {Entity, PrimaryGeneratedColumn, Column, BaseEntity, OneToMany} from "typeorm";
+import {WatchSession} from "./WatchSession";
 
 @Entity()
 export class User extends BaseEntity {
@@ -13,6 +14,19 @@ export class User extends BaseEntity {
     email: string;
     @Column()
     avatar: string;
+
+    @OneToMany(type => WatchSession, WatchSession => WatchSession.user)
+    watchSession: WatchSession[];
+
+    points(): number {
+        let total: number;
+
+        this.watchSession.forEach((watchSession) => {
+            total += watchSession.points();
+        });
+
+        return total;
+    }
 
 
 }

@@ -1,19 +1,15 @@
 {% extends "master.nunj" %}
 
-{% block content %}
+{% block css %}
+    <meta name="csrf-token" content="{{ csrfToken }}">
+{% endblock %}
 
-    <h1>{{ name }}</h1>
+{% block content %}
 
     <a class="btn btn-primary" href="/auth/twitch">Se connecter avec Twitch.Tv <i class="fab fa-twitch"></i></a>
 
-    {% if req.isAuthenticated() %}
-        <div class="card bg-primary"  style="width: 200px;">
-            <img class="card-img" src="{{ req.user.avatar }}">
+{% endblock %}
 
-            <div class="card-body">
-                {{ req.user.username }}
-            </div>
-        </div>
-    {% endif %}
+{% block script %}
 
 {% endblock %}

@@ -2,9 +2,6 @@
 
 var gulp = require('gulp');
 
-var concat = require('gulp-concat');
-var sourcemaps = require('gulp-sourcemaps');
-
 var postcss = require('gulp-postcss');
 var autoprefixer = require('autoprefixer');
 var cssnano = require('cssnano');

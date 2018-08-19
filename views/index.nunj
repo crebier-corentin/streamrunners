@@ -6,10 +6,36 @@
 
 {% block content %}
 
-    <a class="btn btn-primary" href="/auth/twitch">Se connecter avec Twitch.Tv <i class="fab fa-twitch"></i></a>
 
 {% endblock %}
 
 {% block script %}
+        </div>
+        <div class="container">
+        <!-- <progress class="timer"></progress> -->
+        <br>
+        <iframe src="https://player.twitch.tv/?channel=latachegaming" frameborder="0" allowfullscreen="true" scrolling="no" height="410" width="70%"></iframe>
+        <iframe src="https://www.twitch.tv/embed/latachegaming/chat" frameborder="0" scrolling="no" height="410" width="29%"></iframe>
+        </div>
+  <div class="container marketing">
+        <hr>
+        <br>
+        <div class="row">
+          <div class="col-lg-4">
+            <img class="rounded-circle brandred" src="img/eye-solid.svg" alt="Generic placeholder image" width="140" height="140">
+            <h2>Vues Réelles !</h2>
+            <p>Des vues 100% réelles ! Toutes nos vues proviennent d'utilisateurs Twitch 100% réels, nous chassons les bots du site !</p>
+          </div><!-- /.col-lg-4 -->
+          <div class="col-lg-4">
+            <img class="rounded-circle" src="img/free.svg" alt="Generic placeholder image" width="140" height="140">
+            <h2>Gratuit</h2>
+            <p>Le site est gratuit ! Des abonnements sont proposé pour améliorer l'expérience mais aucunement obligatoires !</p>
+          </div><!-- /.col-lg-4 -->
+          <div class="col-lg-4">
+            <img class="circle" src="img/heart-solid.svg" alt="Generic placeholder image" width="140" height="140">
+            <h2>Langue</h2>
+            <p>Nos utilisateurs sont redirigés vers un stream en fonction de leurs langues, des utilisateurs Francophone tomberont donc sur un stream en Français !</p>
+          </div><!-- /.col-lg-4 -->
+        </div><!-- /.row -->
 
 {% endblock %}

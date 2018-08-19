@@ -7,16 +7,19 @@ import {WatchSession} from "../database/entity/WatchSession";
 var express = require('express');
 var router = express.Router();
 
-var csrf = require('csurf');
-var csrfProtection = csrf();
-
 /* GET home page. */
-router.get('/', csrfProtection, async function (req, res) {
+router.get('/', function (req: Express.Request, res) {
 
-    res.render('./index', {title: 'express', csrfToken: req.csrfToken()});
+    //Si connecter afficher le stream, sinon afficher la page d'acceuil
+    if (req.isAuthenticated()) {
+        res.render("./watch", {title: 'TwitchRunner'})
+    }
+    else {
+        res.render('./index', {title: 'TwitchRunner'});
+    }
 });
 
-router.post('/update/watch', csrfProtection, (req: Express.Request, res: e.Response) => {
+router.post('/watch/update', (req: Express.Request, res: e.Response) => {
 
     if (req.isAuthenticated()) {
         let newDate = moment();

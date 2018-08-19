@@ -1,0 +1,14 @@
+{% extends "master.nunj" %}
+
+{% block content %}
+    <div class="container" id="app">
+
+        <twitch-viewer :channel="channel"></twitch-viewer>
+
+    </div>
+
+{% endblock %}
+
+{% block script %}
+    <script src="/js/watch.js"></script>
+{% endblock %}

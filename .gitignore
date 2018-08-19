@@ -137,3 +137,5 @@ fabric.properties
 
 .idea/
 database.sqlite
+
+.rpt2_cache/

@@ -19,13 +19,18 @@ export class User extends BaseEntity {
     watchSession: WatchSession[];
 
     points(): number {
-        let total: number;
+        if (this.watchSession != undefined) {
+            let total: number = 0;
 
-        this.watchSession.forEach((watchSession) => {
-            total += watchSession.points();
-        });
+            this.watchSession.forEach((watchSession) => {
+                total += watchSession.points();
+            });
 
-        return total;
+            return Math.round(total);
+        }
+        else {
+            return 0;
+        }
     }
 
 

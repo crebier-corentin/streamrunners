@@ -3,7 +3,6 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const cookieSession = require('cookie-session');
 const logger = require('morgan');
-const sassMiddleware = require('node-sass-middleware');
 const expressNunjucks = require('express-nunjucks');
 const passport = require('passport');
 const twitchStrategy = require("passport-twitch").Strategy;
@@ -46,12 +45,6 @@ createConnection().then(async () => {
     app.use(express.json());
     app.use(express.urlencoded({extended: false}));
     app.use(cookieParser());
-    app.use(sassMiddleware({
-        src: path.join(__dirname, 'public'),
-        dest: path.join(__dirname, 'public'),
-        indentedSyntax: false, // true = .sass and false = .scss
-        sourceMap: true
-    }));
     app.use(express.static(path.join(__dirname, 'public')));
     app.use(cookieSession({keys: [process.env.COOKIE_KEY]})); // Express cookie session middleware
 
@@ -98,7 +91,7 @@ createConnection().then(async () => {
         done(null, user.twitchId);
     });
     passport.deserializeUser(function (twitchId, done) {
-        User.findOne({twitchId: twitchId}).then((user) => {
+        User.findOne({twitchId: twitchId}, { relations: ["watchSession"] }).then((user) => {
             done(null, user);
         });
     });

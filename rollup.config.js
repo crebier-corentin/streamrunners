@@ -4,15 +4,18 @@ import commonjs from 'rollup-plugin-commonjs';
 import json from 'rollup-plugin-json';
 import {uglify} from 'rollup-plugin-uglify';
 import VuePlugin from 'rollup-plugin-vue';
+import babel from 'rollup-plugin-babel';
 
 var saveLicense = require('uglify-save-license');
 
 let plugins = [
+    typescript({tsconfigOverride: {compilerOptions: {module: "esnext"}}}),
+    VuePlugin(),
+    resolve({jsnext: true, preferBuiltins: true, browser: true}),
     commonjs(),
     json(),
-    resolve({jsnext: true, preferBuiltins: true, browser: true}),
-    typescript({tsconfigOverride: {compilerOptions: {module: "es2015"}}}),
-    VuePlugin()
+    babel({exclude: 'node_modules/**'}),
+    uglify({output: {comments: saveLicense}}, require("uglify-es").minify)
 ];
 export default [{
     input: 'asset/js/bundle.js',
@@ -20,13 +23,15 @@ export default [{
         file: 'public/js/bundle.js',
         format: 'iife'
     },
-    plugins: plugins.concat([uglify({output: {comments: saveLicense}})])
+    plugins: plugins
+
 },
 {
     input: 'asset/js/watch.ts',
     output: {
         file: 'public/js/watch.js',
-        format: 'iife'
+        format: 'iife',
+        sourcemap: true
     },
     plugins: plugins
 }];

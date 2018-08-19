@@ -7,17 +7,35 @@ export class WatchSession extends BaseEntity {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @ManyToOne(type => User, user => user.twitchId)
+    @ManyToOne(type => User, user => user.watchSession)
     user: User;
 
     @Column("datetime", {default: () => 'CURRENT_TIMESTAMP'})
-    start: Date;
+    start: Date | number;
 
     @Column("datetime", {default: () => 'CURRENT_TIMESTAMP'})
-    last: Date;
+    last: Date | number;
 
-    points() : number {
-        return ((this.last.getTime() - this.start.getTime()) / 1000) / 10;
+    startTime(): Date {
+        if (this.start instanceof Date) {
+            return this.start;
+        }
+        else {
+            return new Date(this.start);
+        }
+    }
+
+    lastTime(): Date {
+        if (this.last instanceof Date) {
+            return this.last;
+        }
+        else {
+            return new Date(this.last);
+        }
+    }
+
+    points(): number {
+        return ((this.lastTime().getTime() - this.startTime().getTime()) / 1000) / 10;
     }
 
 

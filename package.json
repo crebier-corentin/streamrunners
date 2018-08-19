@@ -3,8 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node --require ts-node/register bin/www",
-    "asset": "gulp sass && rollup -c"
+    "asset": "gulp sass && rollup -c",
+    "start": "node --require ts-node/register bin/www"
   },
   "dependencies": {
     "axios": "^0.18.0",
@@ -15,8 +15,6 @@
     "csurf": "^1.9.0",
     "debug": "~2.6.9",
     "dotenv": "^6.0.0",
-    "eslint": "^5.4.0",
-    "eslint-plugin-typescript": "^0.12.0",
     "express": "~4.16.0",
     "express-nunjucks": "^2.2.3",
     "https-proxy-agent": "^2.2.1",
@@ -56,6 +54,8 @@
     "autoprefixer": "^9.1.1",
     "css-mqpacker": "^7.0.0",
     "cssnano": "^4.0.5",
+    "eslint": "^5.4.0",
+    "eslint-plugin-typescript": "^0.12.0",
     "gulp": "^3.9.1",
     "gulp-concat": "^2.6.1",
     "gulp-postcss": "^8.0.0",
@@ -65,6 +65,7 @@
     "rollup-plugin-commonjs": "^9.1.5",
     "rollup-plugin-json": "^3.0.0",
     "rollup-plugin-node-resolve": "^3.3.0",
+    "rollup-plugin-typescript2": "^0.16.1",
     "rollup-plugin-uglify": "^4.0.0",
     "typescript-eslint-parser": "^18.0.0",
     "uglify-save-license": "^0.4.1"

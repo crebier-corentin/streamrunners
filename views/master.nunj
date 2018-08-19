@@ -10,7 +10,6 @@
           integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ"
           crossorigin="anonymous">
     <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="/css/main.css">
     {% block css %}
 
     {% endblock %}
@@ -45,29 +44,25 @@
             {% if req.isAuthenticated() %}
 
                 <li class="nav-item">
-                    <img src="{{ req.user.avatar }}"
-                         alt="avatar"
-                         class="loggedImage">
+                    <img src="{{ req.user.avatar }}" alt="avatar" class="loggedImage">
                     <a class="nav-link d-inline-block loggedPseudo" href="#">{{ req.user.username }}</a>
                 </li>
 
                 <li class="nav-item">
                     <a class="nav-link" href="/logout">Se déconnecter</a>
                 </li>
-                {% else %}
+            {% else %}
 
-                    <a class="btn btn-primary" href="/auth/twitch">Se connecter avec Twitch.Tv <i class="fab fa-twitch"></i></a>
-                {% endif %}
-            </div>
-        </ul> 
+                <a class="btn btn-primary" href="/auth/twitch">Se connecter avec Twitch.Tv <i class="fab fa-twitch"></i></a>
+            {% endif %}
+
+        </ul>
     </div>
 </nav>
 
-<div class="container">
-    {% block content %}
-        This is the default content
-    {% endblock %}
-</div>
+{% block content %}
+    This is the default content
+{% endblock %}
 
 </body>
 

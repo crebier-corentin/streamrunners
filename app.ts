@@ -57,8 +57,8 @@ createConnection().then(async () => {
 
     //Passport
     passport.use(new twitchStrategy({
-        clientID: "70wavci67bshlaalwckyr8bwo74oqw",
-        clientSecret: "tmogcsuksisvibm732sa5zmqngw21a",
+        clientID: process.env.TWITCH_CLIENT_ID,
+        clientSecret: process.env.TWITCH_CLIENT_SECRET,
         callbackURL: process.env.HOSTNAME + "/auth/twitch/callback",
         scope: "user_read"
     },

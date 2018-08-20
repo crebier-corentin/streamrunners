@@ -64,11 +64,6 @@
     This is the default content
 {% endblock %}
 
-</body>
-
-<script src="/js/bundle.js"></script>
-
-{% block script %}
 <div class="footer">
   <p>© 2018 TwitchRunners
   <br>
@@ -76,6 +71,13 @@
   <i style="color:deepskyblue" class="fab fa-twitter-square"></i>
   </p>
 </div>
+
+</body>
+
+<script src="/js/bundle.js"></script>
+
+{% block script %}
+
 {% endblock %}
 
 

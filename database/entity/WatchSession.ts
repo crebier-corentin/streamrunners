@@ -7,7 +7,7 @@ export class WatchSession extends BaseEntity {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @ManyToOne(type => User, user => user.watchSession)
+    @ManyToOne(type => User, user => user.watchSession, { onDelete: "CASCADE"})
     user: User;
 
     @Column("datetime", {default: () => 'CURRENT_TIMESTAMP'})

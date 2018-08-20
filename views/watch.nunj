@@ -5,6 +5,9 @@
 
         <twitch-viewer :channel="channel"></twitch-viewer>
 
+        <div class="d-flex justify-content-center">
+            <span class="badge badge-secondary">Vos points : {% raw %}{{ points }}{% endraw %}</span>
+        </div>
     </div>
 
 {% endblock %}

@@ -15,8 +15,16 @@ export class User extends BaseEntity {
     @Column()
     avatar: string;
 
-    @OneToMany(type => WatchSession, WatchSession => WatchSession.user)
+    @OneToMany(type => WatchSession, WatchSession => WatchSession.user, {onDelete: "CASCADE"})
     watchSession: WatchSession[];
+
+    getLastWatchSession(): WatchSession {
+        const sorted = [...this.watchSession].sort((a, b) => {
+            return (a.lastTime() < b.lastTime() ? 1 : -1);
+        });
+
+        return sorted[0];
+    }
 
     points(): number {
         if (this.watchSession != undefined) {

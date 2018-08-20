@@ -10,8 +10,11 @@ var router = express.Router();
 /* GET home page. */
 router.get('/', function (req: Express.Request, res) {
 
+
+
     //Si connecter afficher le stream, sinon afficher la page d'acceuil
     if (req.isAuthenticated()) {
+
         res.render("./watch", {title: 'TwitchRunner'});
     }
     else {
@@ -28,7 +31,7 @@ router.post('/watch/update', async (req: Express.Request, res: e.Response) => {
 
         if (watchSessionArr != undefined && watchSessionArr.length > 0) {
             //Get lastTime Watch session
-            let watchSession = watchSessionArr[watchSessionArr.length - 1];
+            let watchSession = req.user.getLastWatchSession();
 
             //Compare if less than 5 minutes since lastTime update update lastTime watchSession
             if (moment(watchSession.lastTime()).add(5, "minutes") >= newDate) {

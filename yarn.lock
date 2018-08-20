@@ -158,21 +158,9 @@
     "@types/minimatch" "*"
     "@types/node" "*"
 
-"@types/gulp-concat@^0.0.32":
-  version "0.0.32"
-  resolved "https://registry.yarnpkg.com/@types/gulp-concat/-/gulp-concat-0.0.32.tgz#72486028b1cf5faa94c8c1cf34c626531cecacd6"
-  dependencies:
-    "@types/node" "*"
-
 "@types/gulp-sass@^0.0.31":
   version "0.0.31"
   resolved "https://registry.yarnpkg.com/@types/gulp-sass/-/gulp-sass-0.0.31.tgz#ba874b6fa4cc1502ae425517c47a289d5cb2abd9"
-  dependencies:
-    "@types/node" "*"
-
-"@types/gulp-sourcemaps@^0.0.32":
-  version "0.0.32"
-  resolved "https://registry.yarnpkg.com/@types/gulp-sourcemaps/-/gulp-sourcemaps-0.0.32.tgz#e79ee617e0cb15729874be4533fe59c07793a175"
   dependencies:
     "@types/node" "*"
 

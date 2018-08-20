@@ -6,12 +6,9 @@ import { Response } from 'express';
 import {User} from "../database/entity/User";
 
 
-/* GET users listing. */
 router.get('/', async function (req : Express.Request, res : Response) {
 
-    let result = await User.find();
-
-    res.send(result);
+    res.render("shop");
 
 });
 

@@ -3,7 +3,6 @@ import e = require("express");
 
 const moment = require("moment");
 import {WatchSession} from "../database/entity/WatchSession";
-import {User} from "../database/entity/User";
 
 var express = require('express');
 var router = express.Router();

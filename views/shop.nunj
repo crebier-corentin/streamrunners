@@ -1,0 +1,7 @@
+{% extends "master.nunj" %}
+
+{% block content %}
+    <!-- Met le css dans asset/sass/shop.scss -->
+    <!-- Et lance npm run build:sass -->
+<div class="container"></div>
+{% endblock %}

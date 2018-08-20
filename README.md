@@ -1,7 +1,15 @@
-# Awesome Project Build with TypeORM
-        
-Steps to run this project:
+# TwitchRunner
 
-1. Run `npm i` command
-2. Setup database settings inside `ormconfig.json` file
-3. Run `npm start` command
+### Installation
+* `npm install`
+* Renommée `.env.exemple` en `.env` et remplir le fichier
+* Créer un fichier vide nommé `database.sqlite`
+
+### Comandes
+
+**Lancer le serveur** : `npm start`
+
+**Compiler sass et js** : `npm run build`  
+**Compiler sass** : `npm run build:sass`  
+**Compiler js** : `npm run build:js`
+

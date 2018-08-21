@@ -11,6 +11,10 @@
     font-weight: bold;
 }
 
+a {
+    z-index: 1;
+}
+
 a:hover {
     Text-Decoration: None !important;
 }

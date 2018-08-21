@@ -46,3 +46,100 @@ hr {
   border-top: 1px solid rgba(0, 0, 0, .125);
   background-clip: border-box;
 }
+
+/* BANNER WALL*/
+.photo-wall {
+    padding: 50px 0 50px 0;
+    margin-top: 20px;
+    margin-bottom: -20px;
+    background: #000 url(/img/photo-wall.jpg) top left;
+    color: #fff;
+    font-size: 15px;
+    text-align: center;
+    position: relative;
+    top: -20px;
+}
+.photo-wall .gradient {
+    position: absolute;
+    width: 100%;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 130px;
+    background: url(/img/black-gradient.png) repeat-x bottom left;
+}
+.photo-wall h1 {
+    font-weight: bold;
+    font-size: 27px;
+    color: #fff;
+}
+.reasons p,
+.photo-wall p {
+    text-align: center;
+    word-wrap: normal;
+    word-break: normal;
+}
+.photo-wall .or {
+    line-height: 35px;
+}
+.reasons {
+    background: #fff;
+    text-align: center;
+    position: relative;
+    margin-top: -20px;
+    padding: 30px 0 30px 0;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #ededed;
+}
+.reasons h3 {
+    font-size: 18px;
+    font-weight: bold;
+}
+.reasons p {
+    font-size: 12px;
+}
+
+.btn.outline {
+    background: transparent;
+    border: 2px solid #fff;
+    color: #fff;
+    line-height: 31px;
+    opacity: 1;
+    box-shadow: 0 0 0;
+}
+.btn.outline:hover,.btn.outline:active {
+    background: rgba(255,255,255,0.2);
+}
+
+.btn, .btn:hover {
+    font-family: "Open sans", Helvetica Neue, Helvetica, Arial, sans-serif;
+    display: inline-block;
+    cursor: pointer;
+    text-decoration: none;
+    border: 0;
+    margin: 0;
+    padding: 0 20px 0 20px;
+    line-height: 35px;
+    color: #fff;
+    text-align: center;
+    font-weight: 600;
+    border-radius: 4px;
+}
+.btn.disable, .btn.disable:hover, .btn.disable:active {
+    cursor: default;
+    cursor: no-drop;
+    background: transparent;
+    border: 2px solid #ededed;
+    color: #ededed;
+    line-height: 31px;
+    opacity: 1;
+    box-shadow: 0 0 0;
+}
+a {
+    background: transparent;
+}
+a:active,
+a:hover {
+    outline: 0;
+}
+/* END BANNER WALL */

@@ -7,22 +7,22 @@
         <!-- Three columns of text below the carousel -->
         <div class="row">
           <div class="col-lg-2">
-            <img class="rounded-circle" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Generic placeholder image" width="90" height="90">
+            <img class="rounded-circle perso" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Generic placeholder image" width="90" height="90">
           </div><!-- /.col-lg-4 -->
           <div class="col-lg-2">
-            <img class="rounded-circle" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Generic placeholder image" width="90" height="90">
+            <img class="rounded-circle perso" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Generic placeholder image" width="90" height="90">
           </div><!-- /.col-lg-4 -->
           <div class="col-lg-2">
-            <img class="rounded-circle" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Generic placeholder image" width="90" height="90">
+            <img class="rounded-circle perso" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Generic placeholder image" width="90" height="90">
           </div><!-- /.col-lg-4 -->
         <div class="col-lg-2">
-            <img class="rounded-circle" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Generic placeholder image" width="90" height="90">
+            <img class="rounded-circle perso" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Generic placeholder image" width="90" height="90">
           </div><!-- /.col-lg-4 -->
         <div class="col-lg-2">
-            <img class="rounded-circle" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Generic placeholder image" width="90" height="90">
+            <img class="rounded-circle perso" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Generic placeholder image" width="90" height="90">
           </div><!-- /.col-lg-4 -->
         <div class="col-lg-2">
-            <img class="rounded-circle" src="{{ req.user.avatar }}" alt="Generic placeholder image" width="90" height="90">
+            <img class="rounded-circle perso" src="{{ req.user.avatar }}" alt="Generic placeholder image" width="90" height="90">
           </div><!-- /.col-lg-4 -->
         </div><!-- /.row -->
       </div>

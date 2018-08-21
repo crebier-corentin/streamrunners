@@ -1,56 +1,62 @@
 {% extends "master.nunj" %}
 
 {% block content %}
-    <!-- Met le css dans asset/sass/shop.scss -->
-    <!-- Et lance npm run build:sass -->
+<!-- Met le css dans asset/sass/shop.scss --><!-- Et lance npm run build:sass -->
 <div class="container"></div>
-    <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
-      <h1 class="display-4">Abonnements</h1>
-      <p class="lead">Les abonnements permettent d'avoir des atouts pour propulser plus rapidement et plus facilement votre stream, ils sont facultatifs et l'argent permettra d'améliorer le site. </p>
-    </div>
+<div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+    <h1 class="display-4">Abonnements</h1>
+    <p class="lead">Les abonnements permettent d'avoir des atouts pour propulser plus rapidement et plus facilement
+        votre stream, ils sont facultatifs et l'argent permettra d'améliorer le site. </p>
+</div>
 
-    <div class="container">
-      <div class="card-deck mb-3 text-center">
+<div class="container">
+    <div class="card-deck mb-3 text-center">
         <div class="card mb-4 shadow-sm">
-          <div class="card-header">
-          <i class="fas fa-user-friends"></i>
-            <h4 class="my-0 font-weight-normal">Membres</h4>
-          </div>
-          <div class="card-body">
-            <h1 class="card-title pricing-card-title">0€ <small class="text-muted">/ mois</small></h1>
-            <ul class="list-unstyled mt-3 mb-4">
-              <li>10 points par minute</li>
-              <li>1 minute par passage</li>
-            </ul>
-            <button type="button" class="btn btn-lg btn-block btn-primary disabled">GRATUIT</button>
-          </div>
+            <div class="card-header">
+                <i class="fas fa-user-friends"></i>
+                <h4 class="my-0 font-weight-normal">Membres</h4>
+            </div>
+            <div class="card-body">
+                <h1 class="card-title pricing-card-title">0€
+                    <small class="text-muted">/ mois</small>
+                </h1>
+                <ul class="list-unstyled mt-3 mb-4">
+                    <li>10 points par minute</li>
+                    <li>1 minute par passage</li>
+                </ul>
+                <button type="button" class="btn btn-lg btn-block btn-primary disabled">GRATUIT</button>
+            </div>
         </div>
         <div class="card mb-4 shadow-sm">
-          <div class="card-header">
-            <i style="color:#FDEE00" class="fas fa-star"></i><h4 class="my-0 font-weight-normal">V.I.P</h4>
-          </div>
-          <div class="card-body">
-            <h1 class="card-title pricing-card-title">9.99€ <small class="text-muted">/ mois</small></h1>
-            <ul class="list-unstyled mt-3 mb-4">
-              <li>20 points par minutes</li>
-              <li>2 minutes par passage</li>
-            </ul>
-            <button type="button" class="btn btn-lg btn-block btn-primary">S'abonner</button>
-          </div>
+            <div class="card-header">
+                <i style="color:#FDEE00" class="fas fa-star"></i><h4 class="my-0 font-weight-normal">V.I.P</h4>
+            </div>
+            <div class="card-body">
+                <h1 class="card-title pricing-card-title">9.99€
+                    <small class="text-muted">/ mois</small>
+                </h1>
+                <ul class="list-unstyled mt-3 mb-4">
+                    <li>20 points par minutes</li>
+                    <li>2 minutes par passage</li>
+                </ul>
+                <button type="button" class="btn btn-lg btn-block btn-primary">S'abonner</button>
+            </div>
         </div>
         <div class="card mb-4 shadow-sm">
-          <div class="card-header">
-          <i style="color:blue" class="fas fa-gem"></i>
-            <h4 class="my-0 font-weight-normal">Diamant</h4>
-          </div>
-          <div class="card-body">
-            <h1 class="card-title pricing-card-title">13.99€ <small class="text-muted">/ mois</small></h1>
-            <ul class="list-unstyled mt-3 mb-4">
-              <li>30 points par minutes</li>
-              <li>5 minutes par passage</li>
-            </ul>
-            <button type="button" class="btn btn-lg btn-block btn-primary">S'abonner</button>
-          </div>
+            <div class="card-header">
+                <i style="color:blue" class="fas fa-gem"></i>
+                <h4 class="my-0 font-weight-normal">Diamant</h4>
+            </div>
+            <div class="card-body">
+                <h1 class="card-title pricing-card-title">13.99€
+                    <small class="text-muted">/ mois</small>
+                </h1>
+                <ul class="list-unstyled mt-3 mb-4">
+                    <li>30 points par minutes</li>
+                    <li>5 minutes par passage</li>
+                </ul>
+                <button type="button" class="btn btn-lg btn-block btn-primary">S'abonner</button>
+            </div>
         </div>
-      </div>
-{% endblock %}
+    </div>
+    {% endblock %}

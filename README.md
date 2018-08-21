@@ -9,7 +9,8 @@
 
 **Lancer le serveur** : `npm start`
 
-**Compiler sass et js** : `npm run build`  
+**Compiler sass et js prod** : `npm run build`  
 **Compiler sass** : `npm run build:sass`  
-**Compiler js** : `npm run build:js`
+**Compiler js dev** : `npm run build:js:dev`  
+**Compiler js prod** : `npm run build:js`  
 

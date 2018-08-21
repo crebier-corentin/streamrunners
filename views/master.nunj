@@ -65,11 +65,11 @@
 {% endblock %}
 
 <div class="footer">
-  <p>© 2018 TwitchRunners
-  <br>
-  <i style="color:blue" class="fab fa-facebook"></i>
-  <i style="color:deepskyblue" class="fab fa-twitter-square"></i>
-  </p>
+    <p>© 2018 TwitchRunners
+        <br>
+        <i style="color:blue" class="fab fa-facebook"></i>
+        <i style="color:deepskyblue" class="fab fa-twitter-square"></i>
+    </p>
 </div>
 
 </body>

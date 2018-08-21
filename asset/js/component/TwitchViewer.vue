@@ -1,6 +1,11 @@
 <template>
     <div>
-        <iframe :src="videoUrl" frameborder="0" allowfullscreen="allowfullscreen" scrolling="no" height="410" width="70%"></iframe>
+        <iframe :src="videoUrl"
+                frameborder="0"
+                allowfullscreen="allowfullscreen"
+                scrolling="no"
+                height="410"
+                width="70%"></iframe>
         <iframe :src="chatUrl" frameborder="0" scrolling="no" height="410" width="29%"></iframe>
     </div>
 </template>

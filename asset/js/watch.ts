@@ -2,9 +2,7 @@
 import Vue from 'vue/dist/vue.esm.browser.js';
 import TwitchViewer from "./component/TwitchViewer.vue";
 
-import {AxiosError, AxiosInstance} from 'axios';
-
-const axios : AxiosInstance = window["axios"];
+import axios, {AxiosError} from 'axios';
 
 Vue.component(TwitchViewer.name, TwitchViewer);
 

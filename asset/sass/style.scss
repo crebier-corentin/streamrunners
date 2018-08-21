@@ -1,7 +1,6 @@
 //Bootstrap
 @import "variables";
 @import "bootstrap/scss/bootstrap";
-
 @import "shop";
 
 /*!
@@ -37,13 +36,13 @@ hr {
 }
 
 .footer {
-    position: fixed;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    background-color: rgba(0,0,0,.03);
-    text-align: center;
-    vertical-align: center;
-    border-top: 1px solid rgba(0,0,0,.125);
-    background-clip: border-box;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: rgba(0, 0, 0, .03);
+  text-align: center;
+  vertical-align: center;
+  border-top: 1px solid rgba(0, 0, 0, .125);
+  background-clip: border-box;
 }

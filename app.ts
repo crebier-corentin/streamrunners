@@ -50,48 +50,48 @@ createConnection().then(async () => {
 
     //Passport
     passport.use(new twitchStrategy({
-        clientID: process.env.TWITCH_CLIENT_ID,
-        clientSecret: process.env.TWITCH_CLIENT_SECRET,
-        callbackURL: process.env.HOSTNAME + "/auth/twitch/callback",
-        scope: "user_read"
-    },
-    async function (accessToken, refreshToken, profile, done) {
+            clientID: process.env.TWITCH_CLIENT_ID,
+            clientSecret: process.env.TWITCH_CLIENT_SECRET,
+            callbackURL: process.env.HOSTNAME + "/auth/twitch/callback",
+            scope: "user_read"
+        },
+        async function (accessToken, refreshToken, profile, done) {
 
-        //Find or create
-        let users = await User.find({twitchId: profile.id});
+            //Find or create
+            let users = await User.find({twitchId: profile.id});
 
-        if (users.length > 0) {
-            //Met à jour
-            let user = users[0];
+            if (users.length > 0) {
+                //Met à jour
+                let user = users[0];
 
-            user.username = profile._json.display_name;
-            user.email = profile._json.email;
-            user.avatar = profile._json.logo;
+                user.username = profile._json.display_name;
+                user.email = profile._json.email;
+                user.avatar = profile._json.logo;
 
-            await user.save();
+                await user.save();
 
-            done(null, user);
-        }
-        else {
-            let newUser = new User();
+                done(null, user);
+            }
+            else {
+                let newUser = new User();
 
-            newUser.twitchId = profile.id;
-            newUser.username = profile._json.display_name;
-            newUser.email = profile._json.email;
-            newUser.avatar = profile._json.logo;
+                newUser.twitchId = profile.id;
+                newUser.username = profile._json.display_name;
+                newUser.email = profile._json.email;
+                newUser.avatar = profile._json.logo;
 
-            await newUser.save();
+                await newUser.save();
 
-            done(null, newUser);
+                done(null, newUser);
 
-        }
+            }
 
-    }));
+        }));
     passport.serializeUser(function (user, done) {
         done(null, user.twitchId);
     });
     passport.deserializeUser(function (twitchId, done) {
-        User.findOne({twitchId: twitchId}, { relations: ["watchSession"] }).then((user) => {
+        User.findOne({twitchId: twitchId}, {relations: ["watchSession"]}).then((user) => {
             done(null, user);
         });
     });

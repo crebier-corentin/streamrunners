@@ -1,4 +1,4 @@
-import {Entity, PrimaryGeneratedColumn, Column, BaseEntity, ManyToOne} from "typeorm";
+import {BaseEntity, Column, Entity, ManyToOne, PrimaryGeneratedColumn} from "typeorm";
 import {User} from "./User";
 
 @Entity()
@@ -7,7 +7,7 @@ export class WatchSession extends BaseEntity {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @ManyToOne(type => User, user => user.watchSession, { onDelete: "CASCADE"})
+    @ManyToOne(type => User, user => user.watchSession, {onDelete: "CASCADE"})
     user: User;
 
     @Column("datetime", {default: () => 'CURRENT_TIMESTAMP'})

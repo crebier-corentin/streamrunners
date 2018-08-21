@@ -35,9 +35,14 @@
         <ul class="navbar-nav mr-auto">
 
             <li class="nav-item">
-                <a class="nav-link" href="#">Page d'acceuil</a>
+                <a class="nav-link" href="/"><i class="fas fa-home"></i> Acceuil</a>
             </li>
-
+            {% if req.isAuthenticated() %}
+             <li class="nav-item">
+                <a class="nav-link" href="/shop"><i class="fas fa-shopping-cart"></i> Boutique</a>
+            </li>
+            {% else %}
+            {% endif %}
         </ul>
 
         <ul class="navbar-nav ml-auto">

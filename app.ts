@@ -91,7 +91,7 @@ createConnection().then(async () => {
         done(null, user.twitchId);
     });
     passport.deserializeUser(function (twitchId, done) {
-        User.findOne({twitchId: twitchId}, {relations: ["watchSession"]}).then((user) => {
+        User.findOne({twitchId: twitchId}).then((user) => {
             done(null, user);
         });
     });

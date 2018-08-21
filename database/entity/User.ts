@@ -15,7 +15,7 @@ export class User extends BaseEntity {
     @Column()
     avatar: string;
 
-    @OneToMany(type => WatchSession, WatchSession => WatchSession.user, {onDelete: "CASCADE"})
+    @OneToMany(type => WatchSession, WatchSession => WatchSession.user, {onDelete: "CASCADE", eager: true})
     watchSession: WatchSession[];
 
     getLastWatchSession(): WatchSession {

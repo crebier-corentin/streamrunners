@@ -35,12 +35,6 @@
     "@types/events" "*"
     "@types/node" "*"
 
-"@types/cli@^0.11.19":
-  version "0.11.19"
-  resolved "https://registry.yarnpkg.com/@types/cli/-/cli-0.11.19.tgz#31ff7d006734c0b6647aa2b3d87d21d62eadb54b"
-  dependencies:
-    "@types/node" "*"
-
 "@types/connect@*":
   version "3.4.32"
   resolved "https://registry.yarnpkg.com/@types/connect/-/connect-3.4.32.tgz#aa0e9616b9435ccad02bc52b5b454ffc2c70ba28"
@@ -1560,6 +1554,15 @@ cli-highlight@^1.2.3:
 cli-width@^2.0.0:
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/cli-width/-/cli-width-2.2.0.tgz#ff19ede8a9a5e579324147b0c11f0fbcbabed639"
+
+cli.js@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/cli.js/-/cli.js-1.0.2.tgz#d9afdf793371cb50d5ef775c440e1bea4bab0128"
+  dependencies:
+    lodash "^4.13.1"
+    q "^1.4.1"
+    qash "github:battlesnake/qash"
+    shell-quote "^1.6.1"
 
 cliui@^3.0.3, cliui@^3.2.0:
   version "3.2.0"
@@ -4004,7 +4007,7 @@ lodash.uniq@^4.5.0:
   version "4.5.0"
   resolved "https://registry.yarnpkg.com/lodash.uniq/-/lodash.uniq-4.5.0.tgz#d0225373aeb652adc1bc82e4945339a842754773"
 
-lodash@^4.0.0, lodash@^4.17.4, lodash@^4.17.5, lodash@^4.3.0, lodash@~4.17.10:
+lodash@^4.0.0, lodash@^4.13.1, lodash@^4.17.4, lodash@^4.17.5, lodash@^4.3.0, lodash@~4.17.10:
   version "4.17.10"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.10.tgz#1b7793cf7259ea38fb3661d4d38b3260af8ae4e7"
 
@@ -5390,9 +5393,15 @@ punycode@^2.1.0:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/punycode/-/punycode-2.1.1.tgz#b58b010ac40c22c5657616c8d2c2c02c7bf479ec"
 
-q@^1.1.2:
+q@^1.1.2, q@^1.4.1:
   version "1.5.1"
   resolved "https://registry.yarnpkg.com/q/-/q-1.5.1.tgz#7e32f75b41381291d04611f1bf14109ac00651d7"
+
+"qash@github:battlesnake/qash":
+  version "1.0.1"
+  resolved "https://codeload.github.com/battlesnake/qash/tar.gz/15ab9c6ded6a8f9da8ff3b5e3425af9040c0623e"
+  dependencies:
+    lodash "^4.13.1"
 
 qs@6.5.1:
   version "6.5.1"
@@ -6499,9 +6508,9 @@ typedarray@^0.0.6:
   version "0.0.6"
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
 
-typeorm@0.2.7:
-  version "0.2.7"
-  resolved "https://registry.yarnpkg.com/typeorm/-/typeorm-0.2.7.tgz#4bbbace80dc91b1303be13f42d44ebf01d1b2558"
+typeorm@^0.3.0-alpha.10:
+  version "0.3.0-alpha.10"
+  resolved "https://registry.yarnpkg.com/typeorm/-/typeorm-0.3.0-alpha.10.tgz#31909d4dc99e1c406cb36c785cdaa23b1d7fc77b"
   dependencies:
     app-root-path "^2.0.1"
     buffer "^5.1.0"

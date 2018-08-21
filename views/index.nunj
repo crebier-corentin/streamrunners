@@ -1,32 +1,32 @@
 {% extends "master.nunj" %}
 
 {% block content %}
-<div class="photo-wall">
-    <div class="gradient"></div>
-    <div class="container">
-        <div class="row">
-            <div class="g12">
-                <h1>Le N#1 des sites pour faire connaitre votre Twitch</h1>
-                <p>
-                    <strong>TwitchRunners</strong> est un site <strong>gratuit</strong> pour les streamers qui veulent plus de visibilité. 
-                    Il n'y a aucun frais caché ou abonnement obligatoire. L'<strong>inscription est rapide</strong> et vous permettra d'accéder au site au complet sans restriction. Vous pourrez montrer votre stream a des gens qui parlent la même <strong>langue vous</strong>.
-                </p>
-                <br>
-                <a class="btn btn-primary" href="/auth/twitch">Se connecter avec Twitch.Tv <i class="fab fa-twitch"></i></a>
-                <br><br><br>
-                <p>
-                    Rejoins les <strong>0</strong> viewers actuellement connectés !
-                </p>
+    <div class="photo-wall">
+        <div class="gradient"></div>
+        <div class="container">
+            <div class="row">
+                <div class="g12">
+                    <h1>Le N#1 des sites pour faire connaitre votre Twitch</h1>
+                    <p class="mb-5 text-shadow">
+                        <strong>TwitchRunners</strong> est un site <strong>gratuit</strong> pour les streamers qui
+                        veulent plus de visibilité.
+                        Il n'y a aucun frais caché ou abonnement obligatoire. L'<strong>inscription est rapide</strong>
+                        et vous permettra d'accéder au site au complet sans restriction. Vous pourrez montrer votre
+                        stream a des gens qui parlent la même <strong>langue vous</strong>. </p>
+                    <a class="btn btn-primary" href="/auth/twitch">Se connecter avec Twitch.Tv
+                        <i class="fab fa-twitch"></i></a>
+                    <p class="mt-5">
+                        Rejoins les <strong>0</strong> viewers actuellement connectés ! </p>
+                </div>
             </div>
         </div>
+        <div class="clear"></div>
     </div>
-    <div class="clear"></div>
-</div>
     <div class="container marketing">
         <hr>
         <br>
         <div class="row">
-            <div class="col-lg-4">
+            <div class="col-lg-4 d-flex flex-column align-items-center justify-content-center">
                 <img class="rounded-circle brandred"
                      src="img/eye-solid.svg"
                      alt="Generic placeholder image"
@@ -37,13 +37,13 @@
                     les
                     bots du site !</p>
             </div><!-- /.col-lg-4 -->
-            <div class="col-lg-4">
+            <div class="col-lg-4 d-flex flex-column align-items-center justify-content-center">
                 <img class="rounded-circle" src="img/free.svg" alt="Generic placeholder image" width="140" height="140">
                 <h2>Gratuit</h2>
                 <p>Le site est gratuit ! Des abonnements sont proposé pour améliorer l'expérience mais aucunement
                     obligatoires !</p>
             </div><!-- /.col-lg-4 -->
-            <div class="col-lg-4">
+            <div class="col-lg-4 d-flex flex-column align-items-center justify-content-center">
                 <img class="circle" src="img/heart-solid.svg" alt="Generic placeholder image" width="140" height="140">
                 <h2>Langue</h2>
                 <p>Nos utilisateurs sont redirigés vers un stream en fonction de leurs langues, des utilisateurs

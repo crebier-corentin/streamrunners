@@ -6,6 +6,7 @@ const logger = require('morgan');
 const expressNunjucks = require('express-nunjucks');
 const passport = require('passport');
 const twitchStrategy = require("passport-twitch").Strategy;
+const compression = require('compression');
 
 import "reflect-metadata";
 import {createConnection} from "typeorm";
@@ -45,7 +46,10 @@ createConnection().then(async () => {
     app.use(express.json());
     app.use(express.urlencoded({extended: false}));
     app.use(cookieParser());
+
+    app.use(compression());
     app.use(express.static(path.join(__dirname, 'public')));
+
     app.use(cookieSession({keys: [process.env.COOKIE_KEY]})); // Express cookie session middleware
 
     //Passport

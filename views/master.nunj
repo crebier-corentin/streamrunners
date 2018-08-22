@@ -21,7 +21,9 @@
 <div class="content">
 {# Navbar #}
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">TwitchRunners</a>
+    <a class="navbar-brand" href="/">
+        <img src="/img/logo.png" width="200">
+    </a>
     <button class="navbar-toggler"
             type="button"
             data-toggle="collapse"
@@ -79,6 +81,7 @@
         <i style="color:blue" class="fab fa-facebook"></i>
         <i style="color:deepskyblue" class="fab fa-twitter-square"></i>
         <i style="color:pink" class="fab fa-instagram"></i>
+        <a href="https://discord.gg/usKEk8r"><i style="color:lightgrey" class="fab fa-discord"></i></a>
     </p>
 </footer>
 

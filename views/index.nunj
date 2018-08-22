@@ -44,11 +44,9 @@
                     obligatoires !</p>
             </div><!-- /.col-lg-4 -->
             <div class="col-lg-4 d-flex flex-column align-items-center justify-content-center">
-                <img class="circle" src="img/heart-solid.svg" alt="Generic placeholder image" width="140" height="140">
-                <h2>Langue</h2>
-                <p>Nos utilisateurs sont redirigés vers un stream en fonction de leurs langues, des utilisateurs
-                    Francophone
-                    tomberont donc sur un stream en Français !</p>
+                <img class="rounded-circle" src="img/gift-solid.svg" alt="Generic placeholder image" width="140" height="140">
+                <h2>Cadeaux</h2>
+                <p>Des tonnes de cadeaux a gagné gratuitement tout les mois tout en soutenant des petits streamers francophone !</p>
             </div><!-- /.col-lg-4 -->
         </div><!-- /.row -->
     </div>

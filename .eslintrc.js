@@ -16,6 +16,8 @@ module.exports = {
         "semi": [
             "error",
             "always"
-        ]
+        ],
+        "no-undef": "off",
+        "no-unused-vars": "off",
     }
 };

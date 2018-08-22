@@ -43,7 +43,9 @@ let config = {
             }
         ]
     },
-    plugins: [new VueLoaderPlugin()],
+    plugins: [
+        new VueLoaderPlugin()
+    ],
     resolve: {
         extensions: ['.ts', '.tsx', '.js']
     }

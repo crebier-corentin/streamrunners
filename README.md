@@ -17,6 +17,6 @@
 ### Migration
 
 
-* Générer les migrations depuis les entité (Exécuter migration:run avant): `migration:generate -n NomDeLaMigration`
+* Générer les migrations depuis les entité (Exécuter migration:run avant): `migration:generate -- -n NomDeLaMigration`
 * Effectue les migrations: `migration:run`
 * Annule les migrations : `migration:revert`

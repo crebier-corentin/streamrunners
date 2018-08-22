@@ -7,7 +7,7 @@ import {Response} from 'express';
 
 router.get('/', async function (req: Express.Request, res: Response) {
 
-    res.render("shop");
+    res.render("shop", {title: "TwitchRunner - boutique", req});
 
 });
 

@@ -15,10 +15,10 @@ router.get('/', function (req: Express.Request, res) {
     //Si connecter afficher le stream, sinon afficher la page d'acceuil
     if (req.isAuthenticated()) {
 
-        res.render("./watch", {title: 'TwitchRunner'});
+        res.render("./watch", {title: 'TwitchRunner', req});
     }
     else {
-        res.render('./index', {title: 'TwitchRunner'});
+        res.render('./index', {title: 'TwitchRunner', req});
     }
 });
 
@@ -39,7 +39,7 @@ router.post('/watch/update', async (req: Express.Request, res: e.Response) => {
                 watchSession.last = newDate.toDate();
                 watchSession.save();
 
-                res.send({auth: true, points: req.user.points()});
+                res.send({auth: true, points: (await req.user.points())});
                 return;
 
             }
@@ -52,7 +52,7 @@ router.post('/watch/update', async (req: Express.Request, res: e.Response) => {
         newWatchSession.user = req.user;
         newWatchSession.save();
 
-        res.send({auth: true, points: req.user.points()});
+        res.send({auth: true, points: (await req.user.points())});
         return;
 
 

@@ -10,6 +10,7 @@ var assert: AssertStatic = chai.assert;
 
 describe("Watch Session points test", () => {
 
+    //Create connection and add data
     before(async () => {
 
         await createConnection("test").catch(error => console.log(error));
@@ -137,6 +138,17 @@ describe("Watch Session points test", () => {
         await streamSessionRepository.remove(s5);
 
         assert.equal((await user.points()), 0, "No overlap");
+    });
+
+    //Close connection and clear data
+    after(async () => {
+
+        //Repository
+        await getConnection('test').getRepository(User).clear();
+        await getConnection('test').getRepository(WatchSession).clear();
+
+        await getConnection("test").close();
+
     });
 
 });

@@ -3,6 +3,7 @@ import e = require("express");
 
 const moment = require("moment");
 import {WatchSession} from "../database/entity/WatchSession";
+import {StreamSession} from "../database/entity/StreamSession";
 
 var express = require('express');
 var router = express.Router();
@@ -11,9 +12,10 @@ var router = express.Router();
 router.get('/', function (req: Express.Request, res) {
 
 
-
     //Si connecter afficher le stream, sinon afficher la page d'acceuil
     if (req.isAuthenticated()) {
+
+        StreamSession.newStreamSession(req.user);
 
         res.render("./watch", {title: 'TwitchRunner', req});
     }

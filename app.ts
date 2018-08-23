@@ -18,7 +18,7 @@ require("dotenv").config();
 
 var indexRouter = require('./routes/index');
 var shopRouter = require('./routes/shop');
-
+var parrainageRouter = require('./routes/parrainage');
 
 //App
 var app = express();
@@ -101,6 +101,7 @@ createConnection("default").then(async () => {
     //Routes
     app.use('/', indexRouter);
     app.use('/shop', shopRouter);
+    app.use('/parrainage', parrainageRouter);
 
     app.get("/auth/twitch", passport.authenticate("twitch"));
     app.get("/auth/twitch/callback", passport.authenticate("twitch", {failureRedirect: "/"}), function (req, res) {
@@ -184,6 +185,7 @@ createConnection().then(async () => {
     //Routes
     app.use('/', indexRouter);
     app.use('/shop', shopRouter);
+    app.use('/parrainage', parrainageRouter);
 
     app.get("/auth/twitch", passport.authenticate("twitch"));
     app.get("/auth/twitch/callback", passport.authenticate("twitch", {failureRedirect: "/"}), function (req, res) {

@@ -1,0 +1,19 @@
+{% extends "master.nunj" %}
+
+{% block content %}
+
+<div class="container">
+    <div class="jumbotron">
+        <h1 class="parrainagetitle">Parrainage</h1>
+        <p class="lead">Invite t'es amis et gagne <strong>100 points</strong> dès qu'ils arrivent aux 100 points, de plus les parrainer leur offrira <strong>50 points</strong> !</p>
+        <div class="input-group input-group-lg">
+            <div class="input-group-prepend">
+            <span class="input-group-text" id="inputGroup-sizing-lg">18 filleuls</span>
+        </div>
+        <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" placeholder="https://twitchrunners.com/{{ req.user.username }}" disabled>
+        </div>
+        <a class="btn btn-lg btn-primary" href="" role="button">Copier le lien de parrainage</a>
+      </div>
+</div>
+
+{% endblock %}

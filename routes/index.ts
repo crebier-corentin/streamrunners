@@ -74,4 +74,14 @@ router.get("/logout", (req: Express.Request, res: e.Response) => {
 
 });
 
+async function (req: Express.Request, res) {
+    if (req.isAuthenticated()) {
+await StreamSession.newStreamSession(req.user)
+        res.render("./watch", {title: 'TwitchRunner', req});
+    }
+    else {
+        res.render('./index', {title: 'TwitchRunner', req});
+    }
+}
+
 module.exports = router;

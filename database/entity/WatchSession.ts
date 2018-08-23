@@ -41,14 +41,12 @@ export class WatchSession extends BaseEntity {
         //WatchSession where existing StreamSession
         if (process.env.NODE_ENV === "test") {
             streamSession = await getConnection("test").getRepository(StreamSession).createQueryBuilder("stream")
-                //.where("stream.last >= :start", {start: this.startTime().toISOString()})
-                //.andWhere("stream.start <= :last", {last: this.lastTime().toISOString()})
+                .where("NOT stream.last < :start", {start: this.startTime().getTime()})
                 .getMany();
         }
         else {
             streamSession = await StreamSession.createQueryBuilder("stream")
-                //.where("stream.last >= :start", {start: this.startTime().toISOString()})
-                //.andWhere("stream.start <= :last", {last: this.lastTime().toISOString()})
+                .where("NOT stream.last < :start", {start: this.startTime().getTime()})
                 .getMany();
         }
 

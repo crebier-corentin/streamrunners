@@ -61,7 +61,7 @@ export class StreamSession extends BaseEntity {
 
         //Get all not ended session
         let session = await repository.createQueryBuilder("session")
-            .where("session.last > :current", {current: new Date().getTime()})
+            .where("session.last > :current", {current: moment().utc().format("YYYY-MM-DD HH:mm:ss")})
             .orderBy("session.last", "DESC")
             .getOne();
 

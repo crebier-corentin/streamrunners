@@ -44,6 +44,9 @@
              <li class="nav-item">
                 <a class="nav-link" href="/shop"><i class="fas fa-shopping-cart"></i> Boutique</a>
             </li>
+            <li class="nav-item">
+            <a class="nav-link" href="/giveaway"><i class="fas fa-star"></i></i> GiveAway</a>
+            </li>
             {% else %}
             {% endif %}
         </ul>

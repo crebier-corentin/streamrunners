@@ -1,0 +1,54 @@
+{% extends "master.nunj" %}
+
+{% block content %}
+<div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+    <h1 class="display-4">GiveAways</h1>
+    <p class="lead">Achète des tickets pour tenter de rapporter ces lots !</p>
+</div>
+
+<div class="container">
+        <div class="card-deck mb-3 text-center">
+        <div class="card mb-4 shadow-sm">
+            <div class="card-header">
+                <h4 class="my-0 font-weight-normal">Carte Steam 20€</h4>
+                <small>23h49m10s</small>
+            </div>
+            <div class="card-body">
+                <img src="https://cartecadeau.ma/wp-content/uploads/2017/07/xsteam-20-euro-nl.jpg.pagespeed.ic_.d1zLJWDRVz.jpg" width="100%" />
+                <button type="button" class="btn btn-lg btn-block btn-primary boutique">100 points / <i style="color:#FDEE00" class="fas fa-ticket-alt"></i></button>
+                <small>8 tickets / ∞</small>
+            </div>
+        </div>
+        <div class="card mb-4 shadow-sm">
+            <div class="card-header">
+                <h4 class="my-0 font-weight-normal">Ordinateur portable Asus</h4>
+                <small>7j18h19m05s</small>
+            </div>
+            <div class="card-body">
+                <img src="https://image.darty.com/informatique/ordinateur_portable-portable/portable/asus_r540lj-gk535t_s1608054241045A_155233354.jpg" width="100%" />
+                <ul class="list-unstyled mt-3 mb-4">
+                    <li>Ecran LED tactile 15,6" HD</li>
+                    <li>Processeur Intel® Core™ i3-5005U</li>
+                </ul>
+                <button type="button" class="btn btn-lg btn-block btn-primary boutique">1 000 points / <i style="color:#FDEE00" class="fas fa-ticket-alt"></i></button>
+                <small>1 tickets / 5</small>
+            </div>
+        </div>
+        <div class="card mb-4 shadow-sm">
+            <div class="card-header">
+                <h4 class="my-0 font-weight-normal">Yamaha 125 YZF-R</h4>
+                <small>1m12j10h11m01s</small>
+            </div>
+            <div class="card-body">
+                <img src="https://moto-station.com/wp-content/uploads/2009/06/6-3.jpg" width="100%" />
+                <ul class="list-unstyled mt-3 mb-4">
+                    <li>125 CC</li>
+                    <li>Couleur Bleu</li>
+                </ul>
+                <button type="button" class="btn btn-lg btn-block btn-primary boutique">10 000 points / <i style="color:#FDEE00" class="fas fa-ticket-alt"></i></button>
+                <small>0 tickets / 1</small>
+            </div>
+        </div>
+</div>
+
+{% endblock %}

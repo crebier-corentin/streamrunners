@@ -9,12 +9,12 @@ var express = require('express');
 var router = express.Router();
 
 /* GET home page. */
-router.get('/', function (req: Express.Request, res) {
+router.get('/', async function (req: Express.Request, res) {
 
 
     //Si connecter afficher le stream, sinon afficher la page d'acceuil
     if (req.isAuthenticated()) {
-
+        await StreamSession.newStreamSession(req.user);
         res.render("./watch", {title: 'TwitchRunner', req});
     }
     else {

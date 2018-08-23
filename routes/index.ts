@@ -15,8 +15,6 @@ router.get('/', function (req: Express.Request, res) {
     //Si connecter afficher le stream, sinon afficher la page d'acceuil
     if (req.isAuthenticated()) {
 
-        StreamSession.newStreamSession(req.user);
-
         res.render("./watch", {title: 'TwitchRunner', req});
     }
     else {

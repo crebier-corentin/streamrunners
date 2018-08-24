@@ -148,6 +148,11 @@ export async function updateStreamSession() {
             return;
 
         }
+        //End previous session
+        else {
+            streamSession.ended = true;
+            repository.save(streamSession);
+        }
 
     }
 
@@ -157,11 +162,6 @@ export async function updateStreamSession() {
         //or
         //First watchSession
         let newStreamSession = new StreamSession();
-
-        //If old set ended
-        if (streamSession != undefined) {
-            newStreamSession.ended = true;
-        }
 
         newStreamSession.user = currentStream.user;
         repository.save(newStreamSession);

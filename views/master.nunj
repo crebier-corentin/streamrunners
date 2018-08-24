@@ -44,6 +44,12 @@
              <li class="nav-item">
                 <a class="nav-link" href="/shop"><i class="fas fa-shopping-cart"></i> Boutique</a>
             </li>
+            <li class="nav-item">
+            <a class="nav-link" href="/giveaway"><i class="fas fa-star"></i></i> GiveAway</a>
+            </li>
+            <li class="nav-item">
+            <a class="nav-link" href="/points"><i class="fas fa-plus"></i></i> Plus de points</a>
+            </li>
             {% else %}
             {% endif %}
         </ul>
@@ -78,9 +84,9 @@
 <footer class="footer">
     <p>© 2018 TwitchRunners
         <br>
-        <i style="color:blue" class="fab fa-facebook"></i>
-        <i style="color:deepskyblue" class="fab fa-twitter-square"></i>
-        <i style="color:pink" class="fab fa-instagram"></i>
+        <a href="https://www.facebook.com/twitchrunners"><i style="color:blue" class="fab fa-facebook"></i></a>
+        <a href="https://twitter.com/RunnersTwitch"><i style="color:deepskyblue" class="fab fa-twitter-square"></i></a>
+        <a href="https://www.instagram.com/twitchrunners/"><i style="color:pink" class="fab fa-instagram"></i></a>
         <a href="https://discord.gg/usKEk8r"><i style="color:lightgrey" class="fab fa-discord"></i></a>
     </p>
 </footer>

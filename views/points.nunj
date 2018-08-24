@@ -1,0 +1,30 @@
+{% extends "master.nunj" %}
+
+{% block content %}
+<div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+    <h1 class="display-4">Plus de points !</h1>
+    <p class="lead">Envie de gagner plus de points ? C'est ici que ça ce passe !</p>
+</div>
+
+<div class="container">
+    <div class="alert alert-dark" role="alert">
+        <i class="fab fa-facebook-square morepoint" style="color: blue;"></i> Aime la page Facebook <a href="https://www.facebook.com/twitchrunners"><span class="badge badge-success badgepoint">+50 <i style="color:#FDEE00" class="fas fa-ticket-alt"></i></span></a>
+    </div>
+    
+    <div class="alert alert-dark" role="alert">
+        <i style="color:deepskyblue" class="fab fa-twitter morepoint"></i> Suis nous sur Twitter <a href="https://twitter.com/RunnersTwitch"><span class="badge badge-success badgepoint">+50 <i style="color:#FDEE00" class="fas fa-ticket-alt"></i></span></a>
+    </div>
+    
+    <div class="alert alert-dark" role="alert">
+        <i style="color:dark" class="fab fa-discord morepoint"></i> Rejoins-nous sur Discord <a href="https://discord.gg/zrNYmK9"><span class="badge badge-success badgepoint">+50 <i style="color:#FDEE00" class="fas fa-ticket-alt"></i></span></a>
+    </div>
+    
+    <div class="alert alert-dark" role="alert">
+        <i style="color:pink" class="fab fa-instagram morepoint"></i> Suis nous sur Intsagram <a href="https://www.instagram.com/twitchrunners/"><span class="badge badge-success badgepoint">+50 <i style="color:#FDEE00" class="fas fa-ticket-alt"></i></span></a>
+    </div>
+    
+    <div class="alert alert-dark" role="alert">
+        <i style="color:white" class="fas fa-eye morepoint"></i> Regarde une publicité <a href="#"><span class="badge badge-success badgepoint">+10 <i style="color:#FDEE00" class="fas fa-ticket-alt"></i></span></a>
+    </div>
+</div>
+{% endblock %}

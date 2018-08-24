@@ -1,3 +1,8 @@
+import "reflect-metadata";
+import {createConnection} from "typeorm";
+import {User} from "./database/entity/User";
+import {updateStreamSession} from "./database/entity/StreamSession";
+
 const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
@@ -7,10 +12,6 @@ const expressNunjucks = require('express-nunjucks');
 const passport = require('passport');
 const twitchStrategy = require("passport-twitch").Strategy;
 const compression = require('compression');
-
-import "reflect-metadata";
-import {createConnection} from "typeorm";
-import {User} from "./database/entity/User";
 
 //.env
 require("dotenv").config();
@@ -62,7 +63,7 @@ createConnection().then(async () => {
                 //Met à jour
                 let user = users[0];
 
-                user.username = profile._json.display_name;
+                user.username = profile._json.name;
                 user.email = profile._json.email;
                 user.avatar = profile._json.logo;
 
@@ -74,7 +75,7 @@ createConnection().then(async () => {
                 let newUser = new User();
 
                 newUser.twitchId = profile.id;
-                newUser.username = profile._json.display_name;
+                newUser.username = profile._json.name;
                 newUser.email = profile._json.email;
                 newUser.avatar = profile._json.logo;
 
@@ -106,6 +107,19 @@ createConnection().then(async () => {
     app.get("/auth/twitch/callback", passport.authenticate("twitch", {failureRedirect: "/"}), function (req, res) {
         res.redirect("/");
     });
+
+    //Update StreamSession
+    let streamSessionCallback = () => {
+        updateStreamSession()
+            .then(() => {
+                setTimeout(streamSessionCallback, 3000);
+            })
+            .catch((error) => {
+                setTimeout(streamSessionCallback, 3000);
+            });
+    };
+
+    streamSessionCallback();
 
 }).catch(error => console.log(error));
 

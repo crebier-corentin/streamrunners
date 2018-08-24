@@ -1,6 +1,7 @@
 import {BaseEntity, Column, Entity, OneToMany, PrimaryGeneratedColumn} from "typeorm";
 import {WatchSession} from "./WatchSession";
 import {StreamSession} from "./StreamSession";
+import {StreamQueue} from "./StreamQueue";
 
 
 @Entity()
@@ -22,6 +23,9 @@ export class User extends BaseEntity {
 
     @OneToMany(type => StreamSession, StreamSession => StreamSession.user, {onDelete: "CASCADE"})
     streamSession: StreamSession[];
+
+    @OneToMany(type => StreamQueue, StreamQueue => StreamQueue.user, {onDelete: "CASCADE"})
+    streamQueue: StreamQueue[];
 
     getLastWatchSession(): WatchSession {
         const sorted = [...this.watchSession].sort((a, b) => {

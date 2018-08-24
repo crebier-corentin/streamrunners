@@ -52,7 +52,7 @@ export class StreamQueue extends BaseEntity {
     }
 
     //Return false if queue is empty
-    static async currentStream(): Promise<StreamQueue | boolean | any> {
+    static async currentStream(): Promise<StreamQueue> {
 
         let repository: Repository<StreamQueue>;
 
@@ -63,19 +63,13 @@ export class StreamQueue extends BaseEntity {
             repository = getConnection().getRepository(StreamQueue);
         }
 
-        let streamQueue = await repository.createQueryBuilder("queue")
+
+        return await repository.createQueryBuilder("queue")
             .leftJoinAndSelect("queue.user", "user")
             .where("queue.current < queue.time")
             .orderBy("queue.createdAt", "ASC")
             .getOne();
 
-        //Check if queue is empty
-        if (streamQueue != undefined) {
-            return streamQueue;
-        }
-        else {
-            return false;
-        }
     }
 
     static async isCurrentOnline(username?: string): Promise<boolean> {
@@ -88,5 +82,39 @@ export class StreamQueue extends BaseEntity {
 
     }
 
+
+}
+
+export async function updateStreamQueue() {
+
+    let repository: Repository<StreamQueue>;
+
+    if (process.env.NODE_ENV === "test") {
+        repository = getConnection("test").getRepository(StreamQueue);
+    }
+    else {
+        repository = getConnection().getRepository(StreamQueue);
+    }
+
+    let currentStream = await StreamQueue.currentStream();
+
+    //If queue is empty do nothing
+    if (currentStream == undefined) {
+        return;
+    }
+
+    //Start if null
+    if (currentStream.start == null) {
+        currentStream.start = new Date();
+        repository.save(currentStream);
+    }
+    //Update current
+    else {
+        let startTime = Math.round(currentStream.startTime().getTime() / 1000);
+
+        currentStream.current = Math.round(new Date().getTime() / 1000) - startTime;
+        repository.save(currentStream);
+
+    }
 
 }

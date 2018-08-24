@@ -105,7 +105,7 @@ export async function updateStreamSession() {
     let currentStream = await StreamQueue.currentStream();
 
     //If no current stream
-    if(currentStream === false) {
+    if(currentStream == undefined) {
         return;
     }
 

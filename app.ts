@@ -2,6 +2,7 @@ import "reflect-metadata";
 import {createConnection} from "typeorm";
 import {User} from "./database/entity/User";
 import {updateStreamSession} from "./database/entity/StreamSession";
+import {updateStreamQueue} from "./database/entity/StreamQueue";
 
 const express = require('express');
 const path = require('path');
@@ -113,7 +114,7 @@ createConnection().then(async () => {
     });
 
     //Update StreamSession
-    let streamSessionCallback = () => {
+    function streamSessionCallback() {
         updateStreamSession()
             .then(() => {
                 setTimeout(streamSessionCallback, 3000);
@@ -121,9 +122,21 @@ createConnection().then(async () => {
             .catch((error) => {
                 setTimeout(streamSessionCallback, 3000);
             });
-    };
+    }
+
+    //Update StreamQueue
+    function streamQueueCallback() {
+        updateStreamQueue()
+            .then(() => {
+                setTimeout(streamQueueCallback, 1000);
+            })
+            .catch((error) => {
+                setTimeout(streamQueueCallback, 1000);
+            });
+    }
 
     streamSessionCallback();
+    streamQueueCallback();
 
 }).catch(error => console.log(error));
 

@@ -3,7 +3,7 @@ import e = require("express");
 
 const moment = require("moment");
 import {WatchSession} from "../database/entity/WatchSession";
-import {StreamSession} from "../database/entity/StreamSession";
+import {StreamQueue} from "../database/entity/StreamQueue";
 
 var express = require('express');
 var router = express.Router();
@@ -23,6 +23,14 @@ router.get('/', async function (req: Express.Request, res) {
 
 router.post('/watch/update', async (req: Express.Request, res: e.Response) => {
 
+    async function sendData() {
+        res.send({
+            auth: true,
+            points: (await req.user.points()),
+            queue: (await StreamQueue.currentAndNextStreams())
+        });
+    }
+
     if (req.isAuthenticated()) {
         let newDate = moment();
 
@@ -38,7 +46,7 @@ router.post('/watch/update', async (req: Express.Request, res: e.Response) => {
                 watchSession.last = newDate.toDate();
                 watchSession.save();
 
-                res.send({auth: true, points: (await req.user.points())});
+                await sendData();
                 return;
 
             }
@@ -51,7 +59,7 @@ router.post('/watch/update', async (req: Express.Request, res: e.Response) => {
         newWatchSession.user = req.user;
         newWatchSession.save();
 
-        res.send({auth: true, points: (await req.user.points())});
+        await sendData();
         return;
 
 

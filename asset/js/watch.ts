@@ -10,15 +10,47 @@ new Vue({
     el: "#app",
 
     data: {
-        channel: "latachegaming",
         points: 0,
 
         url: "/watch/update",
         pause: false,
-        interval: 10000,
+        interval: 3000,
+
+        queue: [],
 
 
     },
+
+    computed: {
+        currentStream() {
+            if (this.queue.length > 0) {
+                return this.queue[0];
+            }
+            else {
+                return null;
+            }
+        },
+
+        channel() {
+            if (this.currentStream != null) {
+                return this.currentStream.user.username;
+            }
+            else {
+                return null;
+            }
+        },
+
+        timeLeft() {
+            if (this.currentStream != null) {
+                return this.currentStream.time - this.currentStream.current;
+            }
+            else {
+                return 0;
+            }
+        }
+
+    },
+
     methods: {
         makeRequest() {
 
@@ -29,6 +61,7 @@ new Vue({
 
                     if (result.data.auth) {
                         self.points = result.data.points;
+                        self.queue = result.data.queue;
                     }
                     else {
                         location.reload();
@@ -55,6 +88,7 @@ new Vue({
 
         this.makeRequest();
 
-    }
+    },
+
 
 });

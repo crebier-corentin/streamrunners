@@ -11,6 +11,7 @@ import {
 import {User} from "./User";
 import {StreamQueue} from "./StreamQueue";
 import moment = require("moment");
+import {getDBConnection} from "../connection";
 
 @Entity()
 export class StreamSession extends BaseEntity {
@@ -111,15 +112,7 @@ export async function updateStreamSession() {
 
     let isOnline = await StreamQueue.isCurrentOnline(currentStream.user.username);
 
-    let repository: Repository<StreamSession>;
-
-    if (process.env.NODE_ENV === "test") {
-        repository = getConnection("test").getRepository(StreamSession);
-    }
-    else {
-        repository = getConnection().getRepository(StreamSession);
-    }
-
+    let repository: Repository<StreamSession> = getDBConnection().getRepository(StreamSession);
 
     let streamSession = await repository.createQueryBuilder("stream")
         .leftJoinAndSelect("stream.user", "user")
@@ -158,9 +151,9 @@ export async function updateStreamSession() {
 
     if (isOnline) {
 
-        //Its been more than 5 seconds since lastTime update, startTime new watchSession
+        //Its been more than 5 seconds since lastTime update, startTime new streamSession
         //or
-        //First watchSession
+        //First streamSession
         let newStreamSession = new StreamSession();
 
         newStreamSession.user = currentStream.user;

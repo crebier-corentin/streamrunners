@@ -24,7 +24,7 @@ export class User extends BaseEntity {
     @OneToMany(type => StreamSession, StreamSession => StreamSession.user, {onDelete: "CASCADE"})
     streamSession: StreamSession[];
 
-    @OneToMany(type => StreamQueue, StreamQueue => StreamQueue.user, {onDelete: "CASCADE"})
+    @OneToMany(type => StreamQueue, StreamQueue => StreamQueue.user, {onDelete: "CASCADE", eager: true})
     streamQueue: StreamQueue[];
 
     getLastWatchSession(): WatchSession {
@@ -35,12 +35,12 @@ export class User extends BaseEntity {
         return sorted[0];
     }
 
-   async points(): Promise<number> {
+    async watchSessionPoints(): Promise<number> {
         if (this.watchSession != undefined) {
 
             let total: number = 0;
 
-            for(let watchSession of this.watchSession) {
+            for (let watchSession of this.watchSession) {
                 total += (await watchSession.points());
             }
 
@@ -49,6 +49,28 @@ export class User extends BaseEntity {
         else {
             return 0;
         }
+    }
+
+    async streamQueueCost(): Promise<number> {
+        if (this.streamQueue != undefined) {
+
+            let total: number = 0;
+
+            for (let streamQueue of this.streamQueue) {
+                total += (await streamQueue.amount);
+            }
+
+            return Math.round(total);
+        }
+        else {
+            return 0;
+        }
+    }
+
+    async points(): Promise<number> {
+
+        return Math.round((await this.watchSessionPoints()) - (await this.streamQueueCost()));
+
     }
 
 

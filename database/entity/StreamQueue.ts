@@ -1,15 +1,7 @@
-import {
-    BaseEntity,
-    Column,
-    CreateDateColumn,
-    Entity,
-    getConnection,
-    ManyToOne,
-    PrimaryGeneratedColumn,
-    Repository
-} from "typeorm";
+import {BaseEntity, Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn, Repository} from "typeorm";
 import {User} from "./User";
 import axios from "axios";
+import {getDBConnection} from "../connection";
 
 @Entity()
 export class StreamQueue extends BaseEntity {
@@ -54,15 +46,7 @@ export class StreamQueue extends BaseEntity {
     //Return false if queue is empty
     static async currentStream(): Promise<StreamQueue> {
 
-        let repository: Repository<StreamQueue>;
-
-        if (process.env.NODE_ENV === "test") {
-            repository = getConnection("test").getRepository(StreamQueue);
-        }
-        else {
-            repository = getConnection().getRepository(StreamQueue);
-        }
-
+        let repository: Repository<StreamQueue> = getDBConnection().getRepository(StreamQueue);
 
         return await repository.createQueryBuilder("queue")
             .leftJoinAndSelect("queue.user", "user")
@@ -82,19 +66,26 @@ export class StreamQueue extends BaseEntity {
 
     }
 
+    static async currentAndNextStreams(): Promise<Array<StreamQueue>> {
+
+        let repository: Repository<StreamQueue> = getDBConnection().getRepository(StreamQueue);
+
+        return await repository.createQueryBuilder("queue")
+            .select(["queue.time", "queue.current"])
+            .leftJoin("queue.user", "user")
+            .addSelect(["user.username", "user.avatar"])
+            .where("queue.current < queue.time")
+            .orderBy("queue.createdAt", "ASC")
+            .getMany();
+
+    }
+
 
 }
 
 export async function updateStreamQueue() {
 
-    let repository: Repository<StreamQueue>;
-
-    if (process.env.NODE_ENV === "test") {
-        repository = getConnection("test").getRepository(StreamQueue);
-    }
-    else {
-        repository = getConnection().getRepository(StreamQueue);
-    }
+    let repository: Repository<StreamQueue> = getDBConnection().getRepository(StreamQueue);
 
     let currentStream = await StreamQueue.currentStream();
 

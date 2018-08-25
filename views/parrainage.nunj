@@ -10,7 +10,7 @@
             <div class="input-group-prepend">
             <span class="input-group-text" id="inputGroup-sizing-lg">18 filleuls</span>
         </div>
-        <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" placeholder="https://twitchrunners.com/{{ req.user.username }}" disabled>
+        <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" placeholder="https://twitchrunners.com/{{ req.user.display_name }}" disabled>
         </div>
         <a class="btn btn-lg btn-primary" href="" role="button">Copier le lien de parrainage</a>
       </div>

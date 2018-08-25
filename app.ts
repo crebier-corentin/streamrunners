@@ -67,6 +67,7 @@ createConnection().then(async () => {
                 let user = users[0];
 
                 user.username = profile._json.name;
+                user.display_name = profile._json.display_name;
                 user.email = profile._json.email;
                 user.avatar = profile._json.logo;
 
@@ -79,6 +80,7 @@ createConnection().then(async () => {
 
                 newUser.twitchId = profile.id;
                 newUser.username = profile._json.name;
+                newUser.display_name = profile._json.display_name;
                 newUser.email = profile._json.email;
                 newUser.avatar = profile._json.logo;
 

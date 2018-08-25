@@ -4,7 +4,7 @@
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>{{ title | default("Titre")}}</title>
+    <title>{{ title | default("Titre") }}</title>
     <link rel="icon" href="/img/favicon.ico" />
     <link rel="stylesheet"
           href="https://use.fontawesome.com/releases/v5.2.0/css/all.css"
@@ -19,61 +19,62 @@
 
 <body>
 <div class="content">
-{# Navbar #}
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="/">
-        <img src="/img/logo.png" width="200">
-    </a>
-    <button class="navbar-toggler"
-            type="button"
-            data-toggle="collapse"
-            data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent"
-            aria-expanded="false"
-            aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
+    {# Navbar #}
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="/">
+            <img src="/img/logo.png" width="200">
+        </a>
+        <button class="navbar-toggler"
+                type="button"
+                data-toggle="collapse"
+                data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent"
+                aria-expanded="false"
+                aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-
-            <li class="nav-item">
-                <a class="nav-link" href="/"><i class="fas fa-home"></i> Acceuil</a>
-            </li>
-            {% if req.isAuthenticated() %}
-             <li class="nav-item">
-                <a class="nav-link" href="/shop"><i class="fas fa-shopping-cart"></i> Boutique</a>
-            </li>
-            <li class="nav-item">
-            <a class="nav-link" href="/giveaway"><i class="fas fa-star"></i></i> GiveAway</a>
-            </li>
-            <li class="nav-item">
-            <a class="nav-link" href="/points"><i class="fas fa-plus"></i></i> Plus de points</a>
-            </li>
-            {% else %}
-            {% endif %}
-        </ul>
-
-        <ul class="navbar-nav ml-auto">
-
-            {% if req.isAuthenticated() %}
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
 
                 <li class="nav-item">
-                    <img src="{{ req.user.avatar }}" alt="avatar" class="loggedImage">
-                    <a class="nav-link d-inline-block loggedPseudo" href="#">{{ req.user.username }}</a>
+                    <a class="nav-link" href="/"><i class="fas fa-home"></i> Acceuil</a>
                 </li>
+                {% if req.isAuthenticated() %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="/shop"><i class="fas fa-shopping-cart"></i> Boutique</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/giveaway"><i class="fas fa-star"></i> GiveAway</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/points"><i class="fas fa-plus"></i> Plus de points</a>
+                    </li>
+                {% else %}
+                {% endif %}
+            </ul>
 
-                <li class="nav-item">
-                    <a class="nav-link" href="/logout">Se déconnecter</a>
-                </li>
-            {% else %}
+            <ul class="navbar-nav ml-auto">
 
-                <a class="btn btn-primary" href="/auth/twitch">Se connecter avec Twitch.Tv <i class="fab fa-twitch"></i></a>
-            {% endif %}
+                {% if req.isAuthenticated() %}
 
-        </ul>
-    </div>
-</nav>
+                    <li class="nav-item">
+                        <img src="{{ req.user.avatar }}" alt="avatar" class="loggedImage">
+                        <a class="nav-link d-inline-block loggedPseudo" href="#">{{ req.user.display_name }}</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="/logout">Se déconnecter</a>
+                    </li>
+                {% else %}
+
+                    <a class="btn btn-primary" href="/auth/twitch">Se connecter avec Twitch.Tv
+                        <i class="fab fa-twitch"></i></a>
+                {% endif %}
+
+            </ul>
+        </div>
+    </nav>
 
 
     {% block content %}

@@ -10,7 +10,7 @@
                 <div class="col-lg-2" v-for="q of queue.slice(0, 4)">
                     <img class="rounded-circle perso"
                          :src="q.user.avatar"
-                         :alt="q.user.username"
+                         :alt="q.user.display_name"
                          width="90"
                          height="90">
                 </div>
@@ -18,7 +18,7 @@
                 <div class="col-lg-2">
                     <img class="rounded-circle perso"
                          src="{{ req.user.avatar }}"
-                         alt="Generic placeholder image"
+                         alt="{{ req.user.display_name }}"
                          width="90"
                          height="90">
                 </div>

@@ -1,11 +1,11 @@
 import {MigrationInterface, QueryRunner} from "typeorm";
 
-export class BaseMigration1535105661250 implements MigrationInterface {
+export class BaseMigration1535216922177 implements MigrationInterface {
 
     public async up(queryRunner: QueryRunner): Promise<any> {
         await queryRunner.query(`CREATE TABLE "stream_session" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "amount" integer NOT NULL DEFAULT (100), "start" datetime NOT NULL DEFAULT (CURRENT_TIMESTAMP), "last" datetime NOT NULL DEFAULT (CURRENT_TIMESTAMP), "ended" boolean NOT NULL DEFAULT (0), "createdAt" datetime NOT NULL DEFAULT (datetime('now')), "userId" integer)`);
         await queryRunner.query(`CREATE TABLE "watch_session" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "start" datetime NOT NULL DEFAULT (CURRENT_TIMESTAMP), "last" datetime NOT NULL DEFAULT (CURRENT_TIMESTAMP), "userId" integer)`);
-        await queryRunner.query(`CREATE TABLE "user" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "twitchId" varchar NOT NULL, "username" varchar NOT NULL, "email" varchar NOT NULL, "avatar" varchar NOT NULL)`);
+        await queryRunner.query(`CREATE TABLE "user" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "twitchId" varchar NOT NULL, "username" varchar NOT NULL, "display_name" varchar NOT NULL, "email" varchar NOT NULL, "avatar" varchar NOT NULL)`);
         await queryRunner.query(`CREATE TABLE "stream_queue" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "amount" integer NOT NULL DEFAULT (100), "time" integer NOT NULL DEFAULT (60), "current" integer NOT NULL DEFAULT (0), "start" datetime, "createdAt" datetime NOT NULL DEFAULT (datetime('now')), "userId" integer)`);
         await queryRunner.query(`CREATE TABLE "temporary_stream_session" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "amount" integer NOT NULL DEFAULT (100), "start" datetime NOT NULL DEFAULT (CURRENT_TIMESTAMP), "last" datetime NOT NULL DEFAULT (CURRENT_TIMESTAMP), "ended" boolean NOT NULL DEFAULT (0), "createdAt" datetime NOT NULL DEFAULT (datetime('now')), "userId" integer, CONSTRAINT "FK_5d859efcfd20003f8d8447c875a" FOREIGN KEY ("userId") REFERENCES "user" ("id") ON DELETE CASCADE)`);
         await queryRunner.query(`INSERT INTO "temporary_stream_session"("id", "amount", "start", "last", "ended", "createdAt", "userId") SELECT "id", "amount", "start", "last", "ended", "createdAt", "userId" FROM "stream_session"`);

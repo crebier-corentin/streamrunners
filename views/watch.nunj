@@ -23,7 +23,7 @@
                          width="90"
                          height="90">
                     <div>
-                        <a href="#" @click.prevent="makeRequestAdd"><i class="fas fa-plus"></i>S'ajouter</a>
+                        <a href="#" @click.prevent="makeRequestAdd"><i class="fas fa-plus"></i> S'ajouter</a>
                     </div>
                 </div>
             </div>

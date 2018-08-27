@@ -7,20 +7,24 @@
             <!-- Three columns of text below the carousel -->
             <div class="row">
 
-                <div class="col-lg-2" v-for="q of queue.slice(0, 4)">
+                <div class="col-lg-2 d-flex flex-column align-items-center" v-for="q of queue.slice(0, 4)">
                     <img class="rounded-circle perso"
                          :src="q.user.avatar"
                          :alt="q.user.display_name"
                          width="90"
                          height="90">
+                    <div>{% raw %}{{ q.user.display_name }}{% endraw %}</div>
                 </div>
 
-                <div class="col-lg-2">
+                <div class="col-lg-2 d-flex flex-column align-items-center">
                     <img class="rounded-circle perso"
                          src="{{ req.user.avatar }}"
                          alt="{{ req.user.display_name }}"
                          width="90"
                          height="90">
+                    <div>
+                        <a href="#" @click.prevent="makeRequestAdd"><i class="fas fa-plus"></i>S'ajouter</a>
+                    </div>
                 </div>
             </div>
         </div>

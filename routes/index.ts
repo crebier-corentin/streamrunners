@@ -1,10 +1,6 @@
 // eslint-disable-next-line no-undef
 import e = require("express");
 
-const moment = require("moment");
-import {WatchSession} from "../database/entity/WatchSession";
-import {StreamQueue} from "../database/entity/StreamQueue";
-
 var express = require('express');
 var router = express.Router();
 
@@ -21,55 +17,7 @@ router.get('/', async function (req: Express.Request, res) {
     }
 });
 
-router.post('/watch/update', async (req: Express.Request, res: e.Response) => {
 
-    async function sendData() {
-        res.send({
-            auth: true,
-            points: (await req.user.points()),
-            queue: (await StreamQueue.currentAndNextStreams())
-        });
-    }
-
-    if (req.isAuthenticated()) {
-        let newDate = moment();
-
-        let watchSessionArr = req.user.watchSession;
-
-        if (watchSessionArr != undefined && watchSessionArr.length > 0) {
-            //Get lastTime Watch session
-            let watchSession = req.user.getLastWatchSession();
-
-            //Compare if less than 5 minutes since lastTime update update lastTime watchSession
-            if (moment(watchSession.lastTime()).add(5, "minutes") >= newDate) {
-                //Its been less than 5 minutes since lastTime update
-                watchSession.last = newDate.toDate();
-                watchSession.save();
-
-                await sendData();
-                return;
-
-            }
-
-        }
-        //Its been more than 5 minutes since lastTime update, startTime new watchSession
-        //or
-        //First watchSession
-        let newWatchSession = new WatchSession();
-        newWatchSession.user = req.user;
-        newWatchSession.save();
-
-        await sendData();
-        return;
-
-
-    }
-    else {
-        //Not auth
-        return res.send({auth: false});
-    }
-
-});
 
 router.get("/logout", (req: Express.Request, res: e.Response) => {
 

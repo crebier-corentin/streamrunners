@@ -4,6 +4,9 @@ var path = require('path');
 
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 
+/**
+ * @type webpack.Configuration
+ * */
 let config = {
     cache: true,
     entry: {

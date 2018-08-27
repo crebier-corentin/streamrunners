@@ -1,17 +1,8 @@
-import {
-    BaseEntity,
-    Column,
-    CreateDateColumn,
-    Entity,
-    getConnection,
-    ManyToOne,
-    PrimaryGeneratedColumn,
-    Repository
-} from "typeorm";
+import {BaseEntity, Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn, Repository} from "typeorm";
 import {User} from "./User";
 import {StreamQueue} from "./StreamQueue";
-import moment = require("moment");
 import {getDBConnection} from "../connection";
+import moment = require("moment");
 
 @Entity()
 export class StreamSession extends BaseEntity {
@@ -55,48 +46,6 @@ export class StreamSession extends BaseEntity {
     @ManyToOne(type => User, user => user.streamSession, {onDelete: "CASCADE"})
     user: User;
 
-    static async newStreamSession(user: User, time: number = 60, amount: number = 100): Promise<StreamSession> {
-
-        let repository: Repository<StreamSession>;
-
-        if (process.env.NODE_ENV === "test") {
-            repository = getConnection("test").getRepository(StreamSession);
-        }
-        else {
-            repository = getConnection().getRepository(StreamSession);
-        }
-
-        let newSession = repository.create();
-
-        newSession.user = user;
-        newSession.amount = amount;
-
-        //Get all not ended session
-        let session = await repository.createQueryBuilder("session")
-            .where("session.last > :current", {current: moment().utc().format("YYYY-MM-DD HH:mm:ss")})
-            .orderBy("session.last", "DESC")
-            .getOne();
-
-        //Start
-        if (session != undefined) {
-            //Add new session after last session
-            newSession.start = session.lastTime();
-            newSession.last = moment(session.lastTime()).add(time, "seconds").toDate();
-
-        }
-        else {
-            //Add new session now
-            newSession.start = new Date();
-            newSession.last = moment().add(time, "seconds").toDate();
-        }
-
-        //Save session
-        await repository.save(newSession);
-
-        return newSession;
-
-    }
-
 
 }
 
@@ -106,7 +55,7 @@ export async function updateStreamSession() {
     let currentStream = await StreamQueue.currentStream();
 
     //If no current stream
-    if(currentStream == undefined) {
+    if (currentStream == undefined) {
         return;
     }
 

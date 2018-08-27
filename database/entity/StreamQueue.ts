@@ -73,10 +73,18 @@ export class StreamQueue extends BaseEntity {
         return await repository.createQueryBuilder("queue")
             .select(["queue.time", "queue.current"])
             .leftJoin("queue.user", "user")
-            .addSelect(["user.username", "user.avatar"])
+            .addSelect(["user.username", "user.avatar", "user.display_name"])
             .where("queue.current < queue.time")
             .orderBy("queue.createdAt", "ASC")
             .getMany();
+
+    }
+
+    static async isEmpty(): Promise<boolean> {
+
+        let stream = await StreamQueue.currentStream();
+
+        return (stream == undefined);
 
     }
 

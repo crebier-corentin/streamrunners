@@ -3,16 +3,21 @@ import Vue from 'vue/dist/vue.esm.browser.js';
 import TwitchViewer from "./component/TwitchViewer.vue";
 
 import axios, {AxiosError} from 'axios';
+import swal from 'sweetalert2';
+
+window['swal'] = swal;
 
 Vue.component(TwitchViewer.name, TwitchViewer);
 
-new Vue({
+window['vm'] = new Vue({
     el: "#app",
 
     data: {
         points: 0,
 
-        url: "/watch/update",
+        updateUrl: "/watch/update",
+        addUrl: "/watch/add",
+
         pause: false,
         interval: 3000,
 
@@ -52,11 +57,11 @@ new Vue({
     },
 
     methods: {
-        makeRequest() {
+        makeRequestUpdate() {
 
             let self = this;
 
-            axios.post(self.url)
+            axios.post(self.updateUrl)
                 .then((result) => {
 
                     if (result.data.auth) {
@@ -68,7 +73,7 @@ new Vue({
                     }
 
                     //Make new Request
-                    setTimeout(self.makeRequest, self.interval);
+                    setTimeout(self.makeRequestUpdate, self.interval);
 
                 })
                 .catch((error: AxiosError) => {
@@ -76,17 +81,73 @@ new Vue({
                     console.log(error.response);
 
                     //Make new Request
-                    setTimeout(self.makeRequest, self.interval);
+                    setTimeout(self.makeRequestUpdate, self.interval);
 
                 });
 
 
-        }
+        },
+
+        makeRequestAdd: function () {
+
+            let result = swal({
+                title: 'Acheter une place?',
+                text: '100 points pour 60 secondes. \n Si la queue est vide la place est gratuite !',
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Oui',
+                cancelButtonText: 'Non'
+
+            }).then((result) => {
+
+                if (result.value) {
+                    let self = this;
+                    return axios.post(self.addUrl);
+                }
+
+            }).then((result) => {
+
+                //Check if auth
+                if (result.data.auth) {
+
+                    //Check if enough points
+                    if (result.data.enough) {
+                        //Success
+                        swal({
+                            title: "Vous avez acheté une place !",
+                            type: "success"
+                        });
+
+                    }
+                    else {
+                        //Error
+                        swal({
+                            title: "Vous n'avez pas assez de points.",
+                            text: `Vous avez ${result.data.points} points. \n La place coûte ${result.data.cost} points.`,
+                            type: "error"
+                        });
+
+                    }
+
+
+                }
+                else {
+                    location.reload();
+                }
+
+            })
+                .catch((error: AxiosError) => {
+                    console.log(error.response);
+                });
+
+
+        },
     },
 
     mounted() {
 
-        this.makeRequest();
+        this.makeRequestUpdate();
+        //this.makeRequestAdd();
 
     },
 

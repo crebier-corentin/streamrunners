@@ -9,21 +9,20 @@ window['swal'] = swal;
 
 Vue.component(TwitchViewer.name, TwitchViewer);
 
-window['vm'] = new Vue({
-    el: "#app",
+let watch = Vue.extend({
+    data() {
+        return {
+            points: 0,
 
-    data: {
-        points: 0,
+            updateUrl: "/watch/update",
+            addUrl: "/watch/add",
 
-        updateUrl: "/watch/update",
-        addUrl: "/watch/add",
+            pause: false,
+            interval: 1000,
 
-        pause: false,
-        interval: 3000,
+            queue: [],
 
-        queue: [],
-
-
+        };
     },
 
     computed: {
@@ -52,6 +51,40 @@ window['vm'] = new Vue({
             else {
                 return 0;
             }
+        },
+
+        queueLenght() {
+            return this.queue.length;
+        },
+
+        positions(): Array<number> {
+
+            let result = [];
+
+            this.queue.forEach((q, index) => {
+                if (q.user.username == window['username']) {
+                    result.push(index + 1);
+                }
+            });
+
+            return result;
+
+        },
+
+        positionsText(): string {
+            let str = "";
+            this.positions.forEach((p, index) => {
+                //If last
+                if (index + 1 === this.positions.length) {
+                    str += p;
+                }
+                else {
+                    str += `${p}, `;
+                }
+
+            });
+
+            return str;
         }
 
     },
@@ -153,3 +186,5 @@ window['vm'] = new Vue({
 
 
 });
+
+window['vm'] = new watch().$mount("#app");

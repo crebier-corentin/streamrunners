@@ -27,6 +27,15 @@
                     </div>
                 </div>
             </div>
+
+            <div class="d-flex justify-content-center">
+                <span class="badge badge-secondary">Taille de la queue : {% raw %}{{ queueLenght }}{% endraw %}
+                    utilisateurs</span>
+                <span class="badge badge-secondary" v-if="positions.length > 0">Positions dans la queue :
+                {% raw %}{{ positionsText }}{% endraw %}
+                </span>
+            </div>
+
         </div>
         <hr>
         <twitch-viewer :channel="channel"></twitch-viewer>
@@ -41,5 +50,6 @@
 {% endblock %}
 
 {% block script %}
+    <script>window['username'] = '{{ req.user.username }}';</script>
     <script src="/js/watch.js"></script>
 {% endblock %}

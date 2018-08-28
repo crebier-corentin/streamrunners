@@ -2,6 +2,7 @@ import {BaseEntity, Column, Entity, OneToMany, PrimaryGeneratedColumn} from "typ
 import {WatchSession} from "./WatchSession";
 import {StreamSession} from "./StreamSession";
 import {StreamQueue} from "./StreamQueue";
+import {ManualPoints} from "./ManualPoints";
 
 
 @Entity()
@@ -29,6 +30,9 @@ export class User extends BaseEntity {
     @OneToMany(type => StreamQueue, StreamQueue => StreamQueue.user, {onDelete: "CASCADE", eager: true})
     streamQueue: StreamQueue[];
 
+    @OneToMany(type => ManualPoints, ManualPoints => ManualPoints.user, {onDelete: "CASCADE", eager: true})
+    manualPoints: ManualPoints[];
+
     getLastWatchSession(): WatchSession {
         const sorted = [...this.watchSession].sort((a, b) => {
             return (a.lastTime() < b.lastTime() ? 1 : -1);
@@ -53,13 +57,29 @@ export class User extends BaseEntity {
         }
     }
 
-    async streamQueueCost(): Promise<number> {
+    manualTotalPoints(): number {
+        if (this.manualPoints != undefined) {
+
+            let total: number = 0;
+
+            for (let manualPoints of this.manualPoints) {
+                total += manualPoints.amount;
+            }
+
+            return Math.round(total);
+        }
+        else {
+            return 0;
+        }
+    }
+
+    streamQueueCost(): number {
         if (this.streamQueue != undefined) {
 
             let total: number = 0;
 
             for (let streamQueue of this.streamQueue) {
-                total += (await streamQueue.amount);
+                total += streamQueue.amount;
             }
 
             return Math.round(total);
@@ -71,7 +91,7 @@ export class User extends BaseEntity {
 
     async points(): Promise<number> {
 
-        return Math.round((await this.watchSessionPoints()) - (await this.streamQueueCost()));
+        return Math.round((await this.watchSessionPoints()) - this.streamQueueCost() + this.manualTotalPoints());
 
     }
 

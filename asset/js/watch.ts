@@ -1,5 +1,7 @@
 /* eslint-disable no-undef */
-import Vue from 'vue/dist/vue.esm.browser.js';
+
+//TODO changer à vue.min.js pour Prod
+import Vue from 'vue/dist/vue.esm.js';
 import TwitchViewer from "./component/TwitchViewer.vue";
 
 import axios, {AxiosError} from 'axios';
@@ -9,20 +11,20 @@ window['swal'] = swal;
 
 Vue.component(TwitchViewer.name, TwitchViewer);
 
-let watch = Vue.extend({
-    data() {
-        return {
-            points: 0,
+window['vm'] = new Vue({
+    el: "#app",
 
-            updateUrl: "/watch/update",
-            addUrl: "/watch/add",
+    data: {
+        points: 0,
 
-            pause: false,
-            interval: 1000,
+        updateUrl: "/watch/update",
+        addUrl: "/watch/add",
 
-            queue: [],
+        pause: false,
+        interval: 1000,
 
-        };
+        queue: [],
+
     },
 
     computed: {
@@ -186,5 +188,3 @@ let watch = Vue.extend({
 
 
 });
-
-window['vm'] = new watch().$mount("#app");

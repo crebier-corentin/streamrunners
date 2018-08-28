@@ -23,6 +23,7 @@ describe("Watch Session points test", () => {
         let u = await userRepository.create();
         u.twitchId = "1";
         u.username = "test";
+        u.display_name = "test";
         u.email = "test@test.com";
         u.avatar = "";
 

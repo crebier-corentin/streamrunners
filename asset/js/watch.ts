@@ -25,6 +25,8 @@ window['vm'] = new Vue({
 
         queue: [],
 
+        viewers: 0
+
     },
 
     computed: {
@@ -102,6 +104,7 @@ window['vm'] = new Vue({
                     if (result.data.auth) {
                         self.points = result.data.points;
                         self.queue = result.data.queue;
+                        self.viewers = result.data.viewers;
                     }
                     else {
                         location.reload();

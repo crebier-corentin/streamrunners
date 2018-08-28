@@ -1,6 +1,8 @@
-import {BaseEntity, Column, Entity, getConnection, ManyToOne, PrimaryGeneratedColumn} from "typeorm";
+import {BaseEntity, Column, Entity, ManyToOne, PrimaryGeneratedColumn} from "typeorm";
 import {User} from "./User";
 import {StreamSession} from "./StreamSession";
+import {getDBConnection} from "../connection";
+import moment = require("moment");
 
 @Entity()
 export class WatchSession extends BaseEntity {
@@ -38,17 +40,15 @@ export class WatchSession extends BaseEntity {
     async points(): Promise<number> {
 
         let streamSession: StreamSession[];
+
+        let repository = getDBConnection().getRepository(StreamSession);
+
         //WatchSession where existing StreamSession
-        if (process.env.NODE_ENV === "test") {
-            streamSession = await getConnection("test").getRepository(StreamSession).createQueryBuilder("stream")
-                .where("NOT stream.last < :start", {start: this.startTime().getTime()})
-                .getMany();
-        }
-        else {
-            streamSession = await StreamSession.createQueryBuilder("stream")
-                .where("NOT stream.last < :start", {start: this.startTime().getTime()})
-                .getMany();
-        }
+        streamSession = await repository.createQueryBuilder("stream")
+            .where("stream.last > :start", {start: moment(this.startTime()).utc().format("YYYY-MM-DD HH:mm:ss")})
+            .andWhere("stream.start < :last", {last: moment(this.lastTime()).utc().format("YYYY-MM-DD HH:mm:ss")})
+            .getMany();
+
 
         let total: number = 0;
         streamSession.forEach((session) => {
@@ -56,6 +56,14 @@ export class WatchSession extends BaseEntity {
         });
 
         return total;
+    }
+
+    static async viewers(): Promise<number> {
+        let repository = getDBConnection().getRepository(WatchSession);
+
+        return (await repository.createQueryBuilder("session")
+            .where("session.last > :current", {current: moment().subtract(30, "seconds").utc().format("YYYY-MM-DD HH:mm:ss")})
+            .getCount());
     }
 
 

@@ -43,7 +43,7 @@
         <div class="d-flex justify-content-center">
             <span class="badge badge-secondary">Temps restant : {% raw %}{{ timeLeft }}{% endraw %} s</span>
             <span class="badge badge-secondary">Vos points : {% raw %}{{ points }}{% endraw %}</span>
-            <span class="badge badge-secondary">Viewers : 0</span>
+            <span class="badge badge-secondary">Viewers : {% raw %}{{ viewers }}{% endraw %}</span>
         </div>
     </div>
 

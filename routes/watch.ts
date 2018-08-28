@@ -14,7 +14,8 @@ router.post('/update', async (req: Express.Request, res: e.Response) => {
         res.send({
             auth: true,
             points: (await req.user.points()),
-            queue: (await StreamQueue.currentAndNextStreams())
+            queue: (await StreamQueue.currentAndNextStreams()),
+            viewers: (await WatchSession.viewers())
         });
     }
 

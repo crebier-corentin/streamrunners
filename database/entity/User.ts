@@ -1,8 +1,10 @@
-import {BaseEntity, Column, Entity, OneToMany, PrimaryGeneratedColumn} from "typeorm";
+import {BaseEntity, Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn} from "typeorm";
 import {WatchSession} from "./WatchSession";
 import {StreamSession} from "./StreamSession";
 import {StreamQueue} from "./StreamQueue";
 import {ManualPoints} from "./ManualPoints";
+
+const uuidv4 = require('uuid/v4');
 
 
 @Entity()
@@ -32,6 +34,18 @@ export class User extends BaseEntity {
 
     @OneToMany(type => ManualPoints, ManualPoints => ManualPoints.user, {onDelete: "CASCADE", eager: true})
     manualPoints: ManualPoints[];
+
+    //Parrain
+    @Column({unique: true, default: uuidv4()})
+    parrainage_id: string;
+
+    @OneToMany(type => User, User => User.parrain)
+    @JoinColumn({referencedColumnName: "parrainage_id"})
+    parraine: User[];
+
+    @ManyToOne(type => User, User => User.parraine)
+    parrain: User;
+
 
     getLastWatchSession(): WatchSession {
         const sorted = [...this.watchSession].sort((a, b) => {

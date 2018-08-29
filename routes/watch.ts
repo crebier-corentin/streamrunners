@@ -64,7 +64,7 @@ router.post('/add', async (req: Express.Request, res: e.Response) => {
     if (req.isAuthenticated()) {
 
         //Check if queue is empty
-        let cost = (await StreamQueue.isEmpty()) ? 0 : 100;
+        let cost = (await StreamQueue.isEmpty()) ? 0 : 1000;
 
         //Check if enough points
         let points = (await req.user.points());
@@ -76,6 +76,7 @@ router.post('/add', async (req: Express.Request, res: e.Response) => {
             //Enough point
             let stream = new StreamQueue();
             stream.amount = cost;
+            stream.time = 60*10;
 
             stream.user = req.user;
 

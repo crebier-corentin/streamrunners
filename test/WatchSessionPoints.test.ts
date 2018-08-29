@@ -87,7 +87,7 @@ describe("Watch Session points test", () => {
 
         await streamSessionRepository.save(s3);
 
-        assert.equal((await user.points()), 30, "Partial on left");
+        assert.equal((await user.points()), 300, "Partial on left");
 
         await streamSessionRepository.remove(s3);
 
@@ -111,7 +111,7 @@ describe("Watch Session points test", () => {
 
         await streamSessionRepository.save(s4);
 
-        assert.equal((await user.points()), 30, "Partial on right");
+        assert.equal((await user.points()), 300, "Partial on right");
 
         await streamSessionRepository.remove(s4);
 
@@ -134,7 +134,7 @@ describe("Watch Session points test", () => {
 
         await streamSessionRepository.save(s5);
 
-        assert.equal((await user.points()), 60, "Full overlap");
+        assert.equal((await user.points()), 600, "Full overlap");
 
         await streamSessionRepository.remove(s5);
 

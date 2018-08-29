@@ -1,5 +1,6 @@
 // eslint-disable-next-line no-undef
 import e = require("express");
+import {WatchSession} from "../database/entity/WatchSession";
 
 var express = require('express');
 var router = express.Router();
@@ -10,10 +11,10 @@ router.get('/', async function (req: Express.Request, res) {
 
     //Si connecter afficher le stream, sinon afficher la page d'acceuil
     if (req.isAuthenticated()) {
-        res.render("./watch", {title: 'TwitchRunner', req});
+        res.render("./watch", {title: 'TwitchRunners', req, viewers: (await WatchSession.viewers())});
     }
     else {
-        res.render('./index', {title: 'TwitchRunner', req});
+        res.render('./index', {title: 'TwitchRunners', req});
     }
 });
 

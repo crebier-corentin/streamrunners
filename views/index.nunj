@@ -16,7 +16,7 @@
                     <a class="btn btn-primary" href="/auth/twitch">Se connecter avec Twitch.Tv
                         <i class="fab fa-twitch"></i></a>
                     <p class="mt-5">
-                        Rejoins les <strong>0</strong> viewers actuellement connectés ! </p>
+                        Rejoins les <strong>{{ viewers }}</strong> viewers actuellement connectés ! </p>
                 </div>
             </div>
         </div>

@@ -143,3 +143,5 @@ test/.env.test
 
 .rpt2_cache/
 *.js.map
+
+ngrok.exe

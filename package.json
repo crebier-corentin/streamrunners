@@ -11,7 +11,10 @@
     "migration:revert": "ts-node ./node_modules/typeorm/cli.js migration:revert",
     "migration:run": "ts-node ./node_modules/typeorm/cli.js migration:run",
     "start": "node --require ts-node/register bin/www",
-    "test": "mocha -R spec --ui bdd -r ts-node/register --require test/mocha.env.js --timeout 15000 \"test/**/*.test.ts\""
+    "test": "mocha -R spec --ui bdd -r ts-node/register --require test/mocha.env.js --timeout 15000 \"test/**/*.test.ts\"",
+      
+      "forever:start": "forever -c \"node --require ts-node/register\" start bin/www",
+      "forever:stop" : "forever stopall"
   },
   "dependencies": {
     "compression": "^1.7.3",

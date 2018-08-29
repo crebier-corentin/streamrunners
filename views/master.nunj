@@ -11,6 +11,30 @@
           integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ"
           crossorigin="anonymous">
     <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.0/cookieconsent.min.css" />
+<script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.0/cookieconsent.min.js"></script>
+<script>
+window.addEventListener("load", function(){
+window.cookieconsent.initialise({
+  "palette": {
+    "popup": {
+      "background": "#8c6dc5",
+      "text": "#ffffff"
+    },
+    "button": {
+      "background": "#ffffff",
+      "text": "#8c6dc5"
+    }
+  },
+  "theme": "classic",
+  "position": "bottom-right",
+  "content": {
+    "message": "Ce site utilise des cookies pour améliorer votre expérience de navigation.",
+    "dismiss": "OK !",
+    "link": "En savoir plus"
+  }
+})});
+</script>
     {% block css %}
 
     {% endblock %}

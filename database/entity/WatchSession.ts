@@ -52,7 +52,7 @@ export class WatchSession extends BaseEntity {
 
         let total: number = 0;
         streamSession.forEach((session) => {
-            total += ((dateRangeOverlap(this.startTime(), this.lastTime(), session.startTime(), session.lastTime()) / 1000) / 10);
+            total += ((dateRangeOverlap(this.startTime(), this.lastTime(), session.startTime(), session.lastTime()) / 1000));
         });
 
         return total;

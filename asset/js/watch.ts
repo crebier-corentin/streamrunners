@@ -130,7 +130,7 @@ window['vm'] = new Vue({
 
             let result = swal({
                 title: 'Acheter une place?',
-                text: '100 points pour 60 secondes. \n Si la queue est vide la place est gratuite !',
+                text: '1 000 points pour 10 minutes. \n Si la queue est vide la place est gratuite !',
                 type: 'warning',
                 showCancelButton: true,
                 confirmButtonText: 'Oui',

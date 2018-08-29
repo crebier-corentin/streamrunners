@@ -11,13 +11,13 @@ router.get('/', async function (req: Express.Request, res) {
 
     //Si connecter afficher le stream, sinon afficher la page d'acceuil
     if (req.isAuthenticated()) {
-        res.render("./watch", {title: 'TwitchRunners', req, viewers: (await WatchSession.viewers())});
+        res.render("./watch", {title: 'TwitchRunners', req});
+
     }
     else {
-        res.render('./index', {title: 'TwitchRunners', req});
+        res.render('./index', {title: 'TwitchRunners', req, viewers: (await WatchSession.viewers())});
     }
 });
-
 
 
 router.get("/logout", (req: Express.Request, res: e.Response) => {

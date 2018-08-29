@@ -104,6 +104,23 @@ createConnection().then(async () => {
     app.use(passport.initialize());   // passport initialize middleware
     app.use(passport.session());      // passport session middleware
 
+    //Parrainage
+    app.use(async (req, res: Express.Response, done) => {
+
+        if (req.query.parrain_id != undefined) {
+            req.session.parrain_id = req.query.parrain_id;
+        }
+
+        if (req.isAuthenticated() && req.session.parrain_id != undefined && req.user.parrain == undefined) {
+            req.user.parrain = await User.findOne({where: {parrainage_id: req.session.parrain_id}});
+            await req.user.save();
+        }
+
+        done();
+
+    });
+
+
     //Routes
     app.use('/', indexRouter);
     app.use('/shop', shopRouter);

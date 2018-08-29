@@ -7,8 +7,13 @@ import {Response} from 'express';
 
 router.get('/', async function (req: Express.Request, res: Response) {
 
-    res.render("parrainage", {title: "TwitchRunner - Parrainage", req});
+    if (req.isAuthenticated()) {
 
+        res.render("parrainage", {title: "TwitchRunner - Parrainage", req, hostname: process.env.HOSTNAME});
+    }
+    else {
+        res.redirect("/");
+    }
 });
 
 module.exports = router;

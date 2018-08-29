@@ -35,7 +35,7 @@ export class User extends BaseEntity {
     @OneToMany(type => ManualPoints, ManualPoints => ManualPoints.user, {onDelete: "CASCADE", eager: true})
     manualPoints: ManualPoints[];
 
-    //Parrain
+/*    //Parrain
     @Column({unique: true, default: uuidv4()})
     parrainage_id: string;
 
@@ -44,7 +44,7 @@ export class User extends BaseEntity {
     parraine: User[];
 
     @ManyToOne(type => User, User => User.parraine)
-    parrain: User;
+    parrain: User;*/
 
 
     getLastWatchSession(): WatchSession {

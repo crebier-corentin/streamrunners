@@ -1,6 +1,6 @@
 import {MigrationInterface, QueryRunner} from "typeorm";
 
-export class BaseMigration1535607532943 implements MigrationInterface {
+export class BaseMigration1535610781901 implements MigrationInterface {
 
     public async up(queryRunner: QueryRunner): Promise<any> {
         await queryRunner.query(`CREATE TABLE "stream_queue" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "amount" integer NOT NULL DEFAULT (100), "time" integer NOT NULL DEFAULT (60), "current" integer NOT NULL DEFAULT (0), "start" datetime, "createdAt" datetime NOT NULL DEFAULT (datetime('now')), "userId" integer)`);

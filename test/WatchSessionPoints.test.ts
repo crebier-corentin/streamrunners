@@ -1,4 +1,4 @@
-import {Connection, createConnection, getConnection} from "typeorm";
+import {createConnection, getConnection} from "typeorm";
 import {User} from "../database/entity/User";
 import {WatchSession} from "../database/entity/WatchSession";
 import {StreamSession} from "../database/entity/StreamSession";
@@ -29,6 +29,15 @@ describe("Watch Session points test", () => {
 
         await userRepository.save(u);
 
+        let u2 = await userRepository.create();
+        u2.twitchId = "2";
+        u2.username = "test";
+        u2.display_name = "test";
+        u2.email = "test@test.com";
+        u2.avatar = "";
+
+        await userRepository.save(u2);
+
         let watchSession = new WatchSession();
         watchSession.user = u;
 
@@ -47,10 +56,11 @@ describe("Watch Session points test", () => {
         const streamSessionRepository = getConnection('test').getRepository(StreamSession);
 
         let user = await userRepository.findOne(1);
+        let user2 = await userRepository.findOne(2);
 
         //0 Points
         let s1 = new StreamSession();
-        s1.user = user;
+        s1.user = user2;
 
         s1.start = new Date(2018, 1, 1, 9, 0, 0);
         s1.last = new Date(2018, 1, 1, 9, 50, 0);
@@ -58,7 +68,7 @@ describe("Watch Session points test", () => {
         await streamSessionRepository.save(s1);
 
         let s2 = new StreamSession();
-        s2.user = user;
+        s2.user = user2;
 
         s2.start = new Date(2018, 1, 1, 10, 15, 0);
         s2.last = new Date(2018, 1, 1, 10, 20, 0);
@@ -78,9 +88,10 @@ describe("Watch Session points test", () => {
         const streamSessionRepository = getConnection('test').getRepository(StreamSession);
 
         let user = await userRepository.findOne(1);
+        let user2 = await userRepository.findOne(2);
         //Partial on left
         let s3 = new StreamSession();
-        s3.user = user;
+        s3.user = user2;
 
         s3.start = new Date(2018, 1, 1, 9, 50, 0);
         s3.last = new Date(2018, 1, 1, 10, 5, 0);
@@ -101,10 +112,11 @@ describe("Watch Session points test", () => {
         const streamSessionRepository = getConnection('test').getRepository(StreamSession);
 
         let user = await userRepository.findOne(1);
+        let user2 = await userRepository.findOne(2);
 
         //Partial on right
         let s4 = new StreamSession();
-        s4.user = user;
+        s4.user = user2;
 
         s4.start = new Date(2018, 1, 1, 10, 5, 0);
         s4.last = new Date(2018, 1, 1, 10, 20, 0);
@@ -125,9 +137,11 @@ describe("Watch Session points test", () => {
         const streamSessionRepository = getConnection('test').getRepository(StreamSession);
 
         let user = await userRepository.findOne(1);
+        let user2 = await userRepository.findOne(2);
+
         //Full overlap
         let s5 = new StreamSession();
-        s5.user = user;
+        s5.user = user2;
 
         s5.start = new Date(2018, 1, 1, 9, 0, 0);
         s5.last = new Date(2018, 1, 1, 11, 0, 0);

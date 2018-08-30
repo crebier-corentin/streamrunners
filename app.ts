@@ -13,6 +13,7 @@ const expressNunjucks = require('express-nunjucks');
 const passport = require('passport');
 const twitchStrategy = require("passport-twitch").Strategy;
 const compression = require('compression');
+const helmet = require('helmet');
 
 //.env
 require("dotenv").config();
@@ -47,6 +48,8 @@ createConnection().then(async () => {
     app.use(cookieParser());
 
     app.use(compression());
+    app.use(helmet());
+
     app.use(express.static(path.join(__dirname, 'public')));
 
     app.use(cookieSession({keys: [process.env.COOKIE_KEY]})); // Express cookie session middleware
@@ -135,29 +138,15 @@ createConnection().then(async () => {
     });
 
     //Update StreamSession
-    function streamSessionCallback() {
-        updateStreamSession()
-            .then(() => {
-                setTimeout(streamSessionCallback, 3000);
-            })
-            .catch((error) => {
-                setTimeout(streamSessionCallback, 3000);
-            });
-    }
+    async function streamSessionCallback() {
+        await updateStreamSession();
+        await updateStreamQueue();
+        setTimeout(streamSessionCallback, 1000);
 
-    //Update StreamQueue
-    function streamQueueCallback() {
-        updateStreamQueue()
-            .then(() => {
-                setTimeout(streamQueueCallback, 1000);
-            })
-            .catch((error) => {
-                setTimeout(streamQueueCallback, 1000);
-            });
     }
 
     streamSessionCallback();
-    streamQueueCallback();
+
 
 }).catch(error => console.log(error));
 

@@ -38,6 +38,7 @@ export class WatchSession extends BaseEntity {
     }
 
     async points(): Promise<number> {
+        let relation = await getDBConnection().getRepository(WatchSession).findOne(this.id, {relations: ["user"]});
 
         let streamSession: StreamSession[];
 
@@ -47,6 +48,7 @@ export class WatchSession extends BaseEntity {
         streamSession = await repository.createQueryBuilder("stream")
             .where("stream.last > :start", {start: moment(this.startTime()).utc().format("YYYY-MM-DD HH:mm:ss")})
             .andWhere("stream.start < :last", {last: moment(this.lastTime()).utc().format("YYYY-MM-DD HH:mm:ss")})
+            .andWhere("stream.userId != :id", {id: relation.user.id})
             .getMany();
 
 

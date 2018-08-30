@@ -40,13 +40,12 @@
             <div class="col-lg-4 d-flex flex-column align-items-center justify-content-center">
                 <img class="rounded-circle" src="img/free.svg" alt="Generic placeholder image" width="140" height="140">
                 <h2>Gratuit</h2>
-                <p>Le site est gratuit ! Des abonnements sont proposé pour améliorer l'expérience mais aucunement
-                    obligatoires !</p>
+                <p>Le site est gratuit ! Des abonnements sont proposés pour améliorer l'expérience mais aucunement obligatoires !</p>
             </div><!-- /.col-lg-4 -->
             <div class="col-lg-4 d-flex flex-column align-items-center justify-content-center">
                 <img class="rounded-circle" src="img/gift-solid.svg" alt="Generic placeholder image" width="140" height="140">
                 <h2>Cadeaux</h2>
-                <p>Des tonnes de cadeaux a gagné gratuitement tout les mois tout en soutenant des petits streamers francophone !</p>
+                <p>Des tonnes de cadeaux a gagner gratuitement tous les mois tout en soutenant des petits streameurs francophones !</p>
             </div><!-- /.col-lg-4 -->
         </div><!-- /.row -->
     </div>

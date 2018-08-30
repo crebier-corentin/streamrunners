@@ -65,7 +65,7 @@
             <ul class="navbar-nav mr-auto">
 
                 <li class="nav-item">
-                    <a class="nav-link" href="/"><i class="fas fa-home"></i> Acceuil</a>
+                    <a class="nav-link" href="/"><i class="fas fa-home"></i> Accueil</a>
                 </li>
                 {#
                 {% if req.isAuthenticated() %}

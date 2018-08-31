@@ -53,9 +53,7 @@ else {
             "name": "test",
             "type": "sqlite",
             "database": ":memory:",
-            "synchronize": false,
-            "dropSchema": true,
-            "migrationsRun": true,
+            "synchronize": true,
             "logging": false,
             "entities": [
                 "database/entity/**/*.ts"

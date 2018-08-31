@@ -4,6 +4,12 @@ import {StreamSession} from "./StreamSession";
 import {getDBConnection} from "../connection";
 import moment = require("moment");
 
+interface DateRange {
+    start: Date;
+    last: Date;
+}
+
+
 @Entity()
 export class WatchSession extends BaseEntity {
 
@@ -37,6 +43,14 @@ export class WatchSession extends BaseEntity {
         }
     }
 
+    static async viewers(): Promise<number> {
+        let repository = getDBConnection().getRepository(WatchSession);
+
+        return (await repository.createQueryBuilder("session")
+            .where("session.last > :current", {current: moment().subtract(30, "seconds").utc().format("YYYY-MM-DD HH:mm:ss")})
+            .getCount());
+    }
+
     async points(): Promise<number> {
         let relation = await getDBConnection().getRepository(WatchSession).findOne(this.id, {relations: ["user"]});
 
@@ -52,20 +66,60 @@ export class WatchSession extends BaseEntity {
             .getMany();
 
 
-        let total: number = 0;
+        //Range where dates overlap
+        let ranges: DateRange[] = [];
         streamSession.forEach((session) => {
-            total += ((dateRangeOverlap(this.startTime(), this.lastTime(), session.startTime(), session.lastTime()) / 1000));
+            let items = dateRangeOverlapRange(this.startTime(), this.lastTime(), session.startTime(), session.lastTime());
+            if (items != null) {
+                ranges.push(items);
+            }
         });
+
+        let total = 0;
+
+        //Ranges
+        for (const range of ranges) {
+            total += await this.VIPPoints(range.start, range.last);
+        }
 
         return total;
     }
 
-    static async viewers(): Promise<number> {
-        let repository = getDBConnection().getRepository(WatchSession);
+    //Return the number of points with vip and without
+    private async VIPPoints(start: Date, last: Date): Promise<number> {
 
-        return (await repository.createQueryBuilder("session")
-            .where("session.last > :current", {current: moment().subtract(30, "seconds").utc().format("YYYY-MM-DD HH:mm:ss")})
-            .getCount());
+        let relation = await getDBConnection().getRepository(WatchSession).findOne(this.id, {relations: ["user"]});
+        //Get user VIP
+        let vips = await relation.user.vip;
+
+        let total = 0;
+
+        if (vips.length > 0) {
+
+            vips.forEach((vip) => {
+                let vipMS = dateRangeOverlapMS(start, last, vip.startTime(), vip.lastTime());
+
+                if (vipMS > 0) {
+                    //Vip
+                    total += vipMS / 1000 * 2;
+
+                    //Other
+                    total += (last.getTime() - start.getTime() - vipMS) / 1000;
+
+                }
+                else {
+                    total += (last.getTime() - start.getTime() - vipMS) / 1000;
+                }
+
+            });
+        }
+        else {
+            total += (last.getTime() - start.getTime()) / 1000;
+        }
+
+        return Math.round(total);
+
+
     }
 
 
@@ -73,7 +127,7 @@ export class WatchSession extends BaseEntity {
 
 
 //Get milliseconds where streamSession and WatchSession overlap
-export function dateRangeOverlap(start1: Date, last1: Date, start2: Date, last2: Date): number {
+export function dateRangeOverlapMS(start1: Date, last1: Date, start2: Date, last2: Date): number {
 
     //If 1 overlap enteirly 2
     if (start1 <= start2 && last1 >= last2) {
@@ -98,3 +152,31 @@ export function dateRangeOverlap(start1: Date, last1: Date, start2: Date, last2:
     return 0;
 
 }
+
+//Get range where date overlap
+export function dateRangeOverlapRange(start1: Date, last1: Date, start2: Date, last2: Date): DateRange {
+
+    //If 1 overlap enteirly 2
+    if (start1 <= start2 && last1 >= last2) {
+        return {last: last2, start: start2};
+    }
+
+    //If 2 overlap enteirly 1
+    if (start2 <= start1 && last2 >= last1) {
+        return {last: last1, start: start1};
+    }
+
+    //If 2 partial on the right
+    if (last2 >= last1 && start2 <= last1) {
+        return {last: last1, start: start2};
+    }
+
+    //If 2 partial on the left
+    if (last2 <= last1 && last2 >= start1) {
+        return {last: last2, start: start1};
+    }
+
+    return null;
+
+}
+

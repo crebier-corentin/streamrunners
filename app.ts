@@ -129,7 +129,7 @@ createConnection().then(async () => {
     app.use('/shop', shopRouter);
     app.use('/parrainage', parrainageRouter);
     app.use('/giveaway', giveawayRouter);
-    app.use('/points', pointsRouter);
+    app.use('/pointsFunc', pointsRouter);
     app.use('/watch', watchRouter);
 
     app.get("/auth/twitch", passport.authenticate("twitch"));

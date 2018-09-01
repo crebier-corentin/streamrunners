@@ -9,7 +9,7 @@ export class StreamQueue extends BaseEntity {
     @PrimaryGeneratedColumn()
     id: number;
 
-    //Price in points
+    //Price in pointsFunc
     @Column({default: 100})
     amount: number;
 

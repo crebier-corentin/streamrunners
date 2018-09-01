@@ -85,7 +85,7 @@ export class WatchSession extends BaseEntity {
         return total;
     }
 
-    //Return the number of points with vip and without
+    //Return the number of pointsFunc with vip and without
     private async VIPPoints(start: Date, last: Date): Promise<number> {
 
         let relation = await getDBConnection().getRepository(WatchSession).findOne(this.id, {relations: ["user"]});

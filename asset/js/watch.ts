@@ -102,7 +102,7 @@ window['vm'] = new Vue({
                 .then((result) => {
 
                     if (result.data.auth) {
-                        self.points = result.data.points;
+                        self.pointsFunc = result.data.pointsFunc;
                         self.queue = result.data.queue;
                         self.viewers = result.data.viewers;
                     }
@@ -130,7 +130,7 @@ window['vm'] = new Vue({
 
             let result = swal({
                 title: 'Acheter une place?',
-                text: '1 000 points pour 10 minutes. \n Si la queue est vide la place est gratuite !',
+                text: '1 000 pointsFunc pour 10 minutes. \n Si la queue est vide la place est gratuite !',
                 type: 'warning',
                 showCancelButton: true,
                 confirmButtonText: 'Oui',
@@ -148,7 +148,7 @@ window['vm'] = new Vue({
                 //Check if auth
                 if (result.data.auth) {
 
-                    //Check if enough points
+                    //Check if enough pointsFunc
                     if (result.data.enough) {
                         //Success
                         swal({
@@ -160,8 +160,8 @@ window['vm'] = new Vue({
                     else {
                         //Error
                         swal({
-                            title: "Vous n'avez pas assez de points.",
-                            text: `Vous avez ${result.data.points} points. \n La place coûte ${result.data.cost} points.`,
+                            title: "Vous n'avez pas assez de pointsFunc.",
+                            text: `Vous avez ${result.data.pointsFunc} points. \n La place coûte ${result.data.cost} points.`,
                             type: "error"
                         });
 

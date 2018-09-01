@@ -66,7 +66,7 @@ router.post('/add', async (req: Express.Request, res: e.Response) => {
         //Check if queue is empty
         let cost = (await StreamQueue.isEmpty()) ? 0 : 1000;
 
-        //Check if enough points
+        //Check if enough pointsFunc
         let points = (await req.user.points());
         if (points < cost) {
             //No enough point

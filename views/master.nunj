@@ -76,7 +76,7 @@
                         <a class="nav-link" href="/giveaway"><i class="fas fa-star"></i> GiveAway</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/points"><i class="fas fa-plus"></i> Plus de points</a>
+                        <a class="nav-link" href="/pointsFunc"><i class="fas fa-plus"></i> Plus de pointsFunc</a>
                     </li>
                 {% else %}
                 {% endif %}

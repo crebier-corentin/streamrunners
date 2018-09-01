@@ -24,6 +24,11 @@ export class User extends BaseEntity {
     @Column()
     avatar: string;
 
+
+    @Column()
+    points: number;
+
+
     @OneToMany(type => WatchSession, WatchSession => WatchSession.user, {onDelete: "CASCADE", eager: true})
     watchSession: WatchSession[];
 
@@ -107,7 +112,7 @@ export class User extends BaseEntity {
         }
     }
 
-    async points(): Promise<number> {
+    async pointsFunc(): Promise<number> {
 
         return Math.round((await this.watchSessionPoints()) - this.streamQueueCost() + this.manualTotalPoints());
 

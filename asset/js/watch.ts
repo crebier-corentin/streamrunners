@@ -148,7 +148,7 @@ window['vm'] = new Vue({
                 //Check if auth
                 if (result.data.auth) {
 
-                    //Check if enough pointsFunc
+                    //Check if enough points
                     if (result.data.enough) {
                         //Success
                         swal({
@@ -160,7 +160,7 @@ window['vm'] = new Vue({
                     else {
                         //Error
                         swal({
-                            title: "Vous n'avez pas assez de pointsFunc.",
+                            title: "Vous n'avez pas assez de points.",
                             text: `Vous avez ${result.data.points} points. \n La place coûte ${result.data.cost} points.`,
                             type: "error"
                         });

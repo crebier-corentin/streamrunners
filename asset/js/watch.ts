@@ -130,7 +130,7 @@ window['vm'] = new Vue({
 
             let result = swal({
                 title: 'Acheter une place?',
-                text: '1 000 pointsFunc pour 10 minutes. \n Si la queue est vide la place est gratuite !',
+                text: '1 000 points pour 10 minutes. \n Si la queue est vide la place est gratuite !',
                 type: 'warning',
                 showCancelButton: true,
                 confirmButtonText: 'Oui',
@@ -161,7 +161,7 @@ window['vm'] = new Vue({
                         //Error
                         swal({
                             title: "Vous n'avez pas assez de pointsFunc.",
-                            text: `Vous avez ${result.data.pointsFunc} points. \n La place coûte ${result.data.cost} points.`,
+                            text: `Vous avez ${result.data.points} points. \n La place coûte ${result.data.cost} points.`,
                             type: "error"
                         });
 

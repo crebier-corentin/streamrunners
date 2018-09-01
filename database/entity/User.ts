@@ -1,9 +1,8 @@
 import {BaseEntity, Column, Entity, OneToMany, PrimaryGeneratedColumn} from "typeorm";
-import {WatchSession} from "./WatchSession";
-import {StreamSession} from "./StreamSession";
 import {StreamQueue} from "./StreamQueue";
-import {ManualPoints} from "./ManualPoints";
 import {VIP} from "./VIP";
+import {getDBConnection} from "../connection";
+import moment = require("moment");
 
 const uuidv4 = require('uuid/v4');
 
@@ -24,22 +23,36 @@ export class User extends BaseEntity {
     @Column()
     avatar: string;
 
-
-    @Column()
+    @Column({default: 0})
     points: number;
 
+    async changePoints(amount: number) {
+        let repository = getDBConnection().getRepository(User);
 
-    @OneToMany(type => WatchSession, WatchSession => WatchSession.user, {onDelete: "CASCADE", eager: true})
-    watchSession: WatchSession[];
+        if (this.points != undefined) {
+            this.points = Math.round(this.points + amount);
+            await repository.save(this);
+        }
+        else {
+            this.points = Math.round(amount);
+            await repository.save(this);
+        }
+    }
 
-    @OneToMany(type => StreamSession, StreamSession => StreamSession.user, {onDelete: "CASCADE"})
-    streamSession: StreamSession[];
+    @Column("datetime", {default: () => 'CURRENT_TIMESTAMP'})
+    lastUpdate: Date | number;
+
+    lastUpdateTime(): Date {
+        if (this.lastUpdate instanceof Date) {
+            return this.lastUpdate;
+        }
+        else {
+            return new Date(this.lastUpdate);
+        }
+    }
 
     @OneToMany(type => StreamQueue, StreamQueue => StreamQueue.user, {onDelete: "CASCADE", eager: true})
     streamQueue: StreamQueue[];
-
-    @OneToMany(type => ManualPoints, ManualPoints => ManualPoints.user, {onDelete: "CASCADE", eager: true})
-    manualPoints: ManualPoints[];
 
     @OneToMany(type => VIP, VIP => VIP.user, {onDelete: "CASCADE", eager: true})
     vip: VIP[];
@@ -55,68 +68,22 @@ export class User extends BaseEntity {
         @ManyToOne(type => User, User => User.parraine)
         parrain: User;*/
 
+    static async viewers(): Promise<number> {
+        let repository = getDBConnection().getRepository(User);
 
-    getLastWatchSession(): WatchSession {
-        const sorted = [...this.watchSession].sort((a, b) => {
-            return (a.lastTime() < b.lastTime() ? 1 : -1);
-        });
-
-        return sorted[0];
-    }
-
-    async watchSessionPoints(): Promise<number> {
-        if (this.watchSession != undefined) {
-
-            let total: number = 0;
-
-            for (let watchSession of this.watchSession) {
-                total += (await watchSession.points());
-            }
-
-            return Math.round(total);
-        }
-        else {
-            return 0;
-        }
-    }
-
-    manualTotalPoints(): number {
-        if (this.manualPoints != undefined) {
-
-            let total: number = 0;
-
-            for (let manualPoints of this.manualPoints) {
-                total += manualPoints.amount;
-            }
-
-            return Math.round(total);
-        }
-        else {
-            return 0;
-        }
-    }
-
-    streamQueueCost(): number {
-        if (this.streamQueue != undefined) {
-
-            let total: number = 0;
-
-            for (let streamQueue of this.streamQueue) {
-                total += streamQueue.amount;
-            }
-
-            return Math.round(total);
-        }
-        else {
-            return 0;
-        }
-    }
-
-    async pointsFunc(): Promise<number> {
-
-        return Math.round((await this.watchSessionPoints()) - this.streamQueueCost() + this.manualTotalPoints());
-
+        return (await repository.createQueryBuilder("user")
+            .where("user.lastUpdate > :current", {current: moment().subtract(30, "seconds").utc().format("YYYY-MM-DD HH:mm:ss")})
+            .getCount());
     }
 
 
+}
+
+
+declare global {
+    namespace Express {
+        interface Request {
+            user?: User;
+        }
+    }
 }

@@ -1,7 +1,6 @@
 import "reflect-metadata";
 import {createConnection} from "typeorm";
 import {User} from "./database/entity/User";
-import {updateStreamSession} from "./database/entity/StreamSession";
 import {updateStreamQueue} from "./database/entity/StreamQueue";
 
 const express = require('express');
@@ -123,6 +122,12 @@ createConnection().then(async () => {
 
     });
 
+    //StreamQueue
+    app.use(async (req, res: Express.Response, done) => {
+        await updateStreamQueue();
+        done();
+    });
+
 
     //Routes
     app.use('/', indexRouter);
@@ -136,16 +141,6 @@ createConnection().then(async () => {
     app.get("/auth/twitch/callback", passport.authenticate("twitch", {failureRedirect: "/"}), function (req, res) {
         res.redirect("/");
     });
-
-    //Update StreamSession
-    async function streamSessionCallback() {
-        await updateStreamSession();
-        await updateStreamQueue();
-        setTimeout(streamSessionCallback, 1000);
-
-    }
-
-    streamSessionCallback();
 
 
 }).catch(error => console.log(error));

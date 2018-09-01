@@ -1,6 +1,6 @@
 // eslint-disable-next-line no-undef
 import e = require("express");
-import {WatchSession} from "../database/entity/WatchSession";
+import {User} from "../database/entity/User";
 
 var express = require('express');
 var router = express.Router();
@@ -15,7 +15,7 @@ router.get('/', async function (req: Express.Request, res) {
 
     }
     else {
-        res.render('./index', {title: 'TwitchRunners', req, viewers: (await WatchSession.viewers())});
+        res.render('./index', {title: 'TwitchRunners', req, viewers: (await User.viewers())});
     }
 });
 

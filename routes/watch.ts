@@ -1,7 +1,7 @@
 import {StreamQueue} from "../database/entity/StreamQueue";
-import {WatchSession} from "../database/entity/WatchSession";
 import {Repository} from "typeorm";
 import {getDBConnection} from "../database/connection";
+import {User} from "../database/entity/User";
 import moment = require("moment");
 import e = require("express");
 
@@ -13,39 +13,45 @@ router.post('/update', async (req: Express.Request, res: e.Response) => {
     async function sendData() {
         res.send({
             auth: true,
-            points: (await req.user.points()),
+            points: req.user.points,
             queue: (await StreamQueue.currentAndNextStreams()),
-            viewers: (await WatchSession.viewers())
+            viewers: (await User.viewers())
         });
     }
 
     if (req.isAuthenticated()) {
+
+        //check if stream is online
+        let current = await StreamQueue.currentStream();
+
+        //Check if stream and is not self stream
+        if (current == undefined || current.user.id === req.user.id) {
+            await sendData();
+            return;
+        }
+
+        let isOnline = await StreamQueue.isCurrentOnline(current.user.username);
+
+        //Check if stream is online
+        if (!isOnline) {
+            await sendData();
+            return;
+        }
+
         let newDate = moment();
 
-        let watchSessionArr = req.user.watchSession;
+        let lastUpdate: Date = req.user.lastUpdateTime();
 
-        if (watchSessionArr != undefined && watchSessionArr.length > 0) {
-            //Get lastTime Watch session
-            let watchSession = req.user.getLastWatchSession();
-
-            //Compare if less than 5 minutes since lastTime update update lastTime watchSession
-            if (moment(watchSession.lastTime()).add(5, "minutes") >= newDate) {
-                //Its been less than 5 minutes since lastTime update
-                watchSession.last = newDate.toDate();
-                watchSession.save();
-
-                await sendData();
-                return;
-
-            }
-
+        //If lastUpdate was one minutes or less ago
+        if (moment(lastUpdate).add(1, "minutes") >= newDate) {
+            await req.user.changePoints((newDate.toDate().getTime() - lastUpdate.getTime()) / 1000);
+            req.user.lastUpdate = newDate.toDate();
+            await req.user.save();
         }
-        //Its been more than 5 minutes since lastTime update, startTime new watchSession
-        //or
-        //First watchSession
-        let newWatchSession = new WatchSession();
-        newWatchSession.user = req.user;
-        newWatchSession.save();
+        else {
+            req.user.lastUpdate = newDate.toDate();
+            await req.user.save();
+        }
 
         await sendData();
         return;
@@ -67,7 +73,7 @@ router.post('/add', async (req: Express.Request, res: e.Response) => {
         let cost = (await StreamQueue.isEmpty()) ? 0 : 1000;
 
         //Check if enough pointsFunc
-        let points = (await req.user.points());
+        let points = (await req.user.points);
         if (points < cost) {
             //No enough point
             res.send({auth: true, enough: false, points, cost});
@@ -76,12 +82,16 @@ router.post('/add', async (req: Express.Request, res: e.Response) => {
             //Enough point
             let stream = new StreamQueue();
             stream.amount = cost;
-            stream.time = 60*10;
+            stream.time = 60 * 10;
 
             stream.user = req.user;
 
             let repository: Repository<StreamQueue> = getDBConnection().getRepository(StreamQueue);
             repository.save(stream);
+
+            //Change points
+            await req.user.changePoints(-cost);
+
             res.send({auth: true, enough: true});
         }
 

@@ -102,7 +102,7 @@ window['vm'] = new Vue({
                 .then((result) => {
 
                     if (result.data.auth) {
-                        self.pointsFunc = result.data.pointsFunc;
+                        self.points = result.data.points;
                         self.queue = result.data.queue;
                         self.viewers = result.data.viewers;
                     }

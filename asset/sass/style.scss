@@ -133,6 +133,39 @@ hr {
   text-align: center;
   font-weight: 600;
   border-radius: 4px;
+  margin-bottom: 5px;
+}
+
+.sub{
+    color: #fff;
+    background-color: #28a745;
+    border-color: #28a745!important;
+    margin-bottom: 5px;
+    border: solid 2px;
+}
+
+.sub:hover{
+    color: #28a745;
+    background-color: #fff;
+    border-color: #28a745!important;
+    margin-bottom: 5px;
+    border: solid 2px;
+}
+
+.follow{
+    color: #fff;
+    background-color: #8c6dc5;
+    border-color: #8c6dc5!important;
+    margin-bottom: 5px;
+    border: solid 2px;
+}
+
+.follow:hover{
+    color: #8c6dc5;
+    background-color: #fff;
+    border-color: #8c6dc5!important;
+    margin-bottom: 5px;
+    border: solid 2px;
 }
 
 .btn.disable, .btn.disable:hover, .btn.disable:active {

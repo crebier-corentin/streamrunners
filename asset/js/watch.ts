@@ -19,6 +19,7 @@ window['vm'] = new Vue({
 
         updateUrl: "/watch/update",
         addUrl: "/watch/add",
+        skipUrl: "/watch/skip",
 
         pause: false,
         interval: 1000,
@@ -180,6 +181,41 @@ window['vm'] = new Vue({
 
 
         },
+
+        makeRequestSkip() {
+            let result = swal({
+                title: 'Passer?',
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Oui',
+                cancelButtonText: 'Non'
+
+            }).then((result) => {
+
+                if (result.value) {
+                    let self = this;
+                    return axios.post(self.skipUrl);
+                }
+
+            }).then((result) => {
+
+                swal({
+                    title: result.data,
+                    type: "success"
+                });
+
+
+            })
+                .catch((error: AxiosError) => {
+
+                    swal({
+                        title: error.response.data,
+                        type: "error"
+                    });
+
+                    console.log(error.response);
+                });
+        }
     },
 
     mounted() {

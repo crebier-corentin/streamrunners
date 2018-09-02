@@ -26,6 +26,9 @@ export class User extends BaseEntity {
     @Column({default: 0})
     points: number;
 
+    @Column({default: false})
+    moderator: boolean;
+
     async changePoints(amount: number) {
         let repository = getDBConnection().getRepository(User);
 

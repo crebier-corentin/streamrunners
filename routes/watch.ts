@@ -105,4 +105,28 @@ router.post('/add', async (req: Express.Request, res: e.Response) => {
 
 });
 
+router.post('/skip', async (req: Express.Request, res: e.Response) => {
+
+    if (req.isAuthenticated() && req.user.moderator) {
+
+
+        let currentStream = await StreamQueue.currentStream();
+
+        if(currentStream != undefined) {
+            currentStream.current = currentStream.time;
+            await getDBConnection().getRepository(StreamQueue).save(currentStream);
+        }
+
+        res.send("Stream skippé");
+
+
+    }
+    else {
+        res.status(403);
+        res.send("Vous n'avez pas le droit de faire ça !");
+    }
+
+
+});
+
 module.exports = router;

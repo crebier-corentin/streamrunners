@@ -56,6 +56,11 @@
                         class="fas fa-heart"></i>&nbsp;&nbsp;&nbsp;Follow</a>
             <a :href="'https://www.twitch.tv/subs/' + channel" target="_blank" class="btn btn-outline-success sub"><i
                         class="fas fa-plus"></i>&nbsp;&nbsp;&nbsp;S'abonner</a>
+
+            {% if req.user.moderator %}
+                <button class="btn btn-outline-success sub" @click="makeRequestSkip">Passer</button>
+            {% endif %}
+
             <twitch-viewer :channel="channel"></twitch-viewer>
             <hr>
             <div class="d-flex justify-content-center">

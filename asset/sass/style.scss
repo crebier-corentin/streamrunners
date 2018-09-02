@@ -1,6 +1,12 @@
 //Bootstrap
 @import "variables";
 @import "bootstrap/scss/bootstrap";
+
+//Libraries
+@import url("https://use.fontawesome.com/releases/v5.2.0/css/all.css");
+@import "libraries/cookieconsent.min";
+
+//TwitchRunner
 @import "shop";
 
 /*!
@@ -225,11 +231,11 @@ a:hover {
 }
 
 .boutique{
-    margin-top: 15px; 
+    margin-top: 15px;
 }
 
 .boutique:hover{
-    margin-top: 15px; 
+    margin-top: 15px;
 }
 
 .morepoint{

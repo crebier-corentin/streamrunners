@@ -1,4 +1,4 @@
-<html>
+<html lang="fr">
 
 <head>
 
@@ -6,15 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>{{ title | default("Titre") }}</title>
     <link rel="icon" href="/img/favicon.ico" />
-    <link rel="stylesheet"
-          href="https://use.fontawesome.com/releases/v5.2.0/css/all.css"
-          integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ"
-          crossorigin="anonymous">
+
     <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet"
-          type="text/css"
-          href="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.0/cookieconsent.min.css" />
-    <script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.0/cookieconsent.min.js"></script>
+
     <script>
         window.addEventListener("load", function () {
             window.cookieconsent.initialise({

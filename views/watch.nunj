@@ -8,12 +8,12 @@
             <div class="row">
 
                 <div class="col-lg-2 d-flex flex-column align-items-center" v-for="q of queue.slice(0, 4)">
-                    <img class="rounded-circle perso"
+                    <a :href="'https://www.twitch.tv/' + q.user.display_name" target="_blank"/><img class="rounded-circle perso"
                          :src="q.user.avatar"
                          :alt="q.user.display_name"
                          width="90"
-                         height="90">
-                    <div>{% raw %}{{ q.user.display_name }}{% endraw %}</div>
+                        height="90"></a>
+                    <a :href="'https://www.twitch.tv/' + q.user.display_name" target="_blank"/><div>{% raw %}{{ q.user.display_name }}{% endraw %}</div></a>
                 </div>
 
                 <div class="col-lg-2 d-flex flex-column align-items-center">

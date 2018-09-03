@@ -13,6 +13,7 @@ const passport = require('passport');
 const twitchStrategy = require("passport-twitch").Strategy;
 const compression = require('compression');
 const helmet = require('helmet');
+const bodyParser = require('body-parser');
 
 //.env
 require("dotenv").config();
@@ -22,6 +23,7 @@ var indexRouter = require('./routes/index');
 var shopRouter = require('./routes/shop');
 var parrainageRouter = require('./routes/parrainage');
 var giveawayRouter = require('./routes/giveaway');
+var couponRouter = require('./routes/coupon');
 var pointsRouter = require('./routes/points');
 var watchRouter = require('./routes/watch');
 
@@ -45,6 +47,7 @@ createConnection().then(async () => {
     app.use(express.json());
     app.use(express.urlencoded({extended: false}));
     app.use(cookieParser());
+
 
     app.use(compression());
     app.use(helmet());
@@ -134,7 +137,8 @@ createConnection().then(async () => {
     app.use('/shop', shopRouter);
     app.use('/parrainage', parrainageRouter);
     app.use('/giveaway', giveawayRouter);
-    app.use('/pointsFunc', pointsRouter);
+    app.use('/coupon', couponRouter);
+    app.use('/points', pointsRouter);
     app.use('/watch', watchRouter);
 
     app.get("/auth/twitch", passport.authenticate("twitch"));

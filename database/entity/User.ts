@@ -1,8 +1,18 @@
-import {BaseEntity, Column, Entity, OneToMany, PrimaryGeneratedColumn} from "typeorm";
+import {
+    BaseEntity,
+    Column,
+    Entity,
+    JoinColumn,
+    JoinTable,
+    ManyToMany,
+    OneToMany,
+    PrimaryGeneratedColumn
+} from "typeorm";
 import {StreamQueue} from "./StreamQueue";
 import {VIP} from "./VIP";
 import {getDBConnection} from "../connection";
 import moment = require("moment");
+import {Coupon} from "./Coupon";
 
 const uuidv4 = require('uuid/v4');
 
@@ -60,6 +70,11 @@ export class User extends BaseEntity {
     @OneToMany(type => VIP, VIP => VIP.user, {onDelete: "CASCADE", eager: true})
     vip: VIP[];
 
+    @ManyToMany(type => Coupon, {cascade: true})
+    @JoinTable()
+    coupons: Coupon[];
+
+
     /*    //Parrain
         @Column({unique: true, default: uuidv4()})
         parrainage_id: string;
@@ -79,12 +94,27 @@ export class User extends BaseEntity {
             .getCount());
     }
 
+    hasUsedCoupon(code: string): boolean {
+        for (const coupon of this.coupons) {
+            if (code === coupon.name) {
+                return false;
+            }
+        }
+        return true;
+    }
+
 
 }
 
 
 declare global {
     namespace Express {
+        interface Request {
+            user?: User;
+        }
+    }
+
+    namespace e {
         interface Request {
             user?: User;
         }

@@ -1,0 +1,17 @@
+{% extends "master.nunj" %}
+
+{% block content %}
+    <div class="container">
+        <div class="jumbotron text-center">
+
+            <h2 class="display-4">Code Coupon</h2>
+            <hr>
+
+            <div class="form-group">
+                <input type="text" class="form-control" placeholder="Code Coupon">
+            </div>
+
+        </div>
+
+    </div>
+{% endblock %}

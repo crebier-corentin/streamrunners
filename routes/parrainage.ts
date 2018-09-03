@@ -9,7 +9,7 @@ router.get('/', async function (req: Express.Request, res: Response) {
 
     if (req.isAuthenticated()) {
 
-        res.render("parrainage", {title: "TwitchRunner - Parrainage", req, hostname: process.env.HOSTNAME});
+        res.render("parrainage", {title: "TwitchRunners - Parrainage", req, hostname: process.env.HOSTNAME});
     }
     else {
         res.redirect("/");

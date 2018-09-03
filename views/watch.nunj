@@ -14,8 +14,15 @@
                                             :alt="q.user.display_name"
                                             width="90"
                                             height="90"></a>
+                    {% if req.user.moderator %}
+                    <font color="red">
+                        {% endif %}
                     <a :href="'https://www.twitch.tv/' + q.user.username"
                        target="_blank">{% raw %}{{ q.user.display_name }}{% endraw %}</a>
+                        {% if req.user.moderator %}
+                        <i class="fas fa-burn"></i>
+                    </font>
+                    {% endif %}
                 </div>
 
                 <div class="col-lg-2 d-flex flex-column align-items-center">
@@ -58,7 +65,7 @@
                         class="fas fa-plus"></i>&nbsp;&nbsp;&nbsp;S'abonner</a>
 
             {% if req.user.moderator %}
-                <button class="btn btn-outline-success sub" @click="makeRequestSkip">Passer</button>
+                <button class="btn btn-outline-success skip" @click="makeRequestSkip"><i class="fas fa-forward"></i>&nbsp;&nbsp;&nbsp;Passer</button>
             {% endif %}
 
             <twitch-viewer :channel="channel"></twitch-viewer>

@@ -168,6 +168,23 @@ hr {
     border: solid 2px;
 }
 
+.skip{
+  color: #fff;
+  background-color: $blue;
+  border-color: $blue!important;
+  margin-bottom: 5px;
+  border: solid 2px;
+  float: right;
+}
+
+.skip:hover{
+  color: $blue;
+  background-color: #fff;
+  border-color: $blue!important;
+  margin-bottom: 5px;
+  border: solid 2px;
+}
+
 .follow{
     color: #fff;
     background-color: #8c6dc5;

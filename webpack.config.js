@@ -11,7 +11,8 @@ let config = {
     cache: true,
     entry: {
         bundle: path.resolve(__dirname, "asset/js/bundle.js"),
-        watch: path.resolve(__dirname, "asset/js/watch.ts")
+        watch: path.resolve(__dirname, "asset/js/watch.ts"),
+        coupon: path.resolve(__dirname, "asset/js/coupon.ts"),
     },
     output: {
         path: path.resolve(__dirname, './public/js/'),

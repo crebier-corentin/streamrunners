@@ -6,12 +6,18 @@
 
             <h2 class="display-4">Code Coupon</h2>
             <hr>
+            <form>
+                <div class="form-group">
+                    <input type="text" class="form-control" id="coupon" placeholder="Code Coupon">
+                </div>
 
-            <div class="form-group">
-                <input type="text" class="form-control" placeholder="Code Coupon">
-            </div>
-
+                <button type="submit" id="submit" class="btn btn-primary">Envoyer</button>
+            </form>
         </div>
 
     </div>
+{% endblock %}
+
+{% block script %}
+    <script src="js/coupon.js"></script>
 {% endblock %}

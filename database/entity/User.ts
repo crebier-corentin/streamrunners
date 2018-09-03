@@ -70,7 +70,7 @@ export class User extends BaseEntity {
     @OneToMany(type => VIP, VIP => VIP.user, {onDelete: "CASCADE", eager: true})
     vip: VIP[];
 
-    @ManyToMany(type => Coupon, {cascade: true})
+    @ManyToMany(type => Coupon, coupon => coupon.users)
     @JoinTable()
     coupons: Coupon[];
 

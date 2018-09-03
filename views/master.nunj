@@ -61,8 +61,12 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/"><i class="fas fa-home"></i> Accueil</a>
                 </li>
-                {#
+
                 {% if req.isAuthenticated() %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="/coupon"><i class="fas fa-ticket-alt"></i> Coupon</a>
+                    </li>
+                    {#
                     <li class="nav-item">
                         <a class="nav-link" href="/shop"><i class="fas fa-shopping-cart"></i> Boutique</a>
                     </li>
@@ -72,9 +76,10 @@
                     <li class="nav-item">
                         <a class="nav-link" href="/pointsFunc"><i class="fas fa-plus"></i> Plus de pointsFunc</a>
                     </li>
+                    #}
                 {% else %}
                 {% endif %}
-                #}
+
             </ul>
 
             <ul class="navbar-nav ml-auto">

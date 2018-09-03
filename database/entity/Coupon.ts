@@ -28,7 +28,7 @@ export class Coupon extends BaseEntity {
         }
     }
 
-    @ManyToMany(type => User, {cascade: true, eager: true})
+    @ManyToMany(type => User, user => user.coupons, {cascade: true})
     users: User[];
 
     isValid(): boolean {

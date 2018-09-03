@@ -14,15 +14,9 @@
                                             :alt="q.user.display_name"
                                             width="90"
                                             height="90"></a>
-                    {% if req.user.moderator %}
-                    <font color="red">
-                        {% endif %}
+
                     <a :href="'https://www.twitch.tv/' + q.user.username"
                        target="_blank">{% raw %}{{ q.user.display_name }}{% endraw %}</a>
-                        {% if req.user.moderator %}
-                        <i class="fas fa-burn"></i>
-                    </font>
-                    {% endif %}
                 </div>
 
                 <div class="col-lg-2 d-flex flex-column align-items-center">

@@ -19,7 +19,6 @@ router.get('/', async function (req: Express.Request, res) {
     }
 });
 
-
 router.get("/logout", (req: Express.Request, res: e.Response) => {
 
     if (req.isAuthenticated()) {

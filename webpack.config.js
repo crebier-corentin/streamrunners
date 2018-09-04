@@ -13,6 +13,7 @@ let config = {
         bundle: path.resolve(__dirname, "asset/js/bundle.js"),
         watch: path.resolve(__dirname, "asset/js/watch.ts"),
         coupon: path.resolve(__dirname, "asset/js/coupon.ts"),
+        case: path.resolve(__dirname, "asset/js/case.ts"),
     },
     output: {
         path: path.resolve(__dirname, './public/js/'),

@@ -13,13 +13,13 @@ const passport = require('passport');
 const twitchStrategy = require("passport-twitch").Strategy;
 const compression = require('compression');
 const helmet = require('helmet');
-const bodyParser = require('body-parser');
 
 //.env
 require("dotenv").config();
 
 //Load routes
 var indexRouter = require('./routes/index');
+var caseRouter = require('./routes/case');
 var shopRouter = require('./routes/shop');
 var parrainageRouter = require('./routes/parrainage');
 var giveawayRouter = require('./routes/giveaway');
@@ -134,6 +134,7 @@ createConnection().then(async () => {
 
     //Routes
     app.use('/', indexRouter);
+    app.use('/case', caseRouter);
     app.use('/shop', shopRouter);
     app.use('/parrainage', parrainageRouter);
     app.use('/giveaway', giveawayRouter);

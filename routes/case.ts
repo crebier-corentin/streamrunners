@@ -8,9 +8,10 @@ router.get('/', async function (req: Express.Request, res) {
     if (req.isAuthenticated()) {
         res.render('./case', {title: 'TwitchRunners - Accueil', req});
     }
+    else {
 
-    res.redirect("/");
-
+        res.redirect("/");
+    }
 });
 
 module.exports = router;

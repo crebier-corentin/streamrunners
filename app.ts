@@ -2,6 +2,8 @@ import "reflect-metadata";
 import {createConnection} from "typeorm";
 import {User} from "./database/entity/User";
 import {updateStreamQueue} from "./database/entity/StreamQueue";
+import {sync} from "glob";
+import {syncCases} from "./database/entity/Case";
 
 const express = require('express');
 const path = require('path');
@@ -131,7 +133,6 @@ createConnection().then(async () => {
         done();
     });
 
-
     //Routes
     app.use('/', indexRouter);
     app.use('/case', caseRouter);
@@ -147,6 +148,27 @@ createConnection().then(async () => {
         res.redirect("/");
     });
 
+
+    //Sync cases
+   await syncCases([
+        {
+            name: "Beta",
+            content: [{
+                name: "Points 3 000",
+                chance: 25 * 100,
+                amount: 3000,
+                special: null
+
+            },
+                {
+                    name: "Points 5 000",
+                    chance: 23 * 100,
+                    amount: 5000,
+                    special: null
+
+                }]
+        }
+    ]);
 
 }).catch(error => console.log(error));
 

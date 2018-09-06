@@ -7,7 +7,7 @@ import {Response} from 'express';
 
 router.get('/', async function (req: Express.Request, res: Response) {
 
-    res.render("giveaway", {title: "TwitchRunners - Giveaway", req});
+    res.render("giveaway", {title: "StreamRunners - Giveaway", req});
 
 });
 

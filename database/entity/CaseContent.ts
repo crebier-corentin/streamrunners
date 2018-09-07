@@ -22,6 +22,9 @@ export class CaseContent extends BaseEntity {
     name: string;
 
     @Column({nullable: true})
+    image: string;
+
+    @Column({nullable: true})
     amount: number;
 
     @Column()
@@ -30,7 +33,7 @@ export class CaseContent extends BaseEntity {
     @Column({nullable: true})
     special: string;
 
-    @ManyToOne(type => Case, Case => Case.content, {cascade: true})
+    @ManyToOne(type => Case, Case => Case.content)
     case: Case;
 
     @OneToMany(type => CaseOwned, CaseOwned => CaseOwned.content)

@@ -4,6 +4,7 @@ import {User} from "./database/entity/User";
 import {updateStreamQueue} from "./database/entity/StreamQueue";
 import {sync} from "glob";
 import {syncCases} from "./database/entity/Case";
+import {casesContent} from "./other/CaseContent";
 
 const express = require('express');
 const path = require('path');
@@ -104,7 +105,8 @@ createConnection().then(async () => {
     });
     passport.deserializeUser(function (twitchId, done) {
         User.findOne({twitchId: twitchId}).then((user) => {
-            done(null, user);
+            let realUser = user == undefined ? false : user;
+            done(null, realUser);
         });
     });
 
@@ -150,25 +152,7 @@ createConnection().then(async () => {
 
 
     //Sync cases
-   await syncCases([
-        {
-            name: "Beta",
-            content: [{
-                name: "Points 3 000",
-                chance: 25 * 100,
-                amount: 3000,
-                special: null
-
-            },
-                {
-                    name: "Points 5 000",
-                    chance: 23 * 100,
-                    amount: 5000,
-                    special: null
-
-                }]
-        }
-    ]);
+    await syncCases(casesContent);
 
 }).catch(error => console.log(error));
 

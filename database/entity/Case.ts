@@ -1,14 +1,4 @@
-import {
-    BaseEntity,
-    Column,
-    Entity,
-    JoinColumn,
-    ManyToMany,
-    ManyToOne, ObjectType,
-    OneToMany,
-    PrimaryGeneratedColumn, Repository
-} from "typeorm";
-import {User} from "./User";
+import {BaseEntity, Column, Entity, OneToMany, PrimaryGeneratedColumn} from "typeorm";
 import {CaseContent} from "./CaseContent";
 import {CaseOwned} from "./CaseOwned";
 import {getDBConnection} from "../connection";
@@ -22,6 +12,12 @@ export class Case extends BaseEntity {
     @Column({unique: true})
     name: string;
 
+    @Column({nullable: true})
+    openImage: string;
+
+    @Column({nullable: true})
+    closeImage: string;
+
     @OneToMany(type => CaseContent, CaseContent => CaseContent.case, {eager: true})
     content: CaseContent[];
 
@@ -31,18 +27,21 @@ export class Case extends BaseEntity {
 
 }
 
-interface CaseInterface {
+export interface CaseInterface {
     id?: number;
     name: string;
+    openImage?: string;
+    closeImage?: string;
     content: CaseContentInterface[];
 }
 
-interface CaseContentInterface {
+export interface CaseContentInterface {
     id?: number;
     name: string;
-    amount: number;
+    image?: string;
+    amount: number | null;
     chance: number;
-    special: string;
+    special: string | null;
     case?: CaseInterface;
 }
 
@@ -59,7 +58,11 @@ export async function syncCases(cases: Array<CaseInterface>) {
 
         //Update and save
         caseModel.name = c.name;
-        caseRepo.save(caseModel);
+
+        caseModel.openImage = (c.openImage == undefined ? null : c.openImage);
+
+        caseModel.closeImage = (c.closeImage == undefined ? null : c.closeImage);
+        await caseRepo.save(caseModel);
 
         //Reload caseModel
         caseModel = await caseRepo.findOne({where: {name: caseModel.name}});
@@ -82,7 +85,9 @@ export async function syncCases(cases: Array<CaseInterface>) {
             caseContentModel.special = content.special;
             caseContentModel.case = caseModel;
 
-            caseContentRepo.save(caseContentModel);
+            caseContentModel.image = (content.image == undefined ? null : content.image);
+
+            await caseContentRepo.save(caseContentModel);
 
         }
 

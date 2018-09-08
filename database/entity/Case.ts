@@ -24,6 +24,30 @@ export class Case extends BaseEntity {
     @OneToMany(type => CaseOwned, CaseOwned => CaseOwned.case)
     caseOwned: CaseOwned[];
 
+    getRandomContent(): CaseContent {
+        let weights = []; //Probabilities
+        for (const c of this.content) {
+            weights.push(c.chance);
+        }
+
+        let results = this.content; // values to return
+
+
+        let num = Math.random() * 10000,
+            s = 0,
+            lastIndex = weights.length - 1;
+
+        for (let i = 0; i < lastIndex; ++i) {
+            s += weights[i];
+            if (num < s) {
+                return results[i];
+            }
+        }
+
+        return results[lastIndex];
+
+    }
+
 
 }
 

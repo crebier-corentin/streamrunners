@@ -3,11 +3,14 @@
 {% block content %}
     <div class="container d-flex justify-content-center">
 
-        <canvas id="canvas" width="800" height="100" class="m-2" style="border: black 1px solid;"></canvas>
+        <canvas id="canvas" width="800" height="180" class="m-2" style="border: black 1px solid;"></canvas>
 
     </div>
 {% endblock %}
 
 {% block script %}
+    <script>
+        window['spin'] = {{ spin | safe }};
+    </script>
     <script src="js/case.js"></script>
 {% endblock %}

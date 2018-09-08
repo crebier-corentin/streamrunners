@@ -7,46 +7,53 @@ export const casesContent: CaseInterface[] = [
         closeImage: "img/case/Beta/close.png",
         content: [
             {
-                name: "Points 3 000",
+                name: "Points 1 500",
                 chance: 25 * 100,
-                amount: 3000,
-                special: null
+                amount: 1500,
+                special: null,
+                image: "img/case/coin1.png"
+            },
+            {
+                name: "Points 2 500",
+                chance: 23 * 100,
+                amount: 2500,
+                special: null,
+                image: "img/case/coin2.png"
+            },
+            {
+                name: "Points 4 000",
+                chance: 20 * 100,
+                amount: 4000,
+                special: null,
+                image: "img/case/coin2.png"
             },
             {
                 name: "Points 5 000",
-                chance: 23 * 100,
-                amount: 5000,
-                special: null
-            },
-            {
-                name: "Points 8 000",
-                chance: 20 * 100,
-                amount: 8000,
-                special: null
-            },
-            {
-                name: "Points 10 000",
                 chance: 15 * 100,
-                amount: 10000,
-                special: null
+                amount: 5000,
+                special: null,
+                image: "img/case/coin3.png"
             },
             {
-                name: "Points 12 000",
+                name: "Points 6 000",
                 chance: 10 * 100,
-                amount: 12000,
-                special: null
+                amount: 6000,
+                special: null,
+                image: "img/case/coin3.png"
             },
             {
-                name: "Points 15 000",
+                name: "Points 7 500",
                 chance: 3 * 100,
-                amount: 15000,
-                special: null
+                amount: 7500,
+                special: null,
+                image: "img/case/coin4.png"
             },
             {
-                name: "Points 20 000",
+                name: "Badge Beta",
                 chance: 2 * 100,
-                amount: 20000,
-                special: null
+                amount: null,
+                special: "badge_beta",
+                image: "img/case/badge.png"
             },
             {
                 name: "Logo sur la bannière",

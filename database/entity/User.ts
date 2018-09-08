@@ -74,7 +74,6 @@ export class User extends BaseEntity {
     @OneToMany(type => CaseOwned, CaseOwned => CaseOwned.user, {onDelete: "CASCADE", eager: true})
     cases: CaseOwned[];
 
-
     @ManyToMany(type => Coupon, coupon => coupon.users)
     @JoinTable()
     coupons: Coupon[];

@@ -1,6 +1,6 @@
 import {
     BaseEntity,
-    Column,
+    Column, CreateDateColumn,
     Entity,
     JoinColumn,
     ManyToMany,
@@ -18,9 +18,6 @@ export class CaseOwned extends BaseEntity {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column({unique: true})
-    name: string;
-
     @ManyToOne(type => User, user => user.cases, {cascade: true})
     user: User;
 
@@ -29,6 +26,9 @@ export class CaseOwned extends BaseEntity {
 
     @ManyToOne(type => CaseContent, CaseContent => CaseContent.caseOwned, {cascade: true, eager: true, nullable: true})
     content: CaseContent;
+
+    @CreateDateColumn()
+    createdAt: Date;
 
 
 }

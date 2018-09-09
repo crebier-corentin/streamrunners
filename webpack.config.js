@@ -29,7 +29,13 @@ let config = {
                         loader: 'babel-loader'
                     },
                     {
-                        loader: 'ts-loader'
+                        loader: 'ts-loader',
+                        options: {
+                            compilerOptions: {
+                                module: "esnext",
+                                moduleResolution: "node"
+                            }
+                        }
                     }
                 ]
             },

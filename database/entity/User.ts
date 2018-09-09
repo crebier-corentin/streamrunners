@@ -11,10 +11,10 @@ import {
 import {StreamQueue} from "./StreamQueue";
 import {VIP} from "./VIP";
 import {getDBConnection} from "../connection";
-import moment = require("moment");
 import {Coupon} from "./Coupon";
 import {CaseOwned} from "./CaseOwned";
 
+const moment = require("moment");
 const uuidv4 = require('uuid/v4');
 
 

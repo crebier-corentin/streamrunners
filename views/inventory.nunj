@@ -1,0 +1,37 @@
+{% extends "master.nunj" %}
+
+{% block content %}
+    <div class="container">
+
+        <h1 class="text-center">Inventaire</h1>
+        <hr>
+
+        {% for item in req.user.cases %}
+            <div class="row border border-bottom-0 border-primary align-items-center">
+
+                {# Image #}
+                {% if item.content != null %}
+                    <div class="col-2"><img src="{{ item.case.openImage }}" style="max-height: 100%; max-width: 100%">
+                    </div>
+                {% else %}
+                    <div class="col-2"><img src="{{ item.case.closeImage }}" style="max-height: 100%; max-width: 100%">
+                    </div>
+                {% endif %}
+
+                {# Name #}
+                <div class="col-2">{{ item.case.name }}</div>
+
+                {# Content #}
+                {% if item.content != null %}
+                    <div class="col-2">{{ item.content.name }}</div>
+                {% else %}
+                    <div class="col-2">
+                        <button class="btn btn-primary">Ouvrir</button>
+                    </div>
+                {% endif %}
+            </div>
+        {% else %}
+            Votre inventaire est vide.
+        {% endfor %}
+    </div>
+{% endblock %}

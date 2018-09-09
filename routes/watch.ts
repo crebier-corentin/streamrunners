@@ -2,13 +2,12 @@ import {StreamQueue} from "../database/entity/StreamQueue";
 import {Repository} from "typeorm";
 import {getDBConnection} from "../database/connection";
 import {User} from "../database/entity/User";
-import moment = require("moment");
-import e = require("express");
+const moment = require("moment");
 
 var express = require('express');
 var router = express.Router();
 
-router.post('/update', async (req: Express.Request, res: e.Response) => {
+router.post('/update', async (req: Express.Request, res) => {
 
     async function sendData() {
         res.send({
@@ -65,7 +64,7 @@ router.post('/update', async (req: Express.Request, res: e.Response) => {
 
 });
 
-router.post('/add', async (req: Express.Request, res: e.Response) => {
+router.post('/add', async (req: Express.Request, res) => {
 
     if (req.isAuthenticated()) {
 
@@ -105,14 +104,14 @@ router.post('/add', async (req: Express.Request, res: e.Response) => {
 
 });
 
-router.post('/skip', async (req: Express.Request, res: e.Response) => {
+router.post('/skip', async (req: Express.Request, res) => {
 
     if (req.isAuthenticated() && req.user.moderator) {
 
 
         let currentStream = await StreamQueue.currentStream();
 
-        if(currentStream != undefined) {
+        if (currentStream != undefined) {
             currentStream.current = currentStream.time;
             await getDBConnection().getRepository(StreamQueue).save(currentStream);
         }

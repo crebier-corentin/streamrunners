@@ -1,4 +1,3 @@
-import e = require("express");
 import {Case} from "../database/entity/Case";
 import {CaseOwned} from "../database/entity/CaseOwned";
 import {CaseContent} from "../database/entity/CaseContent";
@@ -7,7 +6,7 @@ import {User} from "../database/entity/User";
 var express = require('express');
 var router = express.Router();
 
-router.get('/', async function (req: Express.Request, res) {
+router.get('/open', async function (req: Express.Request, res) {
 
     if (req.isUnauthenticated()) {
         res.redirect("/");
@@ -38,6 +37,17 @@ router.get('/', async function (req: Express.Request, res) {
     await req.user.save();
 
     res.render('./case', {title: 'TwitchRunners - Accueil', req, spin: JSON.stringify(spin)});
+
+});
+
+router.get('/inventory', async function (req: Express.Request, res) {
+
+    if (req.isUnauthenticated()) {
+        res.redirect("/");
+        return;
+    }
+
+    res.render("inventory", {title: 'TwitchRunners - Inventaire', req});
 
 });
 

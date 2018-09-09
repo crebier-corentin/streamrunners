@@ -11,8 +11,6 @@ function randomIntFromInterval(min, max) {
 }
 
 (() => {
-
-    let timeline = new createjs.Timeline([], "spin", {});
     let container = new createjs.Container();
 
     stage.addChild(container);
@@ -47,7 +45,7 @@ function randomIntFromInterval(min, max) {
 
 
     const totalDistance = stage.canvas["width"] / 2 + shapeWidth * 50 + randomIntFromInterval(5, shapeWidth - 5);
-    timeline.addTween(createjs.Tween.get(container).to({x: totalDistance}, 5000, createjs.Ease.quadInOut));
+    createjs.Tween.get(container).to({x: totalDistance}, 5000, createjs.Ease.quadInOut);
 
     //Middle
     let middle = new createjs.Shape();
@@ -56,8 +54,6 @@ function randomIntFromInterval(min, max) {
 
 
     createjs.Ticker.addEventListener("tick", function (event) {
-
-
         stage.update();
     });
 })();

@@ -1,11 +1,10 @@
 // eslint-disable-next-line no-undef
-import e = require("express");
 import {User} from "../database/entity/User";
 
 var express = require('express');
 var router = express.Router();
 
-/* GET home page. */
+
 router.get('/', async function (req: Express.Request, res) {
 
 
@@ -19,7 +18,7 @@ router.get('/', async function (req: Express.Request, res) {
     }
 });
 
-router.get("/logout", (req: Express.Request, res: e.Response) => {
+router.get("/logout", (req: Express.Request, res) => {
 
     if (req.isAuthenticated()) {
         req.logOut();

@@ -2,7 +2,7 @@ import {BaseEntity, Column, CreateDateColumn, Entity, ManyToOne, PrimaryGenerate
 import {User} from "./User";
 import {StreamQueue} from "./StreamQueue";
 import {getDBConnection} from "../connection";
-import moment = require("moment");
+const moment = require("moment");
 
 @Entity()
 export class VIP extends BaseEntity {

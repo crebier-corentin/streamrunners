@@ -12,5 +12,5 @@
     <script>
         window['spin'] = {{ spin | safe }};
     </script>
-    <script src="js/case.js"></script>
+    <script src="/js/case.js"></script>
 {% endblock %}

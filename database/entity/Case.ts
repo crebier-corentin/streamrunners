@@ -24,13 +24,17 @@ export class Case extends BaseEntity {
     @OneToMany(type => CaseOwned, CaseOwned => CaseOwned.case)
     caseOwned: CaseOwned[];
 
-    getRandomContent(): CaseContent {
+    async getRandomContent(): Promise<CaseContent> {
+        //Check if relation is loaded
+        let content;
+        content = this.content == undefined ? (await getDBConnection().getRepository(Case).findOne(this.id)).content : this.content;
+
         let weights = []; //Probabilities
-        for (const c of this.content) {
+        for (const c of content) {
             weights.push(c.chance);
         }
 
-        let results = this.content; // values to return
+        let results = content; // values to return
 
 
         let num = Math.random() * 10000,

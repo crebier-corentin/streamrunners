@@ -11,12 +11,16 @@ import {
 import {User} from "./User";
 import {CaseContent} from "./CaseContent";
 import {Case} from "./Case";
+import {randomString} from "../connection";
 
 @Entity()
 export class CaseOwned extends BaseEntity {
 
     @PrimaryGeneratedColumn()
     id: number;
+
+    @Column({unique: true})
+    uuid: string;
 
     @ManyToOne(type => User, user => user.cases, {cascade: true})
     user: User;
@@ -29,6 +33,10 @@ export class CaseOwned extends BaseEntity {
 
     @CreateDateColumn()
     createdAt: Date;
+
+    isOpened() : boolean {
+        return this.content != null;
+    }
 
 
 }

@@ -1,4 +1,5 @@
 import {Connection, getConnection} from "typeorm";
+const crypto = require("crypto");
 
 export function getDBConnection() {
     let repository: Connection;
@@ -11,4 +12,8 @@ export function getDBConnection() {
     }
 
     return repository;
+}
+
+export function randomString(n: number = 20) {
+    return crypto.randomBytes(n).toString('hex');
 }

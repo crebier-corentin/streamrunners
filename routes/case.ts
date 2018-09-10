@@ -2,6 +2,7 @@ import {Case} from "../database/entity/Case";
 import {CaseOwned} from "../database/entity/CaseOwned";
 import {CaseContent} from "../database/entity/CaseContent";
 import {User} from "../database/entity/User";
+import {getDBConnection, randomString} from "../database/connection";
 
 var express = require('express');
 var router = express.Router();
@@ -13,15 +14,26 @@ router.get('/open', async function (req: Express.Request, res) {
         return;
     }
 
-    let caseOwned = new CaseOwned();
-    caseOwned.case = (await Case.findOne(1));
+    //Find case
+    const repository = getDBConnection().getRepository(CaseOwned);
+    let caseOwned = await repository.createQueryBuilder("c")
+        .leftJoinAndSelect("c.user", "user")
+        .leftJoinAndSelect("c.case", "case")
+        .where("user.id = :id", {id: req.user.id})
+        .andWhere("c.uuid = :uuid", {uuid: req['query'].uuid})
+        .getOne();
+
+    if (caseOwned == undefined) {
+        res.redirect('/case/inventory');
+        return;
+    }
 
     let spin = [];
 
     //Get Content
     let winning: CaseContent;
     for (let i = 0; i < 56; i++) {
-        let item = caseOwned.case.getRandomContent();
+        let item = await caseOwned.case.getRandomContent();
         spin.push({name: item.name, color: item.getRareColor(), image: item.image});
 
         if (i === 51) {
@@ -31,10 +43,7 @@ router.get('/open', async function (req: Express.Request, res) {
 
     //Winning = 51
     caseOwned.content = winning;
-    req.user.cases.push(caseOwned);
-
-    await caseOwned.save();
-    await req.user.save();
+    await repository.save(caseOwned);
 
     res.render('./case', {title: 'TwitchRunners - Accueil', req, spin: JSON.stringify(spin)});
 

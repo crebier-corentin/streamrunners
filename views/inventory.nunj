@@ -10,7 +10,7 @@
             <div class="row border border-bottom-0 border-primary align-items-center">
 
                 {# Image #}
-                {% if item.content != null %}
+                {% if item.isOpened() %}
                     <div class="col-2"><img src="{{ item.case.openImage }}" style="max-height: 100%; max-width: 100%">
                     </div>
                 {% else %}
@@ -22,11 +22,11 @@
                 <div class="col-2">{{ item.case.name }}</div>
 
                 {# Content #}
-                {% if item.content != null %}
+                {% if item.isOpened() %}
                     <div class="col-2">{{ item.content.name }}</div>
                 {% else %}
                     <div class="col-2">
-                        <button class="btn btn-primary">Ouvrir</button>
+                        <a href="/case/open?uuid={{ item.uuid }}" class="btn btn-primary">Ouvrir</a>
                     </div>
                 {% endif %}
             </div>

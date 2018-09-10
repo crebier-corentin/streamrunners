@@ -65,7 +65,8 @@ export const casesContent: CaseInterface[] = [
                 name: "Jeux Steam Aléatoire",
                 chance: 0.01 * 100,
                 amount: null,
-                special: "steam"
+                special: "steam",
+                image: "/img/case/steam.png"
             },
         ]
     }

@@ -1,8 +1,11 @@
 import * as createjs from 'createjs-module';
+import swal from 'sweetalert2';
 
+//Constant
 createjs.Ticker.framerate = 60;
-
 const shapeWidth = 180;
+
+//Stage and result
 let stage = new createjs.Stage("canvas");
 const spin: Array<{ name: string, color: string, image: string }> = window['spin'];
 
@@ -10,6 +13,21 @@ function randomIntFromInterval(min, max) {
     return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
+//Show result modal
+function showResult() {
+
+    swal({
+        type: "success",
+        title: "Vous avez gagné :",
+        imageUrl: spin[51].image,
+        text: spin[51].name,
+        timer: 5000
+    }).then(() => {
+        document.location.href = "/case/inventory";
+    });
+}
+
+//Animation function
 (() => {
     let container = new createjs.Container();
 
@@ -44,15 +62,16 @@ function randomIntFromInterval(min, max) {
     }
 
 
+    //Create animation
     const totalDistance = stage.canvas["width"] / 2 + shapeWidth * 50 + randomIntFromInterval(5, shapeWidth - 5);
-    createjs.Tween.get(container).to({x: totalDistance}, 5000, createjs.Ease.quadInOut);
+    createjs.Tween.get(container).to({x: totalDistance}, 5000, createjs.Ease.quadInOut).call(showResult);
 
     //Middle
     let middle = new createjs.Shape();
     middle.graphics.beginFill("#000000").drawRect(stage.canvas["width"] / 2, 0, 5, stage.canvas["height"]);
     stage.addChild(middle);
 
-
+    //Start animation
     createjs.Ticker.addEventListener("tick", function (event) {
         stage.update();
     });

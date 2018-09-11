@@ -7,7 +7,7 @@
         <hr>
 
         {% for item in req.user.cases %}
-            <div class="row border border-bottom-0 border-primary align-items-center">
+            <div class="row border {% if not loop.last %} border-bottom-0 {% endif %} border-primary align-items-center">
 
                 {# Image #}
                 {% if item.isOpened() %}

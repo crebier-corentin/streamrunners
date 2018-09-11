@@ -78,6 +78,8 @@ export class User extends BaseEntity {
     @JoinTable()
     coupons: Coupon[];
 
+    @Column({default: false})
+    betaBage: boolean;
 
 
     /*    //Parrain

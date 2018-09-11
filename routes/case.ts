@@ -45,6 +45,9 @@ router.get('/open', async function (req: Express.Request, res) {
     caseOwned.content = winning;
     await repository.save(caseOwned);
 
+    //Give prize
+    await winning.applyContent(req.user);
+
     res.render('./case', {title: 'TwitchRunners - Accueil', req, spin: JSON.stringify(spin)});
 
 });

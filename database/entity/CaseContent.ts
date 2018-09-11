@@ -11,6 +11,7 @@ import {
 import {User} from "./User";
 import {Case} from "./Case";
 import {CaseOwned} from "./CaseOwned";
+import {getDBConnection} from "../connection";
 
 @Entity()
 export class CaseContent extends BaseEntity {
@@ -79,6 +80,28 @@ export class CaseContent extends BaseEntity {
         return "#808080";
 
 
+    }
+
+    async applyContent(user: User) {
+        const userRepository = getDBConnection().getRepository(User);
+
+
+        if (this.special != null) {
+
+            switch (this.special) {
+                case "badge_beta":
+                    user.betaBage = true;
+                    break;
+            }
+
+        }
+        else {
+
+            //Points
+            await user.changePoints(this.amount);
+        }
+
+        await userRepository.save(user);
     }
 
 

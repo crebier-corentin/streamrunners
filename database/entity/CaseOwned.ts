@@ -5,13 +5,14 @@ import {
     JoinColumn,
     ManyToMany,
     ManyToOne,
-    OneToMany,
+    OneToMany, OneToOne,
     PrimaryGeneratedColumn
 } from "typeorm";
 import {User} from "./User";
 import {CaseContent} from "./CaseContent";
 import {Case} from "./Case";
 import {randomString} from "../connection";
+import {SteamKey} from "./SteamKey";
 
 @Entity()
 export class CaseOwned extends BaseEntity {

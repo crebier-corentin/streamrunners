@@ -5,13 +5,14 @@ import {
     JoinColumn,
     ManyToMany,
     ManyToOne,
-    OneToMany,
+    OneToMany, OneToOne,
     PrimaryGeneratedColumn
 } from "typeorm";
 import {User} from "./User";
 import {Case} from "./Case";
 import {CaseOwned} from "./CaseOwned";
 import {getDBConnection} from "../connection";
+import {SteamKey} from "./SteamKey";
 
 @Entity()
 export class CaseContent extends BaseEntity {
@@ -39,6 +40,9 @@ export class CaseContent extends BaseEntity {
 
     @OneToMany(type => CaseOwned, CaseOwned => CaseOwned.content)
     caseOwned: CaseOwned;
+
+    @OneToOne(type => SteamKey, steamKey => steamKey.caseContent, {cascade: true, eager: true, nullable: true})
+    steamKey: SteamKey;
 
     getRareColor(): string {
         const value = this.chance;
@@ -84,6 +88,7 @@ export class CaseContent extends BaseEntity {
 
     async applyContent(user: User) {
         const userRepository = getDBConnection().getRepository(User);
+        const caseContentRepository = getDBConnection().getRepository(CaseContent);
 
 
         if (this.special != null) {
@@ -91,6 +96,11 @@ export class CaseContent extends BaseEntity {
             switch (this.special) {
                 case "badge_beta":
                     user.betaBage = true;
+                    break;
+
+                case "steam":
+                    this.steamKey = await SteamKey.random();
+                    caseContentRepository.save(this);
                     break;
             }
 

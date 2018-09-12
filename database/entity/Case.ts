@@ -2,6 +2,7 @@ import {BaseEntity, Column, Entity, OneToMany, PrimaryGeneratedColumn} from "typ
 import {CaseContent} from "./CaseContent";
 import {CaseOwned} from "./CaseOwned";
 import {getDBConnection} from "../connection";
+import {SteamKey} from "./SteamKey";
 
 @Entity()
 export class Case extends BaseEntity {
@@ -25,30 +26,48 @@ export class Case extends BaseEntity {
     caseOwned: CaseOwned[];
 
     async getRandomContent(): Promise<CaseContent> {
+
         //Check if relation is loaded
         let content;
-        content = this.content == undefined ? (await getDBConnection().getRepository(Case).findOne(this.id)).content : this.content;
+        content = (this.content == undefined ? (await getDBConnection().getRepository(Case).findOne(this.id)).content : this.content);
 
-        let weights = []; //Probabilities
-        for (const c of content) {
-            weights.push(c.chance);
-        }
+        function realGetRandomContent(): CaseContent {
 
-        let results = content; // values to return
-
-
-        let num = Math.random() * 10000,
-            s = 0,
-            lastIndex = weights.length - 1;
-
-        for (let i = 0; i < lastIndex; ++i) {
-            s += weights[i];
-            if (num < s) {
-                return results[i];
+            let weights = []; //Probabilities
+            for (const c of content) {
+                weights.push(c.chance);
             }
+
+            let results = content; // values to return
+
+
+            let num = Math.random() * 10000,
+                s = 0,
+                lastIndex = weights.length - 1;
+
+            for (let i = 0; i < lastIndex; ++i) {
+                s += weights[i];
+                if (num < s) {
+                    return results[i];
+                }
+            }
+
+            return results[lastIndex];
         }
 
-        return results[lastIndex];
+        let result: CaseContent;
+
+        //If no more key available
+        if (!(await SteamKey.isAvailable())) {
+            do {
+                result = realGetRandomContent();
+            } while (result.special === "steam");
+        }
+        else {
+            result = realGetRandomContent();
+        }
+
+        return result;
 
     }
 

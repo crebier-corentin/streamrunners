@@ -24,6 +24,13 @@
                 {# Content #}
                 {% if item.isOpened() %}
                     <div class="col-2">{{ item.content.name }}</div>
+
+                    {# Steam Key #}
+                    {% if item.content.steamKey != null %}
+                        <div class="col-2">{{ item.content.steamKey.game }}</div>
+                        <div class="col-2 small">{{ item.content.steamKey.key }}</div>
+                    {% endif %}
+
                 {% else %}
                     <div class="col-2">
                         <a href="/case/open?uuid={{ item.uuid }}" class="btn btn-primary">Ouvrir</a>

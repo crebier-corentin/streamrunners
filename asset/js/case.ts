@@ -72,7 +72,7 @@ function showResult() {
     stage.addChild(middle);
 
     //Start animation
-    createjs.Ticker.addEventListener("tick", function (event) {
+    createjs.Ticker.addEventListener("tick", event => {
         stage.update();
     });
 })();

@@ -71,6 +71,9 @@
                     <li class="nav-item">
                         <a class="nav-link" href="/coupon"><i class="fas fa-ticket-alt"></i> Coupon</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/case/inventory"><i class="fas fa-suitcase"></i> Inventaire</a>
+                    </li>
                     {#
                     <li class="nav-item">
                         <a class="nav-link" href="/shop"><i class="fas fa-shopping-cart"></i> Boutique</a>

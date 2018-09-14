@@ -47,25 +47,32 @@ function spin() {
             toggleButton();
             return axios.post("/case/open", {uuid: window['uuid']});
         }
+        else {
+            return Promise.reject("cancel");
+        }
 
     }).then((result) => {
         //If redirect
         if (result.status !== 200) {
-            return Promise.reject();
+            return Promise.reject("status");
         }
 
         launchAnimation(result.data);
 
-    }).catch(() => {
+    }).catch((err) => {
 
-        //If error
-        swal({
-            type: "error",
-            title: "Un erreur c'est produite",
-            timer: 5000
-        }).then(() => {
-            document.location.href = "/case/inventory";
-        });
+        if (err !== "cancel") {
+
+            //If error
+            swal({
+                type: "error",
+                title: "Un erreur c'est produite",
+                timer: 5000
+            }).then(() => {
+                document.location.href = "/case/inventory";
+            });
+
+        }
 
     });
 }

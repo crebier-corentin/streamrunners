@@ -1,6 +1,7 @@
 import {CaseOwned} from "../database/entity/CaseOwned";
 import {CaseContent} from "../database/entity/CaseContent";
 import {getDBConnection} from "../database/connection";
+import {SteamKey} from "../database/entity/SteamKey";
 
 var express = require('express');
 var router = express.Router();
@@ -23,6 +24,7 @@ async function hasCase(req): Promise<CaseOwned | undefined> {
     return await repository.createQueryBuilder("c")
         .leftJoinAndSelect("c.user", "user")
         .leftJoinAndSelect("c.case", "case")
+        .leftJoinAndSelect("case.content", "content")
         .where("user.id = :id", {id: req.user.id})
         .andWhere("c.uuid = :uuid", {uuid})
         .andWhere("contentId IS NULL")
@@ -69,7 +71,13 @@ router.get('/show', async function (req: Express.Request, res) {
         return;
     }
 
-    res.render('./case', {title: 'TwitchRunners - Caisse', req, uuid: req['query'].uuid});
+    res.render('./case', {
+        title: 'TwitchRunners - Caisse',
+        req,
+        uuid: req['query'].uuid,
+        caseContent: caseOwned.case.content,
+        steamKeyAvailable: SteamKey.isAvailable()
+    });
 
 });
 

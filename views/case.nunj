@@ -27,6 +27,7 @@
 {% block script %}
     <script>
         window['uuid'] = "{{ uuid | safe }}";
+        window['steamKeyAvailable'] = {{ steamKeyAvailable | safe }};
     </script>
     <script src="/js/case.js"></script>
 {% endblock %}

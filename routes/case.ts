@@ -76,7 +76,7 @@ router.get('/show', async function (req: Express.Request, res) {
         req,
         uuid: req['query'].uuid,
         caseContent: caseOwned.case.content,
-        steamKeyAvailable: SteamKey.isAvailable()
+        steamKeyAvailable: await SteamKey.isAvailable()
     });
 
 });

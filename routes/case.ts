@@ -1,31 +1,41 @@
-import {Case} from "../database/entity/Case";
 import {CaseOwned} from "../database/entity/CaseOwned";
 import {CaseContent} from "../database/entity/CaseContent";
-import {User} from "../database/entity/User";
-import {getDBConnection, randomString} from "../database/connection";
+import {getDBConnection} from "../database/connection";
 
 var express = require('express');
 var router = express.Router();
 
-router.get('/open', async function (req: Express.Request, res) {
-
+//Check if user has case, else return undefined
+async function hasCase(req): Promise<CaseOwned | undefined> {
     if (req.isUnauthenticated()) {
-        res.redirect("/");
-        return;
+        return undefined;
     }
 
-    //Find case
+    //Get uuid Post or Get
+    let uuid = req['query'].uuid == undefined ? req['body'].uuid : req['query'].uuid;
+
+    if (uuid == undefined) {
+        return undefined;
+    }
+
+    //Find unopened case
     const repository = getDBConnection().getRepository(CaseOwned);
-    let caseOwned = await repository.createQueryBuilder("c")
+    return await repository.createQueryBuilder("c")
         .leftJoinAndSelect("c.user", "user")
         .leftJoinAndSelect("c.case", "case")
         .where("user.id = :id", {id: req.user.id})
-        .andWhere("c.uuid = :uuid", {uuid: req['query'].uuid})
+        .andWhere("c.uuid = :uuid", {uuid})
+        .andWhere("contentId IS NULL")
         .getOne();
+}
 
+router.post('/open', async function (req: Express.Request, res) {
+
+    const repository = getDBConnection().getRepository(CaseOwned);
+
+    let caseOwned = await hasCase(req);
     if (caseOwned == undefined) {
-        res.redirect('/case/inventory');
-        return;
+        return res.status(403).send('Bad Request');
     }
 
     let spin = [];
@@ -47,8 +57,19 @@ router.get('/open', async function (req: Express.Request, res) {
 
     //Give prize
     await winning.applyContent(req.user);
+    return res.json(spin);
 
-    res.render('./case', {title: 'TwitchRunners - Accueil', req, spin: JSON.stringify(spin)});
+});
+
+router.get('/show', async function (req: Express.Request, res) {
+
+    let caseOwned = await hasCase(req);
+    if (caseOwned == undefined) {
+        res.redirect('/case/inventory');
+        return;
+    }
+
+    res.render('./case', {title: 'TwitchRunners - Caisse', req, uuid: req['query'].uuid});
 
 });
 

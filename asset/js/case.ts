@@ -1,34 +1,93 @@
 import * as createjs from 'createjs-module';
 import swal from 'sweetalert2';
+import axios from 'axios';
 
-//Constant
-createjs.Ticker.framerate = 60;
-const shapeWidth = 180;
-
-//Stage and result
-let stage = new createjs.Stage("canvas");
-const spin: Array<{ name: string, color: string, image: string }> = window['spin'];
+interface Spin {
+    name: string,
+    color: string,
+    image: string
+}
 
 function randomIntFromInterval(min, max) {
     return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
-//Show result modal
-function showResult() {
+//Constants
+createjs.Ticker.framerate = 60;
+const shapeWidth = 180;
+
+//Stage
+let stage = new createjs.Stage("canvas");
+
+//Button open
+const button = <HTMLButtonElement> document.getElementById("open");
+button.addEventListener("click", evt => {
+    evt.preventDefault();
+    spin();
+});
+
+//Toggle disable on button
+function toggleButton() {
+    button.disabled = !button.disabled;
+}
+
+//Get result and launchAnimation
+function spin() {
 
     swal({
-        type: "success",
-        title: "Vous avez gagné :",
-        imageUrl: spin[51].image,
-        text: spin[51].name,
-        timer: 5000
-    }).then(() => {
-        document.location.href = "/case/inventory";
+        type: "question",
+        title: "Ouvrir la caisse?",
+        showCancelButton: true,
+        confirmButtonText: 'Oui',
+        cancelButtonText: 'Non'
+
+    }).then((result) => {
+
+        if (result.value) {
+            toggleButton();
+            return axios.post("/case/open", {uuid: window['uuid']});
+        }
+
+    }).then((result) => {
+        //If redirect
+        if (result.status !== 200) {
+            return Promise.reject();
+        }
+
+        launchAnimation(result.data);
+
+    }).catch(() => {
+
+        //If error
+        swal({
+            type: "error",
+            title: "Un erreur c'est produite",
+            timer: 5000
+        }).then(() => {
+            document.location.href = "/case/inventory";
+        });
+
     });
 }
 
+
 //Animation function
-(() => {
+function launchAnimation(spin: Array<Spin>) {
+
+    //Show result modal
+    function showResult() {
+
+        swal({
+            type: "success",
+            title: "Vous avez gagné :",
+            imageUrl: spin[51].image,
+            text: spin[51].name,
+            timer: 5000
+        }).then(() => {
+            document.location.href = "/case/inventory";
+        });
+    }
+
     let container = new createjs.Container();
 
     stage.addChild(container);
@@ -75,4 +134,4 @@ function showResult() {
     createjs.Ticker.addEventListener("tick", event => {
         stage.update();
     });
-})();
+}

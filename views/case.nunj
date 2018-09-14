@@ -1,16 +1,18 @@
 {% extends "master.nunj" %}
 
 {% block content %}
-    <div class="container d-flex justify-content-center">
+    <div class="container d-flex justify-content-center flex-column align-items-center">
 
         <canvas id="canvas" width="800" height="180" class="m-2" style="border: black 1px solid;"></canvas>
+
+        <button id="open" class="btn btn-primary">Ouvrir</button>
 
     </div>
 {% endblock %}
 
 {% block script %}
     <script>
-        window['spin'] = {{ spin | safe }};
+        window['uuid'] = "{{ uuid | safe }}";
     </script>
     <script src="/js/case.js"></script>
 {% endblock %}

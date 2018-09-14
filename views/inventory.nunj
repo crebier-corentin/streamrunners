@@ -33,7 +33,7 @@
 
                 {% else %}
                     <div class="col-2">
-                        <a href="/case/open?uuid={{ item.uuid }}" class="btn btn-primary">Ouvrir</a>
+                        <a href="/case/show?uuid={{ item.uuid }}" class="btn btn-primary">Ouvrir</a>
                     </div>
                 {% endif %}
             </div>

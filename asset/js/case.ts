@@ -1,5 +1,6 @@
-import * as createjs from 'createjs-module';
-import swal from 'sweetalert2';
+import {Stage, Container, Bitmap, Text, Shadow, Ticker, Tween, Shape, Ease} from 'createjs-module';
+
+import swal from 'sweetalert2/dist/sweetalert2';
 import axios from 'axios';
 
 interface Spin {
@@ -13,11 +14,11 @@ function randomIntFromInterval(min, max) {
 }
 
 //Constants
-createjs.Ticker.framerate = 60;
+Ticker.framerate = 60;
 const shapeWidth = 180;
 
 //Stage
-let stage = new createjs.Stage("canvas");
+let stage = new Stage("canvas");
 
 //Button open
 const button = <HTMLButtonElement> document.getElementById("open");
@@ -95,7 +96,7 @@ function launchAnimation(spin: Array<Spin>) {
         });
     }
 
-    let container = new createjs.Container();
+    let container = new Container();
 
     stage.addChild(container);
 
@@ -103,18 +104,18 @@ function launchAnimation(spin: Array<Spin>) {
     for (let i = 0; i < spin.length; i++) {
         //Color
 
-        let shape = new createjs.Shape();
+        let shape = new Shape();
         shape.graphics.beginFill(spin[i].color).drawRect(0, 0, shapeWidth, 180).beginStroke("black").drawRect(0, 0, shapeWidth, 180);
         //   .beginRadialGradientFill([spin[i].color, "white"], [0.5, 1], shapeWidth / 2, shapeWidth / 2, 0, shapeWidth / 2, shapeWidth / 2, shapeWidth).drawRect(0, 0, shapeWidth, 180);
 
 
-        let image = new createjs.Bitmap(spin[i].image);
+        let image = new Bitmap(spin[i].image);
 
-        let text = new createjs.Text();
+        let text = new Text();
         text.font = '15px serif';
         text.text = spin[i].name;
         text.color = "white";
-        text.shadow = new createjs.Shadow("#000000", 1, 1, 1);
+        text.shadow = new Shadow("#000000", 1, 1, 1);
 
         shape.x = -shapeWidth * i;
         image.x = -shapeWidth * i;
@@ -130,15 +131,15 @@ function launchAnimation(spin: Array<Spin>) {
 
     //Create animation
     const totalDistance = stage.canvas["width"] / 2 + shapeWidth * 50 + randomIntFromInterval(5, shapeWidth - 5);
-    createjs.Tween.get(container).to({x: totalDistance}, 5000, createjs.Ease.quadInOut).call(showResult);
+    Tween.get(container).to({x: totalDistance}, 5000, Ease.quadInOut).call(showResult);
 
     //Middle
-    let middle = new createjs.Shape();
+    let middle = new Shape();
     middle.graphics.beginFill("#000000").drawRect(stage.canvas["width"] / 2, 0, 5, stage.canvas["height"]);
     stage.addChild(middle);
 
     //Start animation
-    createjs.Ticker.addEventListener("tick", event => {
+    Ticker.addEventListener("tick", event => {
         stage.update();
     });
 }

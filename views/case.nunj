@@ -1,5 +1,10 @@
 {% extends "master.nunj" %}
 
+{% block css %}
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.26.28/sweetalert2.min.css" />
+{% endblock %}
+
 {% block content %}
     <div class="container d-flex justify-content-center flex-column align-items-center">
 

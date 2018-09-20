@@ -11,9 +11,10 @@ import {
 import {StreamQueue} from "./StreamQueue";
 import {VIP} from "./VIP";
 import {getDBConnection} from "../connection";
-import moment = require("moment");
 import {Coupon} from "./Coupon";
+import {CaseOwned} from "./CaseOwned";
 
+const moment = require("moment");
 const uuidv4 = require('uuid/v4');
 
 
@@ -70,9 +71,15 @@ export class User extends BaseEntity {
     @OneToMany(type => VIP, VIP => VIP.user, {onDelete: "CASCADE", eager: true})
     vip: VIP[];
 
+    @OneToMany(type => CaseOwned, CaseOwned => CaseOwned.user, {onDelete: "CASCADE", eager: true})
+    cases: CaseOwned[];
+
     @ManyToMany(type => Coupon, coupon => coupon.users)
     @JoinTable()
     coupons: Coupon[];
+
+    @Column({default: false})
+    betaBage: boolean;
 
 
     /*    //Parrain
@@ -92,15 +99,6 @@ export class User extends BaseEntity {
         return (await repository.createQueryBuilder("user")
             .where("user.lastUpdate > :current", {current: moment().subtract(30, "seconds").utc().format("YYYY-MM-DD HH:mm:ss")})
             .getCount());
-    }
-
-    hasUsedCoupon(code: string): boolean {
-        for (const coupon of this.coupons) {
-            if (code === coupon.name) {
-                return false;
-            }
-        }
-        return true;
     }
 
 

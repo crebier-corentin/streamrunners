@@ -65,9 +65,9 @@
             <twitch-viewer :channel="channel"></twitch-viewer>
             <hr>
             <div class="d-flex justify-content-center">
-                <span class="badge badge-secondary">Temps restant : {% raw %}{{ timeLeft }}{% endraw %} s</span>
-                <span class="badge badge-secondary">Vos points : {% raw %}{{ points }}{% endraw %}</span>
-                <span class="badge badge-secondary">Viewers : {% raw %}{{ viewers }}{% endraw %}</span>
+                <span class="badge badge-secondary">{% raw %}{{ timeLeft }}{% endraw %}s <i class="fas fa-clock" width="16px" height="16px"></i></span>
+                <span class="badge badge-secondary">{% raw %}{{ points }}{% endraw %} <img src="/img/po.png" width="16px" height="16px"/></span>
+                <span class="badge badge-secondary">{% raw %}{{ viewers }}{% endraw %} <i class="fas fa-eye" width="16px" height="16px"></i></span>
             </div>
         </template>
 

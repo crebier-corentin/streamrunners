@@ -1,10 +1,25 @@
 {
   "presets": [
-    ["env", {
-      "targets": {
-        "browsers": ["last 2 versions"],
-        "modules": false
+    [
+      "env",
+      {
+        "targets": {
+          "browsers": [
+            "last 2 versions"
+          ],
+          "modules": false
+        }
       }
-    }]
+    ]
+  ],
+  "plugins": [
+    [
+      "transform-runtime",
+      {
+        "polyfill": false,
+        "regenerator": true
+      }
+    ],
+    "@babel/plugin-transform-regenerator"
   ]
 }

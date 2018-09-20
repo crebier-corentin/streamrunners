@@ -2,6 +2,9 @@ import "reflect-metadata";
 import {createConnection} from "typeorm";
 import {User} from "./database/entity/User";
 import {updateStreamQueue} from "./database/entity/StreamQueue";
+import {sync} from "glob";
+import {syncCases} from "./database/entity/Case";
+import {casesContent} from "./other/CaseContent";
 
 const express = require('express');
 const path = require('path');
@@ -13,13 +16,13 @@ const passport = require('passport');
 const twitchStrategy = require("passport-twitch").Strategy;
 const compression = require('compression');
 const helmet = require('helmet');
-const bodyParser = require('body-parser');
 
 //.env
 require("dotenv").config();
 
 //Load routes
 var indexRouter = require('./routes/index');
+var caseRouter = require('./routes/case');
 var shopRouter = require('./routes/shop');
 var parrainageRouter = require('./routes/parrainage');
 var giveawayRouter = require('./routes/giveaway');
@@ -102,7 +105,8 @@ createConnection().then(async () => {
     });
     passport.deserializeUser(function (twitchId, done) {
         User.findOne({twitchId: twitchId}).then((user) => {
-            done(null, user);
+            let realUser = user == undefined ? false : user;
+            done(null, realUser);
         });
     });
 
@@ -131,9 +135,9 @@ createConnection().then(async () => {
         done();
     });
 
-
     //Routes
     app.use('/', indexRouter);
+    app.use('/case', caseRouter);
     app.use('/shop', shopRouter);
     app.use('/parrainage', parrainageRouter);
     app.use('/giveaway', giveawayRouter);
@@ -146,6 +150,9 @@ createConnection().then(async () => {
         res.redirect("/");
     });
 
+
+    //Sync cases
+    await syncCases(casesContent);
 
 }).catch(error => console.log(error));
 

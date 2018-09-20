@@ -1,5 +1,5 @@
 import {createConnection} from "typeorm";
-import {User} from "./database/entity/User";
+import {User} from "../database/entity/User";
 
 (async () => {
         await createConnection();

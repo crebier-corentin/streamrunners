@@ -119,7 +119,7 @@ export async function syncCases(cases: Array<CaseInterface>) {
 
             //Find or create
             const tmp2 = await caseContentRepo.createQueryBuilder("content")
-                .leftJoinAndSelect("case", "c")
+                .leftJoinAndSelect("content.case", "c")
                 .where("LOWER(content.name) = LOWER(:name)", {name: content.name})
                 .andWhere("c.id = :id", {id: caseModel.id})
                 .getOne();

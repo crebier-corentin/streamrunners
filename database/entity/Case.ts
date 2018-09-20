@@ -119,9 +119,9 @@ export async function syncCases(cases: Array<CaseInterface>) {
 
             //Find or create
             const tmp2 = await caseContentRepo.createQueryBuilder("content")
-                .leftJoinAndSelect("case", "case")
+                .leftJoinAndSelect("case", "c")
                 .where("LOWER(content.name) = LOWER(:name)", {name: content.name})
-                .andWhere("case.id = :id", {id: caseModel.id})
+                .andWhere("c.id = :id", {id: caseModel.id})
                 .getOne();
             let caseContentModel = (tmp2 == undefined ? new CaseContent() : tmp2);
 

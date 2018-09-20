@@ -120,7 +120,7 @@ export async function syncCases(cases: Array<CaseInterface>) {
             //Find or create
             const tmp2 = await caseContentRepo.createQueryBuilder("content")
                 .leftJoinAndSelect("case", "case")
-                .where("content.name = :name", {name: content.name})
+                .where("content.name LIKE :name", {name: content.name})
                 .andWhere("case.id = :id", {id: caseModel.id})
                 .getOne();
             let caseContentModel = (tmp2 == undefined ? new CaseContent() : tmp2);

@@ -1,5 +1,9 @@
 {% extends "master.nunj" %}
 
+{% block css %}
+    <link rel="preload" href="/img/case/Beta/close.png" as="image">
+{% endblock %}
+
 {% block content %}
     <div class="container">
 
@@ -40,5 +44,15 @@
         {% else %}
             Votre inventaire est vide.
         {% endfor %}
+
+        <hr>
+
+        <div class="d-flex justify-content-center">
+            <button id="buy" class="btn btn-primary">Achter une caisse Beta (10 000 Points)</button>
+        </div>
     </div>
+{% endblock %}
+
+{% block script %}
+    <script src="/js/inventory.js"></script>
 {% endblock %}

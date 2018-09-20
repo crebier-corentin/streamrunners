@@ -1,7 +1,10 @@
 import {CaseOwned} from "../database/entity/CaseOwned";
 import {CaseContent} from "../database/entity/CaseContent";
-import {getDBConnection} from "../database/connection";
+import {getDBConnection, randomString} from "../database/connection";
 import {SteamKey} from "../database/entity/SteamKey";
+import {StreamQueue} from "../database/entity/StreamQueue";
+import {Repository} from "typeorm";
+import {Case} from "../database/entity/Case";
 
 var express = require('express');
 var router = express.Router();
@@ -89,6 +92,42 @@ router.get('/inventory', async function (req: Express.Request, res) {
     }
 
     res.render("inventory", {title: 'TwitchRunners - Inventaire', req});
+
+});
+
+router.post('/buy', async function (req: Express.Request, res) {
+
+    if (req.isUnauthenticated()) {
+        res.send({auth: false});
+        return;
+    }
+
+    let cost = 10000;
+
+    //Check if enough points
+    let points = (await req.user.points);
+    if (points < cost) {
+        //No enough point
+        res.send({auth: true, enough: false, points, cost});
+    }
+    else {
+        //Enough point
+
+        //Create CaseOwned
+        let caseOwned = new CaseOwned();
+        caseOwned.case = await getDBConnection().getRepository(Case).findOneOrFail({where: {name: "Beta"}});
+        caseOwned.uuid = randomString();
+
+        await getDBConnection().getRepository(CaseOwned).save(caseOwned);
+
+        req.user.cases.push(caseOwned);
+        await req.user.save();
+
+        //Change points
+        await req.user.changePoints(-cost);
+
+        res.send({auth: true, enough: true});
+    }
 
 });
 

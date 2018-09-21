@@ -119,14 +119,14 @@ router.post('/buy', async function (req: Express.Request, res) {
         let caseOwned = new CaseOwned();
         caseOwned.case = await getDBConnection().getRepository(Case).findOneOrFail({where: {name: "Beta"}});
         caseOwned.uuid = randomString();
-        caseOwned.relationSteamKey = null;
 
         await getDBConnection().getRepository(CaseOwned).save(caseOwned);
 
-        await caseOwned.reload();
+        req.user.cases = req.user.cases.concat([caseOwned]);
+        await req.user.save();
 
-        req.user.cases.push(caseOwned);
-        await getDBConnection().getRepository(User).save(req.user);
+
+        // await CaseOwned.query('UPDATE "case_owned" SET "userId" = ? WHERE "caseId" = ?', [req.user.id, caseOwned.id]);
 
         //Change points
         await req.user.changePoints(-cost);

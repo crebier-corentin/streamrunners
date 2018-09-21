@@ -65,13 +65,13 @@ export class User extends BaseEntity {
         }
     }
 
-    @OneToMany(type => StreamQueue, StreamQueue => StreamQueue.user, {onDelete: "CASCADE", eager: true})
+    @OneToMany(type => StreamQueue, StreamQueue => StreamQueue.user, {eager: true})
     streamQueue: StreamQueue[];
 
-    @OneToMany(type => VIP, VIP => VIP.user, {onDelete: "CASCADE", eager: true})
+    @OneToMany(type => VIP, VIP => VIP.user, {eager: true})
     vip: VIP[];
 
-    @OneToMany(type => CaseOwned, CaseOwned => CaseOwned.user, {onDelete: "CASCADE", eager: true})
+    @OneToMany(type => CaseOwned, CaseOwned => CaseOwned.user, {eager: true})
     cases: CaseOwned[];
 
     @ManyToMany(type => Coupon, coupon => coupon.users)

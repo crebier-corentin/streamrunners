@@ -23,7 +23,7 @@ export class CaseOwned extends BaseEntity {
     @Column({unique: true})
     uuid: string;
 
-    @ManyToOne(type => User, user => user.cases, {cascade: true})
+    @ManyToOne(type => User, user => user.cases, {nullable: true})
     user: User;
 
     @ManyToOne(type => Case, Case => Case.caseOwned, {cascade: true, eager: true})

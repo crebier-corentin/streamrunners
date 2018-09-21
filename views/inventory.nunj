@@ -48,7 +48,7 @@
         <hr>
 
         <div class="d-flex justify-content-center">
-            <button id="buy" class="btn btn-primary">Achter une caisse Beta (10 000 Points)</button>
+            <button id="buy" class="btn btn-primary">Acheter une caisse Beta (10 000 Points)</button>
         </div>
     </div>
 {% endblock %}

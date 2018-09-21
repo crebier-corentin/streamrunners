@@ -74,6 +74,11 @@
                     <li class="nav-item">
                         <a class="nav-link" href="/case/inventory"><i class="fas fa-suitcase"></i> Inventaire</a>
                     </li>
+                    {% if req.user.moderator %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="/admin"><i class="fas fa-lock"></i> Admin</a>
+                        </li>
+                    {% endif %}
                     {#
                     <li class="nav-item">
                         <a class="nav-link" href="/shop"><i class="fas fa-shopping-cart"></i> Boutique</a>

@@ -1,4 +1,14 @@
-import {BaseEntity, Column, Entity, JoinColumn, ManyToMany, OneToMany, OneToOne, PrimaryGeneratedColumn} from "typeorm";
+import {
+    BaseEntity,
+    Column,
+    Entity,
+    JoinColumn,
+    ManyToMany,
+    ManyToOne,
+    OneToMany,
+    OneToOne,
+    PrimaryGeneratedColumn
+} from "typeorm";
 import {User} from "./User";
 import {CaseOwned} from "./CaseOwned";
 import {getDBConnection} from "../connection";
@@ -16,15 +26,15 @@ export class SteamKey extends BaseEntity {
     @Column()
     game: string;
 
-    @OneToOne(type => CaseContent, caseContent => caseContent.steamKey, {nullable: true})
-    @JoinColumn()
-    caseContent: CaseContent;
+    @ManyToOne(type => CaseOwned, caseOwned => caseOwned.relationSteamKey, {nullable: true})
+    @JoinColumn({name: "caseOwnedId"})
+    caseOwned: CaseOwned;
 
     //Check if all keys has been taken
     static async isAvailable(): Promise<boolean> {
 
         let keys = await getDBConnection().getRepository(SteamKey).createQueryBuilder("key")
-            .where("caseContentId IS NULL")
+            .where("caseOwnedId IS NULL")
             .getMany();
 
         return keys.length > 0;
@@ -41,7 +51,7 @@ export class SteamKey extends BaseEntity {
 
 
         let keys = await getDBConnection().getRepository(SteamKey).createQueryBuilder("key")
-            .where("caseContentId IS NULL")
+            .where("caseOwnedId IS NULL")
             .getMany();
 
 

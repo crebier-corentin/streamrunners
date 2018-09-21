@@ -30,9 +30,9 @@
                     <div class="col-2">{{ item.content.name }}</div>
 
                     {# Steam Key #}
-                    {% if item.content.steamKey != null %}
-                        <div class="col-2">{{ item.content.steamKey.game }}</div>
-                        <div class="col-2 small">{{ item.content.steamKey.key }}</div>
+                    {% if item.steamKey != null %}
+                        <div class="col-2">{{ item.steamKey.game }}</div>
+                        <div class="col-2 small">{{ item.steamKey.key }}</div>
                     {% endif %}
 
                 {% else %}

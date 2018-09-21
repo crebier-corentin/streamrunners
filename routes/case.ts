@@ -5,6 +5,8 @@ import {SteamKey} from "../database/entity/SteamKey";
 import {StreamQueue} from "../database/entity/StreamQueue";
 import {Repository} from "typeorm";
 import {Case} from "../database/entity/Case";
+import {User} from "../database/entity/User";
+import {error} from "util";
 
 var express = require('express');
 var router = express.Router();
@@ -61,7 +63,7 @@ router.post('/open', async function (req: Express.Request, res) {
     await repository.save(caseOwned);
 
     //Give prize
-    await winning.applyContent(req.user);
+    await winning.applyContent(req.user, caseOwned);
     return res.json(spin);
 
 });
@@ -117,11 +119,14 @@ router.post('/buy', async function (req: Express.Request, res) {
         let caseOwned = new CaseOwned();
         caseOwned.case = await getDBConnection().getRepository(Case).findOneOrFail({where: {name: "Beta"}});
         caseOwned.uuid = randomString();
+        caseOwned.relationSteamKey = null;
 
         await getDBConnection().getRepository(CaseOwned).save(caseOwned);
 
+        await caseOwned.reload();
+
         req.user.cases.push(caseOwned);
-        await req.user.save();
+        await getDBConnection().getRepository(User).save(req.user);
 
         //Change points
         await req.user.changePoints(-cost);

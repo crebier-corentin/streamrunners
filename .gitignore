@@ -145,3 +145,5 @@ test/.env.test
 *.js.map
 
 ngrok.exe
+
+yarn.lock

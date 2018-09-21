@@ -41,9 +41,6 @@ export class CaseContent extends BaseEntity {
     @OneToMany(type => CaseOwned, CaseOwned => CaseOwned.content)
     caseOwned: CaseOwned;
 
-    @OneToOne(type => SteamKey, steamKey => steamKey.caseContent, {cascade: true, eager: true, nullable: true})
-    steamKey: SteamKey;
-
     getRareColor(): string {
         const value = this.chance;
 
@@ -86,9 +83,9 @@ export class CaseContent extends BaseEntity {
 
     }
 
-    async applyContent(user: User) {
+    async applyContent(user: User, caseOwned: CaseOwned) {
         const userRepository = getDBConnection().getRepository(User);
-        const caseContentRepository = getDBConnection().getRepository(CaseContent);
+        const caseOwnedRepository = getDBConnection().getRepository(CaseOwned);
 
 
         if (this.special != null) {
@@ -99,8 +96,8 @@ export class CaseContent extends BaseEntity {
                     break;
 
                 case "steam":
-                    this.steamKey = await SteamKey.random();
-                    caseContentRepository.save(this);
+                    caseOwned.steamKey = await SteamKey.random();
+                    caseOwnedRepository.save(caseOwned);
                     break;
             }
 

@@ -32,6 +32,17 @@ export class CaseOwned extends BaseEntity {
     @ManyToOne(type => CaseContent, CaseContent => CaseContent.caseOwned, {cascade: true, eager: true, nullable: true})
     content: CaseContent;
 
+    @OneToMany(type => SteamKey, steamKey => steamKey.caseOwned, {nullable: true, eager: true, cascade: true})
+    relationSteamKey: SteamKey[];
+
+    get steamKey() {
+        return this.relationSteamKey[0];
+    }
+
+    set steamKey(newValue) {
+        this.relationSteamKey[0] = newValue;
+    }
+
     @CreateDateColumn()
     createdAt: Date;
 

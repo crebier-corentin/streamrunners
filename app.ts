@@ -43,7 +43,10 @@ createConnection().then(async () => {
     app.set("view engine", "nunj");
     const njk = expressNunjucks(app, {
         watch: isDev,
-        noCache: isDev
+        noCache: isDev,
+        globals: {
+            HOSTNAME: process.env.HOSTNAME
+        }
     });
 
     app.use(logger('dev'));
@@ -114,7 +117,7 @@ createConnection().then(async () => {
     app.use(passport.session());      // passport session middleware
 
     //Parrainage
-    app.use(async (req, res: Express.Response, done) => {
+    /*app.use(async (req, res: Express.Response, done) => {
 
         if (req.query.parrain_id != undefined) {
             req.session.parrain_id = req.query.parrain_id;
@@ -127,7 +130,7 @@ createConnection().then(async () => {
 
         done();
 
-    });
+    });*/
 
     //StreamQueue
     app.use(async (req, res: Express.Response, done) => {

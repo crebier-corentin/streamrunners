@@ -4,7 +4,7 @@ import {
     Entity,
     JoinColumn,
     JoinTable,
-    ManyToMany,
+    ManyToMany, ManyToOne,
     OneToMany,
     PrimaryGeneratedColumn
 } from "typeorm";
@@ -13,6 +13,7 @@ import {VIP} from "./VIP";
 import {getDBConnection} from "../connection";
 import {Coupon} from "./Coupon";
 import {CaseOwned} from "./CaseOwned";
+import {getPower, Power, powers, UserPower} from "./UserPower";
 
 const moment = require("moment");
 const uuidv4 = require('uuid/v4');
@@ -77,6 +78,41 @@ export class User extends BaseEntity {
     @ManyToMany(type => Coupon, coupon => coupon.users)
     @JoinTable()
     coupons: Coupon[];
+
+    //Powers
+    @OneToMany(type => UserPower, power => power.user, {eager: true})
+    powers: UserPower[];
+
+    //Add a power
+    async addPower(name: string): Promise<void> {
+
+        //Check if power exist
+        if (getPower(name) !== false) {
+
+            //Save Power
+            let uPower = new UserPower();
+            uPower.powerName = name;
+            uPower.user = this;
+
+            await uPower.save();
+        }
+        else {
+            throw "Power do not exist";
+        }
+
+    }
+
+    //Return current power or false
+    currentPower(): UserPower | false {
+
+        for (const power of this.powers) {
+            if (power.used && !power.hasExpired()) {
+                return power;
+            }
+        }
+
+        return false;
+    }
 
     @Column({default: false})
     betaBage: boolean;

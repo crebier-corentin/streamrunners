@@ -1,5 +1,5 @@
 Arguments: 
-  C:\Program Files\nodejs\node.exe C:\Program Files\nodejs\node_modules\yarn\bin\yarn.js add @types/sweetalert2
+  C:\Program Files\nodejs\node.exe C:\Program Files\nodejs\node_modules\yarn\bin\yarn.js add braintree @types/braintree
 
 PATH: 
   C:\tools\cmder\bin;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v9.0\bin;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v9.0\libnvvp;C:\ProgramData\Oracle\Java\javapath;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;P:\Program Files\Java\jdk1.8.0_171\bin;C:\Perl\site\bin;C:\Perl\bin;C:\tools\ruby24\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files\Java\jdk1.8.0_25\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\Skype\Phone\;C:\Program Files\MySQL\MySQL Utilities 1.6\;C:\ProgramData\ComposerSetup\bin;P:\Program Files\Git\cmd;P:\Program Files\PuTTY\;P:\Program Files (x86)\Gtk-Runtime\bin;C:\D\dmd2\windows\bin;C:\Program Files (x86)\Yarn\bin\;C:\Program Files\dotnet\;C:\Program Files\CMake\bin;C:\Users\Corentin\AppData\Roaming\nvm;C:\Program Files\nodejs;P:\Qt\Static\clang\5.11.0\bin;P:\Program Files\LLVM\bin;P:\Program Files\mingw-w64\x86_64-8.1.0-win32-seh-rt_v6-rev0\mingw64\bin;C:\Users\Corentin\AppData\Local\Programs\Python\Python36\;;C:\WINDOWS\System32\OpenSSH\;C:\Users\Corentin\.cargo\bin;C:\Users\Corentin\AppData\Local\Programs\Python\Python36\Scripts\;C:\Users\Corentin\AppData\Local\Microsoft\WindowsApps;C:\Users\Corentin\AppData\Roaming\Composer\vendor\bin;C:\Users\Corentin\AppData\Local\Programs\Python\Python36\Lib\site-packages\nuitka\build\include;C:\Users\Corentin\AppData\Roaming\npm;C:\tools\cmder;P:\Program Files (x86)\Dr. Memory\bin\;C:\Program Files (x86)\FAHClient;C:\Users\Corentin\AppData\Local\Yarn\bin;P:\laragon\bin\php\php-7.1.14-Win32-VC14-x64;P:\laragon\bin\mysql\mysql-5.7.19-winx64\bin;C:\Users\Corentin\AppData\Roaming\nvm;C:\Program Files\nodejs;C:\Users\Corentin\AppData\Local\Microsoft\WindowsApps;C:\Users\Corentin\AppData\Local\Programs\Python\Python36\Scripts;;P:\Program Files\Git\usr\bin;P:\Program Files\Git\usr\share\vim\vim74;C:\tools\cmder\
@@ -14,7 +14,7 @@ Platform:
   win32 x64
 
 Trace: 
-  Error: https://registry.yarnpkg.com/@types%2fsweetalert2: Not found
+  Error: https://registry.yarnpkg.com/@types%2fbraintree: Not found
       at Request.params.callback [as _callback] (C:\Users\Corentin\AppData\Roaming\nvm\v10.0.0\node_modules\yarn\lib\cli.js:64202:18)
       at Request.self.callback (C:\Users\Corentin\AppData\Roaming\nvm\v10.0.0\node_modules\yarn\lib\cli.js:137468:22)
       at Request.emit (events.js:182:13)
@@ -69,6 +69,7 @@ npm manifest:
       "@types/typescript": "^2.0.0",
       "@types/vue": "^2.0.0",
       "@types/webpack": "^4.4.11",
+      "chai-as-promised": "^7.1.1",
       "compression": "^1.7.3",
       "cookie-parser": "~1.4.3",
       "cookie-session": "^2.0.0-beta.3",
@@ -86,7 +87,7 @@ npm manifest:
       "reflect-metadata": "^0.1.10",
       "sqlite3": "^4.0.2",
       "ts-node": "^7.0.1",
-      "typeorm": "0.2.7",
+      "typeorm": "^0.2.7",
       "typescript": "^3.0.1"
     },
     "devDependencies": {
@@ -1650,6 +1651,12 @@ Lockfile:
     version "0.12.0"
     resolved "https://registry.yarnpkg.com/caseless/-/caseless-0.12.0.tgz#1b681c21ff84033c826543090689420d187151dc"
   
+  chai-as-promised@^7.1.1:
+    version "7.1.1"
+    resolved "https://registry.yarnpkg.com/chai-as-promised/-/chai-as-promised-7.1.1.tgz#08645d825deb8696ee61725dbf590c012eb00ca0"
+    dependencies:
+      check-error "^1.0.2"
+  
   chai@^4.1.2:
     version "4.1.2"
     resolved "https://registry.yarnpkg.com/chai/-/chai-4.1.2.tgz#0f64584ba642f0f2ace2806279f4f06ca23ad73c"
@@ -1687,7 +1694,7 @@ Lockfile:
     version "0.5.0"
     resolved "https://registry.yarnpkg.com/chardet/-/chardet-0.5.0.tgz#fe3ac73c00c3d865ffcc02a0682e2c20b6a06029"
   
-  check-error@^1.0.1:
+  check-error@^1.0.1, check-error@^1.0.2:
     version "1.0.2"
     resolved "https://registry.yarnpkg.com/check-error/-/check-error-1.0.2.tgz#574d312edd88bb5dd8912e9286dd6c0aed4aac82"
   
@@ -7009,7 +7016,7 @@ Lockfile:
     version "0.0.6"
     resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
   
-  typeorm@0.2.7:
+  typeorm@^0.2.7:
     version "0.2.7"
     resolved "https://registry.yarnpkg.com/typeorm/-/typeorm-0.2.7.tgz#4bbbace80dc91b1303be13f42d44ebf01d1b2558"
     dependencies:

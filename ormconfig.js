@@ -54,6 +54,7 @@ else {
             "type": "sqlite",
             "database": "test.sqlite",
             "synchronize": true,
+            "dropSchema": true,
             "logging": false,
             "entities": [
                 "database/entity/**/*.ts"

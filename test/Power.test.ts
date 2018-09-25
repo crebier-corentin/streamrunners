@@ -48,8 +48,29 @@ describe("Power test", () => {
         assert.isFulfilled(user.addPower("double_points"));
         assert.isRejected(user.addPower("i_do_not_exist"));
 
+        await user.addPower("double_points");
+
         assert.propertyVal(<any>user.powers[0], "powerName", "double_points");
 
+
+    });
+
+    it('power.use()', async function () {
+        const userRepository = getConnection('test').getRepository(User);
+        let user = await userRepository.findOne({twitchId: "1"});
+
+        let power = user.powers[0];
+        await power.use();
+
+        assert.equal(user.currentPower(), power);
+
+    });
+
+    it('currentPower()', async function () {
+        const userRepository = getConnection('test').getRepository(User);
+        let user = await userRepository.findOne({twitchId: "1"});
+
+        assert.equal((<UserPower>user.currentPower()).powerName, "double_points");
 
     });
 

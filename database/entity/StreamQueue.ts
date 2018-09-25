@@ -32,7 +32,7 @@ export class StreamQueue extends BaseEntity {
         }
     }
 
-    @ManyToOne(type => User, user => user.streamQueue)
+    @ManyToOne(type => User, user => user.streamQueue, {cascade: true})
     user: User;
 
     @CreateDateColumn()

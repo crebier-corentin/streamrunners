@@ -1,7 +1,8 @@
-import {StreamQueue} from "../database/entity/StreamQueue";
+ import {StreamQueue} from "../database/entity/StreamQueue";
 import {Repository} from "typeorm";
 import {getDBConnection} from "../database/connection";
 import {User} from "../database/entity/User";
+
 const moment = require("moment");
 
 var express = require('express');
@@ -86,7 +87,9 @@ router.post('/add', async (req: Express.Request, res) => {
             stream.user = req.user;
 
             let repository: Repository<StreamQueue> = getDBConnection().getRepository(StreamQueue);
-            repository.save(stream);
+            await repository.save(stream);
+
+            req.user.streamQueue.push(stream);
 
             //Change points
             await req.user.changePoints(-cost);

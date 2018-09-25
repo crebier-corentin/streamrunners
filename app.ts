@@ -6,6 +6,8 @@ import {sync} from "glob";
 import {syncCases} from "./database/entity/Case";
 import {casesContent} from "./other/CaseContent";
 
+import "reflect-metadata";
+
 const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');

@@ -69,8 +69,8 @@ export class User extends BaseEntity {
     @OneToMany(type => StreamQueue, StreamQueue => StreamQueue.user, {eager: true})
     streamQueue: StreamQueue[];
 
-    @OneToMany(type => VIP, VIP => VIP.user, {eager: true})
-    vip: VIP[];
+    /* @OneToMany(type => VIP, VIP => VIP.user, {eager: true})
+     vip: VIP[];*/
 
     @OneToMany(type => CaseOwned, CaseOwned => CaseOwned.user, {eager: true})
     cases: CaseOwned[];
@@ -90,11 +90,18 @@ export class User extends BaseEntity {
         if (getPower(name) !== false) {
 
             //Save Power
-            let uPower = new UserPower();
+            let uPower = getDBConnection().getRepository(UserPower).create();
             uPower.powerName = name;
-            uPower.user = this;
+            uPower.id = 0;
 
-            await uPower.save();
+            await getDBConnection().getRepository(UserPower).save(uPower).catch(e => console.log(e));
+
+            this.powers.push(uPower);
+            await getDBConnection().getRepository(User).save(this).catch(e => console.log(e));
+
+
+            // this.powers.push(uPower);
+            //await getDBConnection().getRepository(User).save(this).catch(e => console.log(e));
         }
         else {
             throw "Power do not exist";

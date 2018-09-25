@@ -11,6 +11,7 @@ import {
 
 import {User} from "./User";
 import moment = require("moment");
+import {getDBConnection} from "../connection";
 
 export interface Power {
     name: string;
@@ -46,7 +47,8 @@ export class UserPower extends BaseEntity {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @ManyToOne(type => User, user => user.powers)
+    @ManyToOne(type => User, user => user.powers, {cascade: true})
+    @JoinColumn({name: "userId"})
     user: User;
 
     @Column()
@@ -55,7 +57,7 @@ export class UserPower extends BaseEntity {
     @Column({default: false})
     used: boolean;
 
-    @Column({nullable: true, default: null})
+    @Column("datetime", {nullable: true, default: null})
     expires: Date | number;
 
     expiresTime(): Date {
@@ -85,9 +87,13 @@ export class UserPower extends BaseEntity {
 
     async use(): Promise<void> {
 
+        if (this.hasExpired() || this.used) {
+            throw "Power has expired";
+        }
+
         this.used = true;
         this.expires = moment().add(this.power().time, "seconds").toDate();
 
-        await this.save();
+        await getDBConnection().getRepository(UserPower).save(this);
     }
 }

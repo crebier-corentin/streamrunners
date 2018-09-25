@@ -52,7 +52,7 @@ else {
         {
             "name": "test",
             "type": "sqlite",
-            "database": ":memory:",
+            "database": "test.sqlite",
             "synchronize": true,
             "logging": false,
             "entities": [

@@ -1,4 +1,4 @@
- import {StreamQueue} from "../database/entity/StreamQueue";
+import {StreamQueue} from "../database/entity/StreamQueue";
 import {Repository} from "typeorm";
 import {getDBConnection} from "../database/connection";
 import {User} from "../database/entity/User";

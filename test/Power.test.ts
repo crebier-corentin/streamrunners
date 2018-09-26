@@ -1,4 +1,4 @@
-import {getPower, UserPower} from "../database/entity/UserPower";
+import {getPower, powers, UserPower} from "../database/entity/UserPower";
 
 export {}; //Do not remove
 import AssertStatic = Chai.AssertStatic;
@@ -11,6 +11,8 @@ var chaiAsPromised = require("chai-as-promised");
 chai.use(chaiAsPromised);
 
 var assert: AssertStatic & { isFulfilled, isRejected } = chai.assert;
+
+const powerName = powers[0].name;
 
 describe("Power test", () => {
 
@@ -35,7 +37,7 @@ describe("Power test", () => {
     });
 
     it('getPower()', function () {
-        assert.isNotFalse(getPower("double_points"), "Get double_points");
+        assert.isNotFalse(getPower(powerName), "Get double_points");
         assert.isFalse(getPower("i_do_not_exist"), "Get non existant power");
     });
 
@@ -45,12 +47,12 @@ describe("Power test", () => {
 
         let user = await userRepository.findOne({twitchId: "1"});
 
-        assert.isFulfilled(user.addPower("double_points"));
+        assert.isFulfilled(user.addPower(powerName));
         assert.isRejected(user.addPower("i_do_not_exist"));
 
-        await user.addPower("double_points");
+        await user.addPower(powerName);
 
-        assert.propertyVal(<any>user.powers[0], "powerName", "double_points");
+        assert.propertyVal(<any>user.powers[0], "powerName", powerName);
 
 
     });
@@ -70,7 +72,7 @@ describe("Power test", () => {
         const userRepository = getConnection('test').getRepository(User);
         let user = await userRepository.findOne({twitchId: "1"});
 
-        assert.equal((<UserPower>user.currentPower()).powerName, "double_points");
+        assert.equal((<UserPower>user.currentPower()).powerName, powerName);
 
     });
 

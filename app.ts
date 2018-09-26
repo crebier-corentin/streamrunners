@@ -7,6 +7,7 @@ import {syncCases} from "./database/entity/Case";
 import {casesContent} from "./other/CaseContent";
 
 import "reflect-metadata";
+import * as child_process from "child_process";
 
 const express = require('express');
 const path = require('path');
@@ -135,10 +136,18 @@ createConnection().then(async () => {
     });*/
 
     //StreamQueue
-    app.use(async (req, res: Express.Response, done) => {
+    async function update() {
+        await updateStreamQueue().catch(reason => {
+            console.log(reason);
+        });
+        setTimeout(update, 1000);
+    }
+
+    update().catch(reason => console.log(reason));
+    /*app.use(async (req, res: Express.Response, done) => {
         await updateStreamQueue();
         done();
-    });
+    });*/
 
     //Routes
     app.use('/', indexRouter);

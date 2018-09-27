@@ -15,7 +15,9 @@ router.post('/update', async (req: Express.Request, res) => {
             auth: true,
             points: req.user.points,
             queue: (await StreamQueue.currentAndNextStreams()),
-            viewers: (await User.viewers())
+            viewers: (await User.viewers()),
+            mostPoints: (await User.mostPoints()),
+            mostPlace: (await User.mostPlace()),
         });
     }
 

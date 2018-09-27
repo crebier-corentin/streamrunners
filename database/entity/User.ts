@@ -14,9 +14,12 @@ import {getDBConnection} from "../connection";
 import {Coupon} from "./Coupon";
 import {CaseOwned} from "./CaseOwned";
 import {getPower, Power, powers, UserPower} from "./UserPower";
+import CacheService from "../../other/CacheService";
 
 const moment = require("moment");
 const uuidv4 = require('uuid/v4');
+
+const cache = new CacheService(120);
 
 
 @Entity()
@@ -144,6 +147,53 @@ export class User extends BaseEntity {
             .getCount());
     }
 
+    static async mostPoints(): Promise<any> {
+
+        const userRepository = getDBConnection().getRepository(User);
+
+        return await cache.get("mostPoints", async () => {
+
+            return await userRepository.createQueryBuilder("user")
+                .select(["user.username", "user.display_name", "user.points"])
+                .orderBy("user.points", "DESC")
+                .limit(10)
+                .getMany();
+
+
+        });
+
+    }
+
+    static async mostPlace(): Promise<any> {
+        const userRepository = getDBConnection().getRepository(User);
+
+        return await cache.get("mostPlace", async () => {
+
+            const users = await userRepository.createQueryBuilder("user")
+                .leftJoin("user.streamQueue", "queue")
+                .select(["user.username", "user.display_name", "queue.time"])
+                .getMany();
+
+            return users.map((value: User) => {
+
+                value['time'] = 0;
+
+                for (const queue of value.streamQueue) {
+                    value['time'] += queue.time;
+                }
+
+                delete value.streamQueue;
+
+                return value;
+
+            }).sort((a, b) => {
+                return b['time'] - a['time'];
+            })
+                .splice(0, 10);
+
+
+        });
+    }
 
 }
 

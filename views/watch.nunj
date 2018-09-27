@@ -59,17 +59,38 @@
                         class="fas fa-plus"></i>&nbsp;&nbsp;&nbsp;S'abonner</a>
 
             {% if req.user.moderator %}
-                <button class="btn btn-outline-success skip" @click="makeRequestSkip"><i class="fas fa-forward"></i>&nbsp;&nbsp;&nbsp;Passer</button>
+                <button class="btn btn-outline-success skip" @click="makeRequestSkip"><i class="fas fa-forward"></i>&nbsp;&nbsp;&nbsp;Passer
+                </button>
             {% endif %}
 
             <twitch-viewer :channel="channel"></twitch-viewer>
             <hr>
             <div class="d-flex justify-content-center">
-                <span class="badge badge-secondary">{% raw %}{{ timeLeft }}{% endraw %}s <i class="fas fa-clock" width="16px" height="16px"></i></span>
-                <span class="badge badge-secondary">{% raw %}{{ points }}{% endraw %} <img src="/img/po.png" width="16px" height="16px"/></span>
-                <span class="badge badge-secondary">{% raw %}{{ viewers }}{% endraw %} <i class="fas fa-eye" width="16px" height="16px"></i></span>
+                <span class="badge badge-secondary">{% raw %}{{ timeLeft }}{% endraw %}s <i class="fas fa-clock"
+                                                                                            width="16px"
+                                                                                            height="16px"></i></span>
+                <span class="badge badge-secondary">{% raw %}{{ points }}{% endraw %} <img src="/img/po.png"
+                                                                                           width="16px"
+                                                                                           height="16px" /></span>
+                <span class="badge badge-secondary">{% raw %}{{ viewers }}{% endraw %} <i class="fas fa-eye"
+                                                                                          width="16px"
+                                                                                          height="16px"></i></span>
             </div>
         </template>
+
+        <div class="row">
+
+            <leaderboard class="col-6"
+                         heading1="Utilisateur"
+                         heading2="Nombre de points"
+                         :data="mostPoints"
+                         field-name="points"></leaderboard>
+            <leaderboard class="col-6"
+                         heading1="Utilisateur"
+                         heading2="Nombre de seconde streamé"
+                         :data="mostPlace"
+                         field-name="time"></leaderboard>
+        </div>
 
     </div>
 {% endblock %}

@@ -34,7 +34,7 @@ export class VIP extends BaseEntity {
         }
     }
 
-    @ManyToOne(type => User, user => user.vip, {onDelete: "CASCADE"})
+    @ManyToOne(type => User, {onDelete: "CASCADE"})
     user: User;
 
 

@@ -10,7 +10,7 @@ import {
 } from "typeorm";
 
 import {User} from "./User";
-import moment = require("moment");
+const moment = require("moment");
 import {getDBConnection} from "../connection";
 
 export interface Power {

@@ -3,6 +3,7 @@
 //TODO changer à vue.min.js pour Prod
 import Vue from 'vue/dist/vue.esm.js';
 import TwitchViewer from "./component/TwitchViewer.vue";
+import Leaderboard from "./component/Leaderboard.vue";
 
 import axios, {AxiosError} from 'axios';
 import swal from 'sweetalert2';
@@ -10,6 +11,7 @@ import swal from 'sweetalert2';
 window['swal'] = swal;
 
 Vue.component(TwitchViewer.name, TwitchViewer);
+Vue.component(Leaderboard.name, Leaderboard);
 
 window['vm'] = new Vue({
     el: "#app",
@@ -26,7 +28,9 @@ window['vm'] = new Vue({
 
         queue: [],
 
-        viewers: 0
+        viewers: 0,
+        mostPoints: [],
+        mostPlace: [],
 
     },
 
@@ -106,6 +110,8 @@ window['vm'] = new Vue({
                         self.points = result.data.points;
                         self.queue = result.data.queue;
                         self.viewers = result.data.viewers;
+                        self.mostPoints = result.data.mostPoints;
+                        self.mostPlace = result.data.mostPlace;
                     }
                     else {
                         location.reload();

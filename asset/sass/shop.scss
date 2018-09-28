@@ -2,7 +2,7 @@ html {
   font-size: 14px;
 }
 
-@include media-breakpoint-up("md"){
+@include media-breakpoint-up("md") {
   html {
     font-size: 16px;
   }
@@ -20,3 +20,8 @@ html {
   min-width: 220px;
 }
 
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill,minmax(160px, 1fr));
+
+}

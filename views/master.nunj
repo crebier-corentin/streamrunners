@@ -8,9 +8,11 @@
     <meta property="og:type" content="website" />
     <meta property="og:image" content="/img/brand.png" />
     <meta property="og:title" content="Gagne des viewers ou des cadeaux ?!" />
-    <meta property="og:description" content="Gagne rapidement, et gratuitement des viewers Twitch et des tonnes de cadeaux !" />
+    <meta property="og:description"
+          content="Gagne rapidement, et gratuitement des viewers Twitch et des tonnes de cadeaux !" />
     <meta property="og:url" content="{{ HOSTNAME }}" />
-    <meta name="description" content="Gagne rapidement, et gratuitement des viewers Twitch et des tonnes de cadeaux !" />
+    <meta name="description"
+          content="Gagne rapidement, et gratuitement des viewers Twitch et des tonnes de cadeaux !" />
     <title>{{ title | default("Titre") }}</title>
     <link rel="icon" href="/img/favicon.ico" />
 
@@ -81,18 +83,18 @@
                             <a class="nav-link" href="/admin"><i class="fas fa-lock"></i> Admin</a>
                         </li>
                     {% endif %}
-
-                    <li class="nav-item">
-                        <a class="nav-link" href="/shop"><i class="fas fa-shopping-cart"></i> Boutique</a>
-                    </li>
                     {#
-                    <li class="nav-item">
-                        <a class="nav-link" href="/giveaway"><i class="fas fa-star"></i> GiveAway</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/pointsFunc"><i class="fas fa-plus"></i> Plus de pointsFunc</a>
-                    </li>
-                    #}
+                                       <li class="nav-item">
+                                           <a class="nav-link" href="/shop"><i class="fas fa-shopping-cart"></i> Boutique</a>
+                                    </li>
+                                       {#
+                                       <li class="nav-item">
+                                           <a class="nav-link" href="/giveaway"><i class="fas fa-star"></i> GiveAway</a>
+                                       </li>
+                                       <li class="nav-item">
+                                           <a class="nav-link" href="/pointsFunc"><i class="fas fa-plus"></i> Plus de pointsFunc</a>
+                                       </li>
+                                       #}
                 {% else %}
                 {% endif %}
 
@@ -129,10 +131,14 @@
 <footer class="footer">
     <p>© 2018 StreamRunners
         <br>
-        <a href="https://www.facebook.com/twitchrunners" aria-label="Facebook StreamRunners"><i style="color:blue" class="fab fa-facebook"></i></a>
-        <a href="https://twitter.com/RunnersTwitch" aria-label="Twitter StreamRunners"><i style="color:deepskyblue" class="fab fa-twitter-square"></i></a>
-        <a href="https://www.instagram.com/twitchrunners/" aria-label="Instagram StreamRunners"><i style="color:pink" class="fab fa-instagram"></i></a>
-        <a href="https://discord.gg/usKEk8r" aria-label="Discord StreamRunners"><i style="color:lightgrey" class="fab fa-discord"></i></a>
+        <a href="https://www.facebook.com/twitchrunners" aria-label="Facebook StreamRunners"><i style="color:blue"
+                                                                                                class="fab fa-facebook"></i></a>
+        <a href="https://twitter.com/RunnersTwitch" aria-label="Twitter StreamRunners"><i style="color:deepskyblue"
+                                                                                          class="fab fa-twitter-square"></i></a>
+        <a href="https://www.instagram.com/twitchrunners/" aria-label="Instagram StreamRunners"><i style="color:pink"
+                                                                                                   class="fab fa-instagram"></i></a>
+        <a href="https://discord.gg/usKEk8r" aria-label="Discord StreamRunners"><i style="color:lightgrey"
+                                                                                   class="fab fa-discord"></i></a>
     </p>
 </footer>
 

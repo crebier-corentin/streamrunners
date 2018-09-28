@@ -2,18 +2,20 @@
 
 {% block content %}
     <div class="container">
+        <div id="paypal-button"></div>
         <div class="grid-container">
-            {% for i in [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] %}
+            {% for product in products %}
 
                 <div class="card m-2">
                     <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to
-                            additional
-                            content.</p>
+                        {% if product.image != null %}
+                            <img class="card-img-top" src="{{ product.image }}" alt="{{ product.display_name }}">
+                        {% endif %}
+                        <h5 class="card-title">{{ product.display_name }}</h5>
+                        <p class="card-text">{{ product.description }}</p>
                         <p class="card-text">
-                            <small class="text-muted">Last updated 3 mins ago</small>
-                        </p>
+                            {{ product.amount }}€ </p>
+                        <button class="btn btn-primary buy" data-name="{{ product.name }}">Go somewhere</button>
                     </div>
                 </div>
             {% endfor %}
@@ -25,5 +27,15 @@
 {% block script %}
     <script>
         window['clientToken'] = '{{ clientToken | safe }}';
+        window['sandbox'] = {{ sandbox | safe }};
     </script>
+    <!-- Load PayPal's checkout.js Library. -->
+    <script src="https://www.paypalobjects.com/api/checkout.js" data-version-4 log-level="warn"></script>
+
+    <!-- Load the client component. -->
+    <script src="https://js.braintreegateway.com/web/3.38.0/js/client.min.js"></script>
+
+    <!-- Load the PayPal Checkout component. -->
+    <script src="https://js.braintreegateway.com/web/3.38.0/js/paypal-checkout.min.js"></script>
+    <script src="/js/shop.js"></script>
 {% endblock %}

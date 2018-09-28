@@ -1,5 +1,5 @@
 Arguments: 
-  C:\Program Files\nodejs\node.exe C:\Program Files\nodejs\node_modules\yarn\bin\yarn.js add braintree @types/braintree
+  C:\Program Files\nodejs\node.exe C:\Program Files\nodejs\node_modules\yarn\bin\yarn.js add braintree_web --dev
 
 PATH: 
   C:\tools\cmder\bin;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v9.0\bin;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v9.0\libnvvp;C:\ProgramData\Oracle\Java\javapath;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;P:\Program Files\Java\jdk1.8.0_171\bin;C:\Perl\site\bin;C:\Perl\bin;C:\tools\ruby24\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files\Java\jdk1.8.0_25\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\Skype\Phone\;C:\Program Files\MySQL\MySQL Utilities 1.6\;C:\ProgramData\ComposerSetup\bin;P:\Program Files\Git\cmd;P:\Program Files\PuTTY\;P:\Program Files (x86)\Gtk-Runtime\bin;C:\D\dmd2\windows\bin;C:\Program Files (x86)\Yarn\bin\;C:\Program Files\dotnet\;C:\Program Files\CMake\bin;C:\Users\Corentin\AppData\Roaming\nvm;C:\Program Files\nodejs;P:\Qt\Static\clang\5.11.0\bin;P:\Program Files\LLVM\bin;P:\Program Files\mingw-w64\x86_64-8.1.0-win32-seh-rt_v6-rev0\mingw64\bin;C:\Users\Corentin\AppData\Local\Programs\Python\Python36\;;C:\WINDOWS\System32\OpenSSH\;C:\Users\Corentin\.cargo\bin;C:\Users\Corentin\AppData\Local\Programs\Python\Python36\Scripts\;C:\Users\Corentin\AppData\Local\Microsoft\WindowsApps;C:\Users\Corentin\AppData\Roaming\Composer\vendor\bin;C:\Users\Corentin\AppData\Local\Programs\Python\Python36\Lib\site-packages\nuitka\build\include;C:\Users\Corentin\AppData\Roaming\npm;C:\tools\cmder;P:\Program Files (x86)\Dr. Memory\bin\;C:\Program Files (x86)\FAHClient;C:\Users\Corentin\AppData\Local\Yarn\bin;P:\laragon\bin\php\php-7.1.14-Win32-VC14-x64;P:\laragon\bin\mysql\mysql-5.7.19-winx64\bin;C:\Users\Corentin\AppData\Roaming\nvm;C:\Program Files\nodejs;C:\Users\Corentin\AppData\Local\Microsoft\WindowsApps;C:\Users\Corentin\AppData\Local\Programs\Python\Python36\Scripts;;P:\Program Files\Git\usr\bin;P:\Program Files\Git\usr\share\vim\vim74;C:\tools\cmder\
@@ -14,7 +14,7 @@ Platform:
   win32 x64
 
 Trace: 
-  Error: https://registry.yarnpkg.com/@types%2fbraintree: Not found
+  Error: https://registry.yarnpkg.com/braintree_web: Not found
       at Request.params.callback [as _callback] (C:\Users\Corentin\AppData\Roaming\nvm\v10.0.0\node_modules\yarn\lib\cli.js:64202:18)
       at Request.self.callback (C:\Users\Corentin\AppData\Roaming\nvm\v10.0.0\node_modules\yarn\lib\cli.js:137468:22)
       at Request.emit (events.js:182:13)
@@ -34,7 +34,9 @@ npm manifest:
     "scripts": {
       "build": "npm-run-all --parallel build:sass build:js",
       "build:js": "vuetype asset/js/component/ && webpack --mode=production",
-      "build:js:dev": "vuetype asset/js/component/ && webpack --mode=development -w",
+      "build:js:dev": "npm-run-all --parallel build:vuetype:watch build:webpack:watch",
+      "build:vuetype:watch": "vuetype --watch asset/js/component/",
+      "build:webpack:watch": "webpack --mode=development -w",
       "build:sass": "gulp sass",
       "migration:generate": "ts-node ./node_modules/typeorm/cli.js migration:generate",
       "migration:revert": "ts-node ./node_modules/typeorm/cli.js migration:revert",
@@ -69,6 +71,7 @@ npm manifest:
       "@types/typescript": "^2.0.0",
       "@types/vue": "^2.0.0",
       "@types/webpack": "^4.4.11",
+      "braintree": "^2.12.0",
       "chai-as-promised": "^7.1.1",
       "compression": "^1.7.3",
       "cookie-parser": "~1.4.3",
@@ -81,6 +84,7 @@ npm manifest:
       "moment": "^2.22.2",
       "morgan": "~1.9.0",
       "mysql": "^2.16.0",
+      "node-cache": "^4.2.0",
       "nunjucks": "^3.1.3",
       "passport": "^0.4.0",
       "passport-twitch": "^1.0.3",
@@ -137,6 +141,10 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/@babel/plugin-transform-regenerator/-/plugin-transform-regenerator-7.0.0.tgz#5b41686b4ed40bef874d7ed6a84bdd849c13e0c1"
     dependencies:
       regenerator-transform "^0.13.3"
+  
+  "@braintree/wrap-promise@1.1.1":
+    version "1.1.1"
+    resolved "https://registry.yarnpkg.com/@braintree/wrap-promise/-/wrap-promise-1.1.1.tgz#d22c76855e6d4b4012610060421fae1a37ec90b0"
   
   "@gulp-sourcemaps/identity-map@1.X":
     version "1.0.2"
@@ -1458,6 +1466,18 @@ Lockfile:
       split-string "^3.0.2"
       to-regex "^3.0.1"
   
+  braintree@^2.12.0:
+    version "2.12.0"
+    resolved "https://registry.yarnpkg.com/braintree/-/braintree-2.12.0.tgz#4c589401f00a683ddcaf9ece2bc0b1f69b268e28"
+    dependencies:
+      "@braintree/wrap-promise" "1.1.1"
+      dateformat "1.0.1-1.2.3"
+      depd "~1.1.0"
+      readable-stream "1.1.10"
+      semver "5.1.0"
+      underscore "1.8.3"
+      xml2js "0.1.13"
+  
   brorand@^1.0.1:
     version "1.1.0"
     resolved "https://registry.yarnpkg.com/brorand/-/brorand-1.1.0.tgz#12c25efe40a45e3c323eb8675a0a0ce57b22371f"
@@ -1801,6 +1821,10 @@ Lockfile:
   clone-stats@^0.0.1:
     version "0.0.1"
     resolved "https://registry.yarnpkg.com/clone-stats/-/clone-stats-0.0.1.tgz#b88f94a82cf38b8791d58046ea4029ad88ca99d1"
+  
+  clone@2.x:
+    version "2.1.2"
+    resolved "https://registry.yarnpkg.com/clone/-/clone-2.1.2.tgz#1b7f4b9f591f1e8f83670401600345a02887435f"
   
   clone@^0.2.0:
     version "0.2.0"
@@ -2268,6 +2292,10 @@ Lockfile:
     version "0.1.4"
     resolved "https://registry.yarnpkg.com/date-now/-/date-now-0.1.4.tgz#eaf439fd4d4848ad74e5cc7dbef200672b9e345b"
   
+  dateformat@1.0.1-1.2.3:
+    version "1.0.1-1.2.3"
+    resolved "https://registry.yarnpkg.com/dateformat/-/dateformat-1.0.1-1.2.3.tgz#2e5d03039eca89f9d8797f99389de5fb0f4aa2fc"
+  
   dateformat@^2.0.0:
     version "2.2.0"
     resolved "https://registry.yarnpkg.com/dateformat/-/dateformat-2.2.0.tgz#4065e2013cf9fb916ddfd82efb506ad4c6769062"
@@ -2295,6 +2323,10 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/debug/-/debug-3.1.0.tgz#5bb5a0672628b64149566ba16819e61518c67261"
     dependencies:
       ms "2.0.0"
+  
+  debuglog@0.0.2:
+    version "0.0.2"
+    resolved "https://registry.yarnpkg.com/debuglog/-/debuglog-0.0.2.tgz#6c0dcf07e2c3f74524629b741668bd46c7b362eb"
   
   decamelize@^1.1.1, decamelize@^1.1.2:
     version "1.2.0"
@@ -2379,7 +2411,7 @@ Lockfile:
     version "1.1.1"
     resolved "https://registry.yarnpkg.com/depd/-/depd-1.1.1.tgz#5783b4e1c459f06fa5ca27f991f3d06e7a310359"
   
-  depd@~1.1.1, depd@~1.1.2:
+  depd@~1.1.0, depd@~1.1.1, depd@~1.1.2:
     version "1.1.2"
     resolved "https://registry.yarnpkg.com/depd/-/depd-1.1.2.tgz#9bcd52e14c097763e749b274c4346ed2e560b5a9"
   
@@ -4418,6 +4450,10 @@ Lockfile:
     version "4.5.0"
     resolved "https://registry.yarnpkg.com/lodash.uniq/-/lodash.uniq-4.5.0.tgz#d0225373aeb652adc1bc82e4945339a842754773"
   
+  lodash@4.x:
+    version "4.17.11"
+    resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.11.tgz#b39ea6229ef607ecd89e2c8df12536891cac9b8d"
+  
   lodash@^4.0.0, lodash@^4.17.4, lodash@^4.17.5, lodash@^4.3.0, lodash@~4.17.10:
     version "4.17.10"
     resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.10.tgz#1b7793cf7259ea38fb3661d4d38b3260af8ae4e7"
@@ -4848,6 +4884,13 @@ Lockfile:
   nocache@2.0.0:
     version "2.0.0"
     resolved "https://registry.yarnpkg.com/nocache/-/nocache-2.0.0.tgz#202b48021a0c4cbde2df80de15a17443c8b43980"
+  
+  node-cache@^4.2.0:
+    version "4.2.0"
+    resolved "https://registry.yarnpkg.com/node-cache/-/node-cache-4.2.0.tgz#48ac796a874e762582692004a376d26dfa875811"
+    dependencies:
+      clone "2.x"
+      lodash "4.x"
   
   node-gyp@^3.8.0:
     version "3.8.0"
@@ -5966,6 +6009,15 @@ Lockfile:
       string_decoder "~1.1.1"
       util-deprecate "~1.0.1"
   
+  readable-stream@1.1.10:
+    version "1.1.10"
+    resolved "http://registry.npmjs.org/readable-stream/-/readable-stream-1.1.10.tgz#d4dc2e5319e9c90d1e71c69390ef62cd90827f65"
+    dependencies:
+      core-util-is "~1.0.0"
+      string_decoder "~0.10.x"
+    optionalDependencies:
+      debuglog "0.0.2"
+  
   "readable-stream@>=1.0.33-1 <1.1.0-0":
     version "1.0.34"
     resolved "https://registry.yarnpkg.com/readable-stream/-/readable-stream-1.0.34.tgz#125820e34bc842d2f2aaafafe4c2916ee32c157c"
@@ -6291,7 +6343,7 @@ Lockfile:
       scss-tokenizer "^0.2.3"
       yargs "^7.0.0"
   
-  sax@>=0.6.0, sax@^1.2.4, sax@~1.2.4:
+  sax@>=0.1.1, sax@>=0.6.0, sax@^1.2.4, sax@~1.2.4:
     version "1.2.4"
     resolved "https://registry.yarnpkg.com/sax/-/sax-1.2.4.tgz#2816234e2378bddc4e5354fab5caa895df7100d9"
   
@@ -6312,6 +6364,10 @@ Lockfile:
   "semver@2 || 3 || 4 || 5", semver@5.5.0, semver@^5.3.0:
     version "5.5.0"
     resolved "https://registry.yarnpkg.com/semver/-/semver-5.5.0.tgz#dc4bbc7a6ca9d916dee5d43516f0092b58f7b8ab"
+  
+  semver@5.1.0:
+    version "5.1.0"
+    resolved "https://registry.yarnpkg.com/semver/-/semver-5.1.0.tgz#85f2cf8550465c4df000cf7d86f6b054106ab9e5"
   
   semver@^4.1.0:
     version "4.3.6"
@@ -7077,6 +7133,10 @@ Lockfile:
     version "0.1.2"
     resolved "https://registry.yarnpkg.com/unc-path-regex/-/unc-path-regex-0.1.2.tgz#e73dd3d7b0d7c5ed86fbac6b0ae7d8c6a69d50fa"
   
+  underscore@1.8.3:
+    version "1.8.3"
+    resolved "https://registry.yarnpkg.com/underscore/-/underscore-1.8.3.tgz#4f3fb53b106e6097fcf9cb4109f2a5e9bdfa5022"
+  
   union-value@^1.0.0:
     version "1.0.0"
     resolved "https://registry.yarnpkg.com/union-value/-/union-value-1.0.0.tgz#5c71c34cb5bad5dcebe3ea0cd08207ba5aa1aea4"
@@ -7424,6 +7484,12 @@ Lockfile:
   x-xss-protection@1.1.0:
     version "1.1.0"
     resolved "https://registry.yarnpkg.com/x-xss-protection/-/x-xss-protection-1.1.0.tgz#4f1898c332deb1e7f2be1280efb3e2c53d69c1a7"
+  
+  xml2js@0.1.13:
+    version "0.1.13"
+    resolved "https://registry.yarnpkg.com/xml2js/-/xml2js-0.1.13.tgz#438ff3b1d85a51ad659ffc2ebe83403e10c98722"
+    dependencies:
+      sax ">=0.1.1"
   
   xml2js@^0.4.17:
     version "0.4.19"

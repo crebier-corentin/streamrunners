@@ -8,6 +8,18 @@
   dependencies:
     regenerator-transform "^0.13.3"
 
+"@braintree/browser-detection@1.7.0", "@braintree/browser-detection@^1.5.0":
+  version "1.7.0"
+  resolved "https://registry.yarnpkg.com/@braintree/browser-detection/-/browser-detection-1.7.0.tgz#895ba64b700c3f36cab5c54591caf71a41171dd8"
+
+"@braintree/iframer@1.0.3":
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/@braintree/iframer/-/iframer-1.0.3.tgz#21dd1fd4cebd4154aeab1efa4d5b0d5f4384364e"
+
+"@braintree/sanitize-url@2.1.0":
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/@braintree/sanitize-url/-/sanitize-url-2.1.0.tgz#549a9d1f923c9bc7953a585d3e9aa9429be8fe28"
+
 "@braintree/wrap-promise@1.1.1":
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/@braintree/wrap-promise/-/wrap-promise-1.1.1.tgz#d22c76855e6d4b4012610060421fae1a37ec90b0"
@@ -54,6 +66,10 @@
   dependencies:
     "@types/jquery" "*"
     popper.js "^1.14.1"
+
+"@types/braintree-web@^3.6.3":
+  version "3.6.3"
+  resolved "https://registry.yarnpkg.com/@types/braintree-web/-/braintree-web-3.6.3.tgz#00ff7b6d31f1f65937845edbb1dedaa1a9d24f28"
 
 "@types/chai@^4.1.4":
   version "4.1.4"
@@ -1332,6 +1348,21 @@ braces@^2.3.0, braces@^2.3.1:
     split-string "^3.0.2"
     to-regex "^3.0.1"
 
+braintree-web@^3.38.0:
+  version "3.38.0"
+  resolved "https://registry.yarnpkg.com/braintree-web/-/braintree-web-3.38.0.tgz#5efad93e3c83b94e9476d72e9233da5f88db5df9"
+  dependencies:
+    "@braintree/browser-detection" "1.7.0"
+    "@braintree/iframer" "1.0.3"
+    "@braintree/sanitize-url" "2.1.0"
+    "@braintree/wrap-promise" "1.1.1"
+    card-validator "5.1.0"
+    credit-card-type "7.1.0"
+    framebus "3.0.1"
+    inject-stylesheet "1.0.0"
+    promise-polyfill "8.0.0"
+    restricted-input "1.2.7"
+
 braintree@^2.12.0:
   version "2.12.0"
   resolved "https://registry.yarnpkg.com/braintree/-/braintree-2.12.0.tgz#4c589401f00a683ddcaf9ece2bc0b1f69b268e28"
@@ -1532,6 +1563,12 @@ caniuse-api@^3.0.0:
 caniuse-lite@^1.0.0, caniuse-lite@^1.0.30000844, caniuse-lite@^1.0.30000876:
   version "1.0.30000877"
   resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30000877.tgz#f189673b86ecc06436520e3e391de6a13ca923b4"
+
+card-validator@5.1.0:
+  version "5.1.0"
+  resolved "https://registry.yarnpkg.com/card-validator/-/card-validator-5.1.0.tgz#f90006da4444491128f8d1da193dd3f5a3b021ef"
+  dependencies:
+    credit-card-type "^7.0.0"
 
 caseless@~0.12.0:
   version "0.12.0"
@@ -1952,6 +1989,10 @@ create-hmac@^1.1.0, create-hmac@^1.1.2, create-hmac@^1.1.4:
 createjs-module@^0.8.3:
   version "0.8.3"
   resolved "https://registry.yarnpkg.com/createjs-module/-/createjs-module-0.8.3.tgz#328ffa2e14741d7303d3d08bd97ce1823365741f"
+
+credit-card-type@7.1.0, credit-card-type@^7.0.0:
+  version "7.1.0"
+  resolved "https://registry.yarnpkg.com/credit-card-type/-/credit-card-type-7.1.0.tgz#8b367c7e5a0bcb59aa12826e684b8963718f2221"
 
 cross-spawn@^3.0.0:
   version "3.0.1"
@@ -3013,6 +3054,10 @@ fragment-cache@^0.2.1:
   dependencies:
     map-cache "^0.2.2"
 
+framebus@3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/framebus/-/framebus-3.0.1.tgz#dbabc3b08e39bf33d248e9af754bd8ffb05cfcce"
+
 frameguard@3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/frameguard/-/frameguard-3.0.0.tgz#7bcad469ee7b96e91d12ceb3959c78235a9272e9"
@@ -3684,6 +3729,10 @@ inherits@2.0.1:
 ini@^1.3.4, ini@~1.3.0:
   version "1.3.5"
   resolved "https://registry.yarnpkg.com/ini/-/ini-1.3.5.tgz#eee25f56db1c9ec6085e0c22778083f596abf927"
+
+inject-stylesheet@1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/inject-stylesheet/-/inject-stylesheet-1.0.0.tgz#f673047458ee58f109fee4cfb66b09f362ccc261"
 
 inquirer@^5.2.0:
   version "5.2.0"
@@ -5715,6 +5764,10 @@ promise-inflight@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/promise-inflight/-/promise-inflight-1.0.1.tgz#98472870bf228132fcbdd868129bad12c3c029e3"
 
+promise-polyfill@8.0.0:
+  version "8.0.0"
+  resolved "https://registry.yarnpkg.com/promise-polyfill/-/promise-polyfill-8.0.0.tgz#b47c7fc74052cc5b2132b703cca144f1a5eb56ef"
+
 proxy-addr@~2.0.3:
   version "2.0.4"
   resolved "https://registry.yarnpkg.com/proxy-addr/-/proxy-addr-2.0.4.tgz#ecfc733bf22ff8c6f407fa275327b9ab67e48b93"
@@ -6132,6 +6185,12 @@ restore-cursor@^2.0.0:
   dependencies:
     onetime "^2.0.0"
     signal-exit "^3.0.2"
+
+restricted-input@1.2.7:
+  version "1.2.7"
+  resolved "https://registry.yarnpkg.com/restricted-input/-/restricted-input-1.2.7.tgz#e1298f5fd8c430cc2d8e6bb1175524023205cb34"
+  dependencies:
+    "@braintree/browser-detection" "^1.5.0"
 
 ret@~0.1.10:
   version "0.1.15"

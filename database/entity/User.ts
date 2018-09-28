@@ -15,6 +15,7 @@ import {Coupon} from "./Coupon";
 import {CaseOwned} from "./CaseOwned";
 import {getPower, Power, powers, UserPower} from "./UserPower";
 import CacheService from "../../other/CacheService";
+import {Transaction} from "./Transaction";
 
 const moment = require("moment");
 const uuidv4 = require('uuid/v4');
@@ -123,6 +124,9 @@ export class User extends BaseEntity {
 
         return false;
     }
+
+    @OneToMany(type => Transaction, transaction => transaction.user, {eager: true})
+    transactions: Transaction[];
 
     @Column({default: false})
     betaBage: boolean;

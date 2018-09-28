@@ -5,22 +5,25 @@
         <div class="grid-container">
             {% for i in [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] %}
 
-            <div class="card m-2">
-                <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to
-                        additional
-                        content.</p>
-                    <p class="card-text">
-                        <small class="text-muted">Last updated 3 mins ago</small>
-                    </p>
+                <div class="card m-2">
+                    <div class="card-body">
+                        <h5 class="card-title">Card title</h5>
+                        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to
+                            additional
+                            content.</p>
+                        <p class="card-text">
+                            <small class="text-muted">Last updated 3 mins ago</small>
+                        </p>
+                    </div>
                 </div>
-            </div>
-                {% endfor %}
+            {% endfor %}
 
         </div>
     </div>
 {% endblock %}
 
 {% block script %}
+    <script>
+        window['clientToken'] = '{{ clientToken | safe }}';
+    </script>
 {% endblock %}

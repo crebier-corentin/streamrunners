@@ -17,39 +17,6 @@ import {getPower, Power, powers, UserPower} from "./UserPower";
 import CacheService from "../../other/CacheService";
 import {User} from "./User";
 
-export interface ProductInterface {
-    name: string;
-    display_name: string;
-    amount: string;
-    description: string;
-    image?: string;
-
-    apply: (user: User) => Promise<void>
-}
-
-export const products: ProductInterface[] = [{
-    name: "double_points",
-    display_name: "Potion double points",
-    description: "Gagner le double de points pendant une semaine !",
-    amount: "0.99",
-
-    apply: async (user: User) => {
-        await user.addPower("double_points");
-    }
-}];
-
-export function getProduct(name: string): ProductInterface | false {
-
-    for (const product of products) {
-        if (product.name === name) {
-            return product;
-        }
-    }
-
-    return false;
-
-}
-
 @Entity()
 export class Transaction extends BaseEntity {
 
@@ -66,7 +33,7 @@ export class Transaction extends BaseEntity {
     paymentInstrumentType: string;
 
     @Column()
-    braintreeId: string;
+    paypalId: string;
 
     @CreateDateColumn()
     createdAt: Date;

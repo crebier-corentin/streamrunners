@@ -1,66 +1,54 @@
-const braintree = window['braintree'];
-const paypal = window['paypal'];
+interface Item {
+    total: number
+}
 
-(async () => {
+class Cart {
+    items: { [name: string]: Item } = {};
 
-    braintree.client.create({
-        authorization: window['clientToken']
-    }, function (clientErr, clientInstance) {
+    itemExist(name: string): boolean {
+        return this.items[name] !== undefined;
+    }
 
-        // Stop if there was a problem creating the client.
-        // This could happen if there is a network error or if the authorization
-        // is invalid.
-        if (clientErr) {
-            console.error('Error creating client:', clientErr);
-            return;
+    getItem(name: string): Item {
+
+        //If not exist create one
+        if (!this.itemExist(name)) {
+            this.items[name] = {total: 0};
         }
 
-        // Create a PayPal Checkout component.
-        braintree.paypalCheckout.create({
-            client: clientInstance,
-            env: window['sandbox'] ? 'sandbox' : 'production'
-        }, function (paypalCheckoutErr, paypalCheckoutInstance) {
+        return this.items[name];
+    }
 
-            // Stop if there was a problem creating PayPal Checkout.
-            // This could happen if there was a network error or if it's incorrectly
-            // configured.
-            if (paypalCheckoutErr) {
-                console.error('Error creating PayPal Checkout:', paypalCheckoutErr);
-                return;
-            }
+    addItem(name: string) {
+        this.getItem(name).total++;
+    }
 
-            // Set up PayPal with the checkout.js library
-            paypal.Button.render({
-                env: window['sandbox'] ? 'sandbox' : 'production', // or 'sandbox'
+    removeItem(name: string) {
+        this.getItem(name).total--;
 
-                payment: function () {
-                    return paypalCheckoutInstance.createPayment({
-                        // Your PayPal options here. For available options, see
-                        // http://braintree.github.io/braintree-web/current/PayPalCheckout.html#createPayment
-                    });
-                },
+        if(this.getItem(name).total <= 0) {
+            delete this.items[name];
+        }
+    }
 
-                onAuthorize: function (data, actions) {
-                    return paypalCheckoutInstance.tokenizePayment(data, function (err, payload) {
-                        // Submit `payload.nonce` to your server.
-                    });
-                },
+    isEmpty(): boolean {
+        return Object.keys(this.items).length === 0;
+    }
 
-                onCancel: function (data) {
-                    console.log('checkout.js payment cancelled', JSON.stringify(data, [0], 2));
-                },
+}
 
-                onError: function (err) {
-                    console.error('checkout.js error', err);
-                }
-            }, '#paypal-button').then(function () {
-                // The PayPal button will be rendered in an html element with the id
-                // `paypal-button`. This function will be called when the PayPal button
-                // is set up and ready to be used.
-            });
+const cart = new Cart();
 
-        });
+window['cart'] = cart;
 
+//Button
+let buttons = <HTMLCollectionOf<HTMLButtonElement>>document.getElementsByClassName("buy");
+for (let button of buttons) {
+
+    button.addEventListener("click", evt => {
+        let target = <HTMLButtonElement> evt.target;
+
+        cart.addItem(target.dataset["name"]);
     });
-})
-();
+
+}

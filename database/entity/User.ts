@@ -16,6 +16,7 @@ import {CaseOwned} from "./CaseOwned";
 import {getPower, Power, powers, UserPower} from "./UserPower";
 import CacheService from "../../other/CacheService";
 import {Transaction} from "./Transaction";
+import {Product} from "./Product";
 
 const moment = require("moment");
 const uuidv4 = require('uuid/v4');

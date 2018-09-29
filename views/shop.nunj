@@ -2,12 +2,11 @@
 
 {% block content %}
     <div class="container">
-        <div id="paypal-button"></div>
         <div class="grid-container">
             {% for product in products %}
 
                 <div class="card m-2">
-                    <div class="card-body">
+                    <div class="card-body text-center">
                         {% if product.image != null %}
                             <img class="card-img-top" src="{{ product.image }}" alt="{{ product.display_name }}">
                         {% endif %}
@@ -15,7 +14,7 @@
                         <p class="card-text">{{ product.description }}</p>
                         <p class="card-text">
                             {{ product.amount }}€ </p>
-                        <button class="btn btn-primary buy" data-name="{{ product.name }}">Go somewhere</button>
+                        <button class="btn btn-primary buy" data-name="{{ product.name }}">Ajouter au Panier</button>
                     </div>
                 </div>
             {% endfor %}
@@ -25,17 +24,5 @@
 {% endblock %}
 
 {% block script %}
-    <script>
-        window['clientToken'] = '{{ clientToken | safe }}';
-        window['sandbox'] = {{ sandbox | safe }};
-    </script>
-    <!-- Load PayPal's checkout.js Library. -->
-    <script src="https://www.paypalobjects.com/api/checkout.js" data-version-4 log-level="warn"></script>
-
-    <!-- Load the client component. -->
-    <script src="https://js.braintreegateway.com/web/3.38.0/js/client.min.js"></script>
-
-    <!-- Load the PayPal Checkout component. -->
-    <script src="https://js.braintreegateway.com/web/3.38.0/js/paypal-checkout.min.js"></script>
     <script src="/js/shop.js"></script>
 {% endblock %}

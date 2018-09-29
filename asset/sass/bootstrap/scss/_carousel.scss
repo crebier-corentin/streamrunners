@@ -1,11 +1,11 @@
 // Notes on the classes:
 //
-// 1. The .carousel-item-left and .carousel-item-right is used to indicate where
+// 1. The .carousel-items-left and .carousel-items-right is used to indicate where
 //    the active slide is heading.
-// 2. .active.carousel-item is the current slide.
-// 3. .active.carousel-item-left and .active.carousel-item-right is the current
+// 2. .active.carousel-items is the current slide.
+// 3. .active.carousel-items-left and .active.carousel-items-right is the current
 //    slide in its in-transition state. Only one of these occurs at a time.
-// 4. .carousel-item-next.carousel-item-left and .carousel-item-prev.carousel-item-right
+// 4. .carousel-items-next.carousel-items-left and .carousel-items-prev.carousel-items-right
 //    is the upcoming slide in transition.
 
 .carousel {
@@ -165,7 +165,7 @@
 
 // Optional indicator pips
 //
-// Add an ordered list with the following class and add a list item for each
+// Add an ordered list with the following class and add a list items for each
 // slide your carousel holds.
 
 .carousel-indicators {

@@ -8,6 +8,7 @@ import {casesContent} from "./other/CaseContent";
 
 import "reflect-metadata";
 import * as child_process from "child_process";
+import {Product, syncProducts} from "./database/entity/Product";
 
 const express = require('express');
 const path = require('path');
@@ -167,6 +168,7 @@ createConnection().then(async () => {
 
     //Sync cases
     await syncCases(casesContent);
+    await syncProducts();
 
 }).catch(error => console.log(error));
 

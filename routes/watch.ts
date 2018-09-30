@@ -1,7 +1,8 @@
-import {StreamQueue} from "../database/entity/StreamQueue";
+import {StreamQueue, updateStreamQueue} from "../database/entity/StreamQueue";
 import {Repository} from "typeorm";
 import {getDBConnection} from "../database/connection";
 import {User} from "../database/entity/User";
+import {throttle} from 'throttle-debounce';
 
 const moment = require("moment");
 
@@ -9,6 +10,13 @@ var express = require('express');
 var router = express.Router();
 
 router.post('/update', async (req: Express.Request, res) => {
+
+    const update = throttle(1000, () => {
+        console.log("hello");
+        setImmediate(updateStreamQueue);
+    });
+
+    update();
 
     async function sendData() {
         res.send({

@@ -137,14 +137,14 @@ createConnection().then(async () => {
     });*/
 
     //StreamQueue
-    async function update() {
+   /* async function update() {
         await updateStreamQueue().catch(reason => {
             console.log(reason);
         });
         setTimeout(update, 1000);
     }
 
-    update().catch(reason => console.log(reason));
+    update().catch(reason => console.log(reason));*/
     /*app.use(async (req, res: Express.Response, done) => {
         await updateStreamQueue();
         done();

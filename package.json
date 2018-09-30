@@ -62,6 +62,7 @@
     "passport-twitch": "^1.0.3",
     "reflect-metadata": "^0.1.10",
     "sqlite3": "^4.0.2",
+    "throttle-debounce": "^2.0.1",
     "ts-node": "^7.0.1",
     "typeorm": "^0.2.7",
     "typescript": "^3.0.1"

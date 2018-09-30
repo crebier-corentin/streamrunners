@@ -24,7 +24,7 @@ window['vm'] = new Vue({
         skipUrl: "/watch/skip",
 
         pause: false,
-        interval: 1000,
+        interval: 2000,
 
         queue: [],
 

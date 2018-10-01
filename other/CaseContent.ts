@@ -53,7 +53,7 @@ export const casesContent: CaseInterface[] = [
                 chance: 2 * 100,
                 amount: null,
                 special: "badge_beta",
-                image: "/img/case/Beta/badge.png"
+                image: "/img/case/Beta/Beta_Badge.png"
             },
             /*            {
                             name: "Logo sur la bannière",

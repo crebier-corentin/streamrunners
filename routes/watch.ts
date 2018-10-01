@@ -142,6 +142,10 @@ router.post('/delete', async (req: Express.Request, res) => {
         return res.send({auth: true, error: true, errorMessage: "Impossible de trouver la place"});
     }
 
+    if((await StreamQueue.currentStream()).id === stream.id) {
+        return res.send({auth: true, error: true, errorMessage: "On ne peut pas supprimer si on à la première place"});
+    }
+
     //Delete stream
     await repo.remove(stream);
 

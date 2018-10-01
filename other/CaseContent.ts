@@ -53,12 +53,8 @@ export const casesContent: CaseInterface[] = [
                 chance: 2 * 100,
                 amount: null,
                 special: "badge_beta",
-            <<<<<<< HEAD
                 image: "/img/case/Beta/badge.png"
-=======
-    image: "/img/case/Beta/Beta_Badge.png"
->>>>>>> 6729f677178fe48cd6ea42a5a9d2d2c7d0f592c9
-},
+            },
 /*            {
                 name: "Logo sur la bannière",
                 chance: 1.99 * 100,
@@ -66,14 +62,14 @@ export const casesContent: CaseInterface[] = [
                 special: "logo_banniere",
                 image: "/img/case/banniere.png"
             },*/
-{
-    name: "Jeux Steam Aléatoire",
-        chance: 100,
-    amount: null,
-    special: "steam",
-    image: "/img/case/steam.png"
-},
-]
+            {
+                name: "Jeux Steam Aléatoire",
+                    chance: 100,
+                amount: null,
+                special: "steam",
+                image: "/img/case/steam.png"
+            },
+            ]
 },
 
 {

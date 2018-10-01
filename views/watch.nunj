@@ -7,7 +7,7 @@
             <!-- Three columns of text below the carousel -->
             <div class="row">
 
-                <div class="col-lg-2 d-flex flex-column align-items-center" v-for="q of queue.slice(0, 4)">
+                <div class="col-lg-2 d-flex flex-column align-items-center" v-for="(q, index) of queue.slice(0, 4)">
                     <a :href="'https://www.twitch.tv/' + q.user.username"
                        target="_blank"><img class="rounded-circle perso"
                                             :src="q.user.avatar"
@@ -20,7 +20,7 @@
                            target="_blank"
                            class="d-inline">{% raw %}{{ q.user.display_name }}{% endraw %}</a>
                         {# Delete only if is self #}
-                        <a class="fas fa-times text-danger d-inline" href="#" @click="makeRequestDelete(q.id)" v-if="q.user.username === '{{ req.user.username }}'"></a>
+                        <a class="fas fa-times text-danger d-inline" href="#" @click="makeRequestDelete(q.id)" v-if="q.user.username === '{{ req.user.username }}' && index !== 0"></a>
                     </div>
 
                 </div>

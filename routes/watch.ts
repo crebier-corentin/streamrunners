@@ -119,14 +119,14 @@ router.post('/add', async (req: Express.Request, res) => {
 
 router.post('/delete', async (req: Express.Request, res) => {
 
-    if(req.isUnauthenticated()) {
+    if (req.isUnauthenticated()) {
         return res.send({auth: false});
     }
 
     //Get id
     const id = req['body'].id;
 
-    if(id == undefined) {
+    if (id == undefined) {
         return res.send({auth: true, error: true, errorMessage: "Impossible de trouver la place"});
     }
 
@@ -138,16 +138,20 @@ router.post('/delete', async (req: Express.Request, res) => {
         .andWhere("user.id = :userid", {userid: req.user.id})
         .getOne();
 
-    if(stream == undefined || stream.user.id !== req.user.id) {
+    if (stream == undefined || stream.user.id !== req.user.id) {
         return res.send({auth: true, error: true, errorMessage: "Impossible de trouver la place"});
     }
 
-    //Refund
-    await req.user.changePoints(stream.amount).catch(e => console.log(e));
-    await getDBConnection().getRepository(User).save(req.user);
+    if((await StreamQueue.currentStream()).id === stream.id) {
+        return res.send({auth: true, error: true, errorMessage: "On ne peut pas supprimer si on à la première place"});
+    }
 
     //Delete stream
     await repo.remove(stream);
+
+    //Refund
+    await req.user.changePoints(stream.amount);
+    await req.user.save();
 
     return res.send({auth: true, error: false});
 

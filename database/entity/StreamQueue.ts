@@ -71,7 +71,7 @@ export class StreamQueue extends BaseEntity {
         let repository: Repository<StreamQueue> = getDBConnection().getRepository(StreamQueue);
 
         return await repository.createQueryBuilder("queue")
-            .select(["queue.time", "queue.current"])
+            .select(["queue.time", "queue.current", "queue.id"])
             .leftJoin("queue.user", "user")
             .addSelect(["user.username", "user.avatar", "user.display_name"])
             .where("queue.current < queue.time")

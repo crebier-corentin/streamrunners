@@ -15,8 +15,14 @@
                                             width="90"
                                             height="90"></a>
 
-                    <a :href="'https://www.twitch.tv/' + q.user.username"
-                       target="_blank">{% raw %}{{ q.user.display_name }}{% endraw %}</a>
+                    <div>
+                        <a :href="'https://www.twitch.tv/' + q.user.username"
+                           target="_blank"
+                           class="d-inline">{% raw %}{{ q.user.display_name }}{% endraw %}</a>
+                        {# Delete only if is self #}
+                        <a class="fas fa-times text-danger d-inline" href="#" @click="makeRequestDelete(q.id)" v-if="q.user.username === '{{ req.user.username }}'"></a>
+                    </div>
+
                 </div>
 
                 <div class="col-lg-2 d-flex flex-column align-items-center">

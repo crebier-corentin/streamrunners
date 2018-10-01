@@ -15,7 +15,7 @@ router.get('/', async function (req: Express.Request, res: Response) {
     res.render("shop", {
         title: "TwitchRunner - Boutique",
         req,
-        products: (await Product.getAllProducts())
+        products: JSON.stringify(await Product.getAllProducts())
     });
 
 });

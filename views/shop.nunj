@@ -2,27 +2,15 @@
 
 {% block content %}
     <div class="container">
-        <div class="grid-container">
-            {% for product in products %}
 
-                <div class="card m-2">
-                    <div class="card-body text-center">
-                        {% if product.image != null %}
-                            <img class="card-img-top" src="{{ product.image }}" alt="{{ product.display_name }}">
-                        {% endif %}
-                        <h5 class="card-title">{{ product.display_name }}</h5>
-                        <p class="card-text">{{ product.description }}</p>
-                        <p class="card-text">
-                            {{ product.amount }}€ </p>
-                        <button class="btn btn-primary buy" data-name="{{ product.name }}">Ajouter au Panier</button>
-                    </div>
-                </div>
-            {% endfor %}
+        <div id="app"></div>
 
-        </div>
     </div>
 {% endblock %}
 
 {% block script %}
+    <script>
+        window['products'] = {{ products | safe }};
+    </script>
     <script src="/js/shop.js"></script>
 {% endblock %}

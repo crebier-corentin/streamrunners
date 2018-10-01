@@ -12,12 +12,20 @@ export interface ProductInterface {
     image?: string;
 }
 
-const products: ProductInterface[] = [{
-    name: "double_points",
-    displayName: "Potion double points",
-    description: "Gagner le double de points pendant une semaine !",
-    amount: "0.99"
-}];
+const products: ProductInterface[] = [
+    {
+        name: "double_points",
+        displayName: "Potion double points",
+        description: "Gagner le double de points pendant une semaine !",
+        amount: "0.99"
+    },
+    {
+        name: "reduc_2",
+        displayName: "Potion Reduc",
+        description: "Réduit le prix du passage de 2 !",
+        amount: "0.99"
+    }
+];
 
 @Entity()
 export class Product extends BaseEntity {
@@ -57,7 +65,7 @@ export class Product extends BaseEntity {
 
     static async getAllProducts(): Promise<Product[]> {
         const repo = getDBConnection().getRepository(Product);
-        return repo.find();
+        return repo.find({select: ["name", "displayName", "description", "amount", "image"]});
     }
 
     static async productExist(name: string): Promise<boolean> {

@@ -3,6 +3,7 @@ import {Repository} from "typeorm";
 import {getDBConnection} from "../database/connection";
 import {User} from "../database/entity/User";
 import {throttle} from 'throttle-debounce';
+import {isNullOrUndefined} from "util";
 
 const moment = require("moment");
 
@@ -12,7 +13,6 @@ var router = express.Router();
 router.post('/update', async (req: Express.Request, res) => {
 
     const update = throttle(1000, () => {
-        console.log("hello");
         setImmediate(updateStreamQueue);
     });
 
@@ -114,6 +114,42 @@ router.post('/add', async (req: Express.Request, res) => {
         res.send({auth: false});
 
     }
+
+});
+
+router.post('/delete', async (req: Express.Request, res) => {
+
+    if(req.isUnauthenticated()) {
+        return res.send({auth: false});
+    }
+
+    //Get id
+    const id = req['body'].id;
+
+    if(id == undefined) {
+        return res.send({auth: true, error: true, errorMessage: "Impossible de trouver la place"});
+    }
+
+    //Get stream
+    const repo = getDBConnection().getRepository(StreamQueue);
+    const stream = await repo.createQueryBuilder("queue")
+        .leftJoinAndSelect("queue.user", "user")
+        .where("queue.id = :id", {id})
+        .andWhere("user.id = :userid", {userid: req.user.id})
+        .getOne();
+
+    if(stream == undefined || stream.user.id !== req.user.id) {
+        return res.send({auth: true, error: true, errorMessage: "Impossible de trouver la place"});
+    }
+
+    //Refund
+    await req.user.changePoints(stream.amount).catch(e => console.log(e));
+    await getDBConnection().getRepository(User).save(req.user);
+
+    //Delete stream
+    await repo.remove(stream);
+
+    return res.send({auth: true, error: false});
 
 });
 

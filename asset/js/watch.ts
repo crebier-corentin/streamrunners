@@ -1,6 +1,5 @@
 /* eslint-disable no-undef */
 
-//TODO changer à vue.min.js pour Prod
 import Vue from 'vue/dist/vue.esm.js';
 import TwitchViewer from "./component/TwitchViewer.vue";
 import Leaderboard from "./component/Leaderboard.vue";
@@ -21,6 +20,7 @@ window['vm'] = new Vue({
 
         updateUrl: "/watch/update",
         addUrl: "/watch/add",
+        deleteUrl: "/watch/delete",
         skipUrl: "/watch/skip",
 
         pause: false,
@@ -133,9 +133,9 @@ window['vm'] = new Vue({
 
         },
 
-        makeRequestAdd: function () {
+        makeRequestAdd() {
 
-            let result = swal({
+            swal({
                 title: 'Acheter une place?',
                 text: '1 000 points pour 10 minutes. \n Si la queue est vide la place est gratuite !',
                 type: 'warning',
@@ -183,6 +183,70 @@ window['vm'] = new Vue({
             })
                 .catch((error: AxiosError) => {
                     console.log(error.response);
+                });
+
+
+        },
+
+        makeRequestDelete(id: string) {
+
+            swal({
+                title: 'Supprimer ça place ?',
+                text: 'Vous serez remboursé',
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Oui',
+                cancelButtonText: 'Non'
+
+            }).then((result) => {
+
+                if (result.value) {
+                    let self = this;
+                    return axios.post(self.deleteUrl, {id: id});
+                }
+                else {
+                    return Promise.reject('cancel');
+                }
+
+            }).then((result) => {
+
+                //Check if auth
+                if (result.data.auth) {
+
+                    if (!result.data.error) {
+
+                        //Success
+                        swal({
+                            title: "Vous avez supprimer votre place !",
+                            type: "success"
+                        });
+                    }
+                    else {
+
+                        //Error
+                        swal({
+                            type: "error",
+                            title: "Erreur",
+                            text: result.data.errorMessage
+                        });
+
+                    }
+                }
+                else {
+                    location.reload();
+                }
+
+            })
+                .catch((error: AxiosError | "cancel") => {
+
+                    if (error !== "cancel") {
+
+                        swal({
+                            type: "error",
+                            title: "Erreur"
+                        });
+                        console.log(error.response);
+                    }
                 });
 
 

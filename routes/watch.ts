@@ -10,8 +10,6 @@ const moment = require("moment");
 var express = require('express');
 var router = express.Router();
 
-let discordAntiSpamDate = moment().subtract("20", "hours");
-
 router.post('/update', async (req: Express.Request, res) => {
 
     const update = throttle(1000, () => {
@@ -110,20 +108,21 @@ router.post('/add', async (req: Express.Request, res) => {
             (() => {
 
                 //Stop spam, only one message per hour
-                if (discordAntiSpamDate.add("1", "hours") >= moment()) {
+                if (global['discordAntiSpamDate'] >= moment().subtract("1", "hour")) {
                     return;
                 }
 
-                discordAntiSpamDate = moment();
+                global['discordAntiSpamDate'] = moment();
 
 
                 const channel = req.discord.channels.find((ch) => ch.id === '510772696821399555');
                 if (!channel) return;
 
+
                 channel['send'](`@everyone
-                
-Un stream viens d'être lancé sur StreamRunners ! Va vite récupérer des points !
-https://streamrunners.fr/`);
+
+  Un stream viens d'être lancé sur StreamRunners ! Va vite récupérer des points !
+  https://streamrunners.fr/`);
             })();
 
             res.send({auth: true, enough: true});

@@ -9,6 +9,7 @@ import {casesContent} from "./other/CaseContent";
 import "reflect-metadata";
 import * as child_process from "child_process";
 import {Product, syncProducts} from "./database/entity/Product";
+import moment = require("moment");
 
 const express = require('express');
 const path = require('path');
@@ -37,6 +38,8 @@ var watchRouter = require('./routes/watch');
 
 //App
 var app = express();
+
+global['discordAntiSpamDate'] = moment().subtract("20", "hours");
 
 //DB
 createConnection().then(async () => {

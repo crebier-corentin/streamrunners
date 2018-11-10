@@ -17,6 +17,7 @@ import {getPower, Power, powers, UserPower} from "./UserPower";
 import CacheService from "../../other/CacheService";
 import {Transaction} from "./Transaction";
 import {Product} from "./Product";
+import {Client} from "discord.js";
 
 const moment = require("moment");
 const uuidv4 = require('uuid/v4');
@@ -207,12 +208,14 @@ declare global {
     namespace Express {
         interface Request {
             user?: User;
+            discord?: Client;
         }
     }
 
     namespace e {
         interface Request {
             user?: User;
+            discord?: Client;
         }
     }
 }

@@ -10,6 +10,8 @@ const moment = require("moment");
 var express = require('express');
 var router = express.Router();
 
+let discordAntiSpamDate = moment().subtract("20", "hours");
+
 router.post('/update', async (req: Express.Request, res) => {
 
     const update = throttle(1000, () => {
@@ -104,6 +106,26 @@ router.post('/add', async (req: Express.Request, res) => {
             //Change points
             await req.user.changePoints(-cost);
 
+            //Discord
+            (() => {
+
+                //Stop spam, only one message per hour
+                if (discordAntiSpamDate.add("1", "hours") >= moment()) {
+                    return;
+                }
+
+                discordAntiSpamDate = moment();
+
+
+                const channel = req.discord.channels.find((ch) => ch.id === '510772696821399555');
+                if (!channel) return;
+
+                channel['send'](`@everyone
+                
+Un stream viens d'être lancé sur StreamRunners ! Va vite récupérer des points !
+https://streamrunners.fr/`);
+            })();
+
             res.send({auth: true, enough: true});
         }
 
@@ -142,7 +164,7 @@ router.post('/delete', async (req: Express.Request, res) => {
         return res.send({auth: true, error: true, errorMessage: "Impossible de trouver la place"});
     }
 
-    if((await StreamQueue.currentStream()).id === stream.id) {
+    if ((await StreamQueue.currentStream()).id === stream.id) {
         return res.send({auth: true, error: true, errorMessage: "On ne peut pas supprimer si on à la première place"});
     }
 

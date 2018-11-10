@@ -115,7 +115,7 @@ export const casesContent: CaseInterface[] = [
     {
         name: "Points 66 666",
         chance: 3 * 100,
-        amount: 66 666,
+        amount: 66666,
         special: null,
         image: "/img/case/coin4.png"
     },

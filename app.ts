@@ -20,6 +20,7 @@ const passport = require('passport');
 const twitchStrategy = require("passport-twitch").Strategy;
 const compression = require('compression');
 const helmet = require('helmet');
+const Discord = require("discord.js");
 
 //.env
 require("dotenv").config();
@@ -51,6 +52,15 @@ createConnection().then(async () => {
         globals: {
             HOSTNAME: process.env.HOSTNAME
         }
+    });
+
+    //Discord
+    app.use(async (req, res, next) => {
+        const client = new Discord.Client();
+        await client.login(process.env.DISCORD_TOKEN);
+
+        req.discord = client;
+        next();
     });
 
     app.use(logger('dev'));
@@ -137,14 +147,14 @@ createConnection().then(async () => {
     });*/
 
     //StreamQueue
-   /* async function update() {
-        await updateStreamQueue().catch(reason => {
-            console.log(reason);
-        });
-        setTimeout(update, 1000);
-    }
+    /* async function update() {
+         await updateStreamQueue().catch(reason => {
+             console.log(reason);
+         });
+         setTimeout(update, 1000);
+     }
 
-    update().catch(reason => console.log(reason));*/
+     update().catch(reason => console.log(reason));*/
     /*app.use(async (req, res: Express.Response, done) => {
         await updateStreamQueue();
         done();
@@ -153,7 +163,7 @@ createConnection().then(async () => {
     //Routes
     app.use('/', indexRouter);
     app.use('/case', caseRouter);
-    app.use('/shop', shopRouter);
+    //   app.use('/shop', shopRouter);
     app.use('/parrainage', parrainageRouter);
     app.use('/giveaway', giveawayRouter);
     app.use('/coupon', couponRouter);

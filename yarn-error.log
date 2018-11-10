@@ -1,8 +1,8 @@
 Arguments: 
-  C:\Program Files\nodejs\node.exe C:\Program Files\nodejs\node_modules\yarn\bin\yarn.js add braintree_web --dev
+  C:\Program Files\nodejs\node.exe C:\Program Files\nodejs\node_modules\yarn\bin\yarn.js add @types/discord.js
 
 PATH: 
-  C:\tools\cmder\bin;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v9.0\bin;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v9.0\libnvvp;C:\ProgramData\Oracle\Java\javapath;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;P:\Program Files\Java\jdk1.8.0_171\bin;C:\Perl\site\bin;C:\Perl\bin;C:\tools\ruby24\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files\Java\jdk1.8.0_25\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\Skype\Phone\;C:\Program Files\MySQL\MySQL Utilities 1.6\;C:\ProgramData\ComposerSetup\bin;P:\Program Files\Git\cmd;P:\Program Files\PuTTY\;P:\Program Files (x86)\Gtk-Runtime\bin;C:\D\dmd2\windows\bin;C:\Program Files (x86)\Yarn\bin\;C:\Program Files\dotnet\;C:\Program Files\CMake\bin;C:\Users\Corentin\AppData\Roaming\nvm;C:\Program Files\nodejs;P:\Qt\Static\clang\5.11.0\bin;P:\Program Files\LLVM\bin;P:\Program Files\mingw-w64\x86_64-8.1.0-win32-seh-rt_v6-rev0\mingw64\bin;C:\Users\Corentin\AppData\Local\Programs\Python\Python36\;;C:\WINDOWS\System32\OpenSSH\;C:\Users\Corentin\.cargo\bin;C:\Users\Corentin\AppData\Local\Programs\Python\Python36\Scripts\;C:\Users\Corentin\AppData\Local\Microsoft\WindowsApps;C:\Users\Corentin\AppData\Roaming\Composer\vendor\bin;C:\Users\Corentin\AppData\Local\Programs\Python\Python36\Lib\site-packages\nuitka\build\include;C:\Users\Corentin\AppData\Roaming\npm;C:\tools\cmder;P:\Program Files (x86)\Dr. Memory\bin\;C:\Program Files (x86)\FAHClient;C:\Users\Corentin\AppData\Local\Yarn\bin;P:\laragon\bin\php\php-7.1.14-Win32-VC14-x64;P:\laragon\bin\mysql\mysql-5.7.19-winx64\bin;C:\Users\Corentin\AppData\Roaming\nvm;C:\Program Files\nodejs;C:\Users\Corentin\AppData\Local\Microsoft\WindowsApps;C:\Users\Corentin\AppData\Local\Programs\Python\Python36\Scripts;;P:\Program Files\Git\usr\bin;P:\Program Files\Git\usr\share\vim\vim74;C:\tools\cmder\
+  C:\tools\cmder\bin;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v9.0\bin;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v9.0\libnvvp;C:\ProgramData\Oracle\Java\javapath;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;P:\Program Files\Java\jdk1.8.0_171\bin;C:\Perl\site\bin;C:\Perl\bin;C:\tools\ruby24\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files\Java\jdk1.8.0_25\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\Skype\Phone\;C:\Program Files\MySQL\MySQL Utilities 1.6\;C:\ProgramData\ComposerSetup\bin;P:\Program Files\Git\cmd;P:\Program Files\PuTTY\;P:\Program Files (x86)\Gtk-Runtime\bin;C:\D\dmd2\windows\bin;C:\Program Files (x86)\Yarn\bin\;C:\Program Files\dotnet\;C:\Program Files\CMake\bin;C:\Users\Corentin\AppData\Roaming\nvm;C:\Program Files\nodejs;P:\Program Files\LLVM\bin;P:\Program Files\mingw-w64\x86_64-8.1.0-win32-seh-rt_v6-rev0\mingw64\bin;C:\Users\Corentin\AppData\Local\Programs\Python\Python36\;C:\WINDOWS\System32\OpenSSH\;C:\Users\Corentin\.windows-build-tools\python27;C:\Users\Corentin\AppData\Roaming\nvm\v10.0.0\node_modules\npm\node_modules\npm-lifecycle\node-gyp-bin;C:\Program Files\nodejs\node_modules\windows-build-tools\node_modules\.bin;C:\Program Files\nodejs\node_modules\.bin;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v9.0\bin;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v9.0\libnvvp;C:\ProgramData\Oracle\Java\javapath;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;P:\Program Files\Java\jdk1.8.0_171\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\IPT;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\Skype\Phone\;C:\Program Files\MySQL\MySQL Utilities 1.6\;C:\ProgramData\ComposerSetup\bin;P:\Program Files\Git\cmd;P:\Program Files (x86)\Gtk-Runtime\bin;C:\D\dmd2\windows\bin;C:\Program Files (x86)\Yarn\bin\;C:\Program Files\dotnet\;C:\Program Files\CMake\bin;C:\Users\Corentin\AppData\Roaming\nvm;C:\Program Files\nodejs;P:\Program Files\mingw-w64\x86_64-8.1.0-win32-seh-rt_v6-rev0\mingw64\bin;C:\WINDOWS\System32\OpenSSH\;C:\Users\Corentin\.cargo\bin;C:\Users\Corentin\AppData\Local\Microsoft\WindowsApps;C:\Users\Corentin\AppData\Roaming\Composer\vendor\bin;C:\Users\Corentin\AppData\Roaming\npm;C:\tools\cmder;P:\Program Files (x86)\Dr. Memory\bin\;C:\Program Files (x86)\FAHClient;C:\Users\Corentin\AppData\Local\Yarn\bin;P:\laragon\bin\php\php-7.1.14-Win32-VC14-x64;P:\laragon\bin\mysql\mysql-5.7.19-winx64\bin;C:\Users\Corentin\AppData\Local\Microsoft\WindowsApps;;P:\Program Files\Git\usr\bin;P:\Program Files\Git\usr\share\vim\vim74;C:\tools\cmder\
 
 Yarn version: 
   1.9.4
@@ -14,7 +14,7 @@ Platform:
   win32 x64
 
 Trace: 
-  Error: https://registry.yarnpkg.com/braintree_web: Not found
+  Error: https://registry.yarnpkg.com/@types%2fdiscord.js: Not found
       at Request.params.callback [as _callback] (C:\Users\Corentin\AppData\Roaming\nvm\v10.0.0\node_modules\yarn\lib\cli.js:64202:18)
       at Request.self.callback (C:\Users\Corentin\AppData\Roaming\nvm\v10.0.0\node_modules\yarn\lib\cli.js:137468:22)
       at Request.emit (events.js:182:13)
@@ -50,6 +50,7 @@ npm manifest:
       "@types/autoprefixer": "^6.7.3",
       "@types/axios": "^0.14.0",
       "@types/bootstrap": "^4.1.2",
+      "@types/braintree-web": "^3.6.3",
       "@types/chai": "^4.1.4",
       "@types/cookie-parser": "^1.4.1",
       "@types/cookie-session": "^2.0.35",
@@ -77,6 +78,7 @@ npm manifest:
       "cookie-parser": "~1.4.3",
       "cookie-session": "^2.0.0-beta.3",
       "debug": "~2.6.9",
+      "discord.js": "^11.4.2",
       "dotenv": "^6.0.0",
       "express": "~4.16.0",
       "express-nunjucks": "^2.2.3",
@@ -90,6 +92,7 @@ npm manifest:
       "passport-twitch": "^1.0.3",
       "reflect-metadata": "^0.1.10",
       "sqlite3": "^4.0.2",
+      "throttle-debounce": "^2.0.1",
       "ts-node": "^7.0.1",
       "typeorm": "^0.2.7",
       "typescript": "^3.0.1"
@@ -103,6 +106,7 @@ npm manifest:
       "babel-plugin-transform-runtime": "^6.23.0",
       "babel-preset-env": "^1.7.0",
       "bootstrap.native": "^2.0.23",
+      "braintree-web": "^3.38.0",
       "chai": "^4.1.2",
       "createjs-module": "^0.8.3",
       "css-mqpacker": "^7.0.0",
@@ -141,6 +145,18 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/@babel/plugin-transform-regenerator/-/plugin-transform-regenerator-7.0.0.tgz#5b41686b4ed40bef874d7ed6a84bdd849c13e0c1"
     dependencies:
       regenerator-transform "^0.13.3"
+  
+  "@braintree/browser-detection@1.7.0", "@braintree/browser-detection@^1.5.0":
+    version "1.7.0"
+    resolved "https://registry.yarnpkg.com/@braintree/browser-detection/-/browser-detection-1.7.0.tgz#895ba64b700c3f36cab5c54591caf71a41171dd8"
+  
+  "@braintree/iframer@1.0.3":
+    version "1.0.3"
+    resolved "https://registry.yarnpkg.com/@braintree/iframer/-/iframer-1.0.3.tgz#21dd1fd4cebd4154aeab1efa4d5b0d5f4384364e"
+  
+  "@braintree/sanitize-url@2.1.0":
+    version "2.1.0"
+    resolved "https://registry.yarnpkg.com/@braintree/sanitize-url/-/sanitize-url-2.1.0.tgz#549a9d1f923c9bc7953a585d3e9aa9429be8fe28"
   
   "@braintree/wrap-promise@1.1.1":
     version "1.1.1"
@@ -188,6 +204,10 @@ Lockfile:
     dependencies:
       "@types/jquery" "*"
       popper.js "^1.14.1"
+  
+  "@types/braintree-web@^3.6.3":
+    version "3.6.3"
+    resolved "https://registry.yarnpkg.com/@types/braintree-web/-/braintree-web-3.6.3.tgz#00ff7b6d31f1f65937845edbb1dedaa1a9d24f28"
   
   "@types/chai@^4.1.4":
     version "4.1.4"
@@ -845,6 +865,10 @@ Lockfile:
     version "0.1.3"
     resolved "https://registry.yarnpkg.com/async-foreach/-/async-foreach-0.1.3.tgz#36121f845c0578172de419a97dbeb1d16ec34542"
   
+  async-limiter@~1.0.0:
+    version "1.0.0"
+    resolved "https://registry.yarnpkg.com/async-limiter/-/async-limiter-1.0.0.tgz#78faed8c3d074ab81f22b4e985d79e8738f720f8"
+  
   asynckit@^0.4.0:
     version "0.4.0"
     resolved "https://registry.yarnpkg.com/asynckit/-/asynckit-0.4.0.tgz#c79ed97f7f34cb8f2ba1bc9790bcc366474b4b79"
@@ -1466,6 +1490,21 @@ Lockfile:
       split-string "^3.0.2"
       to-regex "^3.0.1"
   
+  braintree-web@^3.38.0:
+    version "3.38.0"
+    resolved "https://registry.yarnpkg.com/braintree-web/-/braintree-web-3.38.0.tgz#5efad93e3c83b94e9476d72e9233da5f88db5df9"
+    dependencies:
+      "@braintree/browser-detection" "1.7.0"
+      "@braintree/iframer" "1.0.3"
+      "@braintree/sanitize-url" "2.1.0"
+      "@braintree/wrap-promise" "1.1.1"
+      card-validator "5.1.0"
+      credit-card-type "7.1.0"
+      framebus "3.0.1"
+      inject-stylesheet "1.0.0"
+      promise-polyfill "8.0.0"
+      restricted-input "1.2.7"
+  
   braintree@^2.12.0:
     version "2.12.0"
     resolved "https://registry.yarnpkg.com/braintree/-/braintree-2.12.0.tgz#4c589401f00a683ddcaf9ece2bc0b1f69b268e28"
@@ -1666,6 +1705,12 @@ Lockfile:
   caniuse-lite@^1.0.0, caniuse-lite@^1.0.30000844, caniuse-lite@^1.0.30000876:
     version "1.0.30000877"
     resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30000877.tgz#f189673b86ecc06436520e3e391de6a13ca923b4"
+  
+  card-validator@5.1.0:
+    version "5.1.0"
+    resolved "https://registry.yarnpkg.com/card-validator/-/card-validator-5.1.0.tgz#f90006da4444491128f8d1da193dd3f5a3b021ef"
+    dependencies:
+      credit-card-type "^7.0.0"
   
   caseless@~0.12.0:
     version "0.12.0"
@@ -2087,6 +2132,10 @@ Lockfile:
     version "0.8.3"
     resolved "https://registry.yarnpkg.com/createjs-module/-/createjs-module-0.8.3.tgz#328ffa2e14741d7303d3d08bd97ce1823365741f"
   
+  credit-card-type@7.1.0, credit-card-type@^7.0.0:
+    version "7.1.0"
+    resolved "https://registry.yarnpkg.com/credit-card-type/-/credit-card-type-7.1.0.tgz#8b367c7e5a0bcb59aa12826e684b8963718f2221"
+  
   cross-spawn@^3.0.0:
     version "3.0.1"
     resolved "https://registry.yarnpkg.com/cross-spawn/-/cross-spawn-3.0.1.tgz#1256037ecb9f0c5f79e3d6ef135e30770184b982"
@@ -2459,6 +2508,16 @@ Lockfile:
       bn.js "^4.1.0"
       miller-rabin "^4.0.0"
       randombytes "^2.0.0"
+  
+  discord.js@^11.4.2:
+    version "11.4.2"
+    resolved "https://registry.yarnpkg.com/discord.js/-/discord.js-11.4.2.tgz#54586981926521572051f2a30b984aad2b49786e"
+    dependencies:
+      long "^4.0.0"
+      prism-media "^0.0.3"
+      snekfetch "^3.6.4"
+      tweetnacl "^1.0.0"
+      ws "^4.0.0"
   
   dns-prefetch-control@0.1.0:
     version "0.1.0"
@@ -3147,6 +3206,10 @@ Lockfile:
     dependencies:
       map-cache "^0.2.2"
   
+  framebus@3.0.1:
+    version "3.0.1"
+    resolved "https://registry.yarnpkg.com/framebus/-/framebus-3.0.1.tgz#dbabc3b08e39bf33d248e9af754bd8ffb05cfcce"
+  
   frameguard@3.0.0:
     version "3.0.0"
     resolved "https://registry.yarnpkg.com/frameguard/-/frameguard-3.0.0.tgz#7bcad469ee7b96e91d12ceb3959c78235a9272e9"
@@ -3819,6 +3882,10 @@ Lockfile:
     version "1.3.5"
     resolved "https://registry.yarnpkg.com/ini/-/ini-1.3.5.tgz#eee25f56db1c9ec6085e0c22778083f596abf927"
   
+  inject-stylesheet@1.0.0:
+    version "1.0.0"
+    resolved "https://registry.yarnpkg.com/inject-stylesheet/-/inject-stylesheet-1.0.0.tgz#f673047458ee58f109fee4cfb66b09f362ccc261"
+  
   inquirer@^5.2.0:
     version "5.2.0"
     resolved "https://registry.yarnpkg.com/inquirer/-/inquirer-5.2.0.tgz#db350c2b73daca77ff1243962e9f22f099685726"
@@ -4462,7 +4529,7 @@ Lockfile:
     version "1.0.2"
     resolved "https://registry.yarnpkg.com/lodash/-/lodash-1.0.2.tgz#8f57560c83b59fc270bd3d561b690043430e2551"
   
-  long@4.0.0:
+  long@4.0.0, long@^4.0.0:
     version "4.0.0"
     resolved "https://registry.yarnpkg.com/long/-/long-4.0.0.tgz#9a7b71cfb7d361a194ea555241c92f7468d5bf28"
   
@@ -5829,6 +5896,10 @@ Lockfile:
     version "1.0.3"
     resolved "https://registry.yarnpkg.com/pretty-hrtime/-/pretty-hrtime-1.0.3.tgz#b7e3ea42435a4c9b2759d99e0f201eb195802ee1"
   
+  prism-media@^0.0.3:
+    version "0.0.3"
+    resolved "https://registry.yarnpkg.com/prism-media/-/prism-media-0.0.3.tgz#8842d4fae804f099d3b48a9a38e3c2bab6f4855b"
+  
   private@^0.1.6, private@^0.1.8:
     version "0.1.8"
     resolved "https://registry.yarnpkg.com/private/-/private-0.1.8.tgz#2381edb3689f7a53d653190060fcf822d2f368ff"
@@ -5848,6 +5919,10 @@ Lockfile:
   promise-inflight@^1.0.1:
     version "1.0.1"
     resolved "https://registry.yarnpkg.com/promise-inflight/-/promise-inflight-1.0.1.tgz#98472870bf228132fcbdd868129bad12c3c029e3"
+  
+  promise-polyfill@8.0.0:
+    version "8.0.0"
+    resolved "https://registry.yarnpkg.com/promise-polyfill/-/promise-polyfill-8.0.0.tgz#b47c7fc74052cc5b2132b703cca144f1a5eb56ef"
   
   proxy-addr@~2.0.3:
     version "2.0.4"
@@ -6267,6 +6342,12 @@ Lockfile:
       onetime "^2.0.0"
       signal-exit "^3.0.2"
   
+  restricted-input@1.2.7:
+    version "1.2.7"
+    resolved "https://registry.yarnpkg.com/restricted-input/-/restricted-input-1.2.7.tgz#e1298f5fd8c430cc2d8e6bb1175524023205cb34"
+    dependencies:
+      "@braintree/browser-detection" "^1.5.0"
+  
   ret@~0.1.10:
     version "0.1.15"
     resolved "https://registry.yarnpkg.com/ret/-/ret-0.1.15.tgz#b8a4825d5bdb1fc3f6f53c2bc33f81388681c7bc"
@@ -6530,6 +6611,10 @@ Lockfile:
       source-map "^0.5.6"
       source-map-resolve "^0.5.0"
       use "^3.1.0"
+  
+  snekfetch@^3.6.4:
+    version "3.6.4"
+    resolved "https://registry.yarnpkg.com/snekfetch/-/snekfetch-3.6.4.tgz#d13e80a616d892f3d38daae4289f4d258a645120"
   
   source-list-map@^2.0.0:
     version "2.0.0"
@@ -6902,6 +6987,10 @@ Lockfile:
     dependencies:
       any-promise "^1.0.0"
   
+  throttle-debounce@^2.0.1:
+    version "2.0.1"
+    resolved "https://registry.yarnpkg.com/throttle-debounce/-/throttle-debounce-2.0.1.tgz#7307ddd6cd9acadb349132fbf6c18d78c88a5e62"
+  
   through2@2.X, through2@^2.0.0, through2@^2.0.3:
     version "2.0.3"
     resolved "https://registry.yarnpkg.com/through2/-/through2-2.0.3.tgz#0004569b37c7c74ba39c43f3ced78d1ad94140be"
@@ -7050,6 +7139,10 @@ Lockfile:
   tweetnacl@^0.14.3, tweetnacl@~0.14.0:
     version "0.14.5"
     resolved "https://registry.yarnpkg.com/tweetnacl/-/tweetnacl-0.14.5.tgz#5ae68177f192d4456269d108afa93ff8743f4f64"
+  
+  tweetnacl@^1.0.0:
+    version "1.0.0"
+    resolved "https://registry.yarnpkg.com/tweetnacl/-/tweetnacl-1.0.0.tgz#713d8b818da42068740bf68386d0479e66fc8a7b"
   
   type-check@~0.3.2:
     version "0.3.2"
@@ -7480,6 +7573,13 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/write/-/write-0.2.1.tgz#5fc03828e264cea3fe91455476f7a3c566cb0757"
     dependencies:
       mkdirp "^0.5.1"
+  
+  ws@^4.0.0:
+    version "4.1.0"
+    resolved "http://registry.npmjs.org/ws/-/ws-4.1.0.tgz#a979b5d7d4da68bf54efe0408967c324869a7289"
+    dependencies:
+      async-limiter "~1.0.0"
+      safe-buffer "~5.1.0"
   
   x-xss-protection@1.1.0:
     version "1.1.0"

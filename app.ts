@@ -58,10 +58,9 @@ createConnection().then(async () => {
     });
 
     //Discord
-    app.use(async (req, res, next) => {
-        const client = new Discord.Client();
-        await client.login(process.env.DISCORD_TOKEN);
-
+    const client = new Discord.Client();
+    await client.login(process.env.DISCORD_TOKEN);
+    app.use((req, res, next) => {
         req.discord = client;
         next();
     });

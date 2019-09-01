@@ -133,14 +133,10 @@
 <footer class="footer">
     <p>© 2019 StreamRunners
         <br>
-        <a href="https://www.facebook.com/StreamRunners/" aria-label="Facebook StreamRunners"><i style="color:blue"
-                                                                                                class="fab fa-facebook"></i></a>
-        <a href="https://twitter.com/StreamRunners" aria-label="Twitter StreamRunners"><i style="color:deepskyblue"
-                                                                                          class="fab fa-twitter-square"></i></a>
-        <a href="https://www.instagram.com/twitchrunners/" aria-label="Instagram StreamRunners"><i style="color:pink"
-                                                                                                   class="fab fa-instagram"></i></a>
-        <a href="https://discord.gg/PjQFW8z" aria-label="Discord StreamRunners"><i style="color:lightgrey"
-                                                                                   class="fab fa-discord"></i></a>
+        <a href="https://www.facebook.com/StreamRunners/" aria-label="Facebook StreamRunners"><i style="color:blue" class="fab fa-facebook"></i></a>
+        <a href="https://twitter.com/StreamRunners" aria-label="Twitter StreamRunners"><i style="color:deepskyblue" class="fab fa-twitter-square"></i></a>
+        <a href="https://www.instagram.com/twitchrunners/" aria-label="Instagram StreamRunners"><i style="color:pink" class="fab fa-instagram"></i></a>
+        <a href="https://discord.gg/PjQFW8z" aria-label="Discord StreamRunners"><i style="color:lightgrey" class="fab fa-discord"></i></a>
     </p>
 </footer>
 

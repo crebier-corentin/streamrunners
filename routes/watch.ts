@@ -116,13 +116,18 @@ router.post('/add', async (req: Express.Request, res) => {
 
 
                 const channel = req.discord.channels.find((ch) => ch.id === '612021787173322763');
+
                 if (!channel) return;
 
 
                 channel['send'](`@everyone
 
   Un stream viens d'être lancé sur StreamRunners ! Va vite récupérer des points !
+<<<<<<< HEAD
   http://88.182.141.37:3000/`);
+=======
+  https://streamrunners.fr/`);
+>>>>>>> 6b45290d000acb6249bf90278ff62b0972ad7929
             })();
 
             res.send({auth: true, enough: true});

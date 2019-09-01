@@ -52,8 +52,7 @@
         <template v-if="channel == null || channel == 'null' ">
             <div class="jumbotron text-center">
                 <h1 class="display-4">La queue est vide</h1>
-                Pourquoi ne pas prendre une place ? C'est <strong>gratuit</strong> si la queue est
-                vide !
+                Pourquoi ne pas prendre une place ? C'est <strong>gratuit</strong> si la queue est vide !
             </div>
         </template>
 

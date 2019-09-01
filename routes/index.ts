@@ -59,4 +59,3 @@ router.get("/logout", (req: Express.Request, res) => {
 });
 
 module.exports = router;
-

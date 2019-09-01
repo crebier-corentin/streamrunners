@@ -13,6 +13,7 @@
     <meta property="og:url" content="{{ HOSTNAME }}" />
     <meta name="description"
           content="Gagne rapidement, et gratuitement des viewers Twitch et des tonnes de cadeaux !" />
+    <meta property="og:site_name" content="StreamRunners" />
     <title>{{ title | default("Titre") }}</title>
     <link rel="icon" href="/img/favicon.ico" />
 

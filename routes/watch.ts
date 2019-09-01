@@ -115,13 +115,12 @@ router.post('/add', async (req: Express.Request, res) => {
                 global['discordAntiSpamDate'] = moment();
 
 
-                const channel = req.discord.channels.find((ch) => ch.id === '612021787173322763');
+                const channel = req.discord.channels.find((ch) => ch.id === '617835840068124692');
 
                 if (!channel) return;
 
 
-                channel['send'](`@everyone
-
+                channel['send'](`
   Un stream viens d'être lancé sur StreamRunners ! Va vite récupérer des points !
   https://streamrunners.fr/`);
             })();

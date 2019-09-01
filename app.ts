@@ -60,7 +60,7 @@ createConnection().then(async () => {
     //Discord
     const client = new Discord.Client();
     await client.login(process.env.DISCORD_TOKEN);
-    client.user.setActivity({{ viewers }}"" membres connectés sur StreamRunners.fr", {type: "WATCHING"});
+    client.user.setActivity({{ viewers }}" membres connectés sur StreamRunners.fr", {type: "WATCHING"});
     app.use((req, res, next) => {
         req.discord = client;
         next();

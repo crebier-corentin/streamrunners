@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="fr">
+
+<head>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="/img/brand.png" />
+    <meta property="og:title" content="Gagne des viewers ou des cadeaux ?!" />
+    <meta property="og:description"
+          content="Gagne rapidement, et gratuitement des viewers Twitch et des tonnes de cadeaux !" />
+    <meta property="og:url" content="{{ HOSTNAME }}" />
+    <meta name="description"
+          content="Gagne rapidement, et gratuitement des viewers Twitch et des tonnes de cadeaux !" />
+    <title>{{ title | default("Titre") }}</title>
+    <link rel="icon" href="/img/favicon.ico" />
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script>
+        window.addEventListener("load", function () {
+            window.cookieconsent.initialise({
+                "palette": {
+                    "popup": {
+                        "background": "#8c6dc5",
+                        "text": "#ffffff"
+                    },
+                    "button": {
+                        "background": "#ffffff",
+                        "text": "#8c6dc5"
+                    }
+                },
+                "theme": "classic",
+                "position": "bottom-right",
+                "content": {
+                    "message": "Ce site utilise des cookies pour améliorer votre expérience de navigation.",
+                    "dismiss": "OK !",
+                    "link": "En savoir plus"
+                }
+            })
+        });
+    </script>
+
+
+    {% block css %}
+
+    {% endblock %}
+
+</head>
+
+<body>
+<div class="content">
+    {# Navbar #}
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="/">
+            <img src="/img/navbrand.png" width="200" alt="SreamRunners">
+        </a>
+        <button class="navbar-toggler"
+                type="button"
+                data-toggle="collapse"
+                data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent"
+                aria-expanded="false"
+                aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+
+                <li class="nav-item">
+                    <a class="nav-link" href="/"><i class="fas fa-home"></i> Accueil</a>
+                </li>
+
+                {% if req.isAuthenticated() %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="/coupon"><i class="fas fa-ticket-alt"></i> Coupon</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/case/inventory"><i class="fas fa-suitcase"></i> Inventaire</a>
+                    </li>
+                    {% if req.user.moderator %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="/admin"><i class="fas fa-lock"></i> Admin</a>
+                        </li>
+                    {% endif %}
+                    {#
+                                       <li class="nav-items">
+                                           <a class="nav-link" href="/shop"><i class="fas fa-shopping-cart"></i> Boutique</a>
+                                    </li>
+                                       {#
+                                       <li class="nav-items">
+                                           <a class="nav-link" href="/giveaway"><i class="fas fa-star"></i> GiveAway</a>
+                                       </li>
+                                       <li class="nav-items">
+                                           <a class="nav-link" href="/pointsFunc"><i class="fas fa-plus"></i> Plus de pointsFunc</a>
+                                       </li>
+                                       #}
+                {% else %}
+                {% endif %}
+
+            </ul>
+
+            <ul class="navbar-nav ml-auto">
+
+                {% if req.isAuthenticated() %}
+
+                    <li class="nav-item">
+                        <img src="{{ req.user.avatar }}" alt="avatar" class="loggedImage">
+                        <a class="nav-link d-inline-block loggedPseudo" href="#">{{ req.user.display_name }}</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="/logout">Se déconnecter</a>
+                    </li>
+                {% else %}
+
+                    <a class="btn btn-primary" href="/auth/twitch">Se connecter avec Twitch.Tv
+                        <i class="fab fa-twitch"></i></a>
+                {% endif %}
+
+            </ul>
+        </div>
+    </nav>
+
+
+    {% block content %}
+        This is the default content
+    {% endblock %}
+</div>
+
+<footer class="footer">
+    <p>© 2019 StreamRunners
+        <br>
+        <a href="https://www.facebook.com/StreamRunners/" aria-label="Facebook StreamRunners"><i style="color:blue"
+                                                                                                class="fab fa-facebook"></i></a>
+        <a href="https://twitter.com/StreamRunners" aria-label="Twitter StreamRunners"><i style="color:deepskyblue"
+                                                                                          class="fab fa-twitter-square"></i></a>
+        <a href="https://www.instagram.com/twitchrunners/" aria-label="Instagram StreamRunners"><i style="color:pink"
+                                                                                                   class="fab fa-instagram"></i></a>
+        <a href="https://discord.gg/PjQFW8z" aria-label="Discord StreamRunners"><i style="color:lightgrey"
+                                                                                   class="fab fa-discord"></i></a>
+    </p>
+</footer>
+
+</body>
+
+<script src="/js/bundle.js"></script>
+
+{% block script %}
+
+{% endblock %}
+
+
+</html>

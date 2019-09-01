@@ -1,0 +1,58 @@
+{% extends "master.nunj" %}
+
+{% block css %}
+    <link rel="preload" href="/img/case/Beta/close.png" as="image">
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+
+        <h1 class="text-center">Inventaire</h1>
+        <hr>
+
+        {% for item in req.user.cases %}
+            <div class="row border {% if not loop.last %} border-bottom-0 {% endif %} border-primary align-items-center">
+
+                {# Image #}
+                {% if item.isOpened() %}
+                    <div class="col-2"><img src="{{ item.case.openImage }}" style="max-height: 100%; max-width: 100%">
+                    </div>
+                {% else %}
+                    <div class="col-2"><img src="{{ item.case.closeImage }}" style="max-height: 100%; max-width: 100%">
+                    </div>
+                {% endif %}
+
+                {# Name #}
+                <div class="col-2">{{ item.case.name }}</div>
+
+                {# Content #}
+                {% if item.isOpened() %}
+                    <div class="col-2">{{ item.content.name }}</div>
+
+                    {# Steam Key #}
+                    {% if item.steamKey != null %}
+                        <div class="col-2">{{ item.steamKey.game }}</div>
+                        <div class="col-2 small">{{ item.steamKey.key }}</div>
+                    {% endif %}
+
+                {% else %}
+                    <div class="col-2">
+                        <a href="/case/show?uuid={{ item.uuid }}" class="btn btn-primary">Ouvrir</a>
+                    </div>
+                {% endif %}
+            </div>
+        {% else %}
+            Votre inventaire est vide.
+        {% endfor %}
+
+        <hr>
+
+        <div class="d-flex justify-content-center">
+            <button id="buy" class="btn btn-primary">Acheter une caisse Beta (10 000 Points)</button>
+        </div>
+    </div>
+{% endblock %}
+
+{% block script %}
+    <script src="/js/inventory.js"></script>
+{% endblock %}

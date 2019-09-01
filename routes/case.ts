@@ -78,11 +78,8 @@ router.get('/show', async function (req: Express.Request, res) {
     }
 
     res.render('./case', {
-<<<<<<< HEAD
+
         title: 'StreamRunners - Caisse',
-=======
-        title: 'TwitchRunners - Caisse',
->>>>>>> 6b45290d000acb6249bf90278ff62b0972ad7929
         req,
         uuid: req['query'].uuid,
         caseContent: caseOwned.case.content,
@@ -98,11 +95,8 @@ router.get('/inventory', async function (req: Express.Request, res) {
         return;
     }
 
-<<<<<<< HEAD
     res.render("inventory", {title: 'StreamRunners - Inventaire', req});
-=======
-    res.render("inventory", {title: 'TwitchRunners - Inventaire', req});
->>>>>>> 6b45290d000acb6249bf90278ff62b0972ad7929
+
 
 });
 

@@ -6,7 +6,6 @@ import {StreamQueue} from "../database/entity/StreamQueue";
 import {Repository} from "typeorm";
 import {Case} from "../database/entity/Case";
 import {User} from "../database/entity/User";
-import {error} from "util";
 
 
 var express = require('express');

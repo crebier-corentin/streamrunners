@@ -16,9 +16,10 @@
     <meta property="og:site_name" content="StreamRunners" />
     <title>{{ title | default("Titre") }}</title>
     <link rel="icon" href="/img/favicon.ico" />
-
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="/css/style.css">
-
+    
+    <!-- ??? CSS -->
     <script>
         window.addEventListener("load", function () {
             window.cookieconsent.initialise({
@@ -144,7 +145,13 @@
     <script>
          (adsbygoogle = window.adsbygoogle || []).push({});
     </script>
-
+    {% if req.isAuthenticated() %}
+    <div class="container">
+      <a href="https://forms.gle/Mw3jmNhVzSgYUBJH8" target="_blank"><div class="alert alert-primary" role="alert">
+        Nous recrutons actuellement des modérateurs, clique ici pour postuler !
+      </div>
+    </div></a>
+    {% endif %}
     {% block content %}
         This is the default content
     {% endblock %}

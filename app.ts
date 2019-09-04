@@ -35,6 +35,7 @@ var giveawayRouter = require('./routes/giveaway');
 var couponRouter = require('./routes/coupon');
 var pointsRouter = require('./routes/points');
 var watchRouter = require('./routes/watch');
+var shopRouter = require('./routes/shop');
 
 //App
 var app = express();
@@ -166,12 +167,12 @@ createConnection().then(async () => {
     //Routes
     app.use('/', indexRouter);
     app.use('/case', caseRouter);
-    //   app.use('/shop', shopRouter);
     app.use('/parrainage', parrainageRouter);
     app.use('/giveaway', giveawayRouter);
     app.use('/coupon', couponRouter);
     app.use('/points', pointsRouter);
     app.use('/watch', watchRouter);
+    app.use('/shop', shopRouter);
 
     app.get("/auth/twitch", passport.authenticate("twitch"));
     app.get("/auth/twitch/callback", passport.authenticate("twitch", {failureRedirect: "/"}), function (req, res) {

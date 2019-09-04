@@ -8,16 +8,13 @@ import {Product} from "../database/entity/Product";
 
 router.get('/', async function (req: Express.Request, res: Response) {
 
-    if (req.isUnauthenticated()) {
-        return res.redirect("/");
+    if (req.isAuthenticated()) {
+
+        res.render("shop", {title: "StreamRunners - Boutique", req, hostname: process.env.HOSTNAME});
     }
-
-    res.render("shop", {
-        title: "TwitchRunner - Boutique",
-        req,
-        products: JSON.stringify(await Product.getAllProducts())
-    });
-
+    else {
+        res.redirect("/");
+    }
 });
 
 module.exports = router;

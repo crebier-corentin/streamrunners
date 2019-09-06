@@ -96,10 +96,10 @@ createConnection().then(async () => {
                 //Met à jour
                 let user = users[0];
 
-                user.username = profile._json.name;
-                user.display_name = profile._json.display_name;
-                user.email = profile._json.email;
-                user.avatar = profile._json.logo;
+                user.username = profile.login;
+                user.display_name = profile.display_name;
+                //user.email = profile._json.email;
+                user.avatar = profile.profile_image_url;
 
                 await user.save();
 
@@ -109,10 +109,10 @@ createConnection().then(async () => {
                 let newUser = new User();
 
                 newUser.twitchId = profile.id;
-                newUser.username = profile._json.name;
-                newUser.display_name = profile._json.display_name;
-                newUser.email = profile._json.email;
-                newUser.avatar = profile._json.logo;
+                newUser.username = profile.login;
+                newUser.display_name = profile.display_name;
+                newUser.email = null;
+                newUser.avatar = profile.profile_image_url;
 
                 await newUser.save();
 

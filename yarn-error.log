@@ -1,30 +1,20 @@
 Arguments: 
-  C:\Program Files\nodejs\node.exe C:\Program Files\nodejs\node_modules\yarn\bin\yarn.js add @types/discord.js
+  C:\Program Files\nodejs\node.exe C:\Users\Corentin\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js install
 
 PATH: 
-  C:\tools\cmder\bin;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v9.0\bin;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v9.0\libnvvp;C:\ProgramData\Oracle\Java\javapath;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;P:\Program Files\Java\jdk1.8.0_171\bin;C:\Perl\site\bin;C:\Perl\bin;C:\tools\ruby24\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files\Java\jdk1.8.0_25\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\Skype\Phone\;C:\Program Files\MySQL\MySQL Utilities 1.6\;C:\ProgramData\ComposerSetup\bin;P:\Program Files\Git\cmd;P:\Program Files\PuTTY\;P:\Program Files (x86)\Gtk-Runtime\bin;C:\D\dmd2\windows\bin;C:\Program Files (x86)\Yarn\bin\;C:\Program Files\dotnet\;C:\Program Files\CMake\bin;C:\Users\Corentin\AppData\Roaming\nvm;C:\Program Files\nodejs;P:\Program Files\LLVM\bin;P:\Program Files\mingw-w64\x86_64-8.1.0-win32-seh-rt_v6-rev0\mingw64\bin;C:\Users\Corentin\AppData\Local\Programs\Python\Python36\;C:\WINDOWS\System32\OpenSSH\;C:\Users\Corentin\.windows-build-tools\python27;C:\Users\Corentin\AppData\Roaming\nvm\v10.0.0\node_modules\npm\node_modules\npm-lifecycle\node-gyp-bin;C:\Program Files\nodejs\node_modules\windows-build-tools\node_modules\.bin;C:\Program Files\nodejs\node_modules\.bin;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v9.0\bin;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v9.0\libnvvp;C:\ProgramData\Oracle\Java\javapath;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;P:\Program Files\Java\jdk1.8.0_171\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\IPT;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\Skype\Phone\;C:\Program Files\MySQL\MySQL Utilities 1.6\;C:\ProgramData\ComposerSetup\bin;P:\Program Files\Git\cmd;P:\Program Files (x86)\Gtk-Runtime\bin;C:\D\dmd2\windows\bin;C:\Program Files (x86)\Yarn\bin\;C:\Program Files\dotnet\;C:\Program Files\CMake\bin;C:\Users\Corentin\AppData\Roaming\nvm;C:\Program Files\nodejs;P:\Program Files\mingw-w64\x86_64-8.1.0-win32-seh-rt_v6-rev0\mingw64\bin;C:\WINDOWS\System32\OpenSSH\;C:\Users\Corentin\.cargo\bin;C:\Users\Corentin\AppData\Local\Microsoft\WindowsApps;C:\Users\Corentin\AppData\Roaming\Composer\vendor\bin;C:\Users\Corentin\AppData\Roaming\npm;C:\tools\cmder;P:\Program Files (x86)\Dr. Memory\bin\;C:\Program Files (x86)\FAHClient;C:\Users\Corentin\AppData\Local\Yarn\bin;P:\laragon\bin\php\php-7.1.14-Win32-VC14-x64;P:\laragon\bin\mysql\mysql-5.7.19-winx64\bin;C:\Users\Corentin\AppData\Local\Microsoft\WindowsApps;;P:\Program Files\Git\usr\bin;P:\Program Files\Git\usr\share\vim\vim74;C:\tools\cmder\
+  P:\New corentin\corentin\cmder\bin;P:\New corentin\corentin\cmder\vendor\bin;P:\New corentin\corentin\_programmation\node\twitch\node_modules\.bin;P:\Program Files\ImageMagick-7.0.8-Q8;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v9.0\bin;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v9.0\libnvvp;C:\ProgramData\Oracle\Java\javapath;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;P:\Program Files\Java\jdk1.8.0_171\bin;C:\Perl\site\bin;C:\Perl\bin;C:\tools\ruby24\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files\Java\jdk1.8.0_25\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\Skype\Phone\;C:\Program Files\MySQL\MySQL Utilities 1.6\;P:\Program Files\Git\cmd;P:\Program Files\PuTTY\;P:\Program Files (x86)\Gtk-Runtime\bin;C:\Program Files (x86)\Yarn\bin\;C:\Program Files\dotnet\;C:\Users\Corentin\AppData\Roaming\nvm;C:\Program Files\nodejs;C:\WINDOWS\System32\OpenSSH\;C:\Program Files (x86)\Mono\bin;P:\Program Files\LLVM\bin;C:\Program Files\NVIDIA Corporation\NVIDIA NvDLISR;P:\laragon\bin\php\php-7.2.11-Win32-VC15-x64;P:\Qt\Tools\mingw730_64\bin;P:\Program Files\heroku\bin;P:\New corentin\corentin\LxRunOffline;P:\vcpkg;C:\ProgramData\ComposerSetup\bin;C:\Users\Corentin\AppData\Roaming\nvm\v10.0.0\node_modules\npm\node_modules\npm-lifecycle\node-gyp-bin;C:\Program Files\nodejs\node_modules\windows-build-tools\node_modules\.bin;C:\Program Files\nodejs\node_modules\.bin;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v9.0\bin;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v9.0\libnvvp;C:\ProgramData\Oracle\Java\javapath;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;P:\Program Files\Java\jdk1.8.0_171\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\IPT;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\Skype\Phone\;C:\Program Files\MySQL\MySQL Utilities 1.6\;C:\ProgramData\ComposerSetup\bin;P:\Program Files\Git\cmd;P:\Program Files (x86)\Gtk-Runtime\bin;C:\D\dmd2\windows\bin;C:\Program Files (x86)\Yarn\bin\;C:\Program Files\dotnet\;C:\Program Files\CMake\bin;C:\Users\Corentin\AppData\Roaming\nvm;C:\Program Files\nodejs;P:\Program Files\mingw-w64\x86_64-8.1.0-win32-seh-rt_v6-rev0\mingw64\bin;C:\WINDOWS\System32\OpenSSH\;C:\Users\Corentin\.cargo\bin;C:\Users\Corentin\AppData\Local\Microsoft\WindowsApps;C:\Users\Corentin\AppData\Roaming\Composer\vendor\bin;C:\Users\Corentin\AppData\Roaming\npm;P:\Program Files (x86)\Dr. Memory\bin\;C:\Program Files (x86)\FAHClient;C:\Users\Corentin\AppData\Local\Yarn\bin;P:\laragon\bin\mysql\mysql-5.7.19-winx64\bin;C:\Users\Corentin\AppData\Local\Microsoft\WindowsApps;C:\Users\Corentin\.dotnet\tools;P:\Program Files\Git\cmd;P:\Program Files\Git\mingw64\bin;P:\Program Files\Git\usr\bin;P:\New corentin\corentin\cmder
 
 Yarn version: 
   1.9.4
 
 Node version: 
-  10.0.0
+  10.16.3
 
 Platform: 
   win32 x64
 
 Trace: 
-  Error: https://registry.yarnpkg.com/@types%2fdiscord.js: Not found
-      at Request.params.callback [as _callback] (C:\Users\Corentin\AppData\Roaming\nvm\v10.0.0\node_modules\yarn\lib\cli.js:64202:18)
-      at Request.self.callback (C:\Users\Corentin\AppData\Roaming\nvm\v10.0.0\node_modules\yarn\lib\cli.js:137468:22)
-      at Request.emit (events.js:182:13)
-      at Request.<anonymous> (C:\Users\Corentin\AppData\Roaming\nvm\v10.0.0\node_modules\yarn\lib\cli.js:138440:10)
-      at Request.emit (events.js:182:13)
-      at IncomingMessage.<anonymous> (C:\Users\Corentin\AppData\Roaming\nvm\v10.0.0\node_modules\yarn\lib\cli.js:138362:12)
-      at Object.onceWrapper (events.js:275:13)
-      at IncomingMessage.emit (events.js:187:15)
-      at endReadableNT (_stream_readable.js:1091:14)
-      at process._tickCallback (internal/process/next_tick.js:174:19)
+  Error: EEXIST: file already exists, mkdir 'P:\New corentin\corentin\_programmation\node\twitch\node_modules\discord.js\node_modules'
 
 npm manifest: 
   {
@@ -86,10 +76,13 @@ npm manifest:
       "moment": "^2.22.2",
       "morgan": "~1.9.0",
       "mysql": "^2.16.0",
+  
+      "natives": "1.1.6",
+  
       "node-cache": "^4.2.0",
       "nunjucks": "^3.1.3",
       "passport": "^0.4.0",
-      "passport-twitch": "^1.0.3",
+      "passport-twitch-new": "^0.0.1",
       "reflect-metadata": "^0.1.10",
       "sqlite3": "^4.0.2",
       "throttle-debounce": "^2.0.1",
@@ -4915,6 +4908,11 @@ Lockfile:
       regex-not "^1.0.0"
       snapdragon "^0.8.1"
       to-regex "^3.0.1"
+  
+  natives@1.1.6:
+    version "1.1.6"
+    resolved "https://registry.yarnpkg.com/natives/-/natives-1.1.6.tgz#a603b4a498ab77173612b9ea1acdec4d980f00bb"
+    integrity sha512-6+TDFewD4yxY14ptjKaS63GVdtKiES1pTPyxn9Jb0rBqPMZ7VcCiooEhPNsr+mqHtMGxa/5c/HhcC4uPEUw/nA==
   
   natives@^1.1.0:
     version "1.1.4"

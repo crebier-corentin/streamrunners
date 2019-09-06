@@ -5,53 +5,54 @@
 {% endblock %}
 
 {% block content %}
-    <div class="container">
+<div class="container">
 
-        <h1 class="text-center">Inventaire</h1>
-        <hr>
-        <div class="row">
-            <div class="col-sm-4">
+    <h1 class="text-center">Inventaire</h1>
+    <hr>
+    <div class="row">
+
         {% for item in req.user.cases %}
+            <div class="col-sm-4">
                 <div class="card" style="width: 18rem;">
                     {# Image #}
                     {% if item.isOpened() %}
-                    <img src="{{ item.case.openImage }}" class="card-img-top" alt="...">
+                        <img src="{{ item.case.openImage }}" class="card-img-top" alt="...">
                     {% else %}
-                    <img src="{{ item.case.closeImage }}" class="card-img-top" alt="...">
+                        <img src="{{ item.case.closeImage }}" class="card-img-top" alt="...">
                     {% endif %}
                     <div class="card-body">
                         {# Name #}
                         <h5 class="card-title">{{ item.case.name }}</h5>
-                    {# Content #}
-                    {% if item.isOpened() %}
-                    <p class="card-text">Tu as gagné : <b>{{ item.content.name }}</b></p>
-                    {% else %}
-                    <!--<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
-                    <div class="col-2">
-                        <a href="/case/show?uuid={{ item.uuid }}" class="btn btn-primary">Ouvrir</a>
-                    </div>
-                    {% endif %}
-                    {# Steam Key #}
-                    {% if item.steamKey != null %}
-                        <div class="col-2">{{ item.steamKey.game }}</div>
-                        <div class="col-2 small">{{ item.steamKey.key }}</div>
-                    {% endif %}
+                        {# Content #}
+                        {% if item.isOpened() %}
+                            <p class="card-text">Tu as gagné : <b>{{ item.content.name }}</b></p>
+                        {% else %}
+                            <!--<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
+                            <div class="col-2">
+                                <a href="/case/show?uuid={{ item.uuid }}" class="btn btn-primary">Ouvrir</a>
+                            </div>
+                        {% endif %}
+                        {# Steam Key #}
+                        {% if item.steamKey != null %}
+                            <div class="col-2">{{ item.steamKey.game }}</div>
+                            <div class="col-2 small">{{ item.steamKey.key }}</div>
+                        {% endif %}
 
                     </div>
                 </div>
             </div>
-        </div>
-
         {% else %}
             Votre inventaire est vide.
         {% endfor %}
 
-        <hr>
-        <div class="d-flex justify-content-center">
-            <button id="buy" class="btn btn-primary">Acheter une caisse Beta (10 000 Points)</button>
-        </div>
-{% endblock %}
-        </div>
+    </div>
+
+    <hr>
+    <div class="d-flex justify-content-center">
+        <button id="buy" class="btn btn-primary">Acheter une caisse Beta (10 000 Points)</button>
+    </div>
+    {% endblock %}
+</div>
 {% block script %}
     <script src="/js/inventory.js"></script>
 {% endblock %}

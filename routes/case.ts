@@ -138,4 +138,43 @@ router.post('/buy', async function (req: Express.Request, res) {
 
 });
 
+router.post('/buyh', async function (req: Express.Request, res) {
+
+    if (req.isUnauthenticated()) {
+        res.send({auth: false});
+        return;
+    }
+
+    let cost = 6666;
+
+    //Check if enough points
+    let points = (await req.user.points);
+    if (points < cost) {
+        //No enough point
+        res.send({auth: true, enough: false, points, cost});
+    }
+    else {
+        //Enough point
+
+        //Create CaseOwned
+        let caseOwned = new CaseOwned();
+        caseOwned.case = await getDBConnection().getRepository(Case).findOneOrFail({where: {name: "Halloween"}});
+        caseOwned.uuid = randomString();
+
+        await getDBConnection().getRepository(CaseOwned).save(caseOwned);
+
+        req.user.cases = req.user.cases.concat([caseOwned]);
+        await req.user.save();
+
+
+        // await CaseOwned.query('UPDATE "case_owned" SET "userId" = ? WHERE "caseId" = ?', [req.user.id, caseOwned.id]);
+
+        //Change points
+        await req.user.changePoints(-cost);
+
+        res.send({auth: true, enough: true});
+    }
+
+});
+
 module.exports = router;

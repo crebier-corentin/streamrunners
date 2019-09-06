@@ -9,50 +9,49 @@
 
         <h1 class="text-center">Inventaire</h1>
         <hr>
-
+        <div class="row">
+            <div class="col-sm-4">
         {% for item in req.user.cases %}
-            <div class="row border {% if not loop.last %} border-bottom-0 {% endif %} border-primary align-items-center">
-
-                {# Image #}
-                {% if item.isOpened() %}
-                    <div class="col-2"><img src="{{ item.case.openImage }}" style="max-height: 100%; max-width: 100%">
+                <div class="card" style="width: 18rem;">
+                    {# Image #}
+                    {% if item.isOpened() %}
+                    <img src="{{ item.case.openImage }}" class="card-img-top" alt="...">
+                    {% else %}
+                    <img src="{{ item.case.closeImage }}" class="card-img-top" alt="...">
+                    {% endif %}
+                    <div class="card-body">
+                        {# Name #}
+                        <h5 class="card-title">{{ item.case.name }}</h5>
+                    {# Content #}
+                    {% if item.isOpened() %}
+                    <p class="card-text">Tu as gagné : <b>{{ item.content.name }}</b></p>
+                    {% else %}
+                    <!--<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
+                    <div class="col-2">
+                        <a href="/case/show?uuid={{ item.uuid }}" class="btn btn-primary">Ouvrir</a>
                     </div>
-                {% else %}
-                    <div class="col-2"><img src="{{ item.case.closeImage }}" style="max-height: 100%; max-width: 100%">
-                    </div>
-                {% endif %}
-
-                {# Name #}
-                <div class="col-2">{{ item.case.name }}</div>
-
-                {# Content #}
-                {% if item.isOpened() %}
-                    <div class="col-2">{{ item.content.name }}</div>
-
+                    {% endif %}
                     {# Steam Key #}
                     {% if item.steamKey != null %}
                         <div class="col-2">{{ item.steamKey.game }}</div>
                         <div class="col-2 small">{{ item.steamKey.key }}</div>
                     {% endif %}
 
-                {% else %}
-                    <div class="col-2">
-                        <a href="/case/show?uuid={{ item.uuid }}" class="btn btn-primary">Ouvrir</a>
                     </div>
-                {% endif %}
+                </div>
             </div>
+        </div>
+
         {% else %}
             Votre inventaire est vide.
         {% endfor %}
 
         <hr>
-
         <div class="d-flex justify-content-center">
             <button id="buy" class="btn btn-primary">Acheter une caisse Beta (10 000 Points)</button>
         </div>
-    </div>
 {% endblock %}
-
+        </div>
 {% block script %}
     <script src="/js/inventory.js"></script>
 {% endblock %}

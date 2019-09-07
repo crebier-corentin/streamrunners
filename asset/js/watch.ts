@@ -217,7 +217,7 @@ window['vm'] = new Vue({
 
                         //Success
                         swal({
-                            title: "Vous avez supprimer votre place !",
+                            title: "Vous avez supprimé votre place !",
                             type: "success"
                         });
                     }
@@ -254,7 +254,7 @@ window['vm'] = new Vue({
 
         makeRequestSkip() {
             let result = swal({
-                title: 'Passer?',
+                title: 'Passer ?',
                 type: 'warning',
                 showCancelButton: true,
                 confirmButtonText: 'Oui',

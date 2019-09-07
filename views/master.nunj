@@ -90,9 +90,12 @@
                     <li class="nav-item">
                         <a class="nav-link" href="/case/inventory"><i class="fas fa-suitcase"></i> Inventaire</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/case/caseshop"><i class="fas fa-boxes"></i> Caisses</a>
+                    </li>
                     {% if req.user.moderator %}
                         <li class="nav-item">
-                            <a class="nav-link" href="/admin"><i class="fas fa-lock"></i> Admin</a>
+                            <a class="red nav-link" href="/admin"><i class="fas fa-lock"></i> Admin</a>
                         </li>
                     {% endif %}
                     {#

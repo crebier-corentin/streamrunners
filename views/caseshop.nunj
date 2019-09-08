@@ -1,5 +1,0 @@
-{% extends "master.nunj" %}
-
-{% block content %}
-<p>test</p>
-{% endblock %}

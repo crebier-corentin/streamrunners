@@ -36,7 +36,7 @@ var couponRouter = require('./routes/coupon');
 var pointsRouter = require('./routes/points');
 var watchRouter = require('./routes/watch');
 var shopRouter = require('./routes/shop');
-var caseshopRouter = require('./routes/caseshop');
+var stuffshopRouter = require('./routes/stuffshop');
 var adminRouter = require('./routes/admin');
 
 //App
@@ -175,8 +175,8 @@ createConnection().then(async () => {
     app.use('/points', pointsRouter);
     app.use('/watch', watchRouter);
     app.use('/shop', shopRouter);
-    app.use('/caseshop, caseshopRouter');
-    app.use('/admin, adminRouter');
+    app.use('/stuffshop', stuffshopRouter);
+    app.use('/admin', adminRouter);
 
     app.get("/auth/twitch", passport.authenticate("twitch"));
     app.get("/auth/twitch/callback", passport.authenticate("twitch", {failureRedirect: "/"}), function (req, res) {

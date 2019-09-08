@@ -7,7 +7,7 @@ import {Response} from 'express';
 
 router.get('/', async function (req: Express.Request, res: Response) {
 
-    res.render("caseshop", {title: "StreamRunners - Points", req});
+    res.render("stuffshop", {title: "StreamRunners - Boutique", req});
 
 });
 

@@ -37,7 +37,7 @@ function spin() {
 
     swal({
         type: "question",
-        title: window["steamKeyAvailable"] ? "Ouvrir la caisse?" : "Il n'y as actuellement plus de clé Steam, souhaitez vous quand même ouvrir la caisse ?",
+        title: window["steamKeyAvailable"] ? "Ouvrir la caisse ?" : "Il n'y as actuellement plus de clé Steam, souhaitez vous quand même ouvrir la caisse ?",
         showCancelButton: true,
         confirmButtonText: 'Oui',
         cancelButtonText: 'Non'

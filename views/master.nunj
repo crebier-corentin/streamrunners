@@ -91,7 +91,7 @@
                         <a class="nav-link" href="/case/inventory"><i class="fas fa-suitcase"></i> Inventaire</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/case/caseshop"><i class="fas fa-boxes"></i> Caisses</a>
+                        <a class="nav-link" href="/stuffshop"><i class="fas fa-boxes"></i> Boutique</a>
                     </li>
                     {% if req.user.moderator %}
                         <li class="nav-item">
@@ -118,7 +118,6 @@
             <ul class="navbar-nav ml-auto">
 
                 {% if req.isAuthenticated() %}
-
                     <li class="nav-item">
                         <img src="{{ req.user.avatar }}" alt="avatar" class="loggedImage">
                         <a class="nav-link d-inline-block loggedPseudo" href="#">{{ req.user.display_name }}</a>

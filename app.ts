@@ -100,7 +100,6 @@ createConnection().then(async () => {
 
                 user.username = profile.login;
                 user.display_name = profile.display_name;
-                //user.email = profile._json.email;
                 user.avatar = profile.profile_image_url;
 
                 await user.save();
@@ -113,7 +112,6 @@ createConnection().then(async () => {
                 newUser.twitchId = profile.id;
                 newUser.username = profile.login;
                 newUser.display_name = profile.display_name;
-                newUser.email = null;
                 newUser.avatar = profile.profile_image_url;
 
                 await newUser.save();

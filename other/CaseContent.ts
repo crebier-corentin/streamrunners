@@ -8,7 +8,7 @@ export const casesContent: CaseInterface[] = [
         content: [
             {
                 name: "Points 1 500",
-                chance: 100,
+                chance: 25 * 100,
                 amount: 1500,
                 special: null,
                 image: "/img/case/coin1.png"
@@ -64,7 +64,7 @@ export const casesContent: CaseInterface[] = [
             },*/
             {
                 name: "Jeux Steam Aléatoire",
-                    chance: 25 * 100,
+                    chance: 100,
                 amount: null,
                 special: "steam",
                 image: "/img/case/steam.png"

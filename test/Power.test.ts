@@ -28,7 +28,6 @@ describe("Power test", () => {
         u.twitchId = "1";
         u.username = "test";
         u.display_name = "test";
-        u.email = "test@test.com";
         u.avatar = "a";
 
         await userRepository.save(u);

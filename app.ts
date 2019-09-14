@@ -9,6 +9,7 @@ import {casesContent} from "./other/CaseContent";
 import "reflect-metadata";
 import * as child_process from "child_process";
 import {Product, syncProducts} from "./database/entity/Product";
+
 const moment = require("moment");
 
 const express = require('express');
@@ -59,6 +60,13 @@ createConnection().then(async () => {
             HOSTNAME: process.env.HOSTNAME
         }
     });
+
+    //Maintenance
+    if (process.env.MAINTENANCE.toLowerCase() === "true") {
+        app.use("*", (req, res) => {
+            return res.render("maintenance");
+        });
+    }
 
     //Discord
     const client = new Discord.Client();

@@ -104,27 +104,6 @@ router.post('/add', async (req: Express.Request, res) => {
             //Change points
             await req.user.changePoints(-cost);
 
-            //Discord
-            (() => {
-
-                //Stop spam, only one message per hour
-                if (global['discordAntiSpamDate'] >= moment().subtract("1", "hour")) {
-                    return;
-                }
-
-                global['discordAntiSpamDate'] = moment();
-
-
-                const channel = req.discord.channels.find((ch) => ch.id === '617835840068124692');
-
-                if (!channel) return;
-
-
-                channel['send'](`
-  Un stream viens d'être lancé sur StreamRunners ! Va vite récupérer des points !
-  https://streamrunners.fr/`);
-            })();
-
             res.send({auth: true, enough: true});
         }
 

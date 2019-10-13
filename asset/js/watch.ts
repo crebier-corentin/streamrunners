@@ -71,7 +71,7 @@ window['vm'] = new Vue({
             let result = [];
 
             this.queue.forEach((q, index) => {
-                if (q.user.username == window['username']) {
+                if (q.user.twitchId == window['twitchId']) {
                     result.push(index + 1);
                 }
             });

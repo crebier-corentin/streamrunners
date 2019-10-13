@@ -46,7 +46,7 @@ window['vm'] = new Vue({
 
         channel() {
             if (this.currentStream != null) {
-                return this.currentStream.user.twitchId;
+                return this.currentStream.user.username;
             }
             else {
                 return null;

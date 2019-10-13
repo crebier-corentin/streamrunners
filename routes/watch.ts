@@ -40,7 +40,7 @@ router.post('/update', async (req: Express.Request, res) => {
             return;
         }
 
-        let isOnline = await StreamQueue.isCurrentOnline(current.user.username);
+        let isOnline = await StreamQueue.isCurrentOnline(current.user.twitchId);
 
         //Check if stream is online
         if (!isOnline) {

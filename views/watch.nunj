@@ -101,6 +101,6 @@
 {% endblock %}
 
 {% block script %}
-    <script>window['twitchId'] = '{{ req.user.twitchId }}';</script>
+    <script>window['username'] = '{{ req.user.username }}';</script>
     <script src="/js/watch.js"></script>
 {% endblock %}

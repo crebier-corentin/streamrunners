@@ -73,7 +73,7 @@ export class StreamQueue extends BaseEntity {
         return await repository.createQueryBuilder("queue")
             .select(["queue.time", "queue.current", "queue.id"])
             .leftJoin("queue.user", "user")
-            .addSelect(["user.twitchId", "user.avatar", "user.display_name"])
+            .addSelect(["user.username", "user.avatar", "user.display_name"])
             .where("queue.current < queue.time")
             .orderBy("queue.createdAt", "ASC")
             .getMany();

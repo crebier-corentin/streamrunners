@@ -60,8 +60,8 @@ export class StreamQueue extends BaseEntity {
 
         let channel = twitchId == undefined ? (await StreamQueue.currentStream()).user.twitchId : twitchId;
 
-        console.log(`https://api.twitch.tv/kraken/streams/${channel}`);
-        let request = await axios.get(`https://api.twitch.tv/kraken/streams/${channel}`, {headers: {"Client-ID": process.env.TWITCH_CLIENT_ID}});
+        console.log(`https://id.twitch.tv/streams/${channel}`);
+        let request = await axios.get(`https://id.twitch.tv/streams/${channel}`, {headers: {"Client-ID": process.env.TWITCH_CLIENT_ID}});
 
         return request.data.stream !== null;
 

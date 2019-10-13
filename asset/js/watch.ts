@@ -103,6 +103,7 @@ window['vm'] = new Vue({
 
             let self = this;
 
+            console.log(self.updateUrl);
             axios.post(self.updateUrl)
                 .then((result) => {
 
@@ -147,6 +148,7 @@ window['vm'] = new Vue({
 
                 if (result.value) {
                     let self = this;
+                    console.log(self.addUrl);
                     return axios.post(self.addUrl);
                 }
 
@@ -202,6 +204,7 @@ window['vm'] = new Vue({
 
                 if (result.value) {
                     let self = this;
+                    console.log(self.deleteUrl);
                     return axios.post(self.deleteUrl, {id: id});
                 }
                 else {
@@ -264,6 +267,7 @@ window['vm'] = new Vue({
 
                 if (result.value) {
                     let self = this;
+                    console.log(self.skipUrl);
                     return axios.post(self.skipUrl);
                 }
 

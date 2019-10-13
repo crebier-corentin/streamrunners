@@ -11,7 +11,7 @@
             <tbody>
 
             <tr v-for="d in cData">
-                <td><a :href="'https://www.twitch.tv/' + d.twitchId" target="_blank" v-text="d.display_name"></a></td>
+                <td><a :href="'https://www.twitch.tv/' + d.username" target="_blank" v-text="d.display_name"></a></td>
                 <td v-text="d[cFieldName]"></td>
             </tr>
 

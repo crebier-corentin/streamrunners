@@ -3,7 +3,6 @@ import {Repository} from "typeorm";
 import {getDBConnection} from "../database/connection";
 import {User} from "../database/entity/User";
 import {throttle} from 'throttle-debounce';
-import {isNullOrUndefined} from "util";
 
 const moment = require("moment");
 
@@ -40,7 +39,7 @@ router.post('/update', async (req: Express.Request, res) => {
             return;
         }
 
-        let isOnline = await StreamQueue.isCurrentOnline(current.user.twitchId);
+        const isOnline = await StreamQueue.isCurrentOnline(current.user.twitchId);
 
         //Check if stream is online
         if (!isOnline) {

@@ -43,14 +43,6 @@
             })
         });
     </script>
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-    <script>
-     (adsbygoogle = window.adsbygoogle || []).push({
-          google_ad_client: "ca-pub-7690571679670706",
-          enable_page_level_ads: true
-     });
-    </script>
-
 
     {% block css %}
 
@@ -135,18 +127,6 @@
             </ul>
         </div>
     </nav>
-
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-    <!-- sousheaderblock -->
-    <ins class="adsbygoogle"
-         style="display:block"
-         data-ad-client="ca-pub-7690571679670706"
-         data-ad-slot="7215618229"
-         data-ad-format="auto"
-         data-full-width-responsive="true"></ins>
-    <script>
-         (adsbygoogle = window.adsbygoogle || []).push({});
-    </script>
     {% if req.isAuthenticated() %}
     <div class="container">
       <a href="https://forms.gle/Mw3jmNhVzSgYUBJH8" target="_blank"><div class="alert alert-primary" role="alert">
@@ -159,19 +139,7 @@
     {% endblock %}
 </div>
 
-<footer class="footer">
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-<!-- sousheaderblock -->
-<ins class="adsbygoogle"
-     style="display:block"
-     data-ad-client="ca-pub-7690571679670706"
-     data-ad-slot="7215618229"
-     data-ad-format="auto"
-     data-full-width-responsive="true"></ins>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-    
+<footer class="footer"> 
     <p>© 2019 StreamRunners
         <br>
         <a href="https://www.facebook.com/StreamRunners/" aria-label="Facebook StreamRunners"><i style="color:blue" class="fab fa-facebook"></i></a>

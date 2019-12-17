@@ -22,6 +22,7 @@ const passport = require('passport');
 const twitchStrategy = require("passport-twitch-new").Strategy;
 const compression = require('compression');
 const helmet = require('helmet');
+const Discord = require("discord.js");
 
 //.env
 require("dotenv").config();

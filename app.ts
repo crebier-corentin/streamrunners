@@ -60,6 +60,16 @@ createConnection().then(async () => {
         }
     });
 
+     //Discord
+    const client = new Discord.Client();
+    await client.login(process.env.DISCORD_TOKEN);
+    client.user.setActivity("TV", {type: "WATCHING"})
+    app.use((req, res, next) => {
+        req.discord = client;
+        next();
+    });
+
+
     //Maintenance
     if (process.env.MAINTENANCE.toLowerCase() === "true") {
         app.use("*", (req, res) => {

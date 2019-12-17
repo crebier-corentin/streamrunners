@@ -1,7 +1,10 @@
 # TwitchRunner
 
 ### Installation
-* `npm install`
+
+Pour node-canvas : regarder les instructions https://www.npmjs.com/package/canvas
+
+* `yarn install`
 * Renommée `.env.exemple` en `.env` et remplir le fichier
 * Créer un fichier vide nommé `database.sqlite`
 
@@ -15,7 +18,6 @@
 * Compiler js prod : `npm run build:js`  
 
 ### Migration
-
 
 * Générer les migrations depuis les entité (Exécuter migration:run avant): `migration:generate -- -n NomDeLaMigration`
 * Effectue les migrations: `migration:run`

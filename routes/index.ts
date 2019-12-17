@@ -32,7 +32,12 @@ router.get('/banner', async function (req: Express.Request, res) {
             const shuffled = shuffledArray(avatarUrls);
 
             for (const url of shuffled) {
-                avatars.push(await loadImage(url));
+                try {
+                    avatars.push(await loadImage(url));
+                }
+                catch {
+                    //Ignore
+                }
                 if (avatars.length > 18) break outer;
             }
 

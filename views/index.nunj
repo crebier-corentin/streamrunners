@@ -17,7 +17,9 @@
                     <a class="btn btn-primary" href="/auth/twitch">Se connecter avec Twitch.Tv
                         <i class="fab fa-twitch"></i></a>
                     <p class="mt-5">
-                        Rejoins les <strong>{{ viewers }}</strong> viewers actuellement connectés ! </p>
+                        Rejoins les <strong>{{ viewers }}</strong> viewers actuellement connectés ! 
+                    </p>
+                    <p class="mt-5">Déjà plus de <strong><text id="compteur">0</text> inscrits </strong></p>
                 </div>
             </div>
         </div>
@@ -54,5 +56,22 @@
 {% endblock %}
 
 {% block script %}
+
+    <script type="text/javascript">
+var n = 1000; // Nombre final du compteur
+var cpt = 52; // Initialisation du compteur
+var duree = 1000; // Durée en seconde pendant laquel le compteur ira de 0 à 15
+var delta = Math.ceil((duree * 1000) / n); // On calcule l'intervalle de temps entre chaque rafraîchissement du compteur (durée mise en milliseconde)
+var node =  document.getElementById("compteur"); // On récupère notre noeud où sera rafraîchi la valeur du compteur
+ 
+function countdown() {
+  node.innerHTML = ++cpt;
+  if( cpt < n ) { // Si on est pas arrivé à la valeur finale, on relance notre compteur une nouvelle fois
+     setTimeout(countdown, delta);
+  }
+}
+ 
+setTimeout(countdown, delta);
+    </script>
 
 {% endblock %}

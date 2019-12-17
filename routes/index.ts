@@ -27,7 +27,7 @@ router.get('/banner', async function (req: Express.Request, res) {
     //Get 18 avatars
     const avatars: Image[] = [];
     outer:
-        while (avatars.length < 85) {
+        while (avatars.length < 18) {
             const avatarUrls = (await getDBConnection().getRepository(User).find({select: ["avatar"]})).map(u => u.avatar);
             const shuffled = shuffledArray(avatarUrls);
 
@@ -38,13 +38,13 @@ router.get('/banner', async function (req: Express.Request, res) {
                 catch {
                     //Ignore
                 }
-                if (avatars.length > 85) break outer;
+                if (avatars.length > 18) break outer;
             }
 
         }
 
     //Build banner
-    const canvas = createCanvas(988, 450);
+    const canvas = createCanvas(600, 300);
     const ctx = canvas.getContext("2d");
 
     for (let x = 0; x < 6; x++) {

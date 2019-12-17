@@ -140,6 +140,13 @@
 </div>
 
 <footer class="footer"> 
+	<div class="container">
+	<hr>
+    <center><h3>Ils nous font confiance :</h3></center>
+    <br>
+    <a href="https://elkir.fr/stream" target="_blank"><img width="10%" src="/img/partenaires/elkirblack.png"></img></a>
+    <hr>
+	</div>
     <p>© 2019 StreamRunners
         <br>
         <a href="https://www.facebook.com/StreamRunners/" aria-label="Facebook StreamRunners"><i style="color:blue" class="fab fa-facebook"></i></a>

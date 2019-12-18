@@ -61,7 +61,7 @@ createConnection().then(async () => {
     });
 
     //Maintenance
-    if (process.env.MAINTENANCE.toLowerCase() === "true") {
+    if (process.env.MAINTENANCE?.toLowerCase() === "true") {
         app.use("*", (req, res) => {
             return res.render("maintenance");
         });

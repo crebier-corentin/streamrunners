@@ -4,6 +4,7 @@ import {getDBConnection} from "../database/connection";
 import {SteamKey} from "../database/entity/SteamKey";
 import {createCanvas, loadImage, Image} from "canvas";
 import {shuffledArray} from "../other/utils";
+import CacheService from "../other/CacheService";
 
 var express = require('express');
 var router = express.Router();
@@ -22,42 +23,50 @@ router.get('/', async function (req: Express.Request, res) {
     }
 });
 
-router.get('/banner', async function (req: Express.Request, res) {
-
-    //Get 18 avatars
+const pickAvatars = async (count: number): Promise<Image[]> => {
     const avatars: Image[] = [];
-    outer:
-        while (avatars.length < 18) {
-            const avatarUrls = (await getDBConnection().getRepository(User).find({select: ["avatar"]})).map(u => u.avatar);
-            const shuffled = shuffledArray(avatarUrls);
+    while (avatars.length < count) {
+        const avatarUrls = (await getDBConnection().getRepository(User).find({select: ["avatar"]})).map(u => u.avatar);
+        const shuffled = shuffledArray(avatarUrls);
 
-            for (const url of shuffled) {
-                try {
-                    avatars.push(await loadImage(url));
-                }
-                catch {
-                    //Ignore
-                }
-                if (avatars.length > 18) break outer;
+        for (const url of shuffled) {
+            try {
+                avatars.push(await loadImage(url));
             }
-
+            catch {
+                //Ignore
+            }
+            if (avatars.length > count) return avatars;
         }
 
-    //Build banner
-    const canvas = createCanvas(600, 300);
+    }
+    return avatars;
+};
+const drawBanner = async (columns: number, rows: number): Promise<Buffer> => {
+
+    const avatars = await pickAvatars(columns * rows);
+
+    const canvas = createCanvas(columns * 100, rows * 100);
     const ctx = canvas.getContext("2d");
 
-    for (let x = 0; x < 6; x++) {
-        for (let y = 0; y < 3; y++) {
+    for (let x = 0; x < columns; x++) {
+        for (let y = 0; y < rows; y++) {
 
-            var image = avatars[y * 6 + x];
+            var image = avatars[y * columns + x];
             ctx.drawImage(image, x * 100, y * 100, 100, 100)
         }
     }
 
-    //Return image
+    return canvas.toBuffer('image/png');
+};
+
+const bannerCache = new CacheService(60); //1 minute cache
+router.get('/banner', async function (req: Express.Request, res) {
+
+    var banner = await bannerCache.get("banner", drawBanner.bind(null, 10, 5));
+
     res.set('Content-Type', 'image/png');
-    return res.send(canvas.toBuffer('image/png'));
+    return res.send(banner);
 
 });
 

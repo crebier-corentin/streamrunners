@@ -94,8 +94,8 @@ createConnection().then(async () => {
 				    },
 				    "fields": [
 				      {
-				        "name": "Ping",
-				        "value": new Date().getTime() - message.createdTimestamp + " ms"
+				        "name": " ",
+				        "value": new Date().getTime() - message.createdTimestamp + " ms 💓"
 				      }
 				    ]
 				  }
@@ -105,7 +105,7 @@ createConnection().then(async () => {
 
     //Leaderboard
     client.on("message", async msg => {
-        if (!msg.author.bot && msg.content === "!leaderboard") {
+        if (!msg.author.bot && msg.content === "!leaderboardpoints") {
 
             //Most points
             const mostPoints = await User.mostPoints();
@@ -128,7 +128,36 @@ createConnection().then(async () => {
             placeResponse += "```";
 
 
-            await msg.channel.send(pointsResponse);
+            await msg.channel.send(            	{
+				  "embed": {
+				    "title": "Ping",
+				    "url": "https://streamrunners.fr",
+				    "color": 3066993,
+				    "timestamp": message.createdAt,
+				    "footer": {
+				      "icon_url": "https://streamrunners.fr/img/logosquare.png",
+				      "text": "StreamRunners"
+				    },
+				    "thumbnail": {
+				      "url": "https://streamrunners.fr/img/logosquare.png"
+				    },
+				    "author": {
+				      "name": "Bot de StreamRunners.fr",
+				      "url": "https://discordapp.com",
+				      "icon_url": "https://streamrunners.fr/img/logosquare.png"
+				    },
+				    "fields": [
+				      {
+				        "name": " ",
+				        "value": pointsResponse
+				      }
+				    ]
+				  }
+				});
+
+
+
+
             await msg.channel.send(placeResponse);
 
         }

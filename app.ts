@@ -22,6 +22,7 @@ const passport = require('passport');
 const twitchStrategy = require("passport-twitch-new").Strategy;
 const compression = require('compression');
 const helmet = require('helmet');
+const Discord = require("discord.js");
 
 //.env
 require("dotenv").config();
@@ -59,6 +60,16 @@ createConnection().then(async () => {
             HOSTNAME: process.env.HOSTNAME
         }
     });
+
+     //Discord
+    const client = new Discord.Client();
+    await client.login(process.env.DISCORD_TOKEN);
+    client.user.setActivity("https://streamrunners.fr", {type: "WATCHING"})
+    app.use((req, res, next) => {
+        req.discord = client;
+        next();
+    });
+
 
     //Maintenance
     if (process.env.MAINTENANCE?.toLowerCase() === "true") {

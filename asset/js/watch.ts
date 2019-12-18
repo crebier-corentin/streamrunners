@@ -103,7 +103,6 @@ window['vm'] = new Vue({
 
             let self = this;
 
-            console.log("updateurl : " + self.updateUrl);
             axios.post(self.updateUrl)
                 .then((result) => {
 

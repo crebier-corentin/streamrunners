@@ -61,13 +61,44 @@ createConnection().then(async () => {
         }
     });
 
-     //Discord
+    //Discord
     const client = new Discord.Client();
     await client.login(process.env.DISCORD_TOKEN);
-    client.user.setActivity("https://streamrunners.fr", {type: "WATCHING"})
+    client.user.setActivity("https://streamrunners.fr", {type: "WATCHING"});
     app.use((req, res, next) => {
         req.discord = client;
         next();
+    });
+
+    //Leaderboard
+    client.on("message", async msg => {
+        if (!msg.author.bot && msg.content === "!leaderboard") {
+
+            //Most points
+            const mostPoints = await User.mostPoints();
+
+            let pointsResponse = "Points```";
+            let placement = 0;
+            for (const user of mostPoints) {
+                pointsResponse += `${++placement}# ${user.display_name}\n\t${user.points}\n`
+            }
+            pointsResponse += "```";
+
+            //Most place
+            const mostPlace = await User.mostPlace();
+
+            let placeResponse = "Seconde streamé```";
+            placement = 0;
+            for (const user of mostPlace) {
+                placeResponse += `${++placement}# ${user.display_name}\n\t${user.time}\n`
+            }
+            placeResponse += "```";
+
+
+            await msg.channel.send(pointsResponse);
+            await msg.channel.send(placeResponse);
+
+        }
     });
 
 

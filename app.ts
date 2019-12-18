@@ -70,6 +70,13 @@ createConnection().then(async () => {
         next();
     });
 
+    //ping
+    client.on('message', message => {
+    if(message.content.startsWith("!ping")) {
+            message.channel.send(new Date().getTime() - message.createdTimestamp + " ms");        
+    }
+	});
+
     //Leaderboard
     client.on("message", async msg => {
         if (!msg.author.bot && msg.content === "!leaderboard") {

@@ -94,7 +94,7 @@ createConnection().then(async () => {
 				    },
 				    "fields": [
 				      {
-				        "name": " ",
+				        "name": "Ping",
 				        "value": new Date().getTime() - message.createdTimestamp + " ms 💓"
 				      }
 				    ]

@@ -2,7 +2,7 @@
 
 {% block content %}
     <div class="container d-flex justify-content-center flex-column align-items-center">
-
+    	<input type="text" placeholder="Chaine a Bannir" /><button type="button" class="btn btn-danger">Bannir</button>
         <h3>Stats</h3>
 
         <table class="table table-striped table-bordered table-hover">

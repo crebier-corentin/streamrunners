@@ -52,6 +52,7 @@
 </head>
 
 <body>
+	      <embed style="position:absolute;top: -5px; left: 50%; margin-left: -500px;" width="1000" height="120" scale="exactfit" quality="high" wmode="transparent" type="application/x-shockwave-flash" src="http://perso.numericable.fr/antonywar/NOEL/banhaut.swf" pluginspage="http://www.macromedia.com/go/getflashplayer">
 <div class="content">
     {# Navbar #}
     <nav class="navbar navbar-expand-lg navbar-light bg-light">

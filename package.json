@@ -64,6 +64,7 @@
     "passport": "^0.4.0",
     "passport-twitch-new": "^0.0.1",
     "reflect-metadata": "^0.1.10",
+    "socket.io": "^2.3.0",
     "sqlite3": "4.1.1",
     "throttle-debounce": "^2.0.1",
     "ts-node": "^7.0.1",

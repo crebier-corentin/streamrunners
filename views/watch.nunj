@@ -83,8 +83,26 @@
             </div>
         </template>
 
-        <div class="row">
+        <div class="row justify-content-center">
+        	<div style="background-color: lightgrey; height: 500px; border-radius: .3rem; margin-top: .3rem;" class="col-9">
+        		<p><small style="font-style: italic; margin-right: 0.6rem;">Il y a 72 heures.</small><font color="red"><i class="fas fa-user-shield"></i> Omnes</font> : Ceci est mon message</p>
+        		<p><small style="font-style: italic; margin-right: 0.6rem;">Il y a 5 minutes.</small><font color="blue">Membre lambda</font> : Ceci est le miens !</p>
+        		<p><font color="red" style="font-weight: bold; font-style: italic;">Membres Lambda</font><font color="red" style="font-style: italic;"> a été bannis par </font><font color="red" style="font-weight: bold;"><i class="fas fa-user-shield"></i> Omnes</font></p>
+        	</div>
+        	<div style="background-color: lightgrey; height: 500px; border-radius: .3rem; margin-top: .3rem; margin-left: .6rem;" class="col-2">
+        		<span><font color="red"><i class="fas fa-user-shield"></i> Omnes</font></span>
+        		<br>
+        		<span><font color="blue">Membre lambda</font></span>
+        		<br>
+        		<span><font color="blue">Membre lambda</font></span>
+        		<br>
+        		<span><font color="blue">Membre lambda</font></span>
+        	</div>
+        		<input id="text" class="col-9" style="border-radius: .3rem; margin-top: .3rem;" type="text" placeholder=" Votre message..."/>
+        		<button style="margin-top: .3rem; margin-left: .6rem; width:15%;" class="btn btn-outline-success sub col-2">Envoyer&nbsp;&nbsp;&nbsp;<i class="fas fa-paper-plane"></i></button>
 
+    	</div>
+        	<!--
             <leaderboard class="col-6"
                          heading1="Utilisateur"
                          heading2="Nombre de points"
@@ -95,7 +113,8 @@
                          heading2="Nombre de seconde streamé"
                          :data="mostPlace"
                          field-name="time"></leaderboard>
-        </div>
+                     -->
+        </div> 
 
     </div>
 {% endblock %}

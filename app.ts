@@ -42,6 +42,7 @@ var watchRouter = require('./routes/watch');
 var shopRouter = require('./routes/shop');
 var stuffshopRouter = require('./routes/stuffshop');
 var adminRouter = require('./routes/admin');
+var oldshopRouter = require('./routes/oldshop');
 
 //App
 var app = express();

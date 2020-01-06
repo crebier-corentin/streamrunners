@@ -9,6 +9,7 @@ import {casesContent} from "./other/CaseContent";
 import "reflect-metadata";
 import * as child_process from "child_process";
 import {Product, syncProducts} from "./database/entity/Product";
+import {loadDiscord} from "./other/DiscordBot";
 
 const moment = require("moment");
 
@@ -22,9 +23,7 @@ const passport = require('passport');
 const twitchStrategy = require("passport-twitch-new").Strategy;
 const compression = require('compression');
 const helmet = require('helmet');
-const Discord = require("discord.js");
 const fs = require("fs");
-const config = require('./config.json');
 let db = JSON.parse(fs.readFileSync("./database.json", "utf8"));
 
 //.env
@@ -65,117 +64,11 @@ createConnection().then(async () => {
     });
 
     //Discord
-    const client = new Discord.Client();
-    await client.login(process.env.DISCORD_TOKEN);
-    client.user.setActivity("https://streamrunners.fr", {type: "WATCHING"});
+    const client = await loadDiscord();
     app.use((req, res, next) => {
         req.discord = client;
         next();
     });
-
-    //ping
-    client.on('message', message => {
-    if(message.content.startsWith("!ping")) {
-            message.channel.send(
-            	{
-				  "embed": {
-				    "title": "Ping",
-				    "url": "https://streamrunners.fr",
-				    "color": 3066993,
-				    "timestamp": message.createdAt,
-				    "footer": {
-				      "icon_url": "https://streamrunners.fr/img/logosquare.png",
-				      "text": "StreamRunners"
-				    },
-				    "thumbnail": {
-				      "url": "https://streamrunners.fr/img/logosquare.png"
-				    },
-				    "author": {
-				      "name": "Bot de StreamRunners.fr",
-				      "url": "https://discordapp.com",
-				      "icon_url": "https://streamrunners.fr/img/logosquare.png"
-				    },
-				    "fields": [
-				      {
-				        "name": "Ping",
-				        "value": new Date().getTime() - message.createdTimestamp + " ms 💓"
-				      }
-				    ]
-				  }
-				});        
-    }
-	});
-
-	//Niveau
-
-	client.on("message", message => {
-    if (message.author.bot) return; // ignore bots
-
-    // if the user is not on db add the user and change his values to 0
-    if (!db[message.author.id]) db[message.author.id] = {
-        xp: 0,
-        level: 0
-      };
-    db[message.author.id].xp++;
-    let userInfo = db[message.author.id];
-    if(userInfo.xp > 100) {
-        userInfo.level++
-        userInfo.xp = 0
-        message.reply("Bravo, tu montes de niveau !")
-    }
-    const args = message.content.slice(config.prefix.length).trim().split(/ +/g);
-    const cmd = args.shift().toLowerCase();
-    if(cmd === "niveau") {
-        let userInfo = db[message.author.id];
-        let member = message.mentions.members.first();
-        let embed = new Discord.RichEmbed()
-        .setColor(0x4286f4)
-        .addField("Niveau", userInfo.level)
-        .addField("XP", userInfo.xp+"/100");
-        if(!member) return message.channel.sendEmbed(embed)
-        let memberInfo = db[member.id]
-        let embed2 = new Discord.RichEmbed()
-        .setColor(0x4286f4)
-        .addField("Niveau", memberInfo.level)
-        .addField("XP", memberInfo.xp+"/100")
-        message.channel.sendEmbed(embed2)
-    }
-    fs.writeFile("./database.json", JSON.stringify(db), (x) => {
-        if (x) console.error(x)
-      });
-})
-
-    //Leaderboard
-    client.on("message", async msg => {
-        if (!msg.author.bot && msg.content === "!leaderboardpoints") {
-
-            //Most points
-            const mostPoints = await User.mostPoints();
-
-            let pointsResponse = "Points```";
-            let placement = 0;
-            for (const user of mostPoints) {
-                pointsResponse += `${++placement}# ${user.display_name}\n\t${user.points}\n`
-            }
-            pointsResponse += "```";
-
-            //Most place
-            const mostPlace = await User.mostPlace();
-
-            let placeResponse = "Seconde streamé```";
-            placement = 0;
-            for (const user of mostPlace) {
-                placeResponse += `${++placement}# ${user.display_name}\n\t${user.time}\n`
-            }
-            placeResponse += "```";
-
-
-            await msg.channel.send(pointsResponse);
-            await msg.channel.send(placeResponse);
-
-        }
-    });
-
 
     //Maintenance
     if (process.env.MAINTENANCE?.toLowerCase() === "true") {

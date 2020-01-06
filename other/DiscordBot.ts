@@ -78,7 +78,7 @@ export async function loadDiscord(): Promise<Client> {
         }
 
         //Leaderboard
-        if (message.content.startsWith("!ping")) {
+        if (message.content.startsWith("!leaderboardpoints")) {
 
             //Most points
             const mostPoints = await User.mostPoints();

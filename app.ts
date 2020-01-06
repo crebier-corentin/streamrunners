@@ -24,7 +24,7 @@ const twitchStrategy = require("passport-twitch-new").Strategy;
 const compression = require('compression');
 const helmet = require('helmet');
 const fs = require("fs");
-let db = JSON.parse(fs.readFileSync("./database.json", "utf8"));
+
 
 //.env
 require("dotenv").config();

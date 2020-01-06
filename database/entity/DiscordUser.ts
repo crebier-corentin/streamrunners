@@ -21,6 +21,7 @@ export class DiscordUser extends BaseEntity {
         if (discordUser == undefined) {
             discordUser = new DiscordUser();
             discordUser.discordId = discordId;
+            discordUser.xp = discordUser.level = 0;
         }
 
         return discordUser;

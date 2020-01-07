@@ -64,11 +64,16 @@ createConnection().then(async () => {
     });
 
     //Discord
-    const client = await loadDiscord();
-    app.use((req, res, next) => {
-        req.discord = client;
-        next();
-    });
+    try {
+        const client = await loadDiscord();
+        app.use((req, res, next) => {
+            req.discord = client;
+            next();
+        });
+    }
+    catch {
+        console.log("Could not start discord bot");
+    }
 
     //Maintenance
     if (process.env.MAINTENANCE?.toLowerCase() === "true") {

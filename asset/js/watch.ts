@@ -3,6 +3,7 @@
 import Vue from 'vue/dist/vue.esm.js';
 import TwitchViewer from "./component/TwitchViewer.vue";
 import Leaderboard from "./component/Leaderboard.vue";
+import Chat from "./component/Chat.vue";
 
 import axios, {AxiosError} from 'axios';
 import swal from 'sweetalert2';
@@ -11,6 +12,7 @@ window['swal'] = swal;
 
 Vue.component(TwitchViewer.name, TwitchViewer);
 Vue.component(Leaderboard.name, Leaderboard);
+Vue.component(Chat.name, Chat);
 
 window['vm'] = new Vue({
     el: "#app",
@@ -22,6 +24,7 @@ window['vm'] = new Vue({
         addUrl: "/watch/add",
         deleteUrl: "/watch/delete",
         skipUrl: "/watch/skip",
+        chatAddUrl: "/watch/chat/add",
 
         pause: false,
         interval: 1000,
@@ -31,6 +34,7 @@ window['vm'] = new Vue({
         viewers: 0,
         mostPoints: [],
         mostPlace: [],
+        messages: [],
 
     },
 
@@ -62,7 +66,7 @@ window['vm'] = new Vue({
             }
         },
 
-        queueLenght() {
+        queueLength() {
             return this.queue.length;
         },
 
@@ -99,6 +103,21 @@ window['vm'] = new Vue({
     },
 
     methods: {
+
+        updateData(data) {
+            if (data.auth) {
+                this.points = data.points;
+                this.queue = data.queue;
+                this.viewers = data.viewers;
+                this.mostPoints = data.mostPoints;
+                this.mostPlace = data.mostPlace;
+                this.messages = data.messages;
+            }
+            else {
+                location.reload();
+            }
+        },
+
         makeRequestUpdate() {
 
             let self = this;
@@ -106,16 +125,7 @@ window['vm'] = new Vue({
             axios.post(self.updateUrl)
                 .then((result) => {
 
-                    if (result.data.auth) {
-                        self.points = result.data.points;
-                        self.queue = result.data.queue;
-                        self.viewers = result.data.viewers;
-                        self.mostPoints = result.data.mostPoints;
-                        self.mostPlace = result.data.mostPlace;
-                    }
-                    else {
-                        location.reload();
-                    }
+                    self.updateData(result.data);
 
                     //Make new Request
                     setTimeout(self.makeRequestUpdate, self.interval);
@@ -255,7 +265,7 @@ window['vm'] = new Vue({
         },
 
         makeRequestSkip() {
-            let result = swal({
+            swal({
                 title: 'Passer ?',
                 type: 'warning',
                 showCancelButton: true,
@@ -288,6 +298,12 @@ window['vm'] = new Vue({
 
                     console.log(error.response);
                 });
+        },
+
+        async makeRequestChatAdd(message: string) {
+            var result = await axios.post(this.chatAddUrl, {message});
+            this.updateData(result.data);
+
         }
     },
 

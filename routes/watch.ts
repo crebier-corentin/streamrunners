@@ -19,7 +19,7 @@ async function sendData(req: Express.Request, res) {
         viewers: (await User.viewers()),
         mostPoints: (await User.mostPoints()),
         mostPlace: (await User.mostPlace()),
-        chatMessages: (await ChatMessage.GetLastMessages())
+        messages: (await ChatMessage.GetLastMessages())
     });
 }
 

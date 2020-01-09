@@ -4,11 +4,13 @@
   "private": true,
   "scripts": {
     "build": "npm-run-all --parallel build:sass build:js",
+    "build:dev": "npm-run-all --parallel build:sass:dev build:js:dev",
     "build:js": "vuetype asset/js/component/ && webpack --mode=production",
     "build:js:dev": "npm-run-all --parallel build:vuetype:watch build:webpack:watch",
     "build:vuetype:watch": "vuetype --watch asset/js/component/",
     "build:webpack:watch": "webpack --mode=development -w",
     "build:sass": "gulp sass",
+    "build:sass:dev": "gulp watch",
     "migration:generate": "ts-node ./node_modules/typeorm/cli.js migration:generate",
     "migration:revert": "ts-node ./node_modules/typeorm/cli.js migration:revert",
     "migration:run": "ts-node ./node_modules/typeorm/cli.js migration:run",

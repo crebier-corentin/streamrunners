@@ -11,7 +11,7 @@ export class ChatMessage extends BaseEntity {
     author: User;
 
     @Column()
-    text: string;
+    message: string;
 
     @CreateDateColumn()
     createdAt: Date;
@@ -23,7 +23,7 @@ export class ChatMessage extends BaseEntity {
             author: {
                 display_name: m.author.display_name
             },
-            text: m.text,
+            message: m.message,
             createdAt: moment(m.createdAt).locale("fr").fromNow(),
         }));
 

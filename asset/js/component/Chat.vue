@@ -6,8 +6,8 @@
             <div class="chat-messages p-0 m-0">
                 <template v-for="msg in cMessages">
                     <small class="font-italic text-center mr-1">{{msg.createdAt}}</small>
-                    <span><i class="fas fa-user-shield"></i>{{msg.author.display_name}}</span>
-                    <span>: {{msg.message}}</span>
+                    <span style="margin-right: 0.2rem;"><font color="blue"> {{msg.author.display_name}}</font></span>
+                    <span> : {{msg.message}}</span>
                 </template>
             </div>
 
@@ -27,7 +27,7 @@
         <!-- Input-->
         <input id="text"
                class="col-9 rounded mt-1 form-control"
-               type="text"
+               style="border-style: solid; border-width: 1px; border-color: #8c6dc5!important;" type="text"
                placeholder=" Votre message..."
                v-model="message"
                @keyup.enter="sendMessage" />

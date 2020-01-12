@@ -24,7 +24,6 @@ window['vm'] = new Vue({
         addUrl: "/watch/add",
         deleteUrl: "/watch/delete",
         skipUrl: "/watch/skip",
-        chatAddUrl: "/watch/chat/add",
 
         pause: false,
         interval: 1000,
@@ -298,12 +297,6 @@ window['vm'] = new Vue({
 
                     console.log(error.response);
                 });
-        },
-
-        async makeRequestChatAdd(message: string) {
-            var result = await axios.post(this.chatAddUrl, {message});
-            this.updateData(result.data);
-
         }
     },
 

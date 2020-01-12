@@ -86,7 +86,7 @@
             </div>
         </template>
 
-       <Chat :messages="messages" @send="makeRequestChatAdd"></Chat>
+       <Chat :messages="messages"></Chat>
         <!--
         <leaderboard class="col-6"
                      heading1="Utilisateur"

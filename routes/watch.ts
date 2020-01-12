@@ -5,6 +5,7 @@ import {User} from "../database/entity/User";
 import {throttle} from 'throttle-debounce';
 import {ChatMessage} from "../database/entity/ChatMessage";
 import {Request, Response} from "express";
+import * as  expressThrottle from "express-throttle";
 
 const moment = require("moment");
 
@@ -199,7 +200,11 @@ router.post('/skip', async (req: Express.Request, res) => {
 
 });
 
-router.post('/chat/add', async (req: Request, res) => {
+router.post('/chat/add', expressThrottle({
+    burst: 1,
+    period: "1s",
+    key: (req: Request) => req.user?.id
+}), async (req: Request, res) => {
 
     if (req.isUnauthenticated()) {
         return res.send({auth: false});
@@ -217,7 +222,7 @@ router.post('/chat/add', async (req: Request, res) => {
     chatMessage.message = message;
     await chatMessage.save();
 
-    sendData(req, res);
+    return res.send();
 
 });
 

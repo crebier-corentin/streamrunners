@@ -3234,6 +3234,13 @@ express-nunjucks@^2.2.3:
     assign-deep "^0.4.5"
     nunjucks-async-loader "^1.1.1"
 
+express-throttle@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/express-throttle/-/express-throttle-2.0.0.tgz#371cca348a82ccf2b924379119df7e73c05f6acf"
+  integrity sha1-NxzKNIqCzPK5JDeRGd9+c8Bfas8=
+  dependencies:
+    lru-cache "^4.0.1"
+
 express@~4.16.0:
   version "4.16.3"
   resolved "https://registry.yarnpkg.com/express/-/express-4.16.3.tgz#6af8a502350db3246ecc4becf6b5a34d22f7ed53"

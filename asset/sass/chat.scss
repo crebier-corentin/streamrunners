@@ -1,0 +1,11 @@
+.chat {
+  background-color: lightgrey;
+  height: 500px;
+  overflow-y: auto;
+}
+
+.chat-messages {
+  display: grid;
+  grid-template-columns: auto auto 1fr;
+  grid-template-rows: repeat(auto-fill, 1fr);
+}

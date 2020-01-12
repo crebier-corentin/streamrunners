@@ -20,6 +20,7 @@ export class ChatMessage extends BaseEntity {
         const rawMessages = await ChatMessage.find({relations: ["author"], take: 50, order: {createdAt: "DESC"}});
 
         return rawMessages.map(m => ({
+            id: m.id,
             author: {
                 display_name: m.author.display_name
             },

@@ -34,6 +34,7 @@ window['vm'] = new Vue({
         mostPoints: [],
         mostPlace: [],
         messages: [],
+        activeUsers: [],
 
     },
 
@@ -111,6 +112,7 @@ window['vm'] = new Vue({
                 this.mostPoints = data.mostPoints;
                 this.mostPlace = data.mostPlace;
                 this.messages = data.messages;
+                this.activeUsers = data.activeUsers;
             }
             else {
                 location.reload();
@@ -301,9 +303,7 @@ window['vm'] = new Vue({
     },
 
     mounted() {
-
         this.makeRequestUpdate();
-        //this.makeRequestAdd();
 
     },
 

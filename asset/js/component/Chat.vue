@@ -2,26 +2,20 @@
 
     <section class="row justify-content-center">
         <!-- Messages -->
-        <div class="col-9 rounded mt-1 chat" ref="chat">
+        <div class="col-9 rounded mt-1 chat-container" ref="chat">
             <div class="chat-messages p-0 m-0">
                 <template v-for="msg in cMessages">
                     <small class="font-italic text-center mr-1">{{msg.createdAt}}</small>
                     <span><i class="fas fa-user-shield"></i>{{msg.author.display_name}}</span>
-                    <span>: {{msg.message}}</span>
+                    <span>{{msg.message}}</span>
                 </template>
             </div>
 
         </div>
 
-        <div style="background-color: lightgrey; height: 500px; border-radius: .3rem; margin-top: .3rem; margin-left: .6rem;"
-             class="col-2">
-            <span><font color="red"><i class="fas fa-user-shield"></i> Omnes</font></span>
-            <br>
-            <span><font color="blue">Membre lambda</font></span>
-            <br>
-            <span><font color="blue">Membre lambda</font></span>
-            <br>
-            <span><font color="blue">Membre lambda</font></span>
+        <!-- Active users -->
+        <div class="col-2 rounded mt-1 chat-container d-flex flex-column">
+            <span v-for="user in cActiveUsers">{{user}}</span>
         </div>
 
         <!-- Input-->
@@ -51,6 +45,10 @@
                 type: Array,
                 required: true
             },
+            activeUsers: {
+                type: Array,
+                required: true
+            }
         },
 
         data() {
@@ -65,6 +63,10 @@
         computed: {
             cMessages() {
                 return this.messages.reverse();
+            },
+
+            cActiveUsers() {
+                return this.activeUsers;
             },
 
             trimmedMessage(): string {

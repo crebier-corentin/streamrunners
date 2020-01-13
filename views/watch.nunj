@@ -86,7 +86,7 @@
             </div>
         </template>
 
-       <Chat :messages="messages"></Chat>
+       <Chat :messages="messages" :active-users="activeUsers"></Chat>
         <!--
         <leaderboard class="col-6"
                      heading1="Utilisateur"

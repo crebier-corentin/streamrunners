@@ -18,6 +18,7 @@ import CacheService from "../../other/CacheService";
 import {Transaction} from "./Transaction";
 import {Product} from "./Product";
 import {Client} from "discord.js";
+import {ChatMessage} from "./ChatMessage";
 
 const moment = require("moment");
 const uuidv4 = require('uuid/v4');
@@ -130,6 +131,9 @@ export class User extends BaseEntity {
 
     @Column({default: false})
     betaBage: boolean;
+
+    @OneToMany(type => ChatMessage, message => message.author)
+    chatMessages: ChatMessage[];
 
 
     /*    //Parrain

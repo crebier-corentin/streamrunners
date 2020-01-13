@@ -7,7 +7,7 @@ export class ChatMessage extends BaseEntity {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @ManyToOne(type => User)
+    @ManyToOne(type => User, user => user.chatMessages)
     author: User;
 
     @Column()
@@ -16,7 +16,7 @@ export class ChatMessage extends BaseEntity {
     @CreateDateColumn()
     createdAt: Date;
 
-    static async GetLastMessages() {
+    static async getLastMessages() {
         const rawMessages = await ChatMessage.find({relations: ["author"], take: 50, order: {createdAt: "DESC"}});
 
         return rawMessages.map(m => ({
@@ -27,6 +27,16 @@ export class ChatMessage extends BaseEntity {
             message: m.message,
             createdAt: moment(m.createdAt).locale("fr").fromNow(),
         }));
+
+    }
+
+    static async getActiveUsers() {
+        const users = await User.createQueryBuilder("user")
+            .leftJoinAndSelect("user.chatMessages", "message")
+            .where('message.createdAt >= date(:after)', {after: moment().subtract(5, "minutes").toISOString()})
+            .getMany();
+
+        return users.map(u => u.display_name);
 
     }
 }

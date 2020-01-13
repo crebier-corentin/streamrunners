@@ -13,14 +13,25 @@ var express = require('express');
 var router = express.Router();
 
 async function sendData(req: Express.Request, res) {
+
+    const [queue, viewers, mostPoints, mostPlace, messages, activeUsers] = await Promise.all([
+        StreamQueue.currentAndNextStreams(), //queue
+        User.viewers(), //viewers
+        User.mostPoints(), //mostPoints
+        User.mostPlace(), //mostPlace
+        ChatMessage.getLastMessages(), //messages
+        ChatMessage.getActiveUsers() //activeUsers
+    ]);
+
     res.send({
         auth: true,
         points: req.user.points,
-        queue: (await StreamQueue.currentAndNextStreams()),
-        viewers: (await User.viewers()),
-        mostPoints: (await User.mostPoints()),
-        mostPlace: (await User.mostPlace()),
-        messages: (await ChatMessage.GetLastMessages())
+        queue,
+        viewers,
+        mostPoints,
+        mostPlace,
+        messages,
+        activeUsers
     });
 }
 

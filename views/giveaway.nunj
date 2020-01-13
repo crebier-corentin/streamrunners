@@ -49,6 +49,69 @@
                 <small>0 tickets / 1</small>
             </div>
         </div>
+    </div>
+    <hr>
+    <br>
+    <center><h3>DERNIERS GAGNANTS :</h3></center>
+    <br>
+    <table style="width:100%;" class="table table-striped">
+    	<tr>
+    		<td>
+    			<small style="font-style: italic; margin-right: 0.75rem; vertical-align: middle; line-height: 60px;">8 janvier</small>
+    		</td>
+    		<td>
+    			<img style="border-radius: 50%; margin-right: 0.75rem;" src="https://picsum.photos/60/60"/>
+    		</td>
+    		<td>
+    			<font style="font-weight: bold; margin-right: 42rem;  vertical-align: middle; line-height: 60px;">Pseudo</font>
+    		</td>
+    		<td style="right;">
+    			<font style="vertical-align: middle; line-height: 60px;">Carte Steam 5€</font>
+    		</td>
+    	</tr>
+    	    	<tr>
+    		<td>
+    			<small style="font-style: italic; margin-right: 0.75rem; vertical-align: middle; line-height: 60px;">8 janvier</small>
+    		</td>
+    		<td>
+    			<img style="border-radius: 50%; margin-right: 0.75rem;" src="https://picsum.photos/60/60"/>
+    		</td>
+    		<td>
+    			<font style="font-weight: bold; margin-right: 42rem; vertical-align: middle; line-height: 60px;">Pseudo</font>
+    		</td>
+    		<td style="right;">
+    			<font style="vertical-align: middle; line-height: 60px;">Carte Steam 5€</font>
+    		</td>
+    	</tr>
+    	    	<tr>
+    		<td>
+    			<small style="font-style: italic; margin-right: 0.75rem; vertical-align: middle; line-height: 60px;">8 janvier</small>
+    		</td>
+    		<td>
+    			<img style="border-radius: 50%; margin-right: 0.75rem;" src="https://picsum.photos/60/60"/>
+    		</td>
+    		<td>
+    			<font style="font-weight: bold; margin-right: 42rem; vertical-align: middle; line-height: 60px;">Pseudo</font>
+    		</td>
+    		<td style="right;">
+    			<font style="vertical-align: middle; line-height: 60px;">Carte Steam 5€</font>
+    		</td>
+    	</tr>
+    	    	<tr>
+    		<td>
+    			<small style="font-style: italic; margin-right: 0.75rem; vertical-align: middle; line-height: 60px;">8 janvier</small>
+    		</td>
+    		<td>
+    			<img style="border-radius: 50%; margin-right: 0.75rem;" src="https://picsum.photos/60/60"/>
+    		</td>
+    		<td>
+    			<font style="font-weight: bold; margin-right: 42rem; vertical-align: middle; line-height: 60px;">Pseudo</font>
+    		</td>
+    		<td style="right;">
+    			<font style="vertical-align: middle; line-height: 60px;">Carte Steam 5€</font>
+    		</td>
+    	</tr>
+    </table>
 </div>
 
 {% endblock %}

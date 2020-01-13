@@ -1,6 +1,15 @@
-import {BaseEntity, Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn} from "typeorm";
+import {
+    BaseEntity,
+    Column,
+    CreateDateColumn,
+    Entity,
+    getConnectionOptions,
+    ManyToOne,
+    PrimaryGeneratedColumn
+} from "typeorm";
 import {User} from "./User";
 import * as moment from "moment";
+import {formatDateSQL} from "../../other/utils";
 
 @Entity()
 export class ChatMessage extends BaseEntity {
@@ -33,7 +42,7 @@ export class ChatMessage extends BaseEntity {
     static async getActiveUsers() {
         const users = await User.createQueryBuilder("user")
             .leftJoinAndSelect("user.chatMessages", "message")
-            .where('message.createdAt >= date(:after)', {after: moment().subtract(5, "minutes").toISOString()})
+            .where(`message.createdAt >= ${await formatDateSQL(moment().subtract(5, "minutes"))}`)
             .getMany();
 
         return users.map(u => u.display_name);

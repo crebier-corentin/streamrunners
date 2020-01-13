@@ -1,3 +1,6 @@
+import {getConnectionOptions} from "typeorm";
+import * as moment from "moment";
+
 export function shuffledArray<T>(array: T[]): T[] {
 
     const a = [...array];
@@ -7,4 +10,11 @@ export function shuffledArray<T>(array: T[]): T[] {
         [a[i], a[j]] = [a[j], a[i]];
     }
     return a;
+}
+
+export async function formatDateSQL(date: moment.Moment | Date): Promise<string> {
+
+    const unix = date instanceof Date ? (date.getTime() / 1000).toFixed(0) : date.unix();
+
+    return (await getConnectionOptions()).type === "sqlite" ? `datetime(${unix}, "unixepoch")` : `FROM_UNIXTIME(${unix})`;
 }

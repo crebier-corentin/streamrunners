@@ -1,34 +1,35 @@
 <template>
 
-    <section class="row justify-content-center">
+    <section class="chat-grid">
         <!-- Messages -->
-        <div class="col-9 rounded mt-1 chat-container" ref="chat">
+        <div class="messages rounded chat-container" ref="chat">
             <div class="chat-messages p-0 m-0">
                 <template v-for="msg in cMessages">
                     <small class="font-italic text-center mr-1">{{msg.createdAt}}</small>
-                    <span><i class="fas fa-user-shield"></i>{{msg.author.display_name}}</span>
-                    <span>{{msg.message}}</span>
+
+                    <span class="mr-1 chat-name">{{msg.author.display_name}}</span>
+                    <span> : {{msg.message}}</span>
+
                 </template>
             </div>
 
         </div>
 
         <!-- Active users -->
-        <div class="col-2 rounded mt-1 chat-container d-flex flex-column">
-            <span v-for="user in cActiveUsers">{{user}}</span>
+        <div class="users rounded chat-container d-flex flex-column">
+            <span class="chat-name text-center" v-for="user in cActiveUsers">{{user}}</span>
         </div>
 
         <!-- Input-->
         <input id="text"
-               class="col-9 rounded mt-1 form-control"
+               class="input rounded border"
+               style="border-color: #8c6dc5!important;"
                type="text"
                placeholder=" Votre message..."
                v-model="message"
                @keyup.enter="sendMessage" />
-        <button class="btn btn-outline-success sub col-2 mt-1 ml-1"
-                :disabled="!messageValid || sending"
-                @click="sendMessage">
-            Envoyer&nbsp;&nbsp;&nbsp;<i class="fas fa-paper-plane"></i></button>
+        <button class="button btn btn-outline-success sub m-0" :disabled="!messageValid || sending" @click="sendMessage">
+            Envoyer&nbsp;&nbsp;&nbsp;<i class="fas fa-paper-plane" /></button>
 
     </section>
 

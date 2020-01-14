@@ -80,13 +80,13 @@
                 <span class="badge badge-secondary">{% raw %}{{ points }}{% endraw %} <img src="/img/po.png"
                                                                                            width="16px"
                                                                                            height="16px" /></span>
-                <span class="badge badge-secondary">{% raw %}{{ viewers }}{% endraw %} <i class="fas fa-eye"
+                <span class="badge badge-secondary">{% raw %}{{ viewers.length }}{% endraw %} <i class="fas fa-eye"
                                                                                           width="16px"
                                                                                           height="16px"></i></span>
             </div>
         </template>
 
-       <Chat :messages="messages" :active-users="activeUsers"></Chat>
+       <Chat :messages="messages" :active-users="viewers"></Chat>
         <!--
         <leaderboard class="col-6"
                      heading1="Utilisateur"

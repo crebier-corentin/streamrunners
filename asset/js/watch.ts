@@ -30,11 +30,10 @@ window['vm'] = new Vue({
 
         queue: [],
 
-        viewers: 0,
+        viewers: [],
         mostPoints: [],
         mostPlace: [],
         messages: [],
-        activeUsers: [],
 
     },
 
@@ -112,7 +111,6 @@ window['vm'] = new Vue({
                 this.mostPoints = data.mostPoints;
                 this.mostPlace = data.mostPlace;
                 this.messages = data.messages;
-                this.activeUsers = data.activeUsers;
             }
             else {
                 location.reload();

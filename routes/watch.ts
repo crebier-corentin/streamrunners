@@ -14,13 +14,12 @@ var router = express.Router();
 
 async function sendData(req: Express.Request, res) {
 
-    const [queue, viewers, mostPoints, mostPlace, messages, activeUsers] = await Promise.all([
+    const [queue, viewers, mostPoints, mostPlace, messages] = await Promise.all([
         StreamQueue.currentAndNextStreams(), //queue
         User.viewers(), //viewers
         User.mostPoints(), //mostPoints
         User.mostPlace(), //mostPlace
-        ChatMessage.getLastMessages(), //messages
-        ChatMessage.getActiveUsers() //activeUsers
+        ChatMessage.getLastMessages() //messages
     ]);
 
     res.send({
@@ -30,8 +29,7 @@ async function sendData(req: Express.Request, res) {
         viewers,
         mostPoints,
         mostPlace,
-        messages,
-        activeUsers
+        messages
     });
 }
 
@@ -47,7 +45,12 @@ router.post('/update', async (req: Express.Request, res) => {
     if (!req.isAuthenticated()) {
         return res.send({auth: false});
     }
-    //check if stream is online
+
+    //Update lastOnWatchPage
+    req.user.lastOnWatchPage = new Date();
+    await req.user.save();
+
+    //Check if stream is online
     let current = await StreamQueue.currentStream();
 
     //Check if stream and is not self stream

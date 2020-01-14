@@ -19,6 +19,7 @@ import {Transaction} from "./Transaction";
 import {Product} from "./Product";
 import {Client} from "discord.js";
 import {ChatMessage} from "./ChatMessage";
+import {formatDateSQL} from "../../other/utils";
 
 const moment = require("moment");
 const uuidv4 = require('uuid/v4');
@@ -70,6 +71,9 @@ export class User extends BaseEntity {
             return new Date(this.lastUpdate);
         }
     }
+
+    @Column("datetime", {default: () => 'CURRENT_TIMESTAMP'})
+    lastOnWatchPage: Date;
 
     @OneToMany(type => StreamQueue, StreamQueue => StreamQueue.user, {eager: true})
     streamQueue: StreamQueue[];
@@ -147,12 +151,12 @@ export class User extends BaseEntity {
         @ManyToOne(type => User, User => User.parraine)
         parrain: User;*/
 
-    static async viewers(): Promise<number> {
+    static async viewers(): Promise<string[]> {
         let repository = getDBConnection().getRepository(User);
 
         return (await repository.createQueryBuilder("user")
-            .where("user.lastUpdate > :current", {current: moment().subtract(30, "seconds").utc().format("YYYY-MM-DD HH:mm:ss")})
-            .getCount());
+            .where(`user.lastOnWatchPage > ${await formatDateSQL(moment().subtract(30, "seconds"))}`)
+            .getMany()).map(u => u.display_name);
     }
 
     static async mostPoints(): Promise<any> {
@@ -202,6 +206,7 @@ export class User extends BaseEntity {
 
         });
     }
+
 
 }
 

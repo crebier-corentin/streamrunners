@@ -30,9 +30,7 @@ export class ChatMessage extends BaseEntity {
 
         return rawMessages.map(m => ({
             id: m.id,
-            author: {
-                display_name: m.author.display_name
-            },
+            author: m.author.serialize(),
             message: m.message,
             createdAt: moment(m.createdAt).locale("fr").fromNow(),
         }));

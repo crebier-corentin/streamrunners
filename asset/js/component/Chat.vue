@@ -7,7 +7,7 @@
                 <template v-for="msg in cMessages">
                     <small class="font-italic text-center mr-1">{{msg.createdAt}}</small>
 
-                    <span class="mr-1 chat-name">{{msg.author.display_name}}</span>
+                    <ChatUsername class="mr-1" :name="msg.author.name" :rank="msg.author.chatRank" />
                     <span> : {{msg.message}}</span>
 
                 </template>
@@ -17,7 +17,7 @@
 
         <!-- Active users -->
         <div class="users rounded chat-container d-flex flex-column">
-            <span class="chat-name text-center" v-for="user in cActiveUsers">{{user}}</span>
+            <ChatUsername :name="user.name" :rank="user.chatRank" v-for="user in cActiveUsers" :key="user.name" />
         </div>
 
         <!-- Input-->
@@ -28,7 +28,9 @@
                placeholder=" Votre message..."
                v-model="message"
                @keyup.enter="sendMessage" />
-        <button class="button btn btn-outline-success sub m-0" :disabled="!messageValid || sending" @click="sendMessage">
+        <button class="button btn btn-outline-success sub m-0"
+                :disabled="!messageValid || sending"
+                @click="sendMessage">
             Envoyer&nbsp;&nbsp;&nbsp;<i class="fas fa-paper-plane" /></button>
 
     </section>
@@ -37,10 +39,11 @@
 
 <script lang="ts">
     import axios from "axios";
+    import ChatUsername from "./ChatUsername.vue";
 
     export default {
         name: "Chat",
-
+        components: {ChatUsername},
         props: {
             messages: {
                 type: Array,

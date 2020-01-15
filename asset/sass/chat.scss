@@ -11,10 +11,6 @@
   grid-template-rows: repeat(auto-fill, 1fr);
 }
 
-.chat-name {
-  color: $blue;
-}
-
 .chat-grid {
   display: grid;
   grid-template-columns: 5fr 1fr;
@@ -25,6 +21,7 @@
   .messages {
     grid-area: messages;
   }
+
   .users {
     grid-area: users;
   }
@@ -38,3 +35,29 @@
   }
 
 }
+
+//Chat username colors
+.chat-name-member {
+  color: $black;
+}
+
+.chat-name-vip {
+  color: $yellow;
+}
+
+.chat-name-diamond {
+  color: $blue;
+}
+
+.chat-name-partner {
+  color: $purple;
+}
+
+.chat-name-moderator {
+  color: $green;
+}
+.chat-name-admin {
+  color: $red;
+}
+
+

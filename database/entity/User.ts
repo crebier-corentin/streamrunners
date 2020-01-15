@@ -1,31 +1,20 @@
-import {
-    BaseEntity,
-    Column,
-    Entity,
-    JoinColumn,
-    JoinTable,
-    ManyToMany, ManyToOne,
-    OneToMany,
-    PrimaryGeneratedColumn
-} from "typeorm";
+import {BaseEntity, Column, Entity, JoinTable, ManyToMany, OneToMany, PrimaryGeneratedColumn} from "typeorm";
 import {StreamQueue} from "./StreamQueue";
-import {VIP} from "./VIP";
 import {getDBConnection} from "../connection";
 import {Coupon} from "./Coupon";
 import {CaseOwned} from "./CaseOwned";
-import {getPower, Power, powers, UserPower} from "./UserPower";
+import {getPower, UserPower} from "./UserPower";
 import CacheService from "../../other/CacheService";
 import {Transaction} from "./Transaction";
-import {Product} from "./Product";
 import {Client} from "discord.js";
 import {ChatMessage} from "./ChatMessage";
 import {formatDateSQL} from "../../other/utils";
+import {ChatRank, SerializedUser} from "../../shared/Types";
 
 const moment = require("moment");
 const uuidv4 = require('uuid/v4');
 
 const cache = new CacheService(120);
-
 
 @Entity()
 export class User extends BaseEntity {
@@ -139,6 +128,8 @@ export class User extends BaseEntity {
     @OneToMany(type => ChatMessage, message => message.author)
     chatMessages: ChatMessage[];
 
+    @Column({default: ChatRank.Member})
+    chatRank: ChatRank;
 
     /*    //Parrain
         @Column({unique: true, default: uuidv4()})
@@ -151,12 +142,12 @@ export class User extends BaseEntity {
         @ManyToOne(type => User, User => User.parraine)
         parrain: User;*/
 
-    static async viewers(): Promise<string[]> {
+    static async viewers(): Promise<SerializedUser[]> {
         let repository = getDBConnection().getRepository(User);
 
         return (await repository.createQueryBuilder("user")
             .where(`user.lastOnWatchPage > ${await formatDateSQL(moment().subtract(30, "seconds"))}`)
-            .getMany()).map(u => u.display_name);
+            .getMany()).map(u => u.serialize());
     }
 
     static async mostPoints(): Promise<any> {
@@ -207,6 +198,12 @@ export class User extends BaseEntity {
         });
     }
 
+    serialize(): SerializedUser {
+        return {
+            name: this.display_name,
+            chatRank: this.chatRank
+        }
+    }
 
 }
 

@@ -19,7 +19,7 @@ router.get('/', async function (req: Express.Request, res) {
 
     }
     else {
-        res.render('./index', {title: 'StreamRunners - Accueil', req, viewers: (await User.viewers())});
+        res.render('./index', {title: 'StreamRunners - Accueil', req, viewers: (await User.viewers()).length});
     }
 });
 

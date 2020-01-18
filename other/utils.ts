@@ -18,3 +18,7 @@ export async function formatDateSQL(date: moment.Moment | Date): Promise<string>
 
     return (await getConnectionOptions()).type === "sqlite" ? `datetime(${unix}, "unixepoch")` : `FROM_UNIXTIME(${unix})`;
 }
+
+export async function formatRandomSQL(): Promise<string> {
+    return (await getConnectionOptions()).type === "sqlite" ? `RANDOM()` : `RAND()`;
+}

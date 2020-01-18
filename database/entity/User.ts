@@ -8,8 +8,9 @@ import CacheService from "../../other/CacheService";
 import {Transaction} from "./Transaction";
 import {Client} from "discord.js";
 import {ChatMessage} from "./ChatMessage";
-import {formatDateSQL} from "../../other/utils";
+import {formatDateSQL, formatRandomSQL} from "../../other/utils";
 import {ChatRank, SerializedUser} from "../../shared/Types";
+import {RafflePrize} from "./RafflePrize";
 
 const moment = require("moment");
 const uuidv4 = require('uuid/v4');
@@ -131,6 +132,9 @@ export class User extends BaseEntity {
     @Column({default: ChatRank.Member})
     chatRank: ChatRank;
 
+    @OneToMany(type => RafflePrize, r => r.winner)
+    rafflePrizes: RafflePrize[];
+
     /*    //Parrain
         @Column({unique: true, default: uuidv4()})
         parrainage_id: string;
@@ -196,6 +200,12 @@ export class User extends BaseEntity {
 
 
         });
+    }
+
+    static async random(): Promise<User> {
+        return User.createQueryBuilder("user")
+            .orderBy(await formatRandomSQL())
+            .getOne();
     }
 
     serialize(): SerializedUser {

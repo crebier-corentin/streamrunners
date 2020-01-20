@@ -10,7 +10,7 @@ import {Client} from "discord.js";
 import {ChatMessage} from "./ChatMessage";
 import {formatDateSQL, formatRandomSQL} from "../../other/utils";
 import {ChatRank, SerializedUser} from "../../shared/Types";
-import {RafflePrize} from "./RafflePrize";
+import {Raffle} from "./Raffle";
 
 const moment = require("moment");
 const uuidv4 = require('uuid/v4');
@@ -132,8 +132,8 @@ export class User extends BaseEntity {
     @Column({default: ChatRank.Member})
     chatRank: ChatRank;
 
-    @OneToMany(type => RafflePrize, r => r.winner)
-    rafflePrizes: RafflePrize[];
+    @OneToMany(type => Raffle, r => r.winner)
+    rafflesWon: Raffle[];
 
     /*    //Parrain
         @Column({unique: true, default: uuidv4()})

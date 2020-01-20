@@ -1,6 +1,15 @@
-import {BaseEntity, Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn} from "typeorm";
+import {
+    BaseEntity,
+    Column,
+    CreateDateColumn,
+    Entity,
+    JoinColumn, JoinTable,
+    ManyToMany,
+    ManyToOne,
+    PrimaryGeneratedColumn
+} from "typeorm";
 import {User} from "./User";
-import {formatDateSQL, formatDuration} from "../../other/utils";
+import {formatDateSQL, formatDuration, formatRandomSQL} from "../../other/utils";
 import * as moment from "moment";
 
 @Entity()
@@ -28,6 +37,10 @@ export class Raffle extends BaseEntity {
     @JoinColumn({name: "winnerId"})
     winner: User | null;
 
+    @ManyToMany(type => User, u => u.rafflesParticipated, {cascade: true})
+    @JoinTable()
+    participants: User[];
+
     @CreateDateColumn()
     createdAt: Date;
 
@@ -36,7 +49,11 @@ export class Raffle extends BaseEntity {
     }
 
     async pickWinner(): Promise<void> {
-        this.winner = await User.random();
+        this.winner = await User.createQueryBuilder("user")
+            .leftJoin("user.rafflesParticipated", "raffle")
+            .where("raffle.id = :id", {id: this.id})
+            .orderBy(await formatRandomSQL())
+            .getOne();
         await this.save();
     }
 

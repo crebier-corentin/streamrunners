@@ -135,6 +135,9 @@ export class User extends BaseEntity {
     @OneToMany(type => Raffle, r => r.winner)
     rafflesWon: Raffle[];
 
+    @ManyToMany(type => Raffle, r => r.participants)
+    rafflesParticipated: Raffle[];
+
     /*    //Parrain
         @Column({unique: true, default: uuidv4()})
         parrainage_id: string;
@@ -200,12 +203,6 @@ export class User extends BaseEntity {
 
 
         });
-    }
-
-    static async random(): Promise<User> {
-        return User.createQueryBuilder("user")
-            .orderBy(await formatRandomSQL())
-            .getOne();
     }
 
     serialize(): SerializedUser {

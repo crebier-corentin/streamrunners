@@ -136,7 +136,7 @@ export class User extends BaseEntity {
     @OneToMany(type => Raffle, r => r.winner)
     rafflesWon: Raffle[];
 
-    @ManyToOne(type => RaffleParticipation, r => r.user)
+    @OneToMany(type => RaffleParticipation, r => r.user)
     raffleParticipations: RaffleParticipation[];
 
     /*    //Parrain

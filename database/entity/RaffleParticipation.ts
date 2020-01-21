@@ -1,4 +1,4 @@
-import {BaseEntity, Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn} from "typeorm";
+import {BaseEntity, Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn} from "typeorm";
 import {User} from "./User";
 import {Raffle} from "./Raffle";
 
@@ -8,10 +8,10 @@ export class RaffleParticipation extends BaseEntity {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @OneToMany(type => User, u => u.raffleParticipations)
+    @ManyToOne(type => User, u => u.raffleParticipations)
     user: User;
 
-    @OneToMany(type => Raffle, r => r.participations)
+    @ManyToOne(type => Raffle, r => r.participations)
     raffle: Raffle;
 
     @Column()
@@ -19,4 +19,13 @@ export class RaffleParticipation extends BaseEntity {
 
     @CreateDateColumn()
     createdAt: Date;
+
+    static findForUserAndRaffle(user: User, raffle: Raffle): Promise<RaffleParticipation | undefined> {
+        return RaffleParticipation.createQueryBuilder("rp")
+            .leftJoinAndSelect("rp.user", "user")
+            .leftJoinAndSelect("rp.raffle", "raffle")
+            .where("user.id = :userId", {userId: user.id})
+            .andWhere("raffle.id = :raffleId", {raffleId: raffle.id})
+            .getOne();
+    }
 }

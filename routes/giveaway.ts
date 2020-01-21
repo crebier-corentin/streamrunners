@@ -5,6 +5,7 @@ var router = express.Router();
 
 // eslint-disable-next-line no-unused-vars
 import {Response} from 'express';
+import {RaffleParticipation} from "../database/entity/RaffleParticipation";
 
 //Auth only
 router.use((req, res, next) => {
@@ -18,8 +19,13 @@ router.use((req, res, next) => {
 
 router.get('/', async function (req: Express.Request, res: Response) {
 
-    const rafflesActive = await Raffle.actives();
     const rafflesEnded = await Raffle.ended();
+    const rafflesActive = await Promise.all((await Raffle.actives()).map(async (raffle: Raffle & { ticketCount: number }) => {
+
+        raffle.ticketCount = (await RaffleParticipation.findForUserAndRaffle(req.user, raffle))?.tickets ?? 0;
+
+        return raffle;
+    }));
 
     res.render("giveaway", {title: "StreamRunners - Giveaway", req, rafflesActive, rafflesEnded});
 

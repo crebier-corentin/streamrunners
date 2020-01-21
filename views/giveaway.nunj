@@ -14,16 +14,16 @@
                 <div class="card mb-4 shadow-sm">
                     <div class="card-header">
                         <h4 class="my-0 font-weight-normal">{{ raffle.title }}</h4>
-                        {# TODO: client countdown #}
-                        <small>{{ raffle.remainingTime() }}</small>
+                        <small class="countdown"
+                               data-ending-date="{{ raffle.endingDateDate().toISOString() }}">{{ raffle.remainingTime() }}</small>
                     </div>
                     <div class="card-body">
                         <img src="{{ raffle.icon }}" width="100%" alt="icon" />
                         <button type="button" class="btn btn-lg btn-block btn-primary boutique">{{ raffle.price }}
                             points /
                             <i style="color:#FDEE00" class="fas fa-ticket-alt"></i></button>
-                        {# TODO: Set amount of tickets #}
-                        <small>8 tickets / {{ raffle.maxTickets <= 0 ? "∞" : raffle.maxTickets }}</small>
+                        <small>{{ raffle.ticketCount }} ticket{{ "s" if raffle.ticketCount > 1 }}
+                            / {{ "∞" if raffle.maxTickets <= 0 else raffle.maxTickets }}</small>
                     </div>
                 </div>
             {% endfor %}
@@ -55,4 +55,8 @@
         </table>
     </div>
 
+{% endblock %}
+
+{% block script %}
+    <script src="/js/raffle.js"></script>
 {% endblock %}

@@ -16,6 +16,7 @@ let config = {
         case: path.resolve(__dirname, "asset/js/case.ts"),
         inventory: path.resolve(__dirname, "asset/js/inventory.ts"),
         shop: path.resolve(__dirname, "asset/js/shop.ts"),
+        raffle: path.resolve(__dirname, "asset/js/raffle.ts"),
     },
     output: {
         path: path.resolve(__dirname, './public/js/'),

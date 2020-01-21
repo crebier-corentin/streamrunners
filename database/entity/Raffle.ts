@@ -5,7 +5,7 @@ import {
     Entity,
     JoinColumn, JoinTable,
     ManyToMany,
-    ManyToOne,
+    ManyToOne, OneToMany,
     PrimaryGeneratedColumn
 } from "typeorm";
 import {User} from "./User";
@@ -33,7 +33,7 @@ export class Raffle extends BaseEntity {
     maxTickets: number;
 
     @Column("datetime")
-    endingDate: Date;
+    endingDate: Date | number;
 
     @Column({nullable: true})
     code: string | null;
@@ -42,11 +42,19 @@ export class Raffle extends BaseEntity {
     @JoinColumn({name: "winnerId"})
     winner: User | null;
 
-    @ManyToOne(type => RaffleParticipation, r => r.raffle)
+    @OneToMany(type => RaffleParticipation, r => r.raffle)
     participations: RaffleParticipation[];
 
     @CreateDateColumn()
     createdAt: Date;
+
+    endingDateDate(): Date {
+        if (this.endingDate instanceof Date) {
+            return this.endingDate;
+        }
+        return new Date(this.endingDate);
+
+    }
 
     active(): boolean {
         return this.winner == null;
@@ -75,7 +83,7 @@ export class Raffle extends BaseEntity {
 
     static actives(): Promise<Raffle[]> {
         return Raffle.createQueryBuilder("raffle")
-            .where("raffle.winnerId = NULL")
+            .where("raffle.winnerId IS NULL")
             .getMany();
     }
 
@@ -93,7 +101,7 @@ export class Raffle extends BaseEntity {
 
     static ended(count: number = 5): Promise<Raffle[]> {
         return Raffle.createQueryBuilder("raffle")
-            .where("raffle.winnerId != NULL")
+            .where("raffle.winnerId IS NOT NULL")
             .orderBy("raffle.createdAt", "DESC")
             .limit(count)
             .getMany();

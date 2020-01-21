@@ -9,8 +9,9 @@ import {
     PrimaryGeneratedColumn
 } from "typeorm";
 import {User} from "./User";
-import {formatDateSQL, formatDuration, formatRandomSQL} from "../../other/utils";
+import {formatDateSQL, formatRandomSQL} from "../../other/utils";
 import * as moment from "moment";
+import {formatDuration} from "../../shared/shared-utils";
 
 @Entity()
 export class Raffle extends BaseEntity {
@@ -27,16 +28,20 @@ export class Raffle extends BaseEntity {
     @Column()
     price: number;
 
-    @Column({nullable: true})
-    code: string | null;
+    @Column({default: -1})
+    maxTickets: number;
 
     @Column("datetime")
     endingDate: Date;
+
+    @Column({nullable: true})
+    code: string | null;
 
     @ManyToOne(type => User, u => u.rafflesWon, {nullable: true})
     @JoinColumn({name: "winnerId"})
     winner: User | null;
 
+    //TODO: Turn this into a manual many to many relation with many to one
     @ManyToMany(type => User, u => u.rafflesParticipated, {cascade: true})
     @JoinTable()
     participants: User[];
@@ -63,6 +68,10 @@ export class Raffle extends BaseEntity {
         return formatDuration(timeLeft);
     }
 
+    formattedEnded(): string {
+        return moment(this.endingDate).locale("fr").format("LL");
+    }
+
     static actives(): Promise<Raffle[]> {
         return Raffle.createQueryBuilder("raffle")
             .where("raffle.winnerId = NULL")
@@ -79,5 +88,13 @@ export class Raffle extends BaseEntity {
     static async pickWinners(): Promise<void> {
         const raffles = await Raffle.endedAndNoWinner();
         await Promise.all(raffles.map(r => r.pickWinner()));
+    }
+
+    static ended(count: number = 5): Promise<Raffle[]> {
+        return Raffle.createQueryBuilder("raffle")
+            .where("raffle.winnerId != NULL")
+            .orderBy("raffle.createdAt", "DESC")
+            .limit(count)
+            .getMany();
     }
 }

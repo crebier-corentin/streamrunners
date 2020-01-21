@@ -1,117 +1,58 @@
 {% extends "master.nunj" %}
 
 {% block content %}
-<div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
-    <h1 class="display-4">GiveAways</h1>
-    <p class="lead">Achète des tickets pour tenter de remporter ces lots !</p>
-</div>
-
-<div class="container">
-        <div class="card-deck mb-3 text-center">
-        <div class="card mb-4 shadow-sm">
-            <div class="card-header">
-                <h4 class="my-0 font-weight-normal">Carte Steam 20€</h4>
-                <small>23h49m10s</small>
-            </div>
-            <div class="card-body">
-                <img src="https://cartecadeau.ma/wp-content/uploads/2017/07/xsteam-20-euro-nl.jpg.pagespeed.ic_.d1zLJWDRVz.jpg" width="100%" />
-                <button type="button" class="btn btn-lg btn-block btn-primary boutique">100 points / <i style="color:#FDEE00" class="fas fa-ticket-alt"></i></button>
-                <small>8 tickets / ∞</small>
-            </div>
-        </div>
-        <div class="card mb-4 shadow-sm">
-            <div class="card-header">
-                <h4 class="my-0 font-weight-normal">Ordinateur portable Asus</h4>
-                <small>7j18h19m05s</small>
-            </div>
-            <div class="card-body">
-                <img src="https://image.darty.com/informatique/ordinateur_portable-portable/portable/asus_r540lj-gk535t_s1608054241045A_155233354.jpg" width="100%" />
-                <ul class="list-unstyled mt-3 mb-4">
-                    <li>Ecran LED tactile 15,6" HD</li>
-                    <li>Processeur Intel® Core™ i3-5005U</li>
-                </ul>
-                <button type="button" class="btn btn-lg btn-block btn-primary boutique">1 000 points / <i style="color:#FDEE00" class="fas fa-ticket-alt"></i></button>
-                <small>1 tickets / 5</small>
-            </div>
-        </div>
-        <div class="card mb-4 shadow-sm">
-            <div class="card-header">
-                <h4 class="my-0 font-weight-normal">Yamaha 125 YZF-R</h4>
-                <small>1m12j10h11m01s</small>
-            </div>
-            <div class="card-body">
-                <img src="https://moto-station.com/wp-content/uploads/2009/06/6-3.jpg" width="100%" />
-                <ul class="list-unstyled mt-3 mb-4">
-                    <li>125 CC</li>
-                    <li>Couleur Bleu</li>
-                </ul>
-                <button type="button" class="btn btn-lg btn-block btn-primary boutique">10 000 points / <i style="color:#FDEE00" class="fas fa-ticket-alt"></i></button>
-                <small>0 tickets / 1</small>
-            </div>
-        </div>
+    <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+        <h1 class="display-4">GiveAways</h1>
+        <p class="lead">Achète des tickets pour tenter de remporter ces lots !</p>
     </div>
-    <hr>
-    <br>
-    <center><h3>DERNIERS GAGNANTS :</h3></center>
-    <br>
-    <table style="width:100%;" class="table table-striped">
-    	<tr>
-    		<td>
-    			<small style="font-style: italic; margin-right: 0.75rem; vertical-align: middle; line-height: 60px;">8 janvier</small>
-    		</td>
-    		<td>
-    			<img style="border-radius: 50%; margin-right: 0.75rem;" src="https://picsum.photos/60/60"/>
-    		</td>
-    		<td>
-    			<font style="font-weight: bold; margin-right: 42rem;  vertical-align: middle; line-height: 60px;">Pseudo</font>
-    		</td>
-    		<td style="right;">
-    			<font style="vertical-align: middle; line-height: 60px;">Carte Steam 5€</font>
-    		</td>
-    	</tr>
-    	    	<tr>
-    		<td>
-    			<small style="font-style: italic; margin-right: 0.75rem; vertical-align: middle; line-height: 60px;">8 janvier</small>
-    		</td>
-    		<td>
-    			<img style="border-radius: 50%; margin-right: 0.75rem;" src="https://picsum.photos/60/60"/>
-    		</td>
-    		<td>
-    			<font style="font-weight: bold; margin-right: 42rem; vertical-align: middle; line-height: 60px;">Pseudo</font>
-    		</td>
-    		<td style="right;">
-    			<font style="vertical-align: middle; line-height: 60px;">Carte Steam 5€</font>
-    		</td>
-    	</tr>
-    	    	<tr>
-    		<td>
-    			<small style="font-style: italic; margin-right: 0.75rem; vertical-align: middle; line-height: 60px;">8 janvier</small>
-    		</td>
-    		<td>
-    			<img style="border-radius: 50%; margin-right: 0.75rem;" src="https://picsum.photos/60/60"/>
-    		</td>
-    		<td>
-    			<font style="font-weight: bold; margin-right: 42rem; vertical-align: middle; line-height: 60px;">Pseudo</font>
-    		</td>
-    		<td style="right;">
-    			<font style="vertical-align: middle; line-height: 60px;">Carte Steam 5€</font>
-    		</td>
-    	</tr>
-    	    	<tr>
-    		<td>
-    			<small style="font-style: italic; margin-right: 0.75rem; vertical-align: middle; line-height: 60px;">8 janvier</small>
-    		</td>
-    		<td>
-    			<img style="border-radius: 50%; margin-right: 0.75rem;" src="https://picsum.photos/60/60"/>
-    		</td>
-    		<td>
-    			<font style="font-weight: bold; margin-right: 42rem; vertical-align: middle; line-height: 60px;">Pseudo</font>
-    		</td>
-    		<td style="right;">
-    			<font style="vertical-align: middle; line-height: 60px;">Carte Steam 5€</font>
-    		</td>
-    	</tr>
-    </table>
-</div>
+
+    <div class="container">
+        {# Active raffles #}
+        <section class="card-deck mb-3 text-center">
+
+            {% for raffle in rafflesActive %}
+                <div class="card mb-4 shadow-sm">
+                    <div class="card-header">
+                        <h4 class="my-0 font-weight-normal">{{ raffle.title }}</h4>
+                        {# TODO: client countdown #}
+                        <small>{{ raffle.remainingTime() }}</small>
+                    </div>
+                    <div class="card-body">
+                        <img src="{{ raffle.icon }}" width="100%" alt="icon" />
+                        <button type="button" class="btn btn-lg btn-block btn-primary boutique">{{ raffle.price }}
+                            points /
+                            <i style="color:#FDEE00" class="fas fa-ticket-alt"></i></button>
+                        {# TODO: Set amount of tickets #}
+                        <small>8 tickets / {{ raffle.maxTickets <= 0 ? "∞" : raffle.maxTickets }}</small>
+                    </div>
+                </div>
+            {% endfor %}
+
+        </section>
+        <hr>
+        <br>
+
+        {# Ended raffles #}
+        <h3 class="text-center">DERNIERS GAGNANTS :</h3><br>
+        <table style="width:100%;" class="table table-striped">
+            {% for raffle in rafflesEnded %}
+                <tr>
+                    <td>
+                        <small class="font-italic mr-2 align-middle line-height-60">{{ raffle.formattedEnded() }}</small>
+                    </td>
+                    <td>
+                        <img class="rounded-circle mr-2" src="{{ raffle.winner.avatar }}" alt="avatar" />
+                    </td>
+                    <td>
+                        <p class="font-weight-bold align-middle line-height-60"
+                           style="margin-right: 42rem;">{{ raffle.winner.display_name }}</p>
+                    </td>
+                    <td>
+                        <p class="align-middle line-height-60">{{ raffle.title }}</p>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
 
 {% endblock %}

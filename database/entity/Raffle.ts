@@ -9,9 +9,10 @@ import {
     PrimaryGeneratedColumn
 } from "typeorm";
 import {User} from "./User";
-import {formatDateSQL, formatRandomSQL} from "../../other/utils";
+import {formatDateSQL, formatRandomSQL, getDBType} from "../../other/utils";
 import * as moment from "moment";
 import {formatDuration} from "../../shared/shared-utils";
+import {RaffleParticipation} from "./RaffleParticipation";
 
 @Entity()
 export class Raffle extends BaseEntity {
@@ -41,10 +42,8 @@ export class Raffle extends BaseEntity {
     @JoinColumn({name: "winnerId"})
     winner: User | null;
 
-    //TODO: Turn this into a manual many to many relation with many to one
-    @ManyToMany(type => User, u => u.rafflesParticipated, {cascade: true})
-    @JoinTable()
-    participants: User[];
+    @ManyToOne(type => RaffleParticipation, r => r.raffle)
+    participations: RaffleParticipation[];
 
     @CreateDateColumn()
     createdAt: Date;
@@ -55,10 +54,12 @@ export class Raffle extends BaseEntity {
 
     async pickWinner(): Promise<void> {
         this.winner = await User.createQueryBuilder("user")
-            .leftJoin("user.rafflesParticipated", "raffle")
+            .leftJoin("user.raffleParticipations", "rp")
+            .leftJoin("rp.raffle", "raffle")
             .where("raffle.id = :id", {id: this.id})
-            .orderBy(await formatRandomSQL())
+            .orderBy((await getDBType()) === "sqlite" ? "RANDOM()" : "-LOG(1.0 - rand()) / rp.tickets") //Only mysql has weighted random
             .getOne();
+
         await this.save();
     }
 

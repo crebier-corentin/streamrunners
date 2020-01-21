@@ -1,4 +1,4 @@
-import {BaseEntity, Column, Entity, JoinTable, ManyToMany, OneToMany, PrimaryGeneratedColumn} from "typeorm";
+import {BaseEntity, Column, Entity, JoinTable, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn} from "typeorm";
 import {StreamQueue} from "./StreamQueue";
 import {getDBConnection} from "../connection";
 import {Coupon} from "./Coupon";
@@ -11,6 +11,7 @@ import {ChatMessage} from "./ChatMessage";
 import {formatDateSQL, formatRandomSQL} from "../../other/utils";
 import {ChatRank, SerializedUser} from "../../shared/Types";
 import {Raffle} from "./Raffle";
+import {RaffleParticipation} from "./RaffleParticipation";
 
 const moment = require("moment");
 const uuidv4 = require('uuid/v4');
@@ -135,8 +136,8 @@ export class User extends BaseEntity {
     @OneToMany(type => Raffle, r => r.winner)
     rafflesWon: Raffle[];
 
-    @ManyToMany(type => Raffle, r => r.participants)
-    rafflesParticipated: Raffle[];
+    @ManyToOne(type => RaffleParticipation, r => r.user)
+    raffleParticipations: RaffleParticipation[];
 
     /*    //Parrain
         @Column({unique: true, default: uuidv4()})

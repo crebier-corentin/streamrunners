@@ -5,7 +5,7 @@
         <div class="messages rounded chat-container" ref="chat">
             <div class="chat-messages p-0 m-0">
                 <template v-for="msg in cMessages">
-                    <small class="font-italic text-center mr-1">{{msg.createdAt}}</small>
+                    <small class="font-italic text-center mr-1">{{msg.createdAt}} </small>
 
                     <ChatUsername class="mr-1" :name="msg.author.name" :rank="msg.author.chatRank" />
                     <span> : {{msg.message}}</span>

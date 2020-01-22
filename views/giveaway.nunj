@@ -41,7 +41,11 @@
                         <small class="font-italic mr-2 align-middle line-height-60">{{ raffle.formattedEnded() }}</small>
                     </td>
                     <td>
-                        <img class="rounded-circle mr-2" src="{{ raffle.winner.avatar }}" alt="avatar" />
+                        <img class="rounded-circle mr-2"
+                             src="{{ raffle.winner.avatar }}"
+                             alt="avatar"
+                             width="90"
+                             height="90" />
                     </td>
                     <td>
                         <p class="font-weight-bold align-middle line-height-60"

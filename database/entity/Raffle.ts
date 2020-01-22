@@ -81,16 +81,17 @@ export class Raffle extends BaseEntity {
         return moment(this.endingDate).locale("fr").format("LL");
     }
 
-    static actives(): Promise<Raffle[]> {
+    static async actives(): Promise<Raffle[]> {
         return Raffle.createQueryBuilder("raffle")
             .where("raffle.winnerId IS NULL")
+            .andWhere(`raffle.endingDate > ${await formatDateSQL(new Date())}`)
             .getMany();
     }
 
-    static endedAndNoWinner(): Promise<Raffle[]> {
+    static async endedAndNoWinner(): Promise<Raffle[]> {
         return Raffle.createQueryBuilder("raffle")
-            .where("raffle.winnerId = NULL")
-            .andWhere(`raffle.endingDate <= ${formatDateSQL(new Date())}`)
+            .where("raffle.winnerId IS NULL")
+            .andWhere(`raffle.endingDate <= ${await formatDateSQL(new Date())}`)
             .getMany();
     }
 
@@ -101,6 +102,7 @@ export class Raffle extends BaseEntity {
 
     static ended(count: number = 5): Promise<Raffle[]> {
         return Raffle.createQueryBuilder("raffle")
+            .leftJoinAndSelect("raffle.winner", "winner")
             .where("raffle.winnerId IS NOT NULL")
             .orderBy("raffle.createdAt", "DESC")
             .limit(count)

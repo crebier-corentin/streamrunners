@@ -10,6 +10,8 @@ import "reflect-metadata";
 import * as child_process from "child_process";
 import {Product, syncProducts} from "./database/entity/Product";
 import {loadDiscord} from "./other/DiscordBot";
+import {RaffleParticipation} from "./database/entity/RaffleParticipation";
+import {Raffle} from "./database/entity/Raffle";
 
 const moment = require("moment");
 
@@ -199,6 +201,9 @@ createConnection().then(async () => {
     //Sync cases
     await syncCases(casesContent);
     await syncProducts();
+
+    //Every minute, check for raffle winners
+    setInterval(Raffle.pickWinners, 1000 * 60);
 
 }).catch(error => console.log(error));
 

@@ -14,7 +14,7 @@ export class RaffleParticipation extends BaseEntity {
     @ManyToOne(type => Raffle, r => r.participations)
     raffle: Raffle;
 
-    @Column()
+    @Column({default: 0})
     tickets: number;
 
     @CreateDateColumn()
@@ -27,5 +27,20 @@ export class RaffleParticipation extends BaseEntity {
             .where("user.id = :userId", {userId: user.id})
             .andWhere("raffle.id = :raffleId", {raffleId: raffle.id})
             .getOne();
+    }
+
+    static async findOrCreate(user: User, raffle: Raffle): Promise<RaffleParticipation> {
+        let rp = await RaffleParticipation.findForUserAndRaffle(user, raffle);
+
+        //Create new RaffleParticipation
+        if (rp == undefined) {
+            rp = new RaffleParticipation();
+            rp.user = user;
+            rp.raffle = raffle;
+
+            rp = await rp.save();
+        }
+
+        return rp;
     }
 }

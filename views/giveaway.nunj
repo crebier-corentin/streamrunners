@@ -23,13 +23,33 @@
                         <form method="post" action="/giveaway/buy" class="d-inline">
                             <input type="hidden" name="raffleId" value="{{ raffle.id }}">
 
-                            <button type="submit" class="btn btn-lg btn-block btn-primary boutique">{{ raffle.price }}
+                            {# Enable/Disable button #}
+                            {# Max ticket #}
+                            {% if raffle.ticketCount === raffle.maxTickets and raffle.maxTickets > 0 %}
+                                {% set disabled = true %}
+                                {% set helpText = "Nombre de tickets maximum atteint" %}
+
+                                {# Not enough points #}
+                            {% elseif req.user.points < raffle.price %}
+                                {% set disabled = true %}
+                                {% set helpText = "Pas assez de points" %}
+
+                                {# Can buy #}
+                            {% else %}
+                                {% set disabled = false %}
+                                {% set helpText = "" %}
+                            {% endif %}
+
+                            <button type="submit"
+                                    class="btn btn-lg btn-block btn-primary boutique" {{ "disabled" if disabled }}>{{ raffle.price }}
                                 points /
                                 <i style="color:#FDEE00" class="fas fa-ticket-alt"></i></button>
                         </form>
 
                         <small>{{ raffle.ticketCount }} ticket{{ "s" if raffle.ticketCount > 1 }}
                             / {{ "∞" if raffle.maxTickets <= 0 else raffle.maxTickets }}</small>
+                        <small class="d-block text-danger">{{ helpText }}</small>
+
                     </div>
                 </div>
             {% endfor %}

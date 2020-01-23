@@ -17,7 +17,7 @@ router.use((req, res, next) => {
     next();
 });
 
-const index = async function (req: Request, res: Response) {
+router.get('/', async function (req: Request, res: Response) {
 
     const rafflesEnded = await Raffle.ended();
     const rafflesActive = await Promise.all((await Raffle.actives()).map(async (raffle: Raffle & { ticketCount: number }) => {
@@ -29,24 +29,22 @@ const index = async function (req: Request, res: Response) {
 
     res.render("giveaway", {title: "StreamRunners - Giveaway", req, rafflesActive, rafflesEnded});
 
-};
+});
 
-router.get('/', index);
-
-router.post('/buy', async function (req: Request, res: Response, next) {
+router.post('/buy', async function (req: Request, res: Response) {
 
     const raffle = await Raffle.findOne(Number(req.body.raffleId));
 
     //Ignore if the raffle is over or doesn't exist
-    if (!raffle?.active()) return next();
+    if (!raffle?.active()) return res.redirect("/giveaway");
+
+    //Ignore if not enough money
+    if (req.user.points < raffle.price) return res.redirect("/giveaway");
 
     const rp = await RaffleParticipation.findOrCreate(req.user, raffle);
 
     //Ignore if max
-    if (raffle.maxTickets > 0 && rp.tickets >= raffle.maxTickets) return next();
-
-    //Ignore if not enough money
-    if (req.user.points < rp.raffle.price) return next();
+    if (raffle.maxTickets > 0 && rp.tickets === raffle.maxTickets) return res.redirect("/giveaway");
 
     //Pay and add ticket
     req.user.changePoints(-raffle.price);
@@ -54,8 +52,8 @@ router.post('/buy', async function (req: Request, res: Response, next) {
 
     await rp.save();
 
-    next();
+    res.redirect("/giveaway");
 
-}, index);
+});
 
 module.exports = router;

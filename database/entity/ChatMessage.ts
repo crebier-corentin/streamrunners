@@ -9,7 +9,7 @@ import {
 } from "typeorm";
 import {User} from "./User";
 import * as moment from "moment";
-import {formatDateSQL} from "../../other/utils";
+import {formatDatetimeSQL} from "../../other/utils";
 
 @Entity()
 export class ChatMessage extends BaseEntity {
@@ -40,7 +40,7 @@ export class ChatMessage extends BaseEntity {
     static async getActiveUsers() {
         const users = await User.createQueryBuilder("user")
             .leftJoinAndSelect("user.chatMessages", "message")
-            .where(`message.createdAt >= ${await formatDateSQL(moment().subtract(5, "minutes"))}`)
+            .where("message.createdAt >= :datetime", {datetime: formatDatetimeSQL(moment().subtract(5, "minutes"))})
             .getMany();
 
         return users.map(u => u.display_name);

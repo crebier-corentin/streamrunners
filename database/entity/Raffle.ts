@@ -9,7 +9,6 @@ import {
     PrimaryGeneratedColumn
 } from "typeorm";
 import {User} from "./User";
-import {formatDateSQL, formatRandomSQL, getDBType} from "../../other/utils";
 import * as moment from "moment";
 import {formatDuration} from "../../shared/shared-utils";
 import {RaffleParticipation} from "./RaffleParticipation";
@@ -33,12 +32,12 @@ export class Raffle extends BaseEntity {
     maxTickets: number;
 
     @Column("datetime")
-    endingDate: Date | number;
+    endingDate: Date;
 
     @Column({nullable: true})
     code: string | null;
 
-    @ManyToOne(type => User, u => u.rafflesWon, {nullable: true})
+    @ManyToOne(type => User, u => u.rafflesWon, {nullable: true, eager: true})
     @JoinColumn({name: "winnerId"})
     winner: User | null;
 
@@ -48,16 +47,8 @@ export class Raffle extends BaseEntity {
     @CreateDateColumn()
     createdAt: Date;
 
-    endingDateDate(): Date {
-        if (this.endingDate instanceof Date) {
-            return this.endingDate;
-        }
-        return new Date(this.endingDate);
-
-    }
-
     active(): boolean {
-        return this.winner == null;
+        return this.winner == null && this.endingDate.getTime() > new Date().getTime();
     }
 
     async pickWinner(): Promise<void> {
@@ -65,7 +56,7 @@ export class Raffle extends BaseEntity {
             .leftJoin("user.raffleParticipations", "rp")
             .leftJoin("rp.raffle", "raffle")
             .where("raffle.id = :id", {id: this.id})
-            .orderBy((await getDBType()) === "sqlite" ? "RANDOM()" : "-LOG(1.0 - rand()) / rp.tickets") //Only mysql has weighted random
+            .orderBy("-LOG(1.0 - rand()) / rp.tickets")
             .getOne();
 
         await this.save();
@@ -84,14 +75,14 @@ export class Raffle extends BaseEntity {
     static async actives(): Promise<Raffle[]> {
         return Raffle.createQueryBuilder("raffle")
             .where("raffle.winnerId IS NULL")
-            .andWhere(`raffle.endingDate > ${await formatDateSQL(new Date())}`)
+            .andWhere("raffle.endingDate > NOW()")
             .getMany();
     }
 
     static async endedAndNoWinner(): Promise<Raffle[]> {
         return Raffle.createQueryBuilder("raffle")
             .where("raffle.winnerId IS NULL")
-            .andWhere(`raffle.endingDate <= ${await formatDateSQL(new Date())}`)
+            .andWhere("raffle.endingDate <= NOW()")
             .getMany();
     }
 

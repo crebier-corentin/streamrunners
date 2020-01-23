@@ -11,14 +11,8 @@ export class RaffleParticipation extends BaseEntity {
     @ManyToOne(type => User, u => u.raffleParticipations)
     user: User;
 
-    @RelationId((rp: RaffleParticipation) => rp.user)
-    userId: number;
-
     @ManyToOne(type => Raffle, r => r.participations)
     raffle: Raffle;
-
-    @RelationId((rp: RaffleParticipation) => rp.raffle)
-    raffleId: number;
 
     @Column({default: 0})
     tickets: number;
@@ -46,24 +40,12 @@ export class RaffleParticipation extends BaseEntity {
         if (rp == undefined) {
             rp = new RaffleParticipation();
 
-            //Relations//
-            //User
-            if (user instanceof User) {
-                rp.user = user;
-            }
-            else {
-                rp.userId = user;
-            }
-
-            //Raffle
-            if (raffle instanceof Raffle) {
-                rp.raffle = raffle;
-            }
-            else {
-                rp.raffleId = raffle;
-            }
+            //Relations
+            rp.user = user instanceof User ? user : await User.findOne(user);
+            rp.raffle = raffle instanceof Raffle ? raffle : await Raffle.findOne(raffle);
 
             rp = await rp.save();
+
         }
 
         return rp;

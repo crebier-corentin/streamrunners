@@ -21,16 +21,7 @@ export class StreamQueue extends BaseEntity {
     current: number;
 
     @Column("datetime", {nullable: true, default: null})
-    start: Date | number;
-
-    startTime(): Date {
-        if (this.start instanceof Date) {
-            return this.start;
-        }
-        else {
-            return new Date(this.start);
-        }
-    }
+    start: Date;
 
     @ManyToOne(type => User, user => user.streamQueue, {cascade: true})
     user: User;
@@ -109,7 +100,7 @@ export async function updateStreamQueue() {
     }
     //Update current
     else {
-        let startTime = Math.round(currentStream.startTime().getTime() / 1000);
+        let startTime = Math.round(currentStream.start.getTime() / 1000);
 
         currentStream.current = Math.round(new Date().getTime() / 1000) - startTime;
         repository.save(currentStream);

@@ -8,7 +8,7 @@ import CacheService from "../../other/CacheService";
 import {Transaction} from "./Transaction";
 import {Client} from "discord.js";
 import {ChatMessage} from "./ChatMessage";
-import {formatDateSQL, formatRandomSQL} from "../../other/utils";
+import {formatDatetimeSQL} from "../../other/utils";
 import {ChatRank, SerializedUser} from "../../shared/Types";
 import {Raffle} from "./Raffle";
 import {RaffleParticipation} from "./RaffleParticipation";
@@ -154,7 +154,7 @@ export class User extends BaseEntity {
         let repository = getDBConnection().getRepository(User);
 
         return (await repository.createQueryBuilder("user")
-            .where(`user.lastOnWatchPage > ${await formatDateSQL(moment().subtract(30, "seconds"))}`)
+            .where("user.lastOnWatchPage > :datetime", {datetime: formatDatetimeSQL(moment().subtract(30, "seconds"))})
             .getMany()).map(u => u.serialize());
     }
 

@@ -35,19 +35,21 @@ router.get('/', index);
 
 router.post('/buy', async function (req: Request, res: Response, next) {
 
-    const rp = await RaffleParticipation.findOrCreate(req.user, req.body.raffleId);
+    const raffle = await Raffle.findOne(Number(req.body.raffleId));
 
-    //Ignore if the raffle is over
-    if (!rp.raffle.active()) return next();
+    //Ignore if the raffle is over or doesn't exist
+    if (!raffle?.active()) return next();
+
+    const rp = await RaffleParticipation.findOrCreate(req.user, raffle);
 
     //Ignore if max
-    if (rp.raffle.maxTickets > 0 && rp.tickets >= rp.raffle.maxTickets) return next();
+    if (raffle.maxTickets > 0 && rp.tickets >= raffle.maxTickets) return next();
 
     //Ignore if not enough money
     if (req.user.points < rp.raffle.price) return next();
 
     //Pay and add ticket
-    req.user.changePoints(-rp.raffle.price);
+    req.user.changePoints(-raffle.price);
     rp.tickets++;
 
     await rp.save();

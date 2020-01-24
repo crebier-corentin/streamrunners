@@ -33,7 +33,7 @@ router.get('/', async function (req: Request, res: Response) {
 
 router.post('/buy', async function (req: Request, res: Response) {
 
-    const raffle = await Raffle.findOne(Number(req.body.raffleId));
+    const raffle = await Raffle.findOne(Number(req.body.raffleId), {relations: ["winner"]});
 
     //Ignore if the raffle is over or doesn't exist
     if (!raffle?.active()) return res.redirect("/giveaway");

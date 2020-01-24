@@ -1,11 +1,18 @@
 const mix = require('laravel-mix');
 require('laravel-mix-purgecss');
+const webpack = require('webpack');
 
 mix.disableNotifications();
 
 if (process.env.NODE_ENV === "development") {
     mix.sourceMaps();
 }
+mix.webpackConfig({
+    plugins: [
+        // Ignore all locale files of moment.js
+        new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
+    ],
+});
 
 mix.ts("asset/js/bundle.js", "public/js/");
 mix.ts("asset/js/watch.ts", "public/js/");

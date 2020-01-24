@@ -9,7 +9,8 @@
 
     <h1 class="text-center">Inventaire</h1>
     <hr>
-    <div class="row">
+    {# Cases #}
+    <section class="row">
 
         {% for item in req.user.cases %}
             <div class="col-sm-3">
@@ -45,7 +46,53 @@
             Votre inventaire est vide.
         {% endfor %}
 
-    </div>
+    </section>
+
+    {# Raffle #}
+    <hr>
+    <section class="row">
+        {% for raffle in req.user.rafflesWon %}
+            <div class="col-sm-3">
+                <div class="card" style="width: 14rem;">
+                    <img src="{{ raffle.icon }}" class="card-img-top" alt="icon">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ raffle.title }}</h5>
+
+                        {% if raffle.code %}
+                            <button type="button"
+                                    class="btn btn-primary"
+                                    data-toggle="modal"
+                                    data-target="#modal-{{ raffle.id }}">
+                                Voir le code
+                            </button>
+                        {% endif %}
+
+
+                    </div>
+                </div>
+            </div>
+
+            {# Modal #}
+            {% if raffle.code %}
+            <div id="modal-{{ raffle.id }}" class="modal" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Code</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <p>{{ raffle.code }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+
+        {% endfor %}
+    </section>
 
     <hr>
     {% endblock %}

@@ -37,7 +37,7 @@ export class Raffle extends BaseEntity {
     @Column({nullable: true})
     code: string | null;
 
-    @ManyToOne(type => User, u => u.rafflesWon, {nullable: true, eager: true})
+    @ManyToOne(type => User, u => u.rafflesWon, {nullable: true})
     @JoinColumn({name: "winnerId"})
     winner: User | null;
 

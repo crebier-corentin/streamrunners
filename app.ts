@@ -1,16 +1,12 @@
 import "reflect-metadata";
 import {createConnection} from "typeorm";
 import {User} from "./database/entity/User";
-import {updateStreamQueue} from "./database/entity/StreamQueue";
-import {sync} from "glob";
 import {syncCases} from "./database/entity/Case";
 import {casesContent} from "./other/CaseContent";
 
 import "reflect-metadata";
-import * as child_process from "child_process";
-import {Product, syncProducts} from "./database/entity/Product";
+import {syncProducts} from "./database/entity/Product";
 import {loadDiscord} from "./other/DiscordBot";
-import {RaffleParticipation} from "./database/entity/RaffleParticipation";
 import {Raffle} from "./database/entity/Raffle";
 
 const moment = require("moment");
@@ -25,8 +21,6 @@ const passport = require('passport');
 const twitchStrategy = require("passport-twitch-new").Strategy;
 const compression = require('compression');
 const helmet = require('helmet');
-const fs = require("fs");
-
 
 //.env
 require("dotenv").config();

@@ -21,7 +21,6 @@ function toggleButton() {
     buttonHalloween.disabled = !buttonHalloween.disabled;
 }
 
-
 function buy(url: string, caseName: string) {
 
     swal({

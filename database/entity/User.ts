@@ -133,7 +133,7 @@ export class User extends BaseEntity {
     @Column({default: ChatRank.Member})
     chatRank: ChatRank;
 
-    @OneToMany(type => Raffle, r => r.winner)
+    @OneToMany(type => Raffle, r => r.winner, {eager: true})
     rafflesWon: Raffle[];
 
     @OneToMany(type => RaffleParticipation, r => r.user)

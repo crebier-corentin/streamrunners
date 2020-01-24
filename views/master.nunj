@@ -83,7 +83,7 @@
                         <a class="nav-link" href="/case/inventory"><i class="fas fa-suitcase"></i> Inventaire</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/stuffshop"><i class="fas fa-boxes"></i> Boutique</a>
+                        <a class="nav-link" href="/giveaway"><i class="fas fa-boxes"></i> GiveAway</a>
                     </li>
                     {% if req.user.moderator %}
                         <li class="nav-item">

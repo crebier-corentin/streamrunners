@@ -12,10 +12,9 @@ Pour node-canvas : regarder les instructions https://www.npmjs.com/package/canva
 
 * Lancer le serveur : `npm start`
 
-* Compiler sass et js prod : `npm run build`  
-* Compiler sass : `npm run build:sass`  
-* Compiler js dev : `npm run build:js:dev`  
-* Compiler js prod : `npm run build:js`  
+* Compiler sass et js dev : `npm run dev`  
+* Compiler sass et js dev watch : `npm run watch`  
+* Compiler sass et js prod : `npm run prod`  
 
 ### Migration
 

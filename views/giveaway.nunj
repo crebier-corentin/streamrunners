@@ -7,6 +7,15 @@
     </div>
 
     <div class="container">
+
+        {# Points #}
+        {% if rafflesActive.length > 0 %}
+        <div class="d-flex justify-content-center align-items-center">
+            <span class="mr-1">{{ req.user.points }}</span>
+                <img src="/img/po.png" alt="points" width="16px" height="16px" />
+        </div>
+        {% endif %}
+
         {# Active raffles #}
         <section class="card-deck mb-3 text-center">
 
@@ -52,7 +61,10 @@
 
                     </div>
                 </div>
+            {% else %}
+                <p class="lead text-center w-100">Aucun giveway actif pour le moment.</p>
             {% endfor %}
+
 
         </section>
         <hr>

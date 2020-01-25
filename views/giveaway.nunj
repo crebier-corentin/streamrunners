@@ -27,7 +27,7 @@
                                data-ending-date="{{ raffle.endingDate.toISOString() }}">{{ raffle.remainingTime() }}</small>
                     </div>
                     <div class="card-body">
-                        <img src="{{ raffle.icon }}" width="100%" alt="icon" />
+                        <img src="{{ raffle.icon }}" width="200px" alt="icon" />
                         {#Buy button #}
                         <form method="post" action="/giveaway/buy" class="d-inline">
                             <input type="hidden" name="raffleId" value="{{ raffle.id }}">

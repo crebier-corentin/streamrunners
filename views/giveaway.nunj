@@ -27,7 +27,7 @@
                                data-ending-date="{{ raffle.endingDate.toISOString() }}">{{ raffle.remainingTime() }}</small>
                     </div>
                     <div class="card-body">
-                        <img src="{{ raffle.icon }}" width="200px" alt="icon" />
+                        <img src="{{ raffle.icon }}" height="250px" alt="icon" />
                         {#Buy button #}
                         <form method="post" action="/giveaway/buy" class="d-inline">
                             <input type="hidden" name="raffleId" value="{{ raffle.id }}">
@@ -73,29 +73,18 @@
 
         {# Ended raffles #}
         <h3 class="text-center">DERNIERS GAGNANTS :</h3><br>
-        <table class="table table-striped w-100">
+        <ul class="giveaway-winner-list">
             {% for raffle in rafflesEnded %}
-                <tr>
-                    <td>
-                        <small class="font-italic mr-2 align-middle line-height-60">{{ raffle.formattedEnded() }}</small>
-                    </td>
-                    <td>
-                        <img class="rounded-circle mr-2"
-                             src="{{ raffle.winner.avatar }}"
-                             alt="avatar"
-                             width="90"
-                             height="90" />
-                    </td>
-                    <td>
-                        <p class="font-weight-bold align-middle line-height-60"
-                           style="margin-right: 42rem;">{{ raffle.winner.display_name }}</p>
-                    </td>
-                    <td>
-                        <p class="align-middle line-height-60">{{ raffle.title }}</p>
-                    </td>
-                </tr>
+
+                <li class="giveaway-winner">
+                    <small class="date">{{ raffle.formattedEnded() }}</small>
+                    <img src="{{ raffle.winner.avatar }}" alt="avatar" class="avatar" />
+                    <p class="username">{{ raffle.winner.display_name }}</p>
+                    <p class="title">{{ raffle.title }}</p>
+                </li>
+
             {% endfor %}
-        </table>
+        </ul>
     </div>
 
 {% endblock %}

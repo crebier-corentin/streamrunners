@@ -72,6 +72,13 @@ export class Raffle extends BaseEntity {
         return moment(this.endingDate).locale("fr").format("LL");
     }
 
+    async totalTickets(): Promise<number> {
+        return (await RaffleParticipation.createQueryBuilder("rp")
+            .select("SUM(rp.tickets)", "sum")
+            .where("rp.raffleId = :id", {id: this.id})
+            .getRawOne()).sum;
+    }
+
     static async actives(): Promise<Raffle[]> {
         return Raffle.createQueryBuilder("raffle")
             .where("raffle.winnerId IS NULL")

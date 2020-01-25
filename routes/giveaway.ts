@@ -20,9 +20,10 @@ router.use((req, res, next) => {
 router.get('/', async function (req: Request, res: Response) {
 
     const rafflesEnded = await Raffle.ended();
-    const rafflesActive = await Promise.all((await Raffle.actives()).map(async (raffle: Raffle & { ticketCount: number }) => {
+    const rafflesActive = await Promise.all((await Raffle.actives()).map(async (raffle: Raffle & { ticketCount: number; total: number }) => {
 
         raffle.ticketCount = (await RaffleParticipation.findForUserAndRaffle(req.user, raffle))?.tickets ?? 0;
+        raffle.total = (await raffle.totalTickets()) ?? 0;
 
         return raffle;
     }));

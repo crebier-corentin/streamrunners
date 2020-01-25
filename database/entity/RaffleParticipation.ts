@@ -1,4 +1,13 @@
-import {BaseEntity, Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn, RelationId} from "typeorm";
+import {
+    BaseEntity,
+    Column,
+    CreateDateColumn,
+    Entity,
+    JoinColumn,
+    ManyToOne,
+    PrimaryGeneratedColumn,
+    RelationId
+} from "typeorm";
 import {User} from "./User";
 import {Raffle} from "./Raffle";
 
@@ -12,6 +21,7 @@ export class RaffleParticipation extends BaseEntity {
     user: User;
 
     @ManyToOne(type => Raffle, r => r.participations)
+    @JoinColumn({name: "raffleId"})
     raffle: Raffle;
 
     @Column({default: 0})

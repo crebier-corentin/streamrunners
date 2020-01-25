@@ -10,10 +10,10 @@
 
         {# Points #}
         {% if rafflesActive.length > 0 %}
-        <div class="d-flex justify-content-center align-items-center">
-            <span class="mr-1">{{ req.user.points }}</span>
+            <div class="d-flex justify-content-center align-items-center">
+                <span class="mr-1">{{ req.user.points }}</span>
                 <img src="/img/po.png" alt="points" width="16px" height="16px" />
-        </div>
+            </div>
         {% endif %}
 
         {# Active raffles #}
@@ -57,6 +57,7 @@
 
                         <small>{{ raffle.ticketCount }} ticket{{ "s" if raffle.ticketCount > 1 }}
                             / {{ "∞" if raffle.maxTickets <= 0 else raffle.maxTickets }}</small>
+                        <small class="d-block">{{ raffle.total }} tickets au total</small>
                         <small class="d-block text-danger">{{ helpText }}</small>
 
                     </div>

@@ -6,8 +6,8 @@ import {casesContent} from "./other/CaseContent";
 
 import "reflect-metadata";
 import {syncProducts} from "./database/entity/Product";
-import {loadDiscord} from "./other/DiscordBot";
 import {Raffle} from "./database/entity/Raffle";
+import {DiscordBot} from "./other/DiscordBot";
 
 const moment = require("moment");
 
@@ -60,16 +60,11 @@ createConnection().then(async () => {
     });
 
     //Discord
-    try {
-        const client = await loadDiscord();
-        app.use((req, res, next) => {
-            req.discord = client;
-            next();
-        });
-    }
-    catch {
-        console.log("Could not start discord bot");
-    }
+    const client = await DiscordBot.initializeDiscordClient(process.env.DISCORD_TOKEN, process.env.SITE_USER_COUNT_CHANNEL_ID, process.env.DISCORD_MEMBER_COUNT_CHANNEL_ID);
+    app.use((req, res, next) => {
+        req.discord = client;
+        next();
+    });
 
     //Maintenance
     if (process.env.MAINTENANCE?.toLowerCase() === "true") {
@@ -124,6 +119,8 @@ createConnection().then(async () => {
                 newUser.avatar = profile.profile_image_url;
 
                 await newUser.save();
+
+                await DiscordBot.updateSiteUserCount();
 
                 done(null, newUser);
 

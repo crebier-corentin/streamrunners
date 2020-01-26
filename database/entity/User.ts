@@ -1,4 +1,14 @@
-import {BaseEntity, Column, Entity, JoinTable, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn} from "typeorm";
+import {
+    AfterInsert,
+    BaseEntity,
+    Column,
+    Entity,
+    JoinTable,
+    ManyToMany,
+    ManyToOne,
+    OneToMany,
+    PrimaryGeneratedColumn
+} from "typeorm";
 import {StreamQueue} from "./StreamQueue";
 import {getDBConnection} from "../connection";
 import {Coupon} from "./Coupon";
@@ -12,6 +22,7 @@ import {formatDatetimeSQL} from "../../other/utils";
 import {ChatRank, SerializedUser} from "../../shared/Types";
 import {Raffle} from "./Raffle";
 import {RaffleParticipation} from "./RaffleParticipation";
+import {DiscordBot} from "../../other/DiscordBot";
 
 const moment = require("moment");
 const uuidv4 = require('uuid/v4');
@@ -212,7 +223,6 @@ export class User extends BaseEntity {
             chatRank: this.chatRank
         }
     }
-
 }
 
 

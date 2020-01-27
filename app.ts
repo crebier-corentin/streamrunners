@@ -19,7 +19,7 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const cookieSession = require('cookie-session');
 const logger = require('morgan');
-const expressNunjucks = require('express-nunjucks');
+const nunjucks = require('nunjucks');
 const passport = require('passport');
 const twitchStrategy = require("passport-twitch-new").Strategy;
 const compression = require('compression');
@@ -54,13 +54,12 @@ createConnection().then(async () => {
     //Nunjucks
     app.set('views', __dirname + '/views');
     app.set("view engine", "nunj");
-    const njk = expressNunjucks(app, {
+    nunjucks.configure("views/", {
         watch: isDev,
         noCache: isDev,
-        globals: {
-            HOSTNAME: process.env.HOSTNAME
-        }
-    });
+        express: app
+    })
+        .addGlobal("HOSTNAME", process.env.HOSTNAME);
 
     //Discord
     try {

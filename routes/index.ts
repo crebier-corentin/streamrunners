@@ -3,6 +3,7 @@ import {User} from "../database/entity/User";
 import {SteamKey} from "../database/entity/SteamKey";
 import CacheService from "../other/CacheService";
 import {BannerDrawer} from "../other/BannerDrawer";
+import {Request} from "express";
 
 var express = require('express');
 var router = express.Router();
@@ -28,7 +29,7 @@ router.get('/banner', async function (req: Express.Request, res) {
 
 });
 
-router.get('/admin', async function (req: Express.Request, res) {
+router.get('/admin', async function (req: Request, res) {
 
     if (req.isUnauthenticated() || !req.user.moderator) {
         return res.status(404).end();

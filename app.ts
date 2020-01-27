@@ -195,8 +195,8 @@ createConnection().then(async () => {
     intervalWait(1000 * 60, BannerDrawer.updateBanner);
 
     //Sync cases
-    /*await syncCases(casesContent);
-    await syncProducts();*/
+    await syncCases(casesContent);
+    await syncProducts();
 
     //Every minute, check for raffle winners
     intervalWait(1000 * 60, Raffle.pickWinners);

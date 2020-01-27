@@ -26,7 +26,11 @@ export class ChatMessage extends BaseEntity {
     createdAt: Date;
 
     static async getLastMessages() {
-        const rawMessages = await ChatMessage.find({relations: ["author"], take: 50, order: {createdAt: "DESC"}});
+        const rawMessages = await ChatMessage.createQueryBuilder("chat")
+            .leftJoinAndSelect("chat.author", "author")
+            .take(50)
+            .orderBy("chat.createdAt", "DESC")
+            .getMany();
 
         return rawMessages.map(m => ({
             id: m.id,

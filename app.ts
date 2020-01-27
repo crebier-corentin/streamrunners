@@ -8,6 +8,8 @@ import "reflect-metadata";
 import {syncProducts} from "./database/entity/Product";
 import {Raffle} from "./database/entity/Raffle";
 import {DiscordBot} from "./other/DiscordBot";
+import {BannerDrawer} from "./other/BannerDrawer";
+import {intervalWait} from "./other/utils";
 
 const moment = require("moment");
 
@@ -188,13 +190,16 @@ createConnection().then(async () => {
         res.redirect("/");
     });
 
+    //Banner, update every minute
+    await BannerDrawer.loadDefaultBanner();
+    intervalWait(1000 * 60, BannerDrawer.updateBanner);
 
     //Sync cases
-    await syncCases(casesContent);
-    await syncProducts();
+    /*await syncCases(casesContent);
+    await syncProducts();*/
 
     //Every minute, check for raffle winners
-    setInterval(Raffle.pickWinners, 1000 * 60);
+    intervalWait(1000 * 60, Raffle.pickWinners);
 
 }).catch(error => console.log(error));
 

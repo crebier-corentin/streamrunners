@@ -11,8 +11,27 @@ export function shuffledArray<T>(array: T[]): T[] {
     return a;
 }
 
-export function formatDatetimeSQL(date: moment.Moment | Date): string {
-   const momentDate = date instanceof Date ? moment(date) : date;
+export function duplicatedArray<T>(array: T[], amount: number): T[] {
+    return new Array(amount).fill(array).flat();
+}
 
-   return momentDate.format("YYYY-MM-DD HH:mm:ss");
+export function formatDatetimeSQL(date: moment.Moment | Date): string {
+    const momentDate = date instanceof Date ? moment(date) : date;
+
+    return momentDate.format("YYYY-MM-DD HH:mm:ss");
+}
+
+export function intervalWait(ms: number, callback: () => Promise<unknown>) {
+    const func = () => {
+        callback()
+            .then(() => {
+                setTimeout(func, ms);
+            })
+            .catch((err) => {
+                console.error(err);
+                setTimeout(func, ms);
+            });
+    };
+
+    func();
 }

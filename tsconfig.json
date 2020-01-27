@@ -4,7 +4,11 @@
     "target": "es6",
     "sourceMap": true,
     "experimentalDecorators": true,
-    "emitDecoratorMetadata": true
+    "emitDecoratorMetadata": true,
+    "lib": [
+      "dom",
+      "es2019"
+    ]
   },
   "exclude": [
     "node_modules"

@@ -1,10 +1,8 @@
 // eslint-disable-next-line no-undef
 import {User} from "../database/entity/User";
-import {getDBConnection} from "../database/connection";
 import {SteamKey} from "../database/entity/SteamKey";
-import {createCanvas, loadImage, Image} from "canvas";
-import {shuffledArray} from "../other/utils";
 import CacheService from "../other/CacheService";
+import {BannerDrawer} from "../other/BannerDrawer";
 
 var express = require('express');
 var router = express.Router();
@@ -23,50 +21,10 @@ router.get('/', async function (req: Express.Request, res) {
     }
 });
 
-const pickAvatars = async (count: number): Promise<Image[]> => {
-    const avatars: Image[] = [];
-    while (avatars.length < count) {
-        const avatarUrls = (await getDBConnection().getRepository(User).find({select: ["avatar"]})).map(u => u.avatar);
-        const shuffled = shuffledArray(avatarUrls);
-
-        for (const url of shuffled) {
-            try {
-                avatars.push(await loadImage(url));
-            }
-            catch {
-                //Ignore
-            }
-            if (avatars.length > count) return avatars;
-        }
-
-    }
-    return avatars;
-};
-const drawBanner = async (columns: number, rows: number): Promise<Buffer> => {
-
-    const avatars = await pickAvatars(columns * rows);
-
-    const canvas = createCanvas(columns * 100, rows * 100);
-    const ctx = canvas.getContext("2d");
-
-    for (let x = 0; x < columns; x++) {
-        for (let y = 0; y < rows; y++) {
-
-            var image = avatars[y * columns + x];
-            ctx.drawImage(image, x * 100, y * 100, 100, 100)
-        }
-    }
-
-    return canvas.toBuffer('image/png');
-};
-
 const bannerCache = new CacheService(60); //1 minute cache
 router.get('/banner', async function (req: Express.Request, res) {
-
-    var banner = await bannerCache.get("banner", drawBanner.bind(null, 10, 5));
-
     res.set('Content-Type', 'image/png');
-    return res.send(banner);
+    return res.send(BannerDrawer.getBanner());
 
 });
 

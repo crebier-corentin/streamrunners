@@ -79,14 +79,11 @@ export class StreamQueue extends BaseEntity {
 
     }
 
-
 }
 
 export async function updateStreamQueue() {
 
-    let repository: Repository<StreamQueue> = getDBConnection().getRepository(StreamQueue);
-
-    let currentStream = await StreamQueue.currentStream();
+    const currentStream = await StreamQueue.currentStream();
 
     //If queue is empty do nothing
     if (currentStream == undefined) {
@@ -96,15 +93,13 @@ export async function updateStreamQueue() {
     //Start if null
     if (currentStream.start == null) {
         currentStream.start = new Date();
-        repository.save(currentStream);
     }
     //Update current
     else {
-        let startTime = Math.round(currentStream.start.getTime() / 1000);
-
+        const startTime = Math.round(currentStream.start.getTime() / 1000);
         currentStream.current = Math.round(new Date().getTime() / 1000) - startTime;
-        repository.save(currentStream);
-
     }
+
+    await currentStream.save();
 
 }

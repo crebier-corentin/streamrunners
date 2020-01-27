@@ -173,7 +173,7 @@ createConnection().then(async () => {
     intervalWait(1000 * 60, Raffle.pickWinners);
 
     //StreamQueue update every second
-    intervalWait(1000, updateStreamQueue);
+    intervalWait(5000, updateStreamQueue);
 
     //Routes
     app.use('/', indexRouter);

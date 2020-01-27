@@ -109,7 +109,7 @@ router.post('/add', async (req: Express.Request, res) => {
   Un stream viens d'être lancé sur StreamRunners ! Va vite récupérer des points !
   https://streamrunners.fr/
 
-  <@671059306287988760>`);
+  <@&671409604596596752>`);
     });
     try {
         sendDiscordMessage();

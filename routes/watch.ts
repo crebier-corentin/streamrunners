@@ -14,11 +14,11 @@ var router = express.Router();
 
 async function sendData(req: Express.Request, res) {
 
-    const [queue, viewers, mostPoints, mostPlace, messages] = await Promise.all([
+    const [queue, viewers, /*mostPoints, mostPlace,*/ messages] = await Promise.all([
         StreamQueue.currentAndNextStreams(), //queue
         User.viewers(), //viewers
-        User.mostPoints(), //mostPoints
-        User.mostPlace(), //mostPlace
+        // User.mostPoints(), //mostPoints
+        // User.mostPlace(), //mostPlace
         ChatMessage.getLastMessages() //messages
     ]);
 
@@ -27,137 +27,103 @@ async function sendData(req: Express.Request, res) {
         points: req.user.points,
         queue,
         viewers,
-        mostPoints,
-        mostPlace,
+        // mostPoints,
+        // mostPlace,
         messages
     });
 }
 
-router.post('/update', async (req: Express.Request, res) => {
+//Auth
+router.use((req: Request, res: Response, next) => {
+    if (req.isUnauthenticated()) return res.send({auth: false});
 
-    const update = throttle(1000, () => {
-        setImmediate(updateStreamQueue);
-    });
+    next();
+});
 
-    update();
-
-    //Check auth
-    if (!req.isAuthenticated()) {
-        return res.send({auth: false});
-    }
-
+router.post('/update', async (req: Express.Request, res, next) => {
     //Update lastOnWatchPage
     req.user.lastOnWatchPage = new Date();
     await req.user.save();
 
     //Check if stream is online
-    let current = await StreamQueue.currentStream();
+    const current = await StreamQueue.currentStream();
 
     //Check if stream and is not self stream
-    if (current == undefined || current.user.id === req.user.id) {
-        await sendData(req, res);
-        return;
-    }
-
-    const isOnline = await StreamQueue.isCurrentOnline(current.user.twitchId);
+    if (current == undefined || current.user.id === req.user.id) return next();
 
     //Check if stream is online
-    if (!isOnline) {
-        await sendData(req, res);
-        return;
-    }
+    const isOnline = await StreamQueue.isCurrentOnline(current.user.twitchId);
+    if (!isOnline) return next();
 
-    let newDate = moment();
-
-    let lastUpdate: Date = req.user.lastUpdateTime();
+    const now = moment();
 
     //If lastUpdate was one minutes or less ago
-    if (moment(lastUpdate).add(1, "minutes") >= newDate) {
-        await req.user.changePoints((newDate.toDate().getTime() - lastUpdate.getTime()) / 1000);
-        req.user.lastUpdate = newDate.toDate();
-        await req.user.save();
-    }
-    else {
-        req.user.lastUpdate = newDate.toDate();
-        await req.user.save();
+    if (moment(req.user.lastUpdate).add(1, "minutes") >= now) {
+        await req.user.changePoints((now.toDate().getTime() - req.user.lastUpdate.getTime()) / 1000);
     }
 
-    await sendData(req, res);
+    req.user.lastUpdate = now.toDate();
+    await req.user.save();
 
-});
+    return next();
+}, sendData);
 
 router.post('/add', async (req: Express.Request, res) => {
+    //Check if queue is empty
+    const cost = (await StreamQueue.isEmpty()) ? 0 : 1000;
 
-    if (req.isAuthenticated()) {
+    //Check if enough points
+    if (req.user.points < cost) {
+        //Not enough point
+        return res.send({auth: true, enough: false, points: req.user.points, cost});
+    }
 
-        //Check if queue is empty
-        let cost = (await StreamQueue.isEmpty()) ? 0 : 1000;
+    //Enough point
+    //Create streamqueue
+    const stream = new StreamQueue();
+    stream.amount = cost;
+    stream.time = 60 * 10;
+    stream.user = req.user;
+    await stream.save();
 
-        //Check if enough pointsFunc
-        let points = (await req.user.points);
-        if (points < cost) {
-            //No enough point
-            res.send({auth: true, enough: false, points, cost});
+    //Change points
+    await req.user.changePoints(-cost);
+
+    //Discord
+    const sendDiscordMessage = (() => {
+
+        //Stop spam, only one message per hour
+        if (global['discordAntiSpamDate'] >= moment().subtract("1", "hour")) {
+            return;
         }
-        else {
-            //Enough point
-            let stream = new StreamQueue();
-            stream.amount = cost;
-            stream.time = 60 * 10;
 
-            stream.user = req.user;
-
-            let repository: Repository<StreamQueue> = getDBConnection().getRepository(StreamQueue);
-            await repository.save(stream);
-
-            req.user.streamQueue.push(stream);
-
-            //Change points
-            await req.user.changePoints(-cost);
-
-            //Discord
-            (() => {
-
-                //Stop spam, only one message per hour
-                if (global['discordAntiSpamDate'] >= moment().subtract("1", "hour")) {
-                    return;
-                }
-
-                global['discordAntiSpamDate'] = moment();
+        global['discordAntiSpamDate'] = moment();
 
 
-                const channel = req.discord.channels.find((ch) => ch.id === '617835840068124692');
+        const channel = req.discord.channels.find((ch) => ch.id === '617835840068124692');
 
-                if (!channel) return;
+        if (!channel) return;
 
 
-                channel['send'](`
+        channel['send'](`
   Un stream viens d'être lancé sur StreamRunners ! Va vite récupérer des points !
   https://streamrunners.fr/
 
   <@671059306287988760>`);
-            })();
-
-
-            res.send({auth: true, enough: true});
-        }
-
-
+    });
+    try {
+        sendDiscordMessage();
     }
-    else {
-        //Not auth
-        res.send({auth: false});
-
+    catch {
+        console.log("Unable to send discord message")
     }
+
+
+    res.send({auth: true, enough: true});
 
 });
 
 router.post('/delete', async (req: Express.Request, res) => {
-
-    if (req.isUnauthenticated()) {
-        return res.send({auth: false});
-    }
-
     //Get id
     const id = req['body'].id;
 
@@ -194,7 +160,7 @@ router.post('/delete', async (req: Express.Request, res) => {
 
 router.post('/skip', async (req: Express.Request, res) => {
 
-    if (req.isAuthenticated() && req.user.moderator) {
+    if (req.user.moderator) {
 
 
         let currentStream = await StreamQueue.currentStream();
@@ -221,11 +187,6 @@ router.post('/chat/add', expressThrottle({
     period: "1s",
     key: (req: Request) => req.user?.id
 }), async (req: Request, res) => {
-
-    if (req.isUnauthenticated()) {
-        return res.send({auth: false});
-    }
-
     //Validate message
     const message = (<string>req.body.message)?.trim();
     if (message.length === 0 || message.length > 200) {

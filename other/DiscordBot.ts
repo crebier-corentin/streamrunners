@@ -133,12 +133,12 @@ export class DiscordBot {
     }
 
     public static async updateSiteUserCount(): Promise<void> {
-        await this.siteUserCountChannel.setName(`🖊️ Inscrits : ${await User.count()}`);
+        await this.siteUserCountChannel?.setName(`🖊️ Inscrits : ${await User.count()}`);
     }
 
     public static async updateDiscordMemberCountChannel(): Promise<void> {
-        const count = this.discordMemberCountChannel.guild.memberCount;
-        await this.discordMemberCountChannel.setName(`👤 Membres : ${count}`);
+        const count = this.discordMemberCountChannel?.guild.memberCount;
+        await this.discordMemberCountChannel?.setName(`👤 Membres : ${count}`);
     }
 
 }

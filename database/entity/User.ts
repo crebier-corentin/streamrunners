@@ -63,16 +63,7 @@ export class User extends BaseEntity {
     }
 
     @Column("datetime", {default: () => 'CURRENT_TIMESTAMP'})
-    lastUpdate: Date | number;
-
-    lastUpdateTime(): Date {
-        if (this.lastUpdate instanceof Date) {
-            return this.lastUpdate;
-        }
-        else {
-            return new Date(this.lastUpdate);
-        }
-    }
+    lastUpdate: Date;
 
     @Column("datetime", {default: () => 'CURRENT_TIMESTAMP'})
     lastOnWatchPage: Date;
@@ -181,7 +172,6 @@ export class User extends BaseEntity {
                 .limit(10)
                 .getMany();
 
-
         });
 
     }
@@ -191,29 +181,15 @@ export class User extends BaseEntity {
 
         return await cache.get("mostPlace", async () => {
 
-            const users = await userRepository.createQueryBuilder("user")
+            return  await userRepository.createQueryBuilder("user")
                 .leftJoin("user.streamQueue", "queue")
-                .select(["user.username", "user.display_name", "queue.time"])
-                .getMany();
-
-            return users.map((value: User) => {
-
-                value['time'] = 0;
-
-                for (const queue of value.streamQueue) {
-                    value['time'] += queue.time;
-                }
-
-                delete value.streamQueue;
-
-                return value;
-
-            }).sort((a, b) => {
-                return b['time'] - a['time'];
-            })
-                .splice(0, 10);
-
-
+                .select("user.username", "username")
+                .addSelect("user.display_name", "display_name")
+                .addSelect("SUM(queue.time)", "time")
+                .orderBy("time", "DESC")
+                .groupBy("user.id")
+                .limit(10)
+                .getRawMany();
         });
     }
 

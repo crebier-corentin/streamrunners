@@ -10,6 +10,7 @@ import {Raffle} from "./database/entity/Raffle";
 import {DiscordBot} from "./other/DiscordBot";
 import {BannerDrawer} from "./other/BannerDrawer";
 import {intervalWait} from "./other/utils";
+import {updateStreamQueue} from "./database/entity/StreamQueue";
 
 const moment = require("moment");
 
@@ -62,11 +63,17 @@ createConnection().then(async () => {
     });
 
     //Discord
-    const client = await DiscordBot.initializeDiscordClient(process.env.DISCORD_TOKEN, process.env.SITE_USER_COUNT_CHANNEL_ID, process.env.DISCORD_MEMBER_COUNT_CHANNEL_ID);
-    app.use((req, res, next) => {
-        req.discord = client;
-        next();
-    });
+    try {
+        const client = await DiscordBot.initializeDiscordClient(process.env.DISCORD_TOKEN, process.env.SITE_USER_COUNT_CHANNEL_ID, process.env.DISCORD_MEMBER_COUNT_CHANNEL_ID);
+        app.use((req, res, next) => {
+            req.discord = client;
+            next();
+        });
+    }
+    catch (e) {
+        console.error(e);
+        console.log("Unable to start discord bot");
+    }
 
     //Maintenance
     if (process.env.MAINTENANCE?.toLowerCase() === "true") {
@@ -158,19 +165,15 @@ createConnection().then(async () => {
 
     });*/
 
-    //StreamQueue
-    /* async function update() {
-         await updateStreamQueue().catch(reason => {
-             console.log(reason);
-         });
-         setTimeout(update, 1000);
-     }
+    //Banner, update every minute
+    await BannerDrawer.loadDefaultBanner();
+    intervalWait(1000 * 60, BannerDrawer.updateBanner);
 
-     update().catch(reason => console.log(reason));*/
-    /*app.use(async (req, res: Express.Response, done) => {
-        await updateStreamQueue();
-        done();
-    });*/
+    //Every minute, check for raffle winners
+    intervalWait(1000 * 60, Raffle.pickWinners);
+
+    //StreamQueue update every second
+    intervalWait(1000, updateStreamQueue);
 
     //Routes
     app.use('/', indexRouter);
@@ -190,16 +193,10 @@ createConnection().then(async () => {
         res.redirect("/");
     });
 
-    //Banner, update every minute
-    await BannerDrawer.loadDefaultBanner();
-    intervalWait(1000 * 60, BannerDrawer.updateBanner);
-
     //Sync cases
     await syncCases(casesContent);
     await syncProducts();
 
-    //Every minute, check for raffle winners
-    intervalWait(1000 * 60, Raffle.pickWinners);
 
 }).catch(error => console.log(error));
 

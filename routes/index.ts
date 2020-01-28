@@ -1,17 +1,11 @@
 // eslint-disable-next-line no-undef
 import {User} from "../database/entity/User";
-import {SteamKey} from "../database/entity/SteamKey";
-import CacheService from "../other/CacheService";
 import {BannerDrawer} from "../other/BannerDrawer";
-import {Request} from "express";
 
 var express = require('express');
 var router = express.Router();
 
-
 router.get('/', async function (req: Express.Request, res) {
-
-
     //Si connecter afficher le stream, sinon afficher la page d'acceuil
     if (req.isAuthenticated()) {
         res.render("./watch", {title: 'StreamRunners - Accueil', req});
@@ -22,38 +16,9 @@ router.get('/', async function (req: Express.Request, res) {
     }
 });
 
-const bannerCache = new CacheService(60); //1 minute cache
 router.get('/banner', async function (req: Express.Request, res) {
     res.set('Content-Type', 'image/png');
     return res.send(BannerDrawer.getBanner());
-
-});
-
-router.get('/admin', async function (req: Request, res) {
-
-    if (req.isUnauthenticated() || !req.user.moderator) {
-        return res.status(404).end();
-    }
-
-    //Nombre d'utilisateur
-    const users = (await User.find());
-    const totalUsers = users.length;
-
-    //Nombre de points
-    let totalPoints = 0;
-
-    for (const user of users) {
-        totalPoints += user.points;
-    }
-
-    //Clé steam
-    const usedKey = (await SteamKey.createQueryBuilder("key")
-        .where("caseOwnedId IS NOT NULL")
-        .getMany()).length;
-
-    const totalKey = (await SteamKey.find()).length;
-
-    return res.render('admin', {req, totalUsers, totalPoints, usedKey, totalKey});
 
 });
 

@@ -6,6 +6,7 @@ import {throttle} from 'throttle-debounce';
 import {ChatMessage} from "../database/entity/ChatMessage";
 import {Request, Response} from "express";
 import * as  expressThrottle from "express-throttle";
+import {DiscordBot} from "../other/DiscordBot";
 
 const moment = require("moment");
 
@@ -90,34 +91,7 @@ router.post('/add', async (req: Express.Request, res) => {
     await req.user.changePoints(-cost);
 
     //Discord
-    const sendDiscordMessage = (() => {
-
-        //Stop spam, only one message per hour
-        if (global['discordAntiSpamDate'] >= moment().subtract("1", "hour")) {
-            return;
-        }
-
-        global['discordAntiSpamDate'] = moment();
-
-
-        const channel = req.discord.channels.find((ch) => ch.id === '617835840068124692');
-
-        if (!channel) return;
-
-
-        channel['send'](`
-  Un stream viens d'être lancé sur StreamRunners ! Va vite récupérer des points !
-  https://streamrunners.fr/
-
-  <@&671409604596596752>`);
-    });
-    try {
-        sendDiscordMessage();
-    }
-    catch {
-        console.log("Unable to send discord message")
-    }
-
+    await DiscordBot.sendStreamNotificationMessage();
 
     res.send({auth: true, enough: true});
 

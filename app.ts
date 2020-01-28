@@ -44,8 +44,6 @@ var oldshopRouter = require('./routes/oldshop');
 //App
 var app = express();
 
-global['discordAntiSpamDate'] = moment().subtract("20", "hours");
-
 //DB
 createConnection().then(async () => {
 
@@ -63,7 +61,13 @@ createConnection().then(async () => {
 
     //Discord
     try {
-        const client = await DiscordBot.initializeDiscordClient(process.env.DISCORD_TOKEN, process.env.SITE_USER_COUNT_CHANNEL_ID, process.env.DISCORD_MEMBER_COUNT_CHANNEL_ID);
+        const client = await DiscordBot.initializeDiscordClient({
+            token: process.env.DISCORD_TOKEN,
+            siteUserCountChannelId: process.env.SITE_USER_COUNT_CHANNEL_ID,
+            discordMemberCountChannelId: process.env.DISCORD_MEMBER_COUNT_CHANNEL_ID,
+            streamNotificationChannelId: process.env.STREAM_NOTIFICATION_CHANNEL_ID,
+            streamNotificationRoleId: process.env.STREAM_NOTIFICATION_ROLE_ID
+        });
         app.use((req, res, next) => {
             req.discord = client;
             next();

@@ -1,6 +1,7 @@
 import {User} from "../database/entity/User";
-import {Channel, Client, VoiceChannel} from "discord.js";
+import {Channel, Client, Role, TextChannel, VoiceChannel} from "discord.js";
 import {DiscordUser} from "../database/entity/DiscordUser";
+import * as moment from "moment";
 
 const Discord = require("discord.js");
 
@@ -14,7 +15,11 @@ export class DiscordBot {
     private static siteUserCountChannel: VoiceChannel;
     private static discordMemberCountChannel: VoiceChannel;
 
-    public static async initializeDiscordClient(token: string, siteUserCountChannelId: string, discordMemberCountChannelId): Promise<Client> {
+    private static streamNotificationChannel: TextChannel;
+    private static streamNotificationRole: Role;
+    private static lastStreamMessageSent: moment.Moment = moment().subtract(20, "hours");
+
+    public static async initializeDiscordClient({token, siteUserCountChannelId, discordMemberCountChannelId, streamNotificationChannelId, streamNotificationRoleId}: { token: string, siteUserCountChannelId: string, discordMemberCountChannelId: string, streamNotificationChannelId: string, streamNotificationRoleId: string }): Promise<Client> {
         this.client = new Discord.Client();
 
         this.client.on('message', async message => {
@@ -122,6 +127,9 @@ export class DiscordBot {
 
             this.discordMemberCountChannel = this.client.channels.find(c => c.id === discordMemberCountChannelId) as VoiceChannel;
             await this.updateDiscordMemberCountChannel();
+
+            this.streamNotificationChannel = this.client.channels.find(c => c.id === streamNotificationChannelId) as TextChannel;
+            this.streamNotificationRole = this.streamNotificationChannel?.guild.roles.find(r => r.id === streamNotificationRoleId);
         });
 
         this.client.on("guildMemberAdd", this.updateDiscordMemberCountChannel);
@@ -139,6 +147,20 @@ export class DiscordBot {
     public static async updateDiscordMemberCountChannel(): Promise<void> {
         const count = this.discordMemberCountChannel?.guild.memberCount;
         await this.discordMemberCountChannel?.setName(`👤 Membres : ${count}`);
+    }
+
+    public static async sendStreamNotificationMessage(): Promise<void> {
+
+        //Don't spam, only one message every hour
+        if (this.lastStreamMessageSent.add(1, "hour") > moment()) return;
+        this.lastStreamMessageSent = moment();
+
+        await this.streamNotificationChannel?.send(`
+  Un stream viens d'être lancé sur StreamRunners ! Va vite récupérer des points !
+  https://streamrunners.fr/
+
+  ${this.streamNotificationRole}`);
+
     }
 
 }

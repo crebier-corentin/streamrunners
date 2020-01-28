@@ -68,9 +68,6 @@ export class User extends BaseEntity {
     @Column("datetime", {default: () => 'CURRENT_TIMESTAMP'})
     lastOnWatchPage: Date;
 
-    @OneToMany(type => StreamQueue, StreamQueue => StreamQueue.user, {eager: true})
-    streamQueue: StreamQueue[];
-
     /* @OneToMany(type => VIP, VIP => VIP.user, {eager: true})
      vip: VIP[];*/
 
@@ -181,7 +178,7 @@ export class User extends BaseEntity {
 
         return await cache.get("mostPlace", async () => {
 
-            return  await userRepository.createQueryBuilder("user")
+            return await userRepository.createQueryBuilder("user")
                 .leftJoin("user.streamQueue", "queue")
                 .select("user.username", "username")
                 .addSelect("user.display_name", "display_name")

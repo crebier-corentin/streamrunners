@@ -23,7 +23,7 @@ export class StreamQueue extends BaseEntity {
     @Column("datetime", {nullable: true, default: null})
     start: Date;
 
-    @ManyToOne(type => User, user => user.streamQueue, {cascade: true})
+    @ManyToOne(type => User, {nullable: false})
     user: User;
 
     @CreateDateColumn()

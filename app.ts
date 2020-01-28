@@ -61,16 +61,12 @@ createConnection().then(async () => {
 
     //Discord
     try {
-        const client = await DiscordBot.initializeDiscordClient({
+        await DiscordBot.initializeDiscordClient({
             token: process.env.DISCORD_TOKEN,
             siteUserCountChannelId: process.env.SITE_USER_COUNT_CHANNEL_ID,
             discordMemberCountChannelId: process.env.DISCORD_MEMBER_COUNT_CHANNEL_ID,
             streamNotificationChannelId: process.env.STREAM_NOTIFICATION_CHANNEL_ID,
             streamNotificationRoleId: process.env.STREAM_NOTIFICATION_ROLE_ID
-        });
-        app.use((req, res, next) => {
-            req.discord = client;
-            next();
         });
     }
     catch (e) {

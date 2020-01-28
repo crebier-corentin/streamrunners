@@ -122,12 +122,15 @@ export class DiscordBot {
         this.client.on("ready", async () => {
             this.client.user.setActivity("https://streamrunners.fr", {type: "WATCHING"});
 
+            //User count
             this.siteUserCountChannel = this.client.channels.find(c => c.id === siteUserCountChannelId) as VoiceChannel;
             await this.updateSiteUserCount();
 
+            //Member count
             this.discordMemberCountChannel = this.client.channels.find(c => c.id === discordMemberCountChannelId) as VoiceChannel;
             await this.updateDiscordMemberCountChannel();
 
+            //Stream notification
             this.streamNotificationChannel = this.client.channels.find(c => c.id === streamNotificationChannelId) as TextChannel;
             this.streamNotificationRole = this.streamNotificationChannel?.guild.roles.find(r => r.id === streamNotificationRoleId);
         });

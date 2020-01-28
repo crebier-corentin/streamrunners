@@ -206,14 +206,12 @@ declare global {
     namespace Express {
         interface Request {
             user?: User;
-            discord?: Client;
         }
     }
 
     namespace e {
         interface Request {
             user?: User;
-            discord?: Client;
         }
     }
 }

@@ -68,6 +68,9 @@ export class User extends BaseEntity {
     @Column("datetime", {default: () => 'CURRENT_TIMESTAMP'})
     lastOnWatchPage: Date;
 
+     @OneToMany(type => StreamQueue, StreamQueue => StreamQueue.user)
+    streamQueue: StreamQueue[];
+
     /* @OneToMany(type => VIP, VIP => VIP.user, {eager: true})
      vip: VIP[];*/
 

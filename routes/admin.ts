@@ -22,7 +22,7 @@ router.get('/', async function (req: Express.Request, res: Response) {
         .select("SUM(user.points)", "totalPoints")
         .getRawOne()).totalPoints;
 
-    //Clé steam
+    //Clé steamwatch
     const usedKey = await SteamKey.createQueryBuilder("key")
         .where("caseOwnedId IS NOT NULL")
         .getCount();

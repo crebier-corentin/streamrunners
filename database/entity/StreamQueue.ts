@@ -2,6 +2,7 @@ import {BaseEntity, Column, CreateDateColumn, Entity, ManyToOne, PrimaryGenerate
 import {User} from "./User";
 import axios from "axios";
 import {getDBConnection} from "../connection";
+import CacheService from "../../other/CacheService";
 
 @Entity()
 export class StreamQueue extends BaseEntity {
@@ -47,14 +48,16 @@ export class StreamQueue extends BaseEntity {
 
     }
 
+    private static cache = new CacheService(120);
+
     static async isCurrentOnline(twitchId?: string): Promise<boolean> {
 
         let channel = twitchId == undefined ? (await StreamQueue.currentStream()).user.twitchId : twitchId;
 
-        let request = await axios.get(`https://api.twitch.tv/helix/streams?user_id=${channel}`, {headers: {"Client-ID": process.env.TWITCH_CLIENT_ID}});
-
-        return request.data.data.length > 0;
-
+        return await this.cache.get(channel, async () => {
+            const request = await axios.get(`https://api.twitch.tv/helix/streams?user_id=${channel}`, {headers: {"Client-ID": process.env.TWITCH_CLIENT_ID}});
+            return request.data.data.length > 0;
+        });
     }
 
     static async currentAndNextStreams(): Promise<Array<StreamQueue>> {

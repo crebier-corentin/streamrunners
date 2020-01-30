@@ -2,11 +2,22 @@ import {User} from "../database/entity/User";
 import {Channel, Client, Role, TextChannel, VoiceChannel} from "discord.js";
 import {DiscordUser} from "../database/entity/DiscordUser";
 import * as moment from "moment";
+import {Raffle} from "../database/entity/Raffle";
 
 const Discord = require("discord.js");
 
 export async function updateMemberCount() {
 
+}
+
+interface DiscordBotConstructor {
+    token: string;
+    siteUserCountChannelId: string;
+    discordMemberCountChannelId: string;
+    streamNotificationChannelId: string;
+    streamNotificationRoleId: string;
+    raffleNotificationChannelId: string;
+    raffleNotificationRoleId: string;
 }
 
 export class DiscordBot {
@@ -19,7 +30,10 @@ export class DiscordBot {
     private static streamNotificationRole: Role;
     private static lastStreamMessageSent: moment.Moment = moment().subtract(20, "hours");
 
-    public static async initializeDiscordClient({token, siteUserCountChannelId, discordMemberCountChannelId, streamNotificationChannelId, streamNotificationRoleId}: { token: string, siteUserCountChannelId: string, discordMemberCountChannelId: string, streamNotificationChannelId: string, streamNotificationRoleId: string }): Promise<Client> {
+    private static raffleNotificationChannel: TextChannel;
+    private static raffleNotificationRole: Role;
+
+    public static async initializeDiscordClient({token, siteUserCountChannelId, discordMemberCountChannelId, streamNotificationChannelId, streamNotificationRoleId, raffleNotificationChannelId, raffleNotificationRoleId}: DiscordBotConstructor): Promise<Client> {
         this.client = new Discord.Client();
 
         this.client.on('message', async message => {
@@ -133,6 +147,10 @@ export class DiscordBot {
             //Stream notification
             this.streamNotificationChannel = this.client.channels.find(c => c.id === streamNotificationChannelId) as TextChannel;
             this.streamNotificationRole = this.streamNotificationChannel?.guild.roles.find(r => r.id === streamNotificationRoleId);
+
+            //Raffle notification
+            this.raffleNotificationChannel = this.client.channels.find(c => c.id === raffleNotificationChannelId) as TextChannel;
+            this.streamNotificationRole = this.raffleNotificationChannel?.guild.roles.find(r => r.id === raffleNotificationRoleId);
         });
 
         this.client.on("guildMemberAdd", this.updateDiscordMemberCountChannel);
@@ -163,6 +181,14 @@ export class DiscordBot {
   https://streamrunners.fr/
 
   ${this.streamNotificationRole}`);
+
+    }
+
+    public static async sendRaffleNotificationMessage(raffle: Raffle): Promise<void> {
+
+        await this.raffleNotificationChannel?.send(`
+Un giveaway viens d'être lancé, il s'agit de ${raffle.title} d'une valeur de ${raffle.value}€ 
+${this.streamNotificationRole}`);
 
     }
 

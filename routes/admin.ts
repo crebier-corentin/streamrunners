@@ -2,6 +2,7 @@ import {User} from "../database/entity/User";
 import {Response, Request} from 'express';
 import {SteamKey} from "../database/entity/SteamKey";
 import {Raffle} from "../database/entity/Raffle";
+import {DiscordBot} from "../other/DiscordBot";
 
 var express = require('express');
 var router = express.Router();
@@ -68,6 +69,9 @@ router.post('/raffle/add', async function (req: Request, res: Response) {
     raffle.value = Number(req.body.value);
 
     await raffle.save();
+
+    //Discord notification
+    await DiscordBot.sendRaffleNotificationMessage(raffle);
 
     res.redirect("/admin/raffle");
 });

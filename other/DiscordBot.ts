@@ -188,7 +188,7 @@ export class DiscordBot {
 
         await this.raffleNotificationChannel?.send(`
 Un giveaway viens d'être lancé, il s'agit de ${raffle.title} d'une valeur de ${raffle.value}€ 
-${this.streamNotificationRole}`);
+${this.raffleNotificationRole}`);
 
     }
 

@@ -15,6 +15,7 @@ export class BannerDrawer {
     private static async pickAvatars(count: number): Promise<Image[]> {
         const users = await User.createQueryBuilder("user")
             .select("user.avatar")
+            .where("user.avatar NOT LIKE 'https://static-cdn.jtvnw.net/user-default-pictures-uv%'") //No default avatar
             .orderBy("RAND()")
             .limit(count)
             .getMany();

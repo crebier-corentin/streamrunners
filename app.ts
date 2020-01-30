@@ -82,7 +82,9 @@ createConnection().then(async () => {
             siteUserCountChannelId: process.env.SITE_USER_COUNT_CHANNEL_ID,
             discordMemberCountChannelId: process.env.DISCORD_MEMBER_COUNT_CHANNEL_ID,
             streamNotificationChannelId: process.env.STREAM_NOTIFICATION_CHANNEL_ID,
-            streamNotificationRoleId: process.env.STREAM_NOTIFICATION_ROLE_ID
+            streamNotificationRoleId: process.env.STREAM_NOTIFICATION_ROLE_ID,
+            raffleNotificationChannelId: process.env.RAFFLE_NOTIFICATION_CHANNEL_ID,
+            raffleNotificationRoleId: process.env.RAFFLE_NOTIFICATION_ROLE_ID
         });
     }
     catch (e) {

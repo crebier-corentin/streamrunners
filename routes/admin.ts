@@ -40,15 +40,37 @@ router.get('/', async function (req: Express.Request, res: Response) {
     });
 });
 
-router.get('/raffles', async function (req: Express.Request, res: Response) {
+router.get('/raffle', async function (req: Request, res: Response) {
 
-    const raffles = await Raffle.find({order: {createdAt: "DESC"}});
+    const raffles = await Raffle.find({
+        order: {createdAt: "DESC"},
+        take: 50,
+        relations: ["winner"],
+        loadEagerRelations: false
+    });
 
-    return res.render('admin-raffles', {
+    return res.render('admin-raffle', {
         req,
         title: "StreamRunners - Administration Tombolas",
         raffles
     });
 });
+
+router.post('/raffle/add', async function (req: Request, res: Response) {
+
+    const raffle = new Raffle();
+    raffle.title = req.body.title;
+    raffle.icon = req.body.icon;
+    raffle.price = Number(req.body.price);
+    raffle.maxTickets = Number(req.body.maxTickets);
+    raffle.endingDate = new Date(Date.parse(req.body.endingDate));
+    raffle.code = req.body.code;
+    raffle.value = Number(req.body.value);
+
+    await raffle.save();
+
+    res.redirect("/admin/raffle");
+});
+
 
 module.exports = router;

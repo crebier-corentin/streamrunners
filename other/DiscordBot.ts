@@ -150,7 +150,7 @@ export class DiscordBot {
 
             //Raffle notification
             this.raffleNotificationChannel = this.client.channels.find(c => c.id === raffleNotificationChannelId) as TextChannel;
-            this.streamNotificationRole = this.raffleNotificationChannel?.guild.roles.find(r => r.id === raffleNotificationRoleId);
+            this.raffleNotificationRole = this.raffleNotificationChannel?.guild.roles.find(r => r.id === raffleNotificationRoleId);
         });
 
         this.client.on("guildMemberAdd", this.updateDiscordMemberCountChannel);

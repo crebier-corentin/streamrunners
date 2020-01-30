@@ -1,6 +1,7 @@
 import {User} from "../database/entity/User";
 import {Response, Request} from 'express';
 import {SteamKey} from "../database/entity/SteamKey";
+import {Raffle} from "../database/entity/Raffle";
 
 var express = require('express');
 var router = express.Router();
@@ -36,6 +37,17 @@ router.get('/', async function (req: Express.Request, res: Response) {
         totalPoints,
         usedKey,
         totalKey
+    });
+});
+
+router.get('/raffles', async function (req: Express.Request, res: Response) {
+
+    const raffles = await Raffle.find({order: {createdAt: "DESC"}});
+
+    return res.render('admin-raffles', {
+        req,
+        title: "StreamRunners - Administration Tombolas",
+        raffles
     });
 });
 

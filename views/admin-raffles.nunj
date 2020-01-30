@@ -1,0 +1,42 @@
+{% extends "master.nunj" %}
+
+{% block content %}
+<div class="container-fluid d-flex justify-content-center flex-column align-items-center">
+    <h3>Tombolas</h3>
+    <div class="table-responsive">
+        <table class="table table-striped table-bordered table-hover">
+            <thead>
+            <tr>
+                <th>Titre</th>
+                <th>Icon</th>
+                <th>Prix</th>
+                <th>Tickets max (-1 pour infinie)</th>
+                <th>Date de fin</th>
+                <th>Code</th>
+                <th>Valeur</th>
+                <th>Nombre total de tickets</th>
+                <th>Gagnant</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            {% asyncAll raffle in raffles %}
+            <tr>
+                <td>{{ raffle.title }}</td>
+                <td>{{ raffle.icon }}</td>
+                <td>{{ raffle.price }}</td>
+                <td>{{ raffle.maxTickets }}</td>
+                <td>{{ raffle.endingDate.toISOString() }}</td>
+                <td>{{ raffle.code }}</td>
+                <td>{{ raffle.valeur }}</td>
+                <td>{{ raffle.totalTickets() | await }}</td>
+                <td>{{ raffle.winner.display_name }}</td>
+            </tr>
+            {% endall %}
+
+            </tbody>
+        </table>
+    </div>
+
+</div>
+{% endblock %}

@@ -57,7 +57,23 @@ createConnection().then(async () => {
         noCache: isDev,
         express: app
     })
-        .addGlobal("HOSTNAME", process.env.HOSTNAME);
+        .addGlobal("HOSTNAME", process.env.HOSTNAME)
+        //Await nunjucks (https://www.npmjs.com/package/nunjucks-await-filter)
+        .addFilter("await", async (functionPromise, callback) => {
+            try {
+                // The called function returns a Promise, which we
+                // now `await` until its done
+                const result = await functionPromise;
+
+                // Then we call the Nunjucks async filter callback
+                callback(null, result);
+            }
+            catch (error) {
+                // And if the `functionPromise` throws an error
+                // Nunjucks will pick it up here
+                callback(error);
+            }
+        }, true);
 
     //Discord
     try {

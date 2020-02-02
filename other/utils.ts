@@ -35,3 +35,7 @@ export function intervalWait(ms: number, callback: () => Promise<unknown>) {
 
     func();
 }
+
+export function sleep(ms: number): Promise<void> {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}

@@ -48,18 +48,6 @@ export class StreamQueue extends BaseEntity {
 
     }
 
-    private static cache = new CacheService(120);
-
-    static async isCurrentOnline(twitchId?: string): Promise<boolean> {
-
-        let channel = twitchId == undefined ? (await StreamQueue.currentStream()).user.twitchId : twitchId;
-
-        return await this.cache.get(channel, async () => {
-            const request = await axios.get(`https://api.twitch.tv/helix/streams?user_id=${channel}`, {headers: {"Client-ID": process.env.TWITCH_CLIENT_ID}});
-            return request.data.data.length > 0;
-        });
-    }
-
     static async currentAndNextStreams(): Promise<Array<StreamQueue>> {
 
         let repository: Repository<StreamQueue> = getDBConnection().getRepository(StreamQueue);

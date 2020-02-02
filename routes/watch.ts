@@ -7,6 +7,7 @@ import {ChatMessage} from "../database/entity/ChatMessage";
 import {Request, Response} from "express";
 import * as  expressThrottle from "express-throttle";
 import {DiscordBot} from "../other/DiscordBot";
+import {Twitch} from "../other/Twitch";
 
 const moment = require("moment");
 
@@ -53,7 +54,7 @@ router.post('/update', async (req: Express.Request, res, next) => {
     if (current == undefined || current.user.id === req.user.id) return next();
 
     //Check if stream is online
-    const isOnline = await StreamQueue.isCurrentOnline(current.user.twitchId);
+    const isOnline = await Twitch.isStreamOnline(current.user.twitchId);
     if (!isOnline) return next();
 
     const now = moment();

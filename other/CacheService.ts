@@ -9,8 +9,8 @@ class CacheService {
         this.cache = new NodeCache({stdTTL: ttlSeconds, checkperiod: ttlSeconds * 0.2, useClones: false});
     }
 
-    get(key: string, storeFunction: () => Promise<any>) {
-        const value = this.cache.get(key);
+    get<T>(key: string, storeFunction: () => Promise<T>): Promise<T> {
+        const value = this.cache.get(key) as T;
         if (value) {
             return Promise.resolve(value);
         }

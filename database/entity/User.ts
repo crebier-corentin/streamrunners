@@ -23,6 +23,7 @@ import {ChatRank, SerializedUser} from "../../shared/Types";
 import {Raffle} from "./Raffle";
 import {RaffleParticipation} from "./RaffleParticipation";
 import {DiscordBot} from "../../other/DiscordBot";
+import {Twitch} from "../../other/Twitch";
 
 const moment = require("moment");
 const uuidv4 = require('uuid/v4');
@@ -68,7 +69,7 @@ export class User extends BaseEntity {
     @Column("datetime", {default: () => 'CURRENT_TIMESTAMP'})
     lastOnWatchPage: Date;
 
-     @OneToMany(type => StreamQueue, StreamQueue => StreamQueue.user)
+    @OneToMany(type => StreamQueue, StreamQueue => StreamQueue.user)
     streamQueue: StreamQueue[];
 
     /* @OneToMany(type => VIP, VIP => VIP.user, {eager: true})
@@ -152,6 +153,13 @@ export class User extends BaseEntity {
         @ManyToOne(type => User, User => User.parraine)
         parrain: User;*/
 
+    serialize(): SerializedUser {
+        return {
+            name: this.display_name,
+            chatRank: this.chatRank
+        }
+    }
+
     static async viewers(): Promise<SerializedUser[]> {
         let repository = getDBConnection().getRepository(User);
 
@@ -193,12 +201,45 @@ export class User extends BaseEntity {
         });
     }
 
-    serialize(): SerializedUser {
-        return {
-            name: this.display_name,
-            chatRank: this.chatRank
-        }
+    //Sync from twitch
+    private static async syncFromTwitchProcess(ids: string[]): Promise<void> {
+        //Do nothing if ids is empty
+        if (ids.length === 0) return;
+
+
+        const twitchUsers = await Twitch.getUsers(ids);
+
+        //Save display_name and avatar to db
+        await Promise.all(twitchUsers.data.data.map(user =>
+            User.createQueryBuilder("user")
+                .update()
+                .set({display_name: user.display_name, avatar: user.profile_image_url})
+                .where("user.twitchId = :twitchId", {twitchId: user.id})
+                .execute()
+        ));
     }
+
+    public static async syncFromTwitch(): Promise<void> {
+
+        let users: { twitchId: string }[];
+        let offset = 0;
+
+        //Process 100 users at a time
+        do {
+            users = await User.createQueryBuilder("user")
+                .select("user.twitchId", "twitchId")
+                .offset(offset)
+                .limit(offset + 100)
+                .getRawMany();
+
+            offset += 100;
+
+            await User.syncFromTwitchProcess(users.map(u => u.twitchId));
+
+        } while (users.length > 0);
+    }
+
+
 }
 
 

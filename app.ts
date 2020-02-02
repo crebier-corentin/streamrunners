@@ -1,3 +1,6 @@
+//.env
+require("dotenv").config();
+
 import "reflect-metadata";
 import {createConnection} from "typeorm";
 import {User} from "./database/entity/User";
@@ -25,8 +28,6 @@ const twitchStrategy = require("passport-twitch-new").Strategy;
 const compression = require('compression');
 const helmet = require('helmet');
 
-//.env
-require("dotenv").config();
 
 //Load routes
 var indexRouter = require('./routes/index');
@@ -191,6 +192,9 @@ createConnection().then(async () => {
 
     //StreamQueue update every second
     intervalWait(1000, updateStreamQueue);
+
+    //Sync users with twitch every hour
+    intervalWait(1000 * 60 * 60, User.syncFromTwitch);
 
     //Routes
     app.use('/', indexRouter);

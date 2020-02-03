@@ -5,7 +5,7 @@ if ("default" in moment) {
 
 import {formatDuration} from "../../shared/shared-utils";
 
-const countdownsAndDate = [...document.getElementsByClassName("countdown")].map(el => ({
+const countdownsAndDate = Array.from(document.getElementsByClassName("countdown")).map(el => ({
     el: <HTMLElement>el,
     date: moment((<HTMLElement>el).dataset.endingDate)
 }));

@@ -61,6 +61,7 @@ router.post('/raffle/add', async function (req: Request, res: Response) {
 
     const raffle = new Raffle();
     raffle.title = req.body.title;
+    raffle.description = req.body.description ?? "";
     raffle.icon = req.body.icon;
     raffle.price = Number(req.body.price);
     raffle.maxTickets = Number(req.body.maxTickets);

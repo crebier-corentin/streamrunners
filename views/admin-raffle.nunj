@@ -5,12 +5,26 @@
 
     {# New raffle form #}
     <form method="post" action="/admin/raffle/add">
+        {# title #}
         <div class="form-group row">
             <label class="col-4 col-form-label" for="title">Titre</label>
             <div class="col-8">
                 <input id="title" name="title" type="text" required="required" class="form-control">
             </div>
         </div>
+        {# description #}
+        <div class="form-group row">
+            <label for="description" class="col-4 col-form-label">Description</label>
+            <div class="col-8">
+                <textarea id="description"
+                          name="description"
+                          cols="40"
+                          rows="2"
+                          class="form-control"
+                          placeholder="Optionnel"></textarea>
+            </div>
+        </div>
+        {# icon #}
         <div class="form-group row">
             <label for="icon" class="col-4 col-form-label">Icon</label>
             <div class="col-8">
@@ -25,12 +39,14 @@
                       class="form-text text-muted">Chemin depuis public/ ou url direct vers image</span>
             </div>
         </div>
+        {# price #}
         <div class="form-group row">
             <label for="price" class="col-4 col-form-label">Prix</label>
             <div class="col-8">
                 <input id="price" name="price" type="number" required="required" class="form-control">
             </div>
         </div>
+        {# maxTickets #}
         <div class="form-group row">
             <label for="maxTickets" class="col-4 col-form-label">Nombre de tickets max</label>
             <div class="col-8">
@@ -44,6 +60,7 @@
                 <span id="maxTicketsHelpBlock" class="form-text text-muted">-1 pour infinie</span>
             </div>
         </div>
+        {# endingDate #}
         <div class="form-group row">
             <label for="endingDate" class="col-4 col-form-label">Date de fin</label>
             <div class="col-8">
@@ -56,6 +73,7 @@
                 <span id="endingDateHelpBlock" class="form-text text-muted">Si sélecteur de date non supporté, utiliser le format yyyy-MM-ddThh:mm</span>
             </div>
         </div>
+        {# code #}
         <div class="form-group row">
             <label for="code" class="col-4 col-form-label">Code</label>
             <div class="col-8">
@@ -63,6 +81,7 @@
                 <span id="codeHelpBlock" class="form-text text-muted">Optionnel</span>
             </div>
         </div>
+        {# value #}
         <div class="form-group row">
             <label for="value" class="col-4 col-form-label">Valeur</label>
             <div class="col-8">
@@ -74,6 +93,7 @@
                 </div>
             </div>
         </div>
+        {# submit #}
         <div class="form-group row">
             <div class="offset-4 col-8">
                 <button name="submit" type="submit" class="btn btn-primary">Créer une nouvelle tombola</button>
@@ -88,6 +108,7 @@
             <thead>
             <tr>
                 <th>Titre</th>
+                <th>Description</th>
                 <th>Icon</th>
                 <th>Prix</th>
                 <th>Tickets max (-1 pour infinie)</th>
@@ -103,6 +124,7 @@
             {% asyncAll raffle in raffles %}
             <tr>
                 <td>{{ raffle.title }}</td>
+                <td>{{ raffle.description }}</td>
                 <td>{{ raffle.icon }}</td>
                 <td>{{ raffle.price }}</td>
                 <td>{{ raffle.maxTickets }}</td>

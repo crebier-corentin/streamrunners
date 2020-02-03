@@ -162,7 +162,7 @@ export class DiscordBot {
     }
 
     public static async updateSiteUserCount(): Promise<void> {
-        await this.siteUserCountChannel?.setName(`🖊️ Inscrits : ${await User.count()}`);
+        await this.siteUserCountChannel?.setName(`✒️ Inscrits : ${await User.count()}`);
     }
 
     public static async updateDiscordMemberCountChannel(): Promise<void> {
@@ -187,7 +187,7 @@ export class DiscordBot {
     public static async sendRaffleNotificationMessage(raffle: Raffle): Promise<void> {
 
         await this.raffleNotificationChannel?.send(`
-Un giveaway viens d'être lancé, il s'agit de ${raffle.title} d'une valeur de ${raffle.value}€ 
+Un giveaway viens d'être lancé, il s'agit de **${raffle.title}** d'une valeur de **${raffle.value}€** 
 ${this.raffleNotificationRole}`);
 
     }

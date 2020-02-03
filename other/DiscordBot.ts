@@ -162,7 +162,7 @@ export class DiscordBot {
     }
 
     public static async updateSiteUserCount(): Promise<void> {
-        await this.siteUserCountChannel?.setName(`🖋️ Inscrits : ${await User.count()}`);
+        await this.siteUserCountChannel?.setName(`👍 Inscrits : ${await User.count()}`);
     }
 
     public static async updateDiscordMemberCountChannel(): Promise<void> {

@@ -22,6 +22,9 @@ export class Raffle extends BaseEntity {
     @Column()
     title: string;
 
+    @Column({default: ""})
+    description: string;
+
     @Column()
     icon: string;
 

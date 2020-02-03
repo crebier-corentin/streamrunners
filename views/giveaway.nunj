@@ -28,6 +28,9 @@
                     </div>
                     <div class="card-body">
                         <img src="{{ raffle.icon }}" height="250px" alt="icon" />
+
+                        <p>{{ raffle.description | safe }}</p>
+
                         {#Buy button #}
                         <form method="post" action="/giveaway/buy" class="d-inline">
                             <input type="hidden" name="raffleId" value="{{ raffle.id }}">

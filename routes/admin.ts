@@ -91,13 +91,34 @@ router.get('/announcement', async function (req: Request, res: Response) {
 
 router.post('/announcement/add', async function (req: Request, res: Response) {
 
+    //Disable previous announcement
+    await Announcement.createQueryBuilder()
+        .update()
+        .set({active: false})
+        .where("active = true")
+        .execute();
+
+    //Create new announcement
     const announcement = new Announcement();
     announcement.text = req.body.text;
     announcement.color = req.body.color;
     announcement.url = req.body.url;
+    announcement.active = true;
     announcement.createdBy = req.user;
 
     await announcement.save();
+
+    res.redirect("/admin/announcement");
+});
+
+router.post('/announcement/disable', async function (req: Request, res: Response) {
+
+    //Disable announcement
+    await Announcement.createQueryBuilder()
+        .update()
+        .set({active: false})
+        .where("active = true")
+        .execute();
 
     res.redirect("/admin/announcement");
 });

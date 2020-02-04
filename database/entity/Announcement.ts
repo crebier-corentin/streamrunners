@@ -16,6 +16,9 @@ export class Announcement extends BaseEntity {
     @Column()
     url: string;
 
+    @Column({default: false})
+    active: boolean;
+
     @ManyToOne(type => User)
     createdBy: User;
 
@@ -23,6 +26,6 @@ export class Announcement extends BaseEntity {
     createdAt: Date;
 
     static LastAnnouncement(): Promise<Announcement | undefined> {
-        return Announcement.findOne({order: {createdAt: "DESC"}});
+        return Announcement.findOne({where: {active: true}});
     }
 }

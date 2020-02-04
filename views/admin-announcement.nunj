@@ -2,8 +2,9 @@
 
 {% block content %}
 
-    <div class="container d-flex justify-content-center align-items-center">
+    <div class="container d-flex flex-column justify-content-center align-items-center">
 
+        {# Add new announcement form#}
         <form method="post" action="/admin/announcement/add">
             {# text #}
             <div class="form-group row">
@@ -37,6 +38,12 @@
                     <button name="submit" type="submit" class="btn btn-primary">Changer l’annonce</button>
                 </div>
             </div>
+        </form>
+
+        <hr>
+        {# Delete annoucement #}
+        <form method="post" action="/admin/announcement/disable">
+            <button name="submit" type="submit" class="btn btn-danger">Désactiver l'annonce</button>
         </form>
 
     </div>

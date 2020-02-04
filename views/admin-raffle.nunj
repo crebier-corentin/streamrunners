@@ -101,6 +101,7 @@
         </div>
     </form>
 
+    <!--
     {# Raffles #}
     <h3>Tombolas</h3>
     <div class="table-responsive">
@@ -139,6 +140,7 @@
             </tbody>
         </table>
     </div>
-
+	-->
+	
 </div>
 {% endblock %}

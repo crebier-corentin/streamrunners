@@ -4,6 +4,7 @@ import {SteamKey} from "../database/entity/SteamKey";
 import {Raffle} from "../database/entity/Raffle";
 import {DiscordBot} from "../other/DiscordBot";
 import {Announcement} from "../database/entity/Announcement";
+import {Coupon} from "../database/entity/Coupon";
 
 var express = require('express');
 var router = express.Router();
@@ -42,6 +43,7 @@ router.get('/', async function (req: Express.Request, res: Response) {
     });
 });
 
+//Raffle
 router.get('/raffle', async function (req: Request, res: Response) {
 
     const raffles = await Raffle.find({
@@ -78,6 +80,7 @@ router.post('/raffle/add', async function (req: Request, res: Response) {
     res.redirect("/admin/raffle");
 });
 
+//Announcement
 router.get('/announcement', async function (req: Request, res: Response) {
 
     return res.render('admin-announcement', {
@@ -97,6 +100,35 @@ router.post('/announcement/add', async function (req: Request, res: Response) {
     await announcement.save();
 
     res.redirect("/admin/announcement");
+});
+
+//Coupon
+router.get('/coupon', async function (req: Request, res: Response) {
+
+    const coupons = await Coupon.find({
+        order: {id: "DESC"},
+        take: 50,
+        relations: ["users"],
+        loadEagerRelations: false
+    });
+
+    return res.render('admin-coupon', {
+        req,
+        title: "StreamRunners - Administration Annonces",
+        coupons
+    });
+});
+
+router.post('/coupon/add', async function (req: Request, res: Response) {
+
+    const coupon = new Coupon();
+    coupon.name = req.body.name;
+    coupon.amount = Number(req.body.amount);
+    coupon.max = Number(req.body.max);
+    coupon.expires = new Date(Date.parse(req.body.expires));
+    await coupon.save();
+
+    res.redirect("/admin/coupon");
 });
 
 

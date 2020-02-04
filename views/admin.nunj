@@ -4,6 +4,7 @@
     <div class="container d-flex justify-content-center flex-column align-items-center">
 
         <a href="/admin/raffle" class="w-100">Tombolas</a>
+        <a href="/admin/coupon" class="w-100">Coupons</a>
         <a href="/admin/announcement" class="w-100">Annonces</a>
         <hr>
 

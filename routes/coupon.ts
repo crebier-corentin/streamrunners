@@ -26,7 +26,7 @@ router.post('/add', async function (req: Request, res: Response) {
         let couponRepository = getDBConnection().getRepository(Coupon);
 
         //If code is empty
-        if (code == "" || code == undefined || code == null) {
+        if (code == "" || code == undefined) {
             res.send({error: true, message: "Le code coupon est vide."});
             return;
         }

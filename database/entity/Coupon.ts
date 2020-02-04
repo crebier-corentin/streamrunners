@@ -17,23 +17,14 @@ export class Coupon extends BaseEntity {
     max: number;
 
     @Column("datetime")
-    expires: Date | number;
-
-    expiresTime(): Date {
-        if (this.expires instanceof Date) {
-            return this.expires;
-        }
-        else {
-            return new Date(this.expires);
-        }
-    }
+    expires: Date;
 
     @ManyToMany(type => User, user => user.coupons, {cascade: true})
     users: User[];
 
     isValid(): boolean {
         //Is not expired and used less than max
-        return this.expiresTime() > new Date() && this.users.length < this.max;
+        return this.expires > new Date() && this.users.length < this.max;
 
     }
 

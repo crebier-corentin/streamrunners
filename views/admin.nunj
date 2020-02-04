@@ -4,6 +4,7 @@
     <div class="container d-flex justify-content-center flex-column align-items-center">
 
         <a href="/admin/raffle" class="w-100">Tombolas</a>
+        <a href="/admin/announcement" class="w-100">Annonces</a>
         <hr>
 
     	<input type="text" placeholder="Chaine a Bannir" /><button type="button" class="btn btn-danger">Bannir</button>

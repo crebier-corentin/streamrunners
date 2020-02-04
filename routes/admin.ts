@@ -3,6 +3,7 @@ import {Response, Request} from 'express';
 import {SteamKey} from "../database/entity/SteamKey";
 import {Raffle} from "../database/entity/Raffle";
 import {DiscordBot} from "../other/DiscordBot";
+import {Announcement} from "../database/entity/Announcement";
 
 var express = require('express');
 var router = express.Router();
@@ -75,6 +76,27 @@ router.post('/raffle/add', async function (req: Request, res: Response) {
     await DiscordBot.sendRaffleNotificationMessage(raffle);
 
     res.redirect("/admin/raffle");
+});
+
+router.get('/announcement', async function (req: Request, res: Response) {
+
+    return res.render('admin-announcement', {
+        req,
+        title: "StreamRunners - Administration Annonces"
+    });
+});
+
+router.post('/announcement/add', async function (req: Request, res: Response) {
+
+    const announcement = new Announcement();
+    announcement.text = req.body.text;
+    announcement.color = req.body.color;
+    announcement.url = req.body.url;
+    announcement.createdBy = req.user;
+
+    await announcement.save();
+
+    res.redirect("/admin/announcement");
 });
 
 

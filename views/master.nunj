@@ -16,9 +16,12 @@
     <meta property="og:site_name" content="StreamRunners" />
     <title>{{ title | default("Titre") }}</title>
     <link rel="icon" href="/img/favicon.ico" />
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+          crossorigin="anonymous">
     <link rel="stylesheet" href="/css/style.css">
-    
+
     <!-- ??? CSS -->
     <script>
         window.addEventListener("load", function () {
@@ -48,12 +51,12 @@
 
     {% endblock %}
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({
-          google_ad_client: "ca-pub-7690571679670706",
-          enable_page_level_ads: true
-     });
-</script>
+    <script>
+        (adsbygoogle = window.adsbygoogle || []).push({
+            google_ad_client: "ca-pub-7690571679670706",
+            enable_page_level_ads: true
+        });
+    </script>
 
 </head>
 
@@ -133,32 +136,44 @@
             </ul>
         </div>
     </nav>
+    {# Announcement #}
     {% if req.isAuthenticated() %}
-    <div class="container">
-      <a href="https://forms.gle/Mw3jmNhVzSgYUBJH8" target="_blank"><div class="alert alert-primary" role="alert">
-        Nous recrutons actuellement des modérateurs, clique ici pour postuler !
-      </div>
-    </div></a>
+        {% set announcement = LastAnnouncement() | await %}
+        {% if announcement != undefined %}
+            <div class="container">
+                <a href="{{ announcement.url }}" target="_blank">
+                    <div class="alert alert-primary"
+                         role="alert" {# style="background-color: {{ announcement.color }}" #}>
+                        {{ announcement.text }}
+                    </div>
+                </a>
+            </div>
+        {% endif %}
     {% endif %}
+
     {% block content %}
         This is the default content
     {% endblock %}
 </div>
 
-<footer class="footer"> 
-	<div class="container">
-	<hr>
-    <center><h3>Ils nous font confiance :</h3></center>
-    <br>
-    <a href="https://elkir.fr/stream" target="_blank"><img width="10%" src="/img/partenaires/elkirblack.png"></img></a>
-    <hr>
-	</div>
+<footer class="footer">
+    <div class="container">
+        <hr>
+        <center><h3>Ils nous font confiance :</h3></center>
+        <br>
+        <a href="https://elkir.fr/stream" target="_blank"><img width="10%" src="/img/partenaires/elkirblack.png"></img></a>
+        <hr>
+    </div>
     <p>© 2019 StreamRunners
         <br>
-        <a href="https://www.facebook.com/StreamRunners/" aria-label="Facebook StreamRunners"><i style="color:blue" class="fab fa-facebook"></i></a>
-        <a href="https://twitter.com/StreamRunners" aria-label="Twitter StreamRunners"><i style="color:deepskyblue" class="fab fa-twitter-square"></i></a>
-        <a href="https://www.instagram.com/twitchrunners/" aria-label="Instagram StreamRunners"><i style="color:pink" class="fab fa-instagram"></i></a>
-        <a href="https://discord.gg/PjQFW8z" aria-label="Discord StreamRunners"><i style="color:lightgrey" class="fab fa-discord"></i></a>
+        <a href="https://www.facebook.com/StreamRunners/" aria-label="Facebook StreamRunners"><i style="color:blue"
+                                                                                                 class="fab fa-facebook"></i></a>
+        <a href="https://twitter.com/StreamRunners" aria-label="Twitter StreamRunners"><i style="color:deepskyblue"
+                                                                                          class="fab fa-twitter-square"></i></a>
+        <a href="https://www.instagram.com/twitchrunners/" aria-label="Instagram StreamRunners"><i style="color:pink"
+                                                                                                   class="fab fa-instagram"></i></a>
+        <a href="https://discord.gg/PjQFW8z" aria-label="Discord StreamRunners"><i style="color:lightgrey"
+                                                                                   class="fab fa-discord"></i></a>
     </p>
 </footer>
 

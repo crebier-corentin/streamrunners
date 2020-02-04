@@ -1,6 +1,7 @@
 //.env
 require("dotenv").config();
 
+import {Announcement} from "./database/entity/Announcement";
 import "reflect-metadata";
 import {createConnection} from "typeorm";
 import {User} from "./database/entity/User";
@@ -59,6 +60,7 @@ createConnection().then(async () => {
         express: app
     })
         .addGlobal("HOSTNAME", process.env.HOSTNAME)
+        .addGlobal("LastAnnouncement", Announcement.LastAnnouncement)
         //Await nunjucks (https://www.npmjs.com/package/nunjucks-await-filter)
         .addFilter("await", async (functionPromise, callback) => {
             try {

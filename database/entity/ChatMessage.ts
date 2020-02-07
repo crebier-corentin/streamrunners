@@ -10,6 +10,7 @@ import {
 import {User} from "./User";
 import * as moment from "moment";
 import {formatDatetimeSQL} from "../../other/utils";
+import {SerializedChatMessage} from "../../shared/Types";
 
 @Entity()
 export class ChatMessage extends BaseEntity {
@@ -22,22 +23,33 @@ export class ChatMessage extends BaseEntity {
     @Column()
     message: string;
 
+    @ManyToOne(type => User, {nullable: true})
+    deletedBy: User | null;
+
     @CreateDateColumn()
     createdAt: Date;
 
-    static async getLastMessages() {
+    serialize(): SerializedChatMessage {
+        const deleted = this.deletedBy != null;
+
+        return {
+            id: this.id,
+            author: this.author.serialize(),
+            message: deleted ? `Message supprimé par ${this.deletedBy.display_name}` : this.message,
+            deleted,
+            createdAt: moment(this.createdAt).locale("fr").fromNow()
+        };
+    }
+
+    static async getLastMessages(): Promise<SerializedChatMessage[]> {
         const rawMessages = await ChatMessage.createQueryBuilder("chat")
             .leftJoinAndSelect("chat.author", "author")
+            .leftJoinAndSelect("chat.deletedBy", "deletedBy")
             .take(50)
             .orderBy("chat.createdAt", "DESC")
             .getMany();
 
-        return rawMessages.map(m => ({
-            id: m.id,
-            author: m.author.serialize(),
-            message: m.message,
-            createdAt: moment(m.createdAt).locale("fr").fromNow(),
-        }));
+        return rawMessages.map(m => m.serialize());
 
     }
 

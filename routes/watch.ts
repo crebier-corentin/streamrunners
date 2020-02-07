@@ -178,4 +178,18 @@ router.post('/chat/add', expressThrottle({
 
 });
 
+router.post('/chat/delete', async (req: Request, res) => {
+    //Moderator only
+    if (!req.user.moderator) return res.status(403).end();
+
+    //Delete message
+    const message = await ChatMessage.findOne(Number(req.body.messageId));
+    message.deletedBy = req.user;
+    await message.save();
+
+    return res.send();
+
+
+});
+
 module.exports = router;

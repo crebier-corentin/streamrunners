@@ -11,3 +11,11 @@ export interface SerializedUser {
     name: string;
     chatRank: ChatRank;
 }
+
+export interface SerializedChatMessage {
+    id: number;
+    author: SerializedUser;
+    message: string;
+    deleted: boolean;
+    createdAt: string;
+}

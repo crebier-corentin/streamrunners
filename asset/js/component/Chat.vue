@@ -8,7 +8,9 @@
                     <small class="font-italic text-center mr-1">{{msg.createdAt}} </small>
 
                     <ChatUsername class="mr-1" :name="msg.author.name" :rank="msg.author.chatRank" />
-                    <span> : {{msg.message}}</span>
+                    <span :class="{'font-italic': msg.deleted}"> : {{msg.message}}</span>
+                    <button class="text-danger" :style="{opacity: showDelete ? 1 : 0}" @click="deleteMessage(msg.id)"><i
+                            class="fas fa-times" /></button>
 
                 </template>
             </div>
@@ -52,6 +54,10 @@
             activeUsers: {
                 type: Array,
                 required: true
+            },
+            showDelete: {
+                type: Boolean,
+                default: false
             }
         },
 
@@ -60,6 +66,7 @@
                 message: "",
 
                 chatAddUrl: "/watch/chat/add",
+                chatDeleteUrl: "/watch/chat/delete",
                 sending: false
             }
         },
@@ -122,7 +129,13 @@
                     });
 
 
-            }
+            },
+
+            deleteMessage(messageId: number) {
+                if (!this.showDelete) return;
+
+                axios.post(this.chatDeleteUrl, {messageId});
+            },
         },
 
         mounted() {

@@ -7,7 +7,7 @@
 
 .chat-messages {
   display: grid;
-  grid-template-columns: auto auto 1fr;
+  grid-template-columns: auto auto 1fr auto;
   grid-template-rows: repeat(auto-fill, 1fr);
 }
 

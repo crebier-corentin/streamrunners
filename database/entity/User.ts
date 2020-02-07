@@ -161,10 +161,10 @@ export class User extends BaseEntity {
     }
 
     static async viewers(): Promise<SerializedUser[]> {
-        let repository = getDBConnection().getRepository(User);
 
-        return (await repository.createQueryBuilder("user")
+        return (await User.createQueryBuilder("user")
             .where("user.lastOnWatchPage > :datetime", {datetime: formatDatetimeSQL(moment().subtract(30, "seconds"))})
+            .orderBy("user.chatRank", "DESC")
             .getMany()).map(u => u.serialize());
     }
 

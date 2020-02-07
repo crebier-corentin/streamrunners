@@ -6,7 +6,7 @@ Pour node-canvas : regarder les instructions https://www.npmjs.com/package/canva
 
 * `yarn install`
 * Renommée `.env.exemple` en `.env` et remplir le fichier
-* Créer un fichier vide nommé `database.sqlite`
+* Créer un base de données mysql utf8mb4_unicode_ci
 
 ### Comandes
 

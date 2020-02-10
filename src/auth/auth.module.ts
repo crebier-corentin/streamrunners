@@ -1,5 +1,4 @@
 import { Module } from '@nestjs/common';
-import { AuthService } from './auth.service';
 import { UserModule } from '../user/user.module';
 import { AuthController } from './auth.controller';
 import { TwitchStrategy } from './twitch.strategy';
@@ -22,7 +21,7 @@ import { JwtStrategy } from './jwt.strategy';
             }),
         }),
     ],
-    providers: [AuthService, TwitchStrategy, JwtStrategy],
+    providers: [TwitchStrategy, JwtStrategy],
     controllers: [AuthController],
 })
 export class AuthModule {}

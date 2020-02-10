@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { Repository } from 'typeorm';
-import { User } from './user.entity';
+import { UserEntity } from './user.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { TypeOrmCrudService } from '@nestjsx/crud-typeorm';
 
@@ -18,20 +18,20 @@ export interface TwitchUser {
 }
 
 @Injectable()
-export class UserService extends TypeOrmCrudService<User> {
-    constructor(@InjectRepository(User) repo: Repository<User>) {
+export class UserService extends TypeOrmCrudService<UserEntity> {
+    constructor(@InjectRepository(UserEntity) repo: Repository<UserEntity>) {
         super(repo);
     }
 
-    public fromId(id: number): Promise<User> {
+    public fromId(id: number): Promise<UserEntity> {
         return this.repo.findOne(id);
     }
 
-    public async updateFromTwitch(data: TwitchUser): Promise<User> {
+    public async updateFromTwitch(data: TwitchUser): Promise<UserEntity> {
         //Find or create
         const user =
             (await this.repo.findOne({ where: { twitchId: data.id } })) ??
-            new User();
+            new UserEntity();
 
         //Update data
         user.twitchId = data.id;

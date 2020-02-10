@@ -1,10 +1,12 @@
-import { Controller, Get, Req, UseGuards } from '@nestjs/common';
+import { Controller, Get, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
-import { AuthService } from './auth.service';
+import { JwtService } from '@nestjs/jwt';
+import { User } from '../user/user.decorator';
+import { UserEntity } from '../user/user.entity';
 
 @Controller('auth')
 export class AuthController {
-    constructor(private readonly authService: AuthService) {}
+    constructor(private readonly jwt: JwtService) {}
 
     @UseGuards(AuthGuard('twitch'))
     @Get('/twitch')
@@ -14,7 +16,7 @@ export class AuthController {
 
     @UseGuards(AuthGuard('twitch'))
     @Get('/twitch/callback')
-    loginCallback(@Req() req) {
-        return this.authService.signUser(req.user);
+    loginCallback(@User() user: UserEntity) {
+        return this.jwt.signAsync({ id: user.id });
     }
 }

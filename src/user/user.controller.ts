@@ -1,11 +1,11 @@
 import { Controller } from '@nestjs/common';
 import { UserService } from './user.service';
 import { Crud } from '@nestjsx/crud';
-import { User } from './user.entity';
+import { UserEntity } from './user.entity';
 
 @Crud({
     model: {
-        type: User,
+        type: UserEntity,
     },
     routes: {
         only: ['getOneBase', 'getManyBase'],

@@ -430,6 +430,14 @@
     "@angular-devkit/schematics" "7.3.8"
     fs-extra "8.1.0"
 
+"@nestjs/swagger@^4.2.6":
+  version "4.2.6"
+  resolved "https://registry.yarnpkg.com/@nestjs/swagger/-/swagger-4.2.6.tgz#a358ac5609f79c88fe165da2958d18c6460b43cc"
+  integrity sha512-bhFLXrDo8O0OU0GQ/uX0eOOFgKCwe2bPAHh7BI+zEF12r/VoA4IFWG8DywqYp7KnaLJN6oHtaOaVlYWPhPvoZQ==
+  dependencies:
+    lodash "4.17.15"
+    path-to-regexp "3.2.0"
+
 "@nestjs/testing@^6.10.14":
   version "6.11.6"
   resolved "https://registry.yarnpkg.com/@nestjs/testing/-/testing-6.11.6.tgz#d5c770f45a9b5bed96034cc7fe36112b35d3100d"
@@ -4557,7 +4565,7 @@ lodash.toarray@^4.4.0:
   resolved "https://registry.yarnpkg.com/lodash.toarray/-/lodash.toarray-4.4.0.tgz#24c4bfcd6b2fba38bfd0594db1179d8e9b656561"
   integrity sha1-JMS/zWsvuji/0FlNsRedjptlZWE=
 
-lodash@^4.17.10, lodash@^4.17.13, lodash@^4.17.14, lodash@^4.17.15:
+lodash@4.17.15, lodash@^4.17.10, lodash@^4.17.13, lodash@^4.17.14, lodash@^4.17.15:
   version "4.17.15"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.15.tgz#b447f6670a0455bbfeedd11392eff330ea097548"
   integrity sha512-8xOcRHvCjnocdS5cpwXQXVzmmh5e5+saE2QGoeQmbKmRS6J3VQppPOIt0MnmE+4xlZoumy0GPG0D0MVIQbNA1A==

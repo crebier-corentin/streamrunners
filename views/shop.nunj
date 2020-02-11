@@ -1,0 +1,16 @@
+{% extends "master.nunj" %}
+
+{% block content %}
+    <div class="container">
+
+        <div id="app"></div>
+
+    </div>
+{% endblock %}
+
+{% block script %}
+    <script>
+        window['products'] = {{ products | safe }};
+    </script>
+    <script src="/js/shop.js"></script>
+{% endblock %}

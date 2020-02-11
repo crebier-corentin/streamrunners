@@ -1,0 +1,46 @@
+{% extends "master.nunj" %}
+
+{% block content %}
+    <div class="container d-flex justify-content-center flex-column align-items-center">
+
+        <a href="/admin/raffle" class="w-100">Tombolas</a>
+        <a href="/admin/coupon" class="w-100">Coupons</a>
+        <a href="/admin/announcement" class="w-100">Annonces</a>
+        <hr>
+
+    	<input type="text" placeholder="Chaine a Bannir" /><button type="button" class="btn btn-danger">Bannir</button>
+        <h3>Stats</h3>
+
+        <table class="table table-striped table-bordered table-hover">
+            <tbody>
+
+            <tr>
+                <td>Nombre d'utilisateurs</td>
+                <td>{{ totalUsers }}</td>
+            </tr>
+
+            <tr>
+                <td>Nombre de points total sur le site</td>
+                <td>{{ totalPoints }}</td>
+            </tr>
+
+            <tr>
+                <td>Nombre de clé steam total</td>
+                <td>{{ totalKey }}</td>
+            </tr>
+
+            <tr>
+                <td>Nombre de clé steam utilisé</td>
+                <td>{{ usedKey }}</td>
+            </tr>
+
+            <tr>
+                <td>Nombre de clé steam restante</td>
+                <td>{{ totalKey - usedKey }}</td>
+            </tr>
+
+            </tbody>
+        </table>
+
+    </div>
+{% endblock %}

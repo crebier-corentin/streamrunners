@@ -1,0 +1,63 @@
+.chat-container {
+  background-color: lightgrey;
+  height: 500px;
+  overflow-y: auto;
+  padding: map_get($spacers, 1);
+}
+
+.chat-messages {
+  display: grid;
+  grid-template-columns: auto auto 1fr auto;
+  grid-template-rows: repeat(auto-fill, 1fr);
+}
+
+.chat-grid {
+  display: grid;
+  grid-template-columns: 5fr 1fr;
+  grid-template-rows: 1fr auto;
+  grid-template-areas: "messages users" "input button";
+  grid-gap: map_get($spacers, 2);
+
+  .messages {
+    grid-area: messages;
+  }
+
+  .users {
+    grid-area: users;
+  }
+
+  .input {
+    grid-area: input;
+  }
+
+  .button {
+    grid-area: button;
+  }
+
+}
+
+//Chat username colors
+.chat-name-member {
+  color: $black;
+}
+
+.chat-name-vip {
+  color: $yellow;
+}
+
+.chat-name-diamond {
+  color: $blue;
+}
+
+.chat-name-partner {
+  color: $purple;
+}
+
+.chat-name-moderator {
+  color: $green;
+}
+.chat-name-admin {
+  color: $red;
+}
+
+

@@ -1,0 +1,102 @@
+{% extends "master.nunj" %}
+
+{% block css %}
+    <link rel="preload" href="/img/case/Beta/close.png" as="image">
+{% endblock %}
+
+{% block content %}
+<div class="container">
+
+    <h1 class="text-center">Inventaire</h1>
+    <hr>
+    {# Cases #}
+    <section class="row">
+
+        {% for item in req.user.cases %}
+            <div class="col-sm-3">
+                <div class="card" style="width: 14rem;">
+                    {# Image #}
+                    {% if item.isOpened() %}
+                        <img src="{{ item.case.openImage }}" class="card-img-top" alt="...">
+                    {% else %}
+                        <img src="{{ item.case.closeImage }}" class="card-img-top" alt="...">
+                    {% endif %}
+                    <div class="card-body">
+                        {# Name #}
+                        <h5 class="card-title">{{ item.case.name }}</h5>
+                        {# Content #}
+                        {% if item.isOpened() %}
+                            <p class="card-text"><b>{{ item.content.name }}</b></p>
+                        {% else %}
+                            <!--<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
+                            <div class="col-2">
+                                <a href="/case/show?uuid={{ item.uuid }}" class="btn btn-primary">Ouvrir</a>
+                            </div>
+                        {% endif %}
+                        {# Steam Key #}
+                        {% if item.steamKey != null %}
+                            <div class="col-2">{{ item.steamKey.game }}</div>
+                            <div class="col-2 small">{{ item.steamKey.key }}</div>
+                        {% endif %}
+
+                    </div>
+                </div>
+            </div>
+        {% else %}
+            Votre inventaire est vide.
+        {% endfor %}
+
+    </section>
+
+    {# Raffle #}
+    <hr>
+    <section class="row">
+        {% for raffle in req.user.rafflesWon %}
+            <div class="col-sm-3">
+                <div class="card" style="width: 14rem;">
+                    <img src="{{ raffle.icon }}" class="card-img-top" alt="icon">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ raffle.title }}</h5>
+
+                        {% if raffle.code %}
+                            <button type="button"
+                                    class="btn btn-primary"
+                                    data-toggle="modal"
+                                    data-target="#modal-{{ raffle.id }}">
+                                Voir le code
+                            </button>
+                        {% endif %}
+
+
+                    </div>
+                </div>
+            </div>
+
+            {# Modal #}
+            {% if raffle.code %}
+            <div id="modal-{{ raffle.id }}" class="modal" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Code</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <p>{{ raffle.code }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+
+        {% endfor %}
+    </section>
+
+    <hr>
+    {% endblock %}
+</div>
+{% block script %}
+    <script src="/js/inventory.js"></script>
+{% endblock %}

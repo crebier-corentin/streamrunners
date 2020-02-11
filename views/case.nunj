@@ -1,0 +1,38 @@
+{% extends "master.nunj" %}
+
+{% block css %}
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.26.28/sweetalert2.min.css" />
+{% endblock %}
+
+{% block content %}
+    <div class="container d-flex justify-content-center flex-column align-items-center">
+
+        <canvas id="canvas" width="800" height="180" class="m-2" style="border: black 1px solid;"></canvas>
+
+        <button id="open" class="btn btn-primary">Ouvrir</button>
+
+        <ul class="list-unstyled row">
+
+            {% for content in caseContent %}
+                <div class="card m-1 col-md-2 col-sm-6 col-12">
+                    <img class="card-img-top" src="{{ content.image }}" alt="{{ content.name }}">
+                    <div class="card-body">
+                        <h6 class="card-title">{{ content.name }}</h6>
+                        <p class="card-text">{{ content.chance / 100 }}%</p>
+                    </div>
+                </div>
+            {% endfor %}
+
+        </ul>
+
+    </div>
+{% endblock %}
+
+{% block script %}
+    <script>
+        window['uuid'] = "{{ uuid | safe }}";
+        window['steamKeyAvailable'] = {{ steamKeyAvailable | safe }};
+    </script>
+    <script src="/js/case.js"></script>
+{% endblock %}

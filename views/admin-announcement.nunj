@@ -1,0 +1,51 @@
+{% extends "master.nunj" %}
+
+{% block content %}
+
+    <div class="container d-flex flex-column justify-content-center align-items-center">
+
+        {# Add new announcement form#}
+        <form method="post" action="/admin/announcement/add">
+            {# text #}
+            <div class="form-group row">
+                <label for="text" class="col-4 col-form-label">Texte</label>
+                <div class="col-8">
+                    <textarea id="text"
+                              name="text"
+                              cols="40"
+                              rows="2"
+                              required="required"
+                              class="form-control"></textarea>
+                </div>
+            </div>
+            {# url #}
+            <div class="form-group row">
+                <label for="url" class="col-4 col-form-label">URL</label>
+                <div class="col-8">
+                    <input id="url" name="url" type="url" class="form-control" required="required">
+                </div>
+            </div>
+            {# color #}
+            <div class="form-group row">
+                <label for="color" class="col-4 col-form-label">Couleur</label>
+                <div class="col-8">
+                    <input id="color" name="color" type="color" class="form-control" required="required">
+                </div>
+            </div>
+            {# submit #}
+            <div class="form-group row">
+                <div class="offset-4 col-8">
+                    <button name="submit" type="submit" class="btn btn-primary">Changer l’annonce</button>
+                </div>
+            </div>
+        </form>
+
+        <hr>
+        {# Delete annoucement #}
+        <form method="post" action="/admin/announcement/disable">
+            <button name="submit" type="submit" class="btn btn-danger">Désactiver l'annonce</button>
+        </form>
+
+    </div>
+
+{% endblock %}

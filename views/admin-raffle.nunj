@@ -1,0 +1,147 @@
+{% extends "master.nunj" %}
+
+{% block content %}
+<div class="container-fluid d-flex justify-content-center flex-column align-items-center">
+
+    {# New raffle form #}
+    <form method="post" action="/admin/raffle/add">
+        {# title #}
+        <div class="form-group row">
+            <label class="col-4 col-form-label" for="title">Titre</label>
+            <div class="col-8">
+                <input id="title" name="title" type="text" required="required" class="form-control">
+            </div>
+        </div>
+        {# description #}
+        <div class="form-group row">
+            <label for="description" class="col-4 col-form-label">Description</label>
+            <div class="col-8">
+                <textarea id="description"
+                          name="description"
+                          cols="40"
+                          rows="2"
+                          class="form-control"
+                          placeholder="Optionnel"></textarea>
+            </div>
+        </div>
+        {# icon #}
+        <div class="form-group row">
+            <label for="icon" class="col-4 col-form-label">Icon</label>
+            <div class="col-8">
+                <input id="icon"
+                       name="icon"
+                       placeholder="/img/image.png"
+                       type="text"
+                       required="required"
+                       class="form-control"
+                       aria-describedby="iconHelpBlock">
+                <span id="iconHelpBlock"
+                      class="form-text text-muted">Chemin depuis public/ ou url direct vers image</span>
+            </div>
+        </div>
+        {# price #}
+        <div class="form-group row">
+            <label for="price" class="col-4 col-form-label">Prix</label>
+            <div class="col-8">
+                <input id="price" name="price" type="number" required="required" class="form-control">
+            </div>
+        </div>
+        {# maxTickets #}
+        <div class="form-group row">
+            <label for="maxTickets" class="col-4 col-form-label">Nombre de tickets max</label>
+            <div class="col-8">
+                <input id="maxTickets"
+                       name="maxTickets"
+                       type="number"
+                       min="-1"
+                       aria-describedby="maxTicketsHelpBlock"
+                       required="required"
+                       class="form-control">
+                <span id="maxTicketsHelpBlock" class="form-text text-muted">-1 pour infinie</span>
+            </div>
+        </div>
+        {# endingDate #}
+        <div class="form-group row">
+            <label for="endingDate" class="col-4 col-form-label">Date de fin</label>
+            <div class="col-8">
+                <input id="endingDate"
+                       name="endingDate"
+                       type="datetime-local"
+                       class="form-control"
+                       required="required"
+                       aria-describedby="endingDateHelpBlock">
+                <span id="endingDateHelpBlock" class="form-text text-muted">Si sélecteur de date non supporté, utiliser le format yyyy-MM-ddThh:mm</span>
+            </div>
+        </div>
+        {# code #}
+        <div class="form-group row">
+            <label for="code" class="col-4 col-form-label">Code</label>
+            <div class="col-8">
+                <input id="code" name="code" type="text" class="form-control" aria-describedby="codeHelpBlock">
+                <span id="codeHelpBlock" class="form-text text-muted">Optionnel</span>
+            </div>
+        </div>
+        {# value #}
+        <div class="form-group row">
+            <label for="value" class="col-4 col-form-label">Valeur</label>
+            <div class="col-8">
+                <div class="input-group">
+                    <input id="value" name="value" type="number" class="form-control" required="required">
+                    <div class="input-group-append">
+                        <div class="input-group-text">€</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {# submit #}
+        <div class="form-group row">
+            <div class="offset-4 col-8">
+                <button name="submit" type="submit" class="btn btn-primary">Créer une nouvelle tombola</button>
+            </div>
+        </div>
+    </form>
+
+
+    {# Raffles #}
+    <h3>Tombolas</h3>
+    {#
+    <div class="table-responsive">
+        <table class="table table-striped table-bordered table-hover">
+            <thead>
+            <tr>
+                <th>Titre</th>
+                <th>Description</th>
+                <th>Icon</th>
+                <th>Prix</th>
+                <th>Tickets max (-1 pour infinie)</th>
+                <th>Date de fin</th>
+                <th>Code</th>
+                <th>Valeur</th>
+                <th>Nombre total de tickets</th>
+                <th>Gagnant</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            {% asyncAll raffle in raffles %}
+            <tr>
+                <td>{{ raffle.title }}</td>
+                <td>{{ raffle.description }}</td>
+                <td>{{ raffle.icon }}</td>
+                <td>{{ raffle.price }}</td>
+                <td>{{ raffle.maxTickets }}</td>
+                <td>{{ raffle.endingDate.toISOString() }}</td>
+                <td>{{ raffle.code }}</td>
+                <td>{{ raffle.valeur }}</td>
+                <td>{{ raffle.totalTickets() | await }}</td>
+                <td>{{ raffle.winner.display_name }}</td>
+            </tr>
+            {% endall %}
+
+            </tbody>
+        </table>
+    </div>
+	#}
+
+</div>
+{% endblock %}

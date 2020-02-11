@@ -5,7 +5,7 @@ import {
     PrimaryGeneratedColumn,
     UpdateDateColumn,
 } from 'typeorm';
-import { ChatRank } from '../types';
+import { ChatRank } from '../../shared/types';
 import { Exclude } from 'class-transformer';
 
 @Entity('user')

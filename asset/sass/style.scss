@@ -1,0 +1,295 @@
+//Bootstrap
+@import "variables";
+@import "bootstrap/scss/bootstrap";
+
+//Libraries
+@import url("https://use.fontawesome.com/releases/v5.2.0/css/all.css");
+@import "libraries/cookieconsent.min";
+
+/*!
+Twitch Runner
+*/
+//TwitchRunner
+@import "shop";
+@import "chat";
+@import "giveaway";
+
+.loggedImage {
+  border-radius: 50%;
+  height: 42px;
+  width: 42px;
+  float: left;
+
+}
+
+.loggedPseudo {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+a:hover {
+  Text-Decoration: None !important;
+}
+
+.rounded {
+  border-radius: 50%;
+  border: 1px;
+  border-color: white;
+}
+
+hr {
+  border: 0;
+  height: 1px;
+  background: linear-gradient(to left, #f0f0f0, #8c6dc5, #f0f0f0);
+}
+
+.footer {
+  height: 50px;
+  width: 100%;
+  text-align: center;
+  vertical-align: center;
+
+}
+
+.content {
+  min-height: calc(100vh - 70px);
+}
+
+
+/* BANNER WALL*/
+.photo-wall {
+  padding: 50px 0 50px 0;
+  margin-top: 20px;
+  margin-bottom: -20px;
+  background: #000 url(/banner) top left;
+  color: #fff;
+  font-size: 15px;
+  text-align: center;
+  position: relative;
+  top: -20px;
+}
+
+.photo-wall .gradient {
+  position: absolute;
+  width: 100%;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 130px;
+  background: url(/img/black-gradient.png) repeat-x bottom left;
+}
+
+.photo-wall h1 {
+  font-weight: bold;
+  font-size: 27px;
+  color: #fff;
+}
+
+.reasons p,
+.photo-wall p {
+  text-align: center;
+  word-wrap: normal;
+  word-break: normal;
+}
+
+.photo-wall .or {
+  line-height: 35px;
+}
+
+.reasons {
+  background: #fff;
+  text-align: center;
+  position: relative;
+  margin-top: -20px;
+  padding: 30px 0 30px 0;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #ededed;
+}
+
+.reasons h3 {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.reasons p {
+  font-size: 12px;
+}
+
+.btn.outline {
+  background: transparent;
+  border: 2px solid #fff;
+  color: #fff;
+  line-height: 31px;
+  opacity: 1;
+  box-shadow: 0 0 0;
+}
+
+.btn.outline:hover, .btn.outline:active {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.btn, .btn:hover {
+  font-family: "Open sans", Helvetica Neue, Helvetica, Arial, sans-serif;
+  display: inline-block;
+  cursor: pointer;
+  text-decoration: none;
+  border: 0;
+  margin: 0;
+  padding: 0 20px 0 20px;
+  line-height: 35px;
+  color: #fff;
+  text-align: center;
+  font-weight: 600;
+  border-radius: 4px;
+  margin-bottom: 5px;
+}
+
+.sub{
+    color: #fff;
+    background-color: #28a745;
+    border-color: #28a745!important;
+    margin-bottom: 5px;
+    border: solid 2px;
+}
+
+.sub:hover{
+    color: #28a745;
+    background-color: #fff;
+    border-color: #28a745!important;
+    margin-bottom: 5px;
+    border: solid 2px;
+}
+
+.skip{
+  color: #fff;
+  background-color: $blue;
+  border-color: $blue!important;
+  margin-bottom: 5px;
+  border: solid 2px;
+  float: right;
+}
+
+.skip:hover{
+  color: $blue;
+  background-color: #fff;
+  border-color: $blue!important;
+  margin-bottom: 5px;
+  border: solid 2px;
+}
+
+.follow{
+    color: #fff;
+    background-color: #8c6dc5;
+    border-color: #8c6dc5!important;
+    margin-bottom: 5px;
+    border: solid 2px;
+}
+
+.follow:hover{
+    color: #8c6dc5;
+    background-color: #fff;
+    border-color: #8c6dc5!important;
+    margin-bottom: 5px;
+    border: solid 2px;
+}
+
+.btn.disable, .btn.disable:hover, .btn.disable:active {
+  cursor: default;
+  cursor: no-drop;
+  background: transparent;
+  border: 2px solid #ededed;
+  color: #ededed;
+  line-height: 31px;
+  opacity: 1;
+  box-shadow: 0 0 0;
+}
+
+a {
+  background: transparent;
+}
+
+a:active,
+a:hover {
+  outline: 0;
+}
+
+.text-shadow {
+  text-shadow: 1px 1px 2px black;
+}
+
+/* END BANNER WALL */
+
+.badge-secondary{
+    margin: 2px;
+    background-color: #8c6dc5!important;
+}
+
+.perso{
+    margin: 15px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    border :1px solid;
+    border-color: #8c6dc5;
+    background-color: #000;
+}
+
+.rounded-circle{
+    margin: 15px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.jumbotron{
+    margin-top: 15px;
+    padding: 2rem 2rem !important;
+}
+
+.form-control{
+    margin-bottom: 15px !important;
+}
+
+.boutique{
+    margin-top: 15px;
+}
+
+.boutique:hover{
+    margin-top: 15px;
+}
+
+.morepoint{
+    margin-right: 15px;
+}
+
+.badgepoint{
+    float:right;
+}
+
+.badge-success {
+    margin-top: -8px !important;
+    margin-right: -15px !important;
+}
+
+.badge{
+    font-weight: 1000 !important;
+    padding: .20em .4em !important;
+    line-height: 2 !important;
+    font-size: 100% !important;
+}
+
+.headp{
+    color: white;
+}
+
+.line-height-60 {
+  line-height: 60px;
+}
+
+.alert {
+  margin-top: 1rem;
+}
+
+.giveaway-winner .title {
+  margin-right: 1rem;
+}

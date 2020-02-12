@@ -3,7 +3,7 @@
 </template>
 
 <script lang="ts">
-    import {ChatRank} from "../../../shared/types";
+    import {ChatRank} from "../../../src/shared/types";
 
     export default {
         name: "ChatUsername",

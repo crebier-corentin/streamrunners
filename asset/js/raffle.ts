@@ -3,7 +3,7 @@ if ("default" in moment) {
     moment = moment["default"];
 }
 
-import {formatDuration} from "../../shared/shared-utils";
+import {formatDuration} from "../../src/shared/shared-utils";
 
 const countdownsAndDate = Array.from(document.getElementsByClassName("countdown")).map(el => ({
     el: <HTMLElement>el,

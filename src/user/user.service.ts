@@ -1,7 +1,7 @@
-import { Injectable } from '@nestjs/common';
-import { Repository } from 'typeorm';
 import { UserEntity } from './user.entity';
+import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 
 export interface TwitchUser {
     broadcaster_type: 'partner' | 'affiliate' | '';
@@ -20,7 +20,7 @@ export interface TwitchUser {
 export class UserService {
     constructor(
         @InjectRepository(UserEntity)
-        private readonly repo: Repository<UserEntity>,
+        private readonly repo: Repository<UserEntity>
     ) {}
 
     /**
@@ -40,9 +40,7 @@ export class UserService {
      */
     public async updateFromTwitch(data: TwitchUser): Promise<UserEntity> {
         //Find or create
-        const user =
-            (await this.repo.findOne({ where: { twitchId: data.id } })) ??
-            new UserEntity();
+        const user = (await this.repo.findOne({ where: { twitchId: data.id } })) ?? new UserEntity();
 
         //Update data
         user.twitchId = data.id;

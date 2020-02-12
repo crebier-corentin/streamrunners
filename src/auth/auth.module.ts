@@ -1,9 +1,9 @@
-import { Module } from '@nestjs/common';
 import { UserModule } from '../user/user.module';
 import { AuthController } from './auth.controller';
-import { TwitchStrategy } from './twitch.strategy';
-import { PassportModule } from '@nestjs/passport';
 import { SessionSerializer } from './session.serializer';
+import { TwitchStrategy } from './twitch.strategy';
+import { Module } from '@nestjs/common';
+import { PassportModule } from '@nestjs/passport';
 
 @Module({
     imports: [

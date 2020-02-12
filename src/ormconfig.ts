@@ -1,10 +1,10 @@
-import { ConnectionOptions } from 'typeorm';
-import * as dotenv from 'dotenv';
 import * as fs from 'fs';
+import * as dotenv from 'dotenv';
+import { ConnectionOptions } from 'typeorm';
 
 const data: any = dotenv.parse(fs.readFileSync(`${__dirname}/../.env`));
 
-const config: ConnectionOptions = {
+export default {
     type: 'mysql',
     host: data.DB_HOST,
     username: data.DB_USERNAME,
@@ -20,6 +20,4 @@ const config: ConnectionOptions = {
     cli: {
         migrationsDir: 'src/migrations',
     },
-};
-
-export = config;
+} as ConnectionOptions;

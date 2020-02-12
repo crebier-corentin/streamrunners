@@ -1,13 +1,13 @@
-import { NestFactory } from '@nestjs/core';
+import { join } from 'path';
 import { AppModule } from './app.module';
-import * as helmet from 'helmet';
-import * as nunjucks from 'nunjucks';
+import { ConfigService } from '@nestjs/config';
+import { NestFactory } from '@nestjs/core';
+import { NestExpressApplication } from '@nestjs/platform-express';
 import * as cookieParser from 'cookie-parser';
 import * as cookieSession from 'cookie-session';
+import * as helmet from 'helmet';
+import * as nunjucks from 'nunjucks';
 import * as passport from 'passport';
-import { join } from 'path';
-import { ConfigService } from '@nestjs/config';
-import { NestExpressApplication } from '@nestjs/platform-express';
 
 async function bootstrap() {
     const app = await NestFactory.create<NestExpressApplication>(AppModule);
@@ -52,7 +52,7 @@ async function bootstrap() {
                     callback(error);
                 }
             },
-            true,
+            true
         );
     app.setViewEngine('nunj');
 

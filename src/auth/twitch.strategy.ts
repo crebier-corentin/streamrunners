@@ -1,15 +1,12 @@
+import { UserService } from '../user/user.service';
 import { Injectable } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import { PassportStrategy } from '@nestjs/passport';
 import { Strategy } from 'passport-twitch-new';
-import { ConfigService } from '@nestjs/config';
-import { UserService } from '../user/user.service';
 
 @Injectable()
 export class TwitchStrategy extends PassportStrategy(Strategy, 'twitch') {
-    constructor(
-        private readonly config: ConfigService,
-        private readonly userService: UserService,
-    ) {
+    constructor(private readonly config: ConfigService, private readonly userService: UserService) {
         super(
             {
                 clientID: config.get('TWITCH_CLIENT_ID'),
@@ -19,7 +16,7 @@ export class TwitchStrategy extends PassportStrategy(Strategy, 'twitch') {
             },
             async function(accessToken, refreshToken, profile, done) {
                 done(null, await userService.updateFromTwitch(profile));
-            },
+            }
         );
     }
 }

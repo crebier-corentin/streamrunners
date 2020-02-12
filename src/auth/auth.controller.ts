@@ -1,6 +1,6 @@
-import { Controller, Get, UseGuards } from '@nestjs/common';
-import { LoginGuard } from '../common/guard/login.guard';
 import { AuthenticatedGuard } from '../common/guard/authenticated.guard';
+import { LoginGuard } from '../common/guard/login.guard';
+import { Controller, Get, UseGuards } from '@nestjs/common';
 
 @Controller('auth')
 export class AuthController {

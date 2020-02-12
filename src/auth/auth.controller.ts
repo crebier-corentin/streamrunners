@@ -1,7 +1,6 @@
 import { Controller, Get, UseGuards } from '@nestjs/common';
-import { AuthGuard } from '@nestjs/passport';
-import { User } from '../user/user.decorator';
-import { UserEntity } from '../user/user.entity';
+import { LoginGuard } from '../common/guard/login.guard';
+import { AuthenticatedGuard } from '../common/guard/authenticated.guard';
 
 @Controller('auth')
 export class AuthController {
@@ -9,15 +8,21 @@ export class AuthController {
         //
     }
 
-    @UseGuards(AuthGuard('twitch'))
+    @UseGuards(LoginGuard)
     @Get('/twitch')
     loginRedirect() {
         //
     }
 
-    @UseGuards(AuthGuard('twitch'))
+    @UseGuards(LoginGuard)
     @Get('/twitch/callback')
-    loginCallback(@User() user: UserEntity) {
+    loginCallback() {
+        //
+    }
+
+    @UseGuards(AuthenticatedGuard)
+    @Get()
+    auth() {
         //
     }
 }

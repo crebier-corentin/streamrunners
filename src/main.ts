@@ -2,6 +2,9 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import * as helmet from 'helmet';
 import * as nunjucks from 'nunjucks';
+import * as cookieParser from 'cookie-parser';
+import * as cookieSession from 'cookie-session';
+import * as passport from 'passport';
 import { join } from 'path';
 import { ConfigService } from '@nestjs/config';
 import { NestExpressApplication } from '@nestjs/platform-express';
@@ -13,6 +16,12 @@ async function bootstrap() {
 
     //Global middlewares
     app.use(helmet());
+    app.use(cookieParser());
+    app.use(cookieSession({ keys: [config.get('COOKIE_SECRET')] }));
+
+    //Passport
+    app.use(passport.initialize());
+    app.use(passport.session());
 
     //Static assets
     app.useStaticAssets(join(__dirname, '..', 'public'));
@@ -50,6 +59,7 @@ async function bootstrap() {
     //Pass req to template engine
     app.use((req, res, next) => {
         res.locals.req = req;
+        req.session.userId = '1';
         next();
     });
 

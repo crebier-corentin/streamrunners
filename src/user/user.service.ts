@@ -2,7 +2,6 @@ import { Injectable } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { UserEntity } from './user.entity';
 import { InjectRepository } from '@nestjs/typeorm';
-import { TypeOrmCrudService } from '@nestjsx/crud-typeorm';
 
 export interface TwitchUser {
     broadcaster_type: 'partner' | 'affiliate' | '';
@@ -18,10 +17,11 @@ export interface TwitchUser {
 }
 
 @Injectable()
-export class UserService extends TypeOrmCrudService<UserEntity> {
-    constructor(@InjectRepository(UserEntity) repo: Repository<UserEntity>) {
-        super(repo);
-    }
+export class UserService {
+    constructor(
+        @InjectRepository(UserEntity)
+        private readonly repo: Repository<UserEntity>,
+    ) {}
 
     /**
      *

@@ -18,29 +18,33 @@ async function bootstrap() {
     app.useStaticAssets(join(__dirname, '..', 'public'));
 
     //Nunjucks
-    nunjucks.configure(join(__dirname, '..', 'views'), {
-        watch: isDev,
-        noCache: isDev,
-        express: app,
-    })
+    nunjucks
+        .configure(join(__dirname, '..', 'views'), {
+            watch: isDev,
+            noCache: isDev,
+            express: app,
+        })
         .addGlobal('HOSTNAME', config.get('HOSTNAME'))
         //TODO .addGlobal('LastAnnouncement', Announcement.LastAnnouncement)
         //Await nunjucks (https://www.npmjs.com/package/nunjucks-await-filter)
-        .addFilter('await', async (functionPromise, callback) => {
-            try {
-                // The called function returns a Promise, which we
-                // now `await` until its done
-                const result = await functionPromise;
+        .addFilter(
+            'await',
+            async (functionPromise, callback) => {
+                try {
+                    // The called function returns a Promise, which we
+                    // now `await` until its done
+                    const result = await functionPromise;
 
-                // Then we call the Nunjucks async filter callback
-                callback(null, result);
-            }
-            catch (error) {
-                // And if the `functionPromise` throws an error
-                // Nunjucks will pick it up here
-                callback(error);
-            }
-        }, true);
+                    // Then we call the Nunjucks async filter callback
+                    callback(null, result);
+                } catch (error) {
+                    // And if the `functionPromise` throws an error
+                    // Nunjucks will pick it up here
+                    callback(error);
+                }
+            },
+            true,
+        );
     app.setViewEngine('nunj');
 
     //Pass req to template engine

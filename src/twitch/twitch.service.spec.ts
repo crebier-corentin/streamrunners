@@ -1,7 +1,8 @@
+/*  eslint-disable @typescript-eslint/camelcase */
 import { TwitchService } from './twitch.service';
+import { ConfigModule } from '@nestjs/config';
 import { Test, TestingModule } from '@nestjs/testing';
 import nock = require('nock');
-import { ConfigModule } from '@nestjs/config';
 
 describe('TwitchService', () => {
     let service: TwitchService;
@@ -95,6 +96,7 @@ describe('TwitchService', () => {
             };
 
             nock('https://api.twitch.tv')
+                // eslint-disable-next-line @typescript-eslint/no-unused-vars
                 .filteringPath(path => '/helix/users')
                 .get('/helix/users')
                 .reply(200, replyData);
@@ -103,3 +105,4 @@ describe('TwitchService', () => {
         });
     });
 });
+/* eslint-enable @typescript-eslint/camelcase */

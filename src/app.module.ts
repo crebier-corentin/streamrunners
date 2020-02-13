@@ -1,8 +1,9 @@
 import { AppController } from './app.controller';
 import { AuthModule } from './auth/auth.module';
-import ormconfig from './ormconfig';
+import ormconfig = require('./ormconfig');
 import { TwitchModule } from './twitch/twitch.module';
 import { UserModule } from './user/user.module';
+import { WatchModule } from './watch/watch.module';
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -14,6 +15,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
         UserModule,
         AuthModule,
         TwitchModule,
+        WatchModule,
     ],
     controllers: [AppController],
 })

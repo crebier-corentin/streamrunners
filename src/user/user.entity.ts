@@ -1,6 +1,7 @@
 import { ChatRank } from '../shared/types';
+import { StreamQueueEntity } from '../watch/stream-queue.entity';
 import { Exclude } from 'class-transformer';
-import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
+import { Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
 
 @Entity('user')
 export class UserEntity {
@@ -35,6 +36,13 @@ export class UserEntity {
 
     @Column({ default: ChatRank.Member })
     chatRank: ChatRank;
+
+    @OneToMany(
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        type => StreamQueueEntity,
+        StreamQueue => StreamQueue.user
+    )
+    streamsQueued: StreamQueueEntity[];
 
     @Exclude()
     @CreateDateColumn()

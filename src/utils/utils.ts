@@ -17,7 +17,7 @@ export function duplicatedArray<T>(array: T[], amount: number): T[] {
 export function formatDatetimeSQL(date: moment.Moment | Date): string {
     const momentDate = date instanceof Date ? moment(date) : date;
 
-    return momentDate.format('YYYY-MM-DD HH:mm:ss');
+    return momentDate.utc().format('YYYY-MM-DD HH:mm:ss');
 }
 
 export function intervalWait(ms: number, callback: () => Promise<unknown>) {

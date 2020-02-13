@@ -1,8 +1,9 @@
 import { ChatRank } from '../shared/types';
-import { StreamQueueEntity } from '../watch/stream-queue.entity';
-import { Exclude } from 'class-transformer';
+import { StreamQueueEntity } from '../stream-queue/stream-queue.entity';
+import { Exclude, Expose } from 'class-transformer';
 import { Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
 
+@Exclude()
 @Entity('user')
 export class UserEntity {
     @PrimaryGeneratedColumn()
@@ -14,6 +15,7 @@ export class UserEntity {
     @Column()
     username: string;
 
+    @Expose()
     @Column()
     displayName: string;
 
@@ -26,14 +28,13 @@ export class UserEntity {
     @Column({ default: false })
     moderator: boolean;
 
-    @Exclude()
     @Column('datetime', { default: () => 'CURRENT_TIMESTAMP' })
     lastUpdate: Date;
 
-    @Exclude()
     @Column('datetime', { default: () => 'CURRENT_TIMESTAMP' })
     lastOnWatchPage: Date;
 
+    @Expose()
     @Column({ default: ChatRank.Member })
     chatRank: ChatRank;
 
@@ -51,4 +52,12 @@ export class UserEntity {
     @Exclude()
     @UpdateDateColumn()
     updatedAt: Date;
+
+    changePoints(amount: number) {
+        if (this.points != undefined) {
+            this.points = Math.round(this.points + amount);
+        } else {
+            this.points = Math.round(amount);
+        }
+    }
 }

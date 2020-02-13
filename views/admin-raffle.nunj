@@ -134,7 +134,7 @@
                 <td>{{ raffle.code }}</td>
                 <td>{{ raffle.valeur }}</td>
                 <td>{{ raffle.totalTickets() | await }}</td>
-                <td>{{ raffle.winner.display_name }}</td>
+                <td>{{ raffle.winner.displayName }}</td>
             </tr>
             {% endall %}
 

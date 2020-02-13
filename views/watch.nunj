@@ -1,3 +1,4 @@
+{% set title = 'StreamRunners - Accueil' %}
 {% extends "master.nunj" %}
 
 {% block content %}
@@ -11,14 +12,14 @@
                     <a :href="'https://www.twitch.tv/' + q.user.username"
                        target="_blank"><img class="rounded-circle perso"
                                             :src="q.user.avatar"
-                                            :alt="q.user.display_name"
+                                            :alt="q.user.displayName"
                                             width="90"
                                             height="90"></a>
 
                     <div>
                         <a :href="'https://www.twitch.tv/' + q.user.username"
                            target="_blank"
-                           class="d-inline">{% raw %}{{ q.user.display_name }}{% endraw %}</a>
+                           class="d-inline">{% raw %}{{ q.user.displayName }}{% endraw %}</a>
                         {# Delete only if is self #}
                         <a class="fas fa-times text-danger d-inline"
                            href="#"
@@ -31,7 +32,7 @@
                 <div class="col-lg-2 d-flex flex-column align-items-center">
                     <img class="rounded-circle perso"
                          src="{{ req.user.avatar }}"
-                         alt="{{ req.user.display_name }}"
+                         alt="{{ req.user.displayName }}"
                          width="90"
                          height="90">
                     <div>

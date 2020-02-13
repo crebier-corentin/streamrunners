@@ -23,7 +23,7 @@ module.exports = {
         '@typescript-eslint/interface-name-prefix': 'off',
         '@typescript-eslint/explicit-function-return-type': 'off',
         '@typescript-eslint/no-explicit-any': 'off',
-        'import/order': ['error', { alphabetize: { order: 'asc' } }],
+        'import/order': ['warn', { alphabetize: { order: 'asc' } }],
         'import/namespace': 'off'
     },
 };

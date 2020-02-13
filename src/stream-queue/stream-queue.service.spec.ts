@@ -1,12 +1,21 @@
+import { UserEntity } from '../user/user.entity';
+import { StreamQueueEntity } from './stream-queue.entity';
 import { StreamQueueService } from './stream-queue.service';
 import { Test, TestingModule } from '@nestjs/testing';
+import { getRepositoryToken } from '@nestjs/typeorm';
 
 describe('StreamQueueService', () => {
     let service: StreamQueueService;
 
     beforeEach(async () => {
         const module: TestingModule = await Test.createTestingModule({
-            providers: [StreamQueueService],
+            providers: [
+                StreamQueueService,
+                {
+                    provide: getRepositoryToken(StreamQueueEntity),
+                    useValue: {},
+                },
+            ],
         }).compile();
 
         service = module.get<StreamQueueService>(StreamQueueService);

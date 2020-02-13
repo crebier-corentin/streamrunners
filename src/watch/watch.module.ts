@@ -1,14 +1,13 @@
+import { StreamQueueModule } from '../stream-queue/stream-queue.module';
 import { TwitchModule } from '../twitch/twitch.module';
-import { StreamQueueEntity } from './stream-queue.entity';
-import { StreamQueueService } from './stream-queue.service';
+import { UserModule } from '../user/user.module';
 import { WatchController } from './watch.controller';
+import { WatchService } from './watch.service';
 import { Module } from '@nestjs/common';
-import { TypeOrmModule } from '@nestjs/typeorm';
 
 @Module({
-    imports: [TypeOrmModule.forFeature([StreamQueueEntity]), TwitchModule],
+    imports: [StreamQueueModule, UserModule, TwitchModule],
     controllers: [WatchController],
-    providers: [StreamQueueService],
-    exports: [StreamQueueService],
+    providers: [WatchService],
 })
 export class WatchModule {}

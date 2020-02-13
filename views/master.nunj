@@ -121,7 +121,7 @@
                 {% if req.isAuthenticated() %}
                     <li class="nav-item">
                         <img src="{{ req.user.avatar }}" alt="avatar" class="loggedImage">
-                        <a class="nav-link d-inline-block loggedPseudo" href="#">{{ req.user.display_name }}</a>
+                        <a class="nav-link d-inline-block loggedPseudo" href="#">{{ req.user.displayName }}</a>
                     </li>
 
                     <li class="nav-item">
@@ -138,7 +138,6 @@
     </nav>
     {# Announcement #}
     {% if req.isAuthenticated() %}
-        {% set announcement = LastAnnouncement() | await %}
         {% if announcement != undefined %}
             <div class="container">
                 <a href="{{ announcement.url }}" target="_blank">

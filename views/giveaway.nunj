@@ -82,7 +82,7 @@
                 <li class="giveaway-winner">
                     <small class="date">{{ raffle.formattedEnded() }}</small>
                     <img src="{{ raffle.winner.avatar }}" alt="avatar" class="avatar" />
-                    <p class="username">{{ raffle.winner.display_name }}</p>
+                    <p class="username">{{ raffle.winner.displayName }}</p>
                     <p class="title">{{ raffle.title }}</p>
                 </li>
 

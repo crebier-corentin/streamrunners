@@ -1,8 +1,8 @@
 import { UserEntity } from '../user/user.entity';
-import { BaseEntity, Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
-@Entity()
-export class StreamQueueEntity extends BaseEntity {
+@Entity('stream_queue')
+export class StreamQueueEntity {
     @PrimaryGeneratedColumn()
     id: number;
 

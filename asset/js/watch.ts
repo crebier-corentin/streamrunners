@@ -1,11 +1,11 @@
 /* eslint-disable no-undef */
 
 import Vue from 'vue/dist/vue.esm.js';
-import TwitchViewer from "./component/TwitchViewer.vue";
-import Leaderboard from "./component/Leaderboard.vue";
-import Chat from "./component/Chat.vue";
+import TwitchViewer from './component/TwitchViewer.vue';
+import Leaderboard from './component/Leaderboard.vue';
+import Chat from './component/Chat.vue';
 
-import axios, {AxiosError} from 'axios';
+import axios, { AxiosError } from 'axios';
 import swal from 'sweetalert2';
 
 window['swal'] = swal;
@@ -15,15 +15,15 @@ Vue.component(Leaderboard.name, Leaderboard);
 Vue.component(Chat.name, Chat);
 
 window['vm'] = new Vue({
-    el: "#app",
+    el: '#app',
 
     data: {
         points: 0,
 
-        updateUrl: "/watch/update",
-        addUrl: "/watch/add",
-        deleteUrl: "/watch/delete",
-        skipUrl: "/watch/skip",
+        updateUrl: '/watch/update',
+        addUrl: '/watch/add',
+        deleteUrl: '/watch/delete',
+        skipUrl: '/watch/skip',
 
         pause: false,
         interval: 1000,
@@ -71,7 +71,7 @@ window['vm'] = new Vue({
 
         positions(): Array<number> {
 
-            let result = [];
+            const result = [];
 
             this.queue.forEach((q, index) => {
                 if (q.user.username == window['username']) {
@@ -84,7 +84,7 @@ window['vm'] = new Vue({
         },
 
         positionsText(): string {
-            let str = "";
+            let str = '';
             this.positions.forEach((p, index) => {
                 //If last
                 if (index + 1 === this.positions.length) {
@@ -97,7 +97,7 @@ window['vm'] = new Vue({
             });
 
             return str;
-        }
+        },
 
     },
 
@@ -119,7 +119,7 @@ window['vm'] = new Vue({
 
         makeRequestUpdate() {
 
-            let self = this;
+            const self = this;
 
             axios.post(self.updateUrl)
                 .then((result) => {
@@ -142,162 +142,108 @@ window['vm'] = new Vue({
 
         },
 
-        makeRequestAdd() {
+        async makeRequestAdd() {
 
-            swal({
+            const swalRes = await swal({
                 title: 'Acheter une place?',
                 text: '1 000 points pour 10 minutes. \n Si la queue est vide la place est gratuite !',
                 type: 'warning',
                 showCancelButton: true,
                 confirmButtonText: 'Oui',
-                cancelButtonText: 'Non'
+                cancelButtonText: 'Non',
 
-            }).then((result) => {
+            });
+            //Ignore if user clicked no
+            if (!swalRes.value) return;
 
-                if (result.value) {
-                    let self = this;
-                    console.log("addurl : " + self.addUrl);
-                    return axios.post(self.addUrl);
-                }
+            const res = await axios.post(this.addUrl);
 
-            }).then((result) => {
-
-                //Check if auth
-                if (result.data.auth) {
-
-                    //Check if enough points
-                    if (result.data.enough) {
-                        //Success
-                        swal({
-                            title: "Vous avez acheté une place !",
-                            type: "success"
-                        });
-
-                    }
-                    else {
-                        //Error
-                        swal({
-                            title: "Vous n'avez pas assez de points.",
-                            text: `Vous avez ${result.data.points} points. \n La place coûte ${result.data.cost} points.`,
-                            type: "error"
-                        });
-
-                    }
-
-
-                }
-                else {
-                    location.reload();
-                }
-
-            })
-                .catch((error: AxiosError) => {
-                    console.log(error.response);
+            //Check if enough points
+            if (res.data.enough) {
+                //Success
+                swal({
+                    title: 'Vous avez acheté une place !',
+                    type: 'success',
                 });
 
+            }
+            else {
+                //Error
+                swal({
+                    title: 'Vous n\'avez pas assez de points.',
+                    text: `Vous avez ${res.data.points} points. \n La place coûte ${res.data.cost} points.`,
+                    type: 'error',
+                });
+
+            }
 
         },
 
-        makeRequestDelete(id: string) {
+        async makeRequestDelete(id: string) {
 
-            swal({
+            const swalRes = await swal({
                 title: 'Supprimer ça place ?',
                 text: 'Vous serez remboursé',
                 type: 'warning',
                 showCancelButton: true,
                 confirmButtonText: 'Oui',
-                cancelButtonText: 'Non'
+                cancelButtonText: 'Non',
 
-            }).then((result) => {
+            });
+            //Ignore if user clicked no
+            if (!swalRes.value) return;
 
-                if (result.value) {
-                    let self = this;
-                    console.log("deleteurl : " + self.deleteUrl);
-                    return axios.post(self.deleteUrl, {id: id});
-                }
-                else {
-                    return Promise.reject('cancel');
-                }
+            const res = await axios.post(this.deleteUrl, { id: id });
 
-            }).then((result) => {
+            if (res.data.success) {
 
-                //Check if auth
-                if (result.data.auth) {
-
-                    if (!result.data.error) {
-
-                        //Success
-                        swal({
-                            title: "Vous avez supprimé votre place !",
-                            type: "success"
-                        });
-                    }
-                    else {
-
-                        //Error
-                        swal({
-                            type: "error",
-                            title: "Erreur",
-                            text: result.data.errorMessage
-                        });
-
-                    }
-                }
-                else {
-                    location.reload();
-                }
-
-            })
-                .catch((error: AxiosError | "cancel") => {
-
-                    if (error !== "cancel") {
-
-                        swal({
-                            type: "error",
-                            title: "Erreur"
-                        });
-                        console.log(error.response);
-                    }
+                //Success
+                swal({
+                    title: 'Vous avez supprimé votre place !',
+                    type: 'success',
                 });
+            }
+            else {
+
+                //Error
+                swal({
+                    type: 'error',
+                    title: 'Erreur',
+                });
+
+            }
 
 
         },
 
-        makeRequestSkip() {
-            swal({
+        async makeRequestSkip() {
+            const swalRes = await swal({
                 title: 'Passer ?',
                 type: 'warning',
                 showCancelButton: true,
                 confirmButtonText: 'Oui',
-                cancelButtonText: 'Non'
+                cancelButtonText: 'Non',
 
-            }).then((result) => {
+            });
+            //Ignore if user clicked no
+            if (!swalRes.value) return;
 
-                if (result.value) {
-                    let self = this;
-                    console.log("skipurl : " + self.skipUrl);
-                    return axios.post(self.skipUrl);
-                }
-
-            }).then((result) => {
-
+            try {
+                await axios.post(this.skipUrl);
                 swal({
-                    title: result.data,
-                    type: "success"
+                    title: 'Stream passé',
+                    type: 'success',
                 });
 
-
-            })
-                .catch((error: AxiosError) => {
-
-                    swal({
-                        title: error.response.data,
-                        type: "error"
-                    });
-
-                    console.log(error.response);
+            }
+            catch (e) {
+                swal({
+                    title: e.response.data,
+                    type: 'error',
                 });
-        }
+            }
+
+        },
     },
 
     mounted() {

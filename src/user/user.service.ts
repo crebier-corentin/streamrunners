@@ -1,23 +1,19 @@
 import { TwitchUser } from '../twitch/twitch.interfaces';
+import { ModelService } from '../utils/ModelService';
+import { formatDatetimeSQL } from '../utils/utils';
 import { UserEntity } from './user.entity';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import moment = require('moment');
 
 @Injectable()
-export class UserService {
+export class UserService extends ModelService<UserEntity> {
     constructor(
         @InjectRepository(UserEntity)
-        private readonly repo: Repository<UserEntity>
-    ) {}
-
-    /**
-     *
-     * @param id The id of the wanted user
-     * @return Wanted user or undefined if not found
-     */
-    public fromId(id: number): Promise<UserEntity | undefined> {
-        return this.repo.findOne(id);
+        repo: Repository<UserEntity>
+    ) {
+        super(repo);
     }
 
     /**
@@ -38,5 +34,15 @@ export class UserService {
 
         //Save
         return this.repo.save(user);
+    }
+
+    public viewers() {
+        return this.repo
+            .createQueryBuilder('user')
+            .where('user.lastOnWatchPage > :datetime', {
+                datetime: formatDatetimeSQL(moment().subtract(30, 'seconds')),
+            })
+            .orderBy('user.chatRank', 'DESC')
+            .getMany();
     }
 }

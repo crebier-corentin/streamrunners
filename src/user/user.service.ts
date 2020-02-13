@@ -1,20 +1,8 @@
+import { TwitchUser } from '../twitch/twitch.interfaces';
 import { UserEntity } from './user.entity';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-
-export interface TwitchUser {
-    broadcaster_type: 'partner' | 'affiliate' | '';
-    description: string;
-    display_name: string;
-    email?: string;
-    id: string;
-    login: string;
-    offline_image_url: string;
-    profile_image_url: string;
-    type: 'staff' | 'admin' | 'global_mod' | '';
-    view_count: number;
-}
 
 @Injectable()
 export class UserService {

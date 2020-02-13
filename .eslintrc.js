@@ -24,5 +24,6 @@ module.exports = {
         '@typescript-eslint/explicit-function-return-type': 'off',
         '@typescript-eslint/no-explicit-any': 'off',
         'import/order': ['error', { alphabetize: { order: 'asc' } }],
+        'import/namespace': 'off'
     },
 };

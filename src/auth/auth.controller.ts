@@ -1,13 +1,8 @@
-import { AuthenticatedGuard } from '../common/guard/authenticated.guard';
-import { LoginGuard } from '../common/guard/login.guard';
+import { LoginGuard } from '../guard/login.guard';
 import { Controller, Get, UseGuards } from '@nestjs/common';
 
 @Controller('auth')
 export class AuthController {
-    constructor() {
-        //
-    }
-
     @UseGuards(LoginGuard)
     @Get('/twitch')
     loginRedirect() {
@@ -17,12 +12,6 @@ export class AuthController {
     @UseGuards(LoginGuard)
     @Get('/twitch/callback')
     loginCallback() {
-        //
-    }
-
-    @UseGuards(AuthenticatedGuard)
-    @Get()
-    auth() {
         //
     }
 }

@@ -1,9 +1,9 @@
 import { AppController } from './app.controller';
-import { AuthModule } from './route/auth/auth.module';
+import { AuthModule } from './auth/auth.module';
 import ormconfig = require('./ormconfig');
-import { StreamQueueModule } from './model/stream-queue/stream-queue.module';
-import { UserModule } from './model/user/user.module';
-import { WatchModule } from './route/watch/watch.module';
+import { StreamQueueModule } from './stream-queue/stream-queue.module';
+import { UserModule } from './user/user.module';
+import { WatchModule } from './watch/watch.module';
 import { TwitchModule } from './twitch/twitch.module';
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';

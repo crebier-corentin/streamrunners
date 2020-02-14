@@ -1,6 +1,6 @@
-import { TwitchUser } from '../../twitch/twitch.interfaces';
-import { ModelService } from '../../utils/ModelService';
-import { formatDatetimeSQL } from '../../utils/utils';
+import { TwitchUser } from '../twitch/twitch.interfaces';
+import { ModelService } from '../utils/ModelService';
+import { formatDatetimeSQL } from '../utils/utils';
 import { UserEntity } from './user.entity';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';

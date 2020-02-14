@@ -1,9 +1,9 @@
-import { User } from '../../decorator/user.decorator';
-import { AuthenticatedGuard } from '../../guard/authenticated.guard';
-import { ModeratorGuard } from '../../guard/moderator.guard';
-import { StreamQueueService } from '../../model/stream-queue/stream-queue.service';
-import { UserEntity } from '../../model/user/user.entity';
-import { UserService } from '../../model/user/user.service';
+import { User } from '../decorator/user.decorator';
+import { AuthenticatedGuard } from '../guard/authenticated.guard';
+import { ModeratorGuard } from '../guard/moderator.guard';
+import { StreamQueueService } from '../stream-queue/stream-queue.service';
+import { UserEntity } from '../user/user.entity';
+import { UserService } from '../user/user.service';
 import { WatchService } from './watch.service';
 import { Body, Controller, Post, UseGuards } from '@nestjs/common';
 import { classToPlain } from 'class-transformer';

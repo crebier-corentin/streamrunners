@@ -4,7 +4,7 @@ import { UserService } from './user.service';
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { TwitchUser } from '../../twitch/twitch.interfaces';
+import { TwitchUser } from '../twitch/twitch.interfaces';
 
 describe('UserService', () => {
     let service: UserService;

@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
+import { ChatMessageEntity } from '../chat/chat-message.entity';
 import { ChatRank } from '../shared/types';
 import { StreamQueueEntity } from '../stream-queue/stream-queue.entity';
 import { Exclude, Expose } from 'class-transformer';
 import { Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
-import { ChatMessageEntity } from '../chat/chat-message.entity';
 
 @Exclude()
 @Entity('user')

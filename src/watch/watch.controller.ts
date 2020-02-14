@@ -1,3 +1,4 @@
+import { ChatService } from '../chat/chat.service';
 import { User } from '../decorator/user.decorator';
 import { AuthenticatedGuard } from '../guard/authenticated.guard';
 import { ModeratorGuard } from '../guard/moderator.guard';
@@ -7,7 +8,6 @@ import { UserService } from '../user/user.service';
 import { WatchService } from './watch.service';
 import { Body, Controller, Post, UseGuards } from '@nestjs/common';
 import { classToPlain } from 'class-transformer';
-import { ChatService } from '../chat/chat.service';
 
 @UseGuards(AuthenticatedGuard)
 @Controller('watch')

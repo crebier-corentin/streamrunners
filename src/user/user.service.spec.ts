@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/camelcase,@typescript-eslint/ban-ts-ignore */
+import { TwitchUser } from '../twitch/twitch.interfaces';
 import { UserEntity } from './user.entity';
 import { UserService } from './user.service';
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { TwitchUser } from '../twitch/twitch.interfaces';
 
 describe('UserService', () => {
     let service: UserService;

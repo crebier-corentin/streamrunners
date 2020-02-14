@@ -1,5 +1,5 @@
-import { IsNotEmpty, IsString, MaxLength } from 'class-validator';
 import { Trim } from 'class-sanitizer';
+import { IsNotEmpty, IsString, MaxLength } from 'class-validator';
 
 export class AddChatMessageDto {
     @IsNotEmpty()

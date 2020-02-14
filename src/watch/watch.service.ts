@@ -1,7 +1,7 @@
 import { StreamQueueService } from '../stream-queue/stream-queue.service';
+import { TwitchService } from '../twitch/twitch.service';
 import { UserEntity } from '../user/user.entity';
 import { UserService } from '../user/user.service';
-import { TwitchService } from '../twitch/twitch.service';
 import { Injectable } from '@nestjs/common';
 import * as moment from 'moment';
 

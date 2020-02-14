@@ -1,4 +1,4 @@
-import { ChatRank } from '../shared/types';
+import { ChatRank } from '../../shared/types';
 import { StreamQueueEntity } from '../stream-queue/stream-queue.entity';
 import { Exclude, Expose } from 'class-transformer';
 import { Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';

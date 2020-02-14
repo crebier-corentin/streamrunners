@@ -1,7 +1,8 @@
+import { ModelService } from '../../utils/ModelService';
 import { UserEntity } from '../user/user.entity';
-import { ModelService } from '../utils/ModelService';
 import { StreamQueueEntity } from './stream-queue.entity';
-import { Injectable } from '@nestjs/common';
+import { Injectable, InternalServerErrorException } from '@nestjs/common';
+import { HttpException } from '@nestjs/common/exceptions/http.exception';
 import { Cron, CronExpression } from '@nestjs/schedule';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -10,6 +11,26 @@ import { Repository } from 'typeorm';
 export class StreamQueueService extends ModelService<StreamQueueEntity> {
     constructor(@InjectRepository(StreamQueueEntity) repo: Repository<StreamQueueEntity>) {
         super(repo);
+    }
+
+    byIdAndUserId(streamId: number, userId: number): Promise<StreamQueueEntity | undefined> {
+        return this.repo
+            .createQueryBuilder('queue')
+            .leftJoinAndSelect('queue.user', 'user')
+            .where('queue.id = :streamId', { streamId })
+            .andWhere('user.id = :userId', { userId })
+            .getOne();
+    }
+
+    public async byIdAndUserIdOrFail(
+        streamId: number,
+        userId: number,
+        exception: HttpException = new InternalServerErrorException()
+    ): Promise<StreamQueueEntity> {
+        const entity = await this.byIdAndUserId(streamId, userId);
+        if (entity == undefined) throw exception;
+
+        return entity;
     }
 
     currentStream(): Promise<StreamQueueEntity | undefined> {
@@ -42,24 +63,6 @@ export class StreamQueueService extends ModelService<StreamQueueEntity> {
         stream.time = time;
         stream.user = user;
         await this.repo.save(stream);
-    }
-
-    async removeFromQueue(streamId: number, user: UserEntity): Promise<{ success: boolean; refund?: number }> {
-        const stream = await this.repo
-            .createQueryBuilder('queue')
-            .leftJoinAndSelect('queue.user', 'user')
-            .where('queue.id = :streamId', { streamId })
-            .andWhere('user.id = :userId', { userId: user.id })
-            .getOne();
-
-        if (stream == undefined || stream.user.id !== user.id) return { success: false };
-
-        if ((await this.currentStream()).id === stream.id) return { success: false };
-
-        //Delete stream
-        await this.repo.remove(stream);
-
-        return { success: true, refund: stream.amount };
     }
 
     async skipCurrent() {

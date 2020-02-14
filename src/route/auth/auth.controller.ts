@@ -1,4 +1,4 @@
-import { LoginGuard } from '../guard/login.guard';
+import { LoginGuard } from '../../guard/login.guard';
 import { Controller, Get, UseGuards } from '@nestjs/common';
 
 @Controller('auth')

@@ -19,4 +19,8 @@ export abstract class ModelService<T> {
     public save(entity: T): Promise<T> {
         return this.repo.save(entity);
     }
+
+    public remove(entity: T): Promise<T> {
+        return this.repo.remove(entity);
+    }
 }

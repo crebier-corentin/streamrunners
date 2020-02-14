@@ -1,6 +1,6 @@
-import { TwitchUser } from '../twitch/twitch.interfaces';
-import { ModelService } from '../utils/ModelService';
-import { formatDatetimeSQL } from '../utils/utils';
+import { TwitchUser } from '../../twitch/twitch.interfaces';
+import { ModelService } from '../../utils/ModelService';
+import { formatDatetimeSQL } from '../../utils/utils';
 import { UserEntity } from './user.entity';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -22,7 +22,7 @@ export class UserService extends ModelService<UserEntity> {
      * @param data Data from the twitch request
      * @return The newly created or updated user
      */
-    public async updateFromTwitch(data: TwitchUser): Promise<UserEntity> {
+    async updateFromTwitch(data: TwitchUser): Promise<UserEntity> {
         //Find or create
         const user = (await this.repo.findOne({ where: { twitchId: data.id } })) ?? new UserEntity();
 
@@ -36,7 +36,12 @@ export class UserService extends ModelService<UserEntity> {
         return this.repo.save(user);
     }
 
-    public viewers() {
+    async refund(user: UserEntity, amount: number) {
+        user.changePoints(amount);
+        await this.repo.save(user);
+    }
+
+    viewers() {
         return this.repo
             .createQueryBuilder('user')
             .where('user.lastOnWatchPage > :datetime', {

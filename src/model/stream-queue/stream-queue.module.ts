@@ -1,4 +1,4 @@
-import { TwitchModule } from '../twitch/twitch.module';
+import { TwitchModule } from '../../twitch/twitch.module';
 import { StreamQueueEntity } from './stream-queue.entity';
 import { StreamQueueService } from './stream-queue.service';
 import { Module } from '@nestjs/common';

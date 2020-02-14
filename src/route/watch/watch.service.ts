@@ -1,7 +1,7 @@
-import { StreamQueueService } from '../stream-queue/stream-queue.service';
-import { TwitchService } from '../twitch/twitch.service';
-import { UserEntity } from '../user/user.entity';
-import { UserService } from '../user/user.service';
+import { StreamQueueService } from '../../model/stream-queue/stream-queue.service';
+import { UserEntity } from '../../model/user/user.entity';
+import { UserService } from '../../model/user/user.service';
+import { TwitchService } from '../../twitch/twitch.service';
 import { Injectable } from '@nestjs/common';
 import * as moment from 'moment';
 
@@ -56,5 +56,20 @@ export class WatchService {
         //await DiscordBot.sendStreamNotificationMessage();
 
         return { enough: true };
+    }
+
+    async removeFromQueue(streamId: number, user: UserEntity): Promise<boolean> {
+        const stream = await this.streamQueueService.byIdAndUserIdOrFail(streamId, user.id);
+
+        //Refuse if stream is in first place
+        if (stream.id === (await this.streamQueueService.currentStream()).id) return false;
+
+        //Remove stream
+        this.streamQueueService.remove(stream);
+
+        //Refund
+        this.userService.refund(user, stream.amount);
+
+        return true;
     }
 }

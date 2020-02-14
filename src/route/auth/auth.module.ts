@@ -1,4 +1,4 @@
-import { UserModule } from '../user/user.module';
+import { UserModule } from '../../model/user/user.module';
 import { AuthController } from './auth.controller';
 import { SessionSerializer } from './session.serializer';
 import { TwitchStrategy } from './twitch.strategy';

@@ -1,7 +1,9 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { ChatRank } from '../shared/types';
 import { StreamQueueEntity } from '../stream-queue/stream-queue.entity';
 import { Exclude, Expose } from 'class-transformer';
 import { Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
+import { ChatMessageEntity } from '../chat/chat-message.entity';
 
 @Exclude()
 @Entity('user')
@@ -39,11 +41,16 @@ export class UserEntity {
     chatRank: ChatRank;
 
     @OneToMany(
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         type => StreamQueueEntity,
         StreamQueue => StreamQueue.user
     )
     streamsQueued: StreamQueueEntity[];
+
+    @OneToMany(
+        type => ChatMessageEntity,
+        message => message.author
+    )
+    chatMessages: ChatMessageEntity[];
 
     @Exclude()
     @CreateDateColumn()

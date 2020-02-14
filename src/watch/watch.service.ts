@@ -14,25 +14,29 @@ export class WatchService {
     ) {}
 
     async updatePoints(user: UserEntity) {
-        //Check if stream is online
-        const current = await this.streamQueueService.currentStream();
+        try {
+            //Check if stream is online
+            const current = await this.streamQueueService.currentStream();
 
-        //Check if stream and is not self stream
-        if (current == undefined || current.user.id === user.id) return;
+            //Check if stream and is not self stream
+            if (current == undefined || current.user.id === user.id) return;
 
-        //Check if stream is online
-        const isOnline = await this.twitch.isStreamOnline(current.user.twitchId);
-        if (!isOnline) return;
+            //Check if stream is online
+            const isOnline = await this.twitch.isStreamOnline(current.user.twitchId);
+            if (!isOnline) return;
 
-        const now = moment();
+            const now = moment();
 
-        //If lastUpdate was one minutes or less ago
-        if (moment(user.lastUpdate).add(1, 'minutes') >= now) {
-            await user.changePoints((now.toDate().getTime() - user.lastUpdate.getTime()) / 1000);
+            //If lastUpdate was one minutes or less ago
+            if (moment(user.lastUpdate).add(1, 'minutes') >= now) {
+                await user.changePoints((now.toDate().getTime() - user.lastUpdate.getTime()) / 1000);
+            }
+
+            user.lastUpdate = now.toDate();
+        } finally {
+            //Always save user even if early return
+            await this.userService.save(user);
         }
-
-        user.lastUpdate = now.toDate();
-        await this.userService.save(user);
     }
 
     async addStreamToQueue(user: UserEntity): Promise<{ enough: boolean; cost?: number }> {

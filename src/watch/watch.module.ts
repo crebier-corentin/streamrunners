@@ -4,9 +4,10 @@ import { TwitchModule } from '../twitch/twitch.module';
 import { WatchController } from './watch.controller';
 import { WatchService } from './watch.service';
 import { Module } from '@nestjs/common';
+import { ChatModule } from '../chat/chat.module';
 
 @Module({
-    imports: [StreamQueueModule, UserModule, TwitchModule],
+    imports: [StreamQueueModule, UserModule, ChatModule, TwitchModule],
     controllers: [WatchController],
     providers: [WatchService],
 })

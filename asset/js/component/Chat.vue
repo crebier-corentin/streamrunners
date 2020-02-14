@@ -7,7 +7,7 @@
                 <template v-for="msg in cMessages">
                     <small class="font-italic text-center mr-1">{{msg.createdAt}} </small>
 
-                    <ChatUsername class="mr-1" :name="msg.author.name" :rank="msg.author.chatRank" />
+                    <ChatUsername class="mr-1" :name="msg.author.displayName" :rank="msg.author.chatRank" />
                     <span :class="{'font-italic': msg.deleted}"> : {{msg.message}}</span>
                     <button class="text-danger" :style="{opacity: showDelete ? 1 : 0}" @click="deleteMessage(msg.id)"><i
                             class="fas fa-times" /></button>
@@ -19,7 +19,7 @@
 
         <!-- Active users -->
         <div class="users rounded chat-container d-flex flex-column">
-            <ChatUsername :name="user.name" :rank="user.chatRank" v-for="user in cActiveUsers" :key="user.name" />
+            <ChatUsername :name="user.displayName" :rank="user.chatRank" v-for="user in cActiveUsers" :key="user.displayName" />
         </div>
 
         <!-- Input-->
@@ -65,8 +65,8 @@
             return {
                 message: "",
 
-                chatAddUrl: "/watch/chat/add",
-                chatDeleteUrl: "/watch/chat/delete",
+                chatAddUrl: "/chat/add",
+                chatDeleteUrl: "/chat/delete",
                 sending: false
             }
         },

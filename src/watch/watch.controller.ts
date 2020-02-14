@@ -7,6 +7,7 @@ import { UserService } from '../user/user.service';
 import { WatchService } from './watch.service';
 import { Body, Controller, Post, UseGuards } from '@nestjs/common';
 import { classToPlain } from 'class-transformer';
+import { ChatService } from '../chat/chat.service';
 
 @UseGuards(AuthenticatedGuard)
 @Controller('watch')
@@ -14,7 +15,8 @@ export class WatchController {
     constructor(
         private readonly watchService: WatchService,
         private readonly streamQueueService: StreamQueueService,
-        private readonly userService: UserService
+        private readonly userService: UserService,
+        private readonly chatService: ChatService
     ) {}
 
     @Post('update')
@@ -24,10 +26,10 @@ export class WatchController {
 
         await this.watchService.updatePoints(user);
 
-        const [queue, viewers /*mostPoints, mostPlace,*/ /*TODO messages*/] = await Promise.all([
+        const [queue, viewers, messages] = await Promise.all([
             this.streamQueueService.currentAndNextStreams(), //queue
             this.userService.viewers(), //viewers
-            //TODO ChatMessage.getLastMessages() //messages
+            this.chatService.getLastMessages(), //messages
         ]);
 
         return {
@@ -35,7 +37,7 @@ export class WatchController {
             points: user.points,
             queue,
             viewers: classToPlain(viewers),
-            //TODO messages
+            messages: classToPlain(messages),
         };
     }
 

@@ -5,7 +5,7 @@ import { SanitizationPipe } from '../pipe/sanitization-pipe.service';
 import { UserEntity } from '../user/user.entity';
 import { AddChatMessageDto } from './add-chat-message.dto';
 import { ChatService } from './chat.service';
-import { Body, Controller, Post, UseGuards, UsePipes, ValidationPipe } from '@nestjs/common';
+import { Body, Controller, ParseIntPipe, Post, UseGuards, UsePipes, ValidationPipe } from '@nestjs/common';
 
 @UseGuards(AuthenticatedGuard)
 @Controller('chat')
@@ -20,7 +20,7 @@ export class ChatController {
 
     @UseGuards(ModeratorGuard)
     @Post('delete')
-    async softDeleteMessage(@Body('messageId') id: number, @User() user: UserEntity) {
+    async softDeleteMessage(@Body('messageId', ParseIntPipe) id: number, @User() user: UserEntity) {
         await this.chatService.softDelete(id, user);
     }
 }

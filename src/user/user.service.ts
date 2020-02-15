@@ -6,6 +6,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import moment = require('moment');
+import { RaffleEntity } from '../raffle/raffle.entity';
 
 @Injectable()
 export class UserService extends ModelService<UserEntity> {
@@ -39,6 +40,16 @@ export class UserService extends ModelService<UserEntity> {
     async changePointsSave(user: UserEntity, amount: number) {
         user.changePoints(amount);
         await this.repo.save(user);
+    }
+
+    pickRaffleWinner(raffle: RaffleEntity): Promise<UserEntity> {
+        return this.repo
+            .createQueryBuilder('user')
+            .leftJoin('user.raffleParticipations', 'rp')
+            .leftJoin('rp.raffle', 'raffle')
+            .where('raffle.id = :id', { id: raffle.id })
+            .orderBy('-LOG(1.0 - rand()) / rp.tickets')
+            .getOne();
     }
 
     viewers() {

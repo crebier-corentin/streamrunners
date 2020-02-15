@@ -1,3 +1,4 @@
+{% set title = "StreamRunners - Giveaway" %}
 {% extends "master.nunj" %}
 
 {% block content %}

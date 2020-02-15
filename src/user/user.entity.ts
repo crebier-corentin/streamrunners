@@ -1,6 +1,8 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { ChatMessageEntity } from '../chat/chat-message.entity';
 import { CouponEntity } from '../coupon/coupon.entity';
+import { RaffleParticipationEntity } from '../raffle/raffle-participation.entity';
+import { RaffleEntity } from '../raffle/raffle.entity';
 import { ChatRank } from '../shared/types';
 import { StreamQueueEntity } from '../stream-queue/stream-queue.entity';
 import { Exclude, Expose } from 'class-transformer';
@@ -68,6 +70,19 @@ export class UserEntity {
     )
     @JoinTable()
     coupons: CouponEntity[];
+
+    @OneToMany(
+        type => RaffleEntity,
+        r => r.winner,
+        { eager: true }
+    )
+    rafflesWon: RaffleEntity[];
+
+    @OneToMany(
+        type => RaffleParticipationEntity,
+        r => r.user
+    )
+    raffleParticipations: RaffleParticipationEntity[];
 
     @Exclude()
     @CreateDateColumn()

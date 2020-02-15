@@ -1,9 +1,19 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { ChatMessageEntity } from '../chat/chat-message.entity';
+import { CouponEntity } from '../coupon/coupon.entity';
 import { ChatRank } from '../shared/types';
 import { StreamQueueEntity } from '../stream-queue/stream-queue.entity';
 import { Exclude, Expose } from 'class-transformer';
-import { Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
+import {
+    Column,
+    CreateDateColumn,
+    Entity,
+    JoinTable,
+    ManyToMany,
+    OneToMany,
+    PrimaryGeneratedColumn,
+    UpdateDateColumn,
+} from 'typeorm';
 
 @Exclude()
 @Entity('user')
@@ -51,6 +61,13 @@ export class UserEntity {
         message => message.author
     )
     chatMessages: ChatMessageEntity[];
+
+    @ManyToMany(
+        type => CouponEntity,
+        coupon => coupon.users
+    )
+    @JoinTable()
+    coupons: CouponEntity[];
 
     @Exclude()
     @CreateDateColumn()

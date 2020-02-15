@@ -76,7 +76,7 @@ describe('UserService', () => {
             const user = new UserEntity();
             user.points = 1000;
 
-            await service.refund(user, 400);
+            await service.changePointsSave(user, 400);
             expect(user.points).toBe(1400);
         });
     });

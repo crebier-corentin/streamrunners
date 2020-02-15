@@ -72,7 +72,7 @@ export class WatchService {
         this.streamQueueService.remove(stream);
 
         //Refund
-        this.userService.refund(user, stream.amount);
+        this.userService.changePointsSave(user, stream.amount);
 
         return true;
     }

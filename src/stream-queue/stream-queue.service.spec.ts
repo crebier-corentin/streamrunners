@@ -1,4 +1,3 @@
-import { UserEntity } from '../user/user.entity';
 import { StreamQueueEntity } from './stream-queue.entity';
 import { StreamQueueService } from './stream-queue.service';
 import { Test, TestingModule } from '@nestjs/testing';

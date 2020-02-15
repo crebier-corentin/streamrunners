@@ -36,7 +36,7 @@ export class UserService extends ModelService<UserEntity> {
         return this.repo.save(user);
     }
 
-    async refund(user: UserEntity, amount: number) {
+    async changePointsSave(user: UserEntity, amount: number) {
         user.changePoints(amount);
         await this.repo.save(user);
     }

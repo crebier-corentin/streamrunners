@@ -1,3 +1,4 @@
+{% set title = "StreamRunners - Coupons" %}
 {% extends "master.nunj" %}
 
 {% block content %}

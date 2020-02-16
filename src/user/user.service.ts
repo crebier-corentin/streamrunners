@@ -52,6 +52,16 @@ export class UserService extends ModelService<UserEntity> {
             .getOne();
     }
 
+    pickRandomNonDefaultAvatars(count: number) {
+        return this.repo
+            .createQueryBuilder('user')
+            .select('user.avatar')
+            .where("user.avatar NOT LIKE 'https://static-cdn.jtvnw.net/user-default-pictures-uv%'") //No default avatar
+            .orderBy('RAND()')
+            .limit(count)
+            .getMany();
+    }
+
     viewers() {
         return this.repo
             .createQueryBuilder('user')

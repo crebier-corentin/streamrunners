@@ -1,6 +1,7 @@
 import { AppController } from './app.controller';
 import { AuthModule } from './auth/auth.module';
 import ormconfig = require('./ormconfig');
+import { BannerModule } from './banner/banner.module';
 import { ChatModule } from './chat/chat.module';
 import { CouponModule } from './coupon/coupon.module';
 import { RaffleModule } from './raffle/raffle.module';
@@ -26,6 +27,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
         ChatModule,
         CouponModule,
         RaffleModule,
+        BannerModule,
     ],
     controllers: [AppController],
 })

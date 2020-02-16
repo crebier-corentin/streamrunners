@@ -4,7 +4,7 @@
     <div class="container d-flex justify-content-center flex-column align-items-center">
 
 	<section class="row">
-	        	<div class="card col-sm-4" style="width: 18rem; margin-right: 0.25rem;">
+	        	<div class="card col-sm-3" style="width: 18rem; margin-right: 0.50rem;">
 			  <img style="height: 184px; width: 184px;" src="https://image.freepik.com/photos-gratuite/billets-tombola-verts_1101-961.jpg" class="card-img-top" alt="...">
 			  <div class="card-body">
 			    <h5 class="card-title">Tombola</h5>
@@ -12,16 +12,16 @@
 			    <a href="/admin/raffle" class="btn btn-primary">GO</a>
 			  </div>
 			</div>
-			<div class="card col-sm-4" style="width: 18rem; margin-right: 0.25rem;">
-			  <img src="https://image.flaticon.com/icons/png/512/172/172094.png" class="card-img-top" alt="...">
+			<div class="card col-sm-3" style="width: 18rem; margin-right: 0.50rem;">
+			  <img style="height: 184px; width: 184px;" src="https://image.flaticon.com/icons/png/512/172/172094.png" class="card-img-top" alt="...">
 			  <div class="card-body">
 			    <h5 class="card-title">Coupons</h5>
 			    <p class="card-text">Créer des codes coupons.</p>
 			    <a href="/admin/coupon" class="btn btn-primary">GO</a>
 			  </div>
 			</div>
-			<div class="card col-sm-4" style="width: 18rem; margin-right: 0.25rem;">
-			  <img src="https://image.flaticon.com/icons/svg/214/214347.svg" class="card-img-top" alt="...">
+			<div class="card col-sm-3" style="width: 18rem; margin-right: 0.50rem;">
+			  <img style="height: 184px; width: 184px;" src="https://image.flaticon.com/icons/svg/214/214347.svg" class="card-img-top" alt="...">
 			  <div class="card-body">
 			    <h5 class="card-title">Annonces</h5>
 			    <p class="card-text">Créer ou supprimer une annonce.</p>

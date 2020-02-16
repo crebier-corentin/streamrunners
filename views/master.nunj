@@ -89,7 +89,7 @@
                         <a class="nav-link" href="/coupon"><i class="fas fa-ticket-alt"></i> Coupon</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/case/inventory"><i class="fas fa-suitcase"></i> Inventaire</a>
+                        <a class="nav-link" href="/inventory"><i class="fas fa-suitcase"></i> Inventaire</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/giveaway"><i class="fas fa-boxes"></i> GiveAway</a>

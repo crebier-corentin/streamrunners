@@ -3,9 +3,8 @@
 {% block content %}
     <div class="container d-flex justify-content-center flex-column align-items-center">
 
-		    <section class="row">
-            <div class="col-sm-3">
-	        	<div class="card" style="width: 18rem;">
+	<section class="row">
+	        	<div class="card col-sm-3" style="width: 18rem;">
 			  <img src="https://image.freepik.com/photos-gratuite/billets-tombola-verts_1101-961.jpg" class="card-img-top" alt="...">
 			  <div class="card-body">
 			    <h5 class="card-title">Tombola</h5>
@@ -13,7 +12,7 @@
 			    <a href="/admin/raffle" class="btn btn-primary">GO</a>
 			  </div>
 			</div>
-			<div class="card" style="width: 18rem;">
+			<div class="card col-sm-3" style="width: 18rem;">
 			  <img src="https://image.flaticon.com/icons/png/512/172/172094.png" class="card-img-top" alt="...">
 			  <div class="card-body">
 			    <h5 class="card-title">Coupons</h5>
@@ -21,7 +20,7 @@
 			    <a href="/admin/coupon" class="btn btn-primary">GO</a>
 			  </div>
 			</div>
-			<div class="card" style="width: 18rem;">
+			<div class="card col-sm-3" style="width: 18rem;">
 			  <img src="https://image.flaticon.com/icons/svg/214/214347.svg" class="card-img-top" alt="...">
 			  <div class="card-body">
 			    <h5 class="card-title">Annonces</h5>
@@ -29,7 +28,6 @@
 			    <a href="/admin/announcement" class="btn btn-primary">GO</a>
 			  </div>
 		</div>
-    </div>
     </section>
 
         <hr>

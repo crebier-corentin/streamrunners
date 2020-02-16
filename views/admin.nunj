@@ -2,10 +2,30 @@
 
 {% block content %}
     <div class="container d-flex justify-content-center flex-column align-items-center">
-
-        <a href="/admin/raffle" class="w-100">Tombolas</a>
-        <a href="/admin/coupon" class="w-100">Coupons</a>
-        <a href="/admin/announcement" class="w-100">Annonces</a>
+    	<div class="card" style="width: 18rem;">
+		  <img src="https://image.freepik.com/photos-gratuite/billets-tombola-verts_1101-961.jpg" class="card-img-top" alt="...">
+		  <div class="card-body">
+		    <h5 class="card-title">Tombola</h5>
+		    <p class="card-text">Créer des tombolas.</p>
+		    <a href="/admin/raffle" class="btn btn-primary">GO</a>
+		  </div>
+		</div>
+		<div class="card" style="width: 18rem;">
+		  <img src="https://image.flaticon.com/icons/png/512/172/172094.png" class="card-img-top" alt="...">
+		  <div class="card-body">
+		    <h5 class="card-title">Coupons</h5>
+		    <p class="card-text">Créer des codes coupons.</p>
+		    <a href="/admin/coupon" class="btn btn-primary">GO</a>
+		  </div>
+		</div>
+		<div class="card" style="width: 18rem;">
+		  <img src="https://image.flaticon.com/icons/svg/214/214347.svg" class="card-img-top" alt="...">
+		  <div class="card-body">
+		    <h5 class="card-title">Annonces</h5>
+		    <p class="card-text">Créer ou supprimer une annonce.</p>
+		    <a href="/admin/announcement" class="btn btn-primary">GO</a>
+		  </div>
+		</div>
         <hr>
 
     	<input type="text" placeholder="Chaine a Bannir" /><button type="button" class="btn btn-danger">Bannir</button>

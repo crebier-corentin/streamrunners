@@ -2,9 +2,8 @@
 
 {% block content %}
     <div class="container d-flex justify-content-center flex-column align-items-center">
-
-	<section class="row">
 		<center>
+	<section class="row">
 	        	<div class="card col-sm-3" style="width: 18rem; margin-right: 0.50rem;">
 			  <img style="height: 184px; width: 184px;" src="https://image.freepik.com/photos-gratuite/billets-tombola-verts_1101-961.jpg" class="card-img-top" alt="...">
 			  <div class="card-body">
@@ -29,9 +28,8 @@
 			    <a href="/admin/announcement" class="btn btn-primary">GO</a>
 			  </div>
 		</div>
-	</center>
     </section>
-
+</center>
         <hr>
 
     	<input type="text" placeholder="Chaine a Bannir" /><button type="button" class="btn btn-danger">Bannir</button>

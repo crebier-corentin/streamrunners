@@ -1,5 +1,5 @@
 import { UserEntity } from '../user/user.entity';
-import { ModelService } from '../utils/ModelService';
+import { EntityService } from '../utils/EntityService';
 import { StreamQueueEntity } from './stream-queue.entity';
 import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { HttpException } from '@nestjs/common/exceptions/http.exception';
@@ -8,7 +8,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
 @Injectable()
-export class StreamQueueService extends ModelService<StreamQueueEntity> {
+export class StreamQueueService extends EntityService<StreamQueueEntity> {
     constructor(@InjectRepository(StreamQueueEntity) repo: Repository<StreamQueueEntity>) {
         super(repo);
     }

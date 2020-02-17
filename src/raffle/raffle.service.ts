@@ -1,6 +1,6 @@
 import { UserEntity } from '../user/user.entity';
 import { UserService } from '../user/user.service';
-import { ModelService } from '../utils/ModelService';
+import { EntityService } from '../utils/EntityService';
 import { RaffleParticipationEntity } from './raffle-participation.entity';
 import { RaffleEntity } from './raffle.entity';
 import { Injectable, InternalServerErrorException } from '@nestjs/common';
@@ -12,7 +12,7 @@ export type RaffleEntityAndTotal = RaffleEntity & { total: number };
 export type RaffleEntityAndTotalAndTicketCount = RaffleEntityAndTotal & { ticketCount: number };
 
 @Injectable()
-export class RaffleService extends ModelService<RaffleEntity> {
+export class RaffleService extends EntityService<RaffleEntity> {
     constructor(
         @InjectRepository(RaffleEntity) repo,
         @InjectRepository(RaffleParticipationEntity) private readonly RPrepo: Repository<RaffleParticipationEntity>,

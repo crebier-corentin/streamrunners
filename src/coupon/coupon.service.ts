@@ -1,13 +1,13 @@
 import { UserEntity } from '../user/user.entity';
 import { UserService } from '../user/user.service';
-import { ModelService } from '../utils/ModelService';
+import { EntityService } from '../utils/EntityService';
 import { CouponEntity } from './coupon.entity';
 import { CouponException, CouponExceptionType } from './coupon.exception';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 
 @Injectable()
-export class CouponService extends ModelService<CouponEntity> {
+export class CouponService extends EntityService<CouponEntity> {
     constructor(@InjectRepository(CouponEntity) repo, private readonly userService: UserService) {
         super(repo);
     }

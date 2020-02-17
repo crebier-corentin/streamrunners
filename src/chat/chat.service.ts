@@ -1,11 +1,11 @@
 import { UserEntity } from '../user/user.entity';
-import { ModelService } from '../utils/ModelService';
+import { EntityService } from '../utils/EntityService';
 import { ChatMessageEntity } from './chat-message.entity';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 
 @Injectable()
-export class ChatService extends ModelService<ChatMessageEntity> {
+export class ChatService extends EntityService<ChatMessageEntity> {
     constructor(@InjectRepository(ChatMessageEntity) repo) {
         super(repo);
     }

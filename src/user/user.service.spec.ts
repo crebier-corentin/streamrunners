@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/camelcase,@typescript-eslint/ban-ts-ignore */
 import { TwitchUser } from '../twitch/twitch.interfaces';
+import { TwitchService } from '../twitch/twitch.service';
 import { UserEntity } from './user.entity';
 import { UserService } from './user.service';
 import { Test, TestingModule } from '@nestjs/testing';
@@ -9,6 +10,7 @@ import { Repository } from 'typeorm';
 describe('UserService', () => {
     let service: UserService;
     let repo: Repository<UserEntity>;
+    let twitch: TwitchService;
 
     beforeEach(async () => {
         const module: TestingModule = await Test.createTestingModule({
@@ -18,11 +20,18 @@ describe('UserService', () => {
                     provide: getRepositoryToken(UserEntity),
                     useClass: Repository,
                 },
+                {
+                    provide: TwitchService,
+                    useValue: {
+                        getUsers: jest.fn(),
+                    },
+                },
             ],
         }).compile();
 
         service = module.get<UserService>(UserService);
         repo = module.get<Repository<UserEntity>>(getRepositoryToken(UserEntity));
+        twitch = module.get<TwitchService>(TwitchService);
         // @ts-ignore
         jest.spyOn(repo, 'save').mockImplementation(async entity => entity);
     });
@@ -78,6 +87,94 @@ describe('UserService', () => {
 
             await service.changePointsSave(user, 400);
             expect(user.points).toBe(1400);
+        });
+    });
+
+    describe('syncFromTwitch', () => {
+        it('should call syncFromTwitchProcess with ids', async () => {
+            const mockedFunc = jest.spyOn(service, 'syncFromTwitchProcess').mockResolvedValue();
+
+            //Generate mock ids
+            const userIds1 = [];
+            for (let i = 1; i <= 100; i++) {
+                userIds1.push({ twitchId: i });
+            }
+
+            const userIds2 = [];
+            for (let i = 100; i <= 14; i++) {
+                userIds2.push({ twitchId: i });
+            }
+
+            // @ts-ignore
+            jest.spyOn(repo, 'createQueryBuilder').mockReturnValue({
+                select: jest.fn().mockReturnThis(),
+                offset: jest.fn().mockReturnThis(),
+                limit: jest.fn().mockReturnThis(),
+                getRawMany: jest
+                    .fn()
+                    .mockResolvedValueOnce(userIds1)
+                    .mockResolvedValueOnce(userIds2),
+            });
+
+            await service.syncFromTwitch();
+            expect(mockedFunc).toHaveBeenNthCalledWith(
+                1,
+                userIds1.map(u => u.twitchId)
+            );
+            expect(mockedFunc).toHaveBeenNthCalledWith(
+                2,
+                userIds2.map(u => u.twitchId)
+            );
+        });
+    });
+
+    describe('syncFromTwitchProcess', () => {
+        it('should save displayName and avatar from twitch', async () => {
+            const replyData = {
+                data: [
+                    {
+                        id: '123',
+                        login: 'a',
+                        display_name: 'a',
+                        type: '',
+                        broadcaster_type: '',
+                        description: '',
+                        profile_image_url: 'avatar-a',
+                        offline_image_url: '',
+                        view_count: 49,
+                    },
+                    {
+                        id: '456',
+                        login: 'b',
+                        display_name: 'b',
+                        type: '',
+                        broadcaster_type: 'partner',
+                        description: '',
+                        profile_image_url: 'avatar-b',
+                        offline_image_url:
+                            'https://static-cdn.jtvnw.net/jtv_user_pictures/b7fb5e6e-a8f7-40fb-98de-d9180d052665-channel_offline_image-1920x1080.png',
+                        view_count: 92613450,
+                    },
+                ],
+            };
+            // @ts-ignore
+            jest.spyOn(twitch, 'getUsers').mockResolvedValue({ data: replyData });
+
+            const mockedSet = jest.fn().mockReturnThis();
+
+            // @ts-ignore
+            jest.spyOn(repo, 'createQueryBuilder').mockReturnValue({
+                createQueryBuilder: jest.fn().mockReturnThis(),
+                update: jest.fn().mockReturnThis(),
+                // @ts-ignore
+                set: mockedSet,
+                where: jest.fn().mockReturnThis(),
+                execute: jest.fn().mockReturnThis(),
+            });
+
+            await service.syncFromTwitchProcess(['123', '456']);
+            expect(mockedSet).toHaveBeenCalledWith({ displayName: 'a', avatar: 'avatar-a' });
+            expect(mockedSet).toHaveBeenCalledWith({ displayName: 'b', avatar: 'avatar-b' });
         });
     });
 });

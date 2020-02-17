@@ -2,7 +2,7 @@ import { InternalServerErrorException } from '@nestjs/common';
 import { HttpException } from '@nestjs/common/exceptions/http.exception';
 import { Repository } from 'typeorm';
 
-export abstract class ModelService<T> {
+export abstract class EntityService<T> {
     constructor(protected readonly repo: Repository<T>) {}
 
     public byId(id: number): Promise<T | undefined> {

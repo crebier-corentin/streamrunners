@@ -1,18 +1,21 @@
 import { TwitchUser } from '../twitch/twitch.interfaces';
-import { ModelService } from '../utils/ModelService';
+import { EntityService } from '../utils/EntityService';
 import { formatDatetimeSQL } from '../utils/utils';
 import { UserEntity } from './user.entity';
 import { Injectable } from '@nestjs/common';
+import { Cron, CronExpression } from '@nestjs/schedule';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import moment = require('moment');
 import { RaffleEntity } from '../raffle/raffle.entity';
+import { TwitchService } from '../twitch/twitch.service';
 
 @Injectable()
-export class UserService extends ModelService<UserEntity> {
+export class UserService extends EntityService<UserEntity> {
     constructor(
         @InjectRepository(UserEntity)
-        repo: Repository<UserEntity>
+        repo: Repository<UserEntity>,
+        private readonly twitchService: TwitchService
     ) {
         super(repo);
     }
@@ -70,5 +73,48 @@ export class UserService extends ModelService<UserEntity> {
             })
             .orderBy('user.chatRank', 'DESC')
             .getMany();
+    }
+
+    async syncFromTwitchProcess(ids: string[]): Promise<void> {
+        //Do nothing if ids is empty
+        if (ids.length === 0) return;
+
+        const twitchUsers = await this.twitchService.getUsers(ids);
+
+        //Save displayName and avatar to db
+        await Promise.all(
+            twitchUsers.data.data.map(user =>
+                this.repo
+                    .createQueryBuilder('user')
+                    .update()
+                    .set({ displayName: user.display_name, avatar: user.profile_image_url })
+                    .where('user.twitchId = :twitchId', { twitchId: user.id })
+                    .execute()
+            )
+        );
+    }
+
+    /**
+     * Sync displayName and avatars from twitch
+     * 100 users at a time
+     */
+    @Cron(CronExpression.EVERY_HOUR)
+    async syncFromTwitch(): Promise<void> {
+        let users: { twitchId: string }[];
+        let offset = 0;
+
+        //Process 100 users at a time
+        do {
+            users = await this.repo
+                .createQueryBuilder('user')
+                .select('user.twitchId', 'twitchId')
+                .offset(offset)
+                .limit(offset + 100)
+                .getRawMany();
+
+            offset += 100;
+
+            await this.syncFromTwitchProcess(users.map(u => u.twitchId));
+        } while (users.length > 0);
     }
 }

@@ -1,6 +1,6 @@
 import { UserEntity } from '../user/user.entity';
 import { UserService } from '../user/user.service';
-import { EntityService } from '../utils/EntityService';
+import { EntityService } from '../utils/entity-service';
 import { CouponEntity } from './coupon.entity';
 import { CouponException, CouponExceptionType } from './coupon.exception';
 import { Injectable } from '@nestjs/common';

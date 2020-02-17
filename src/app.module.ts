@@ -10,15 +10,22 @@ import { TwitchModule } from './twitch/twitch.module';
 import { UserModule } from './user/user.module';
 import { WatchModule } from './watch/watch.module';
 import { Module } from '@nestjs/common';
-import { ConfigModule } from '@nestjs/config';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { ScheduleModule } from '@nestjs/schedule';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { OgmaModule } from 'nestjs-ogma';
 
 @Module({
     imports: [
         ConfigModule.forRoot({ isGlobal: true }),
         TypeOrmModule.forRoot(ormconfig),
         ScheduleModule.forRoot(),
+        OgmaModule.forRootAsync(OgmaModule, {
+            inject: [ConfigService],
+            useFactory: (config: ConfigService) => ({
+                interceptor: { format: config.get('ENV') === 'development' ? 'dev' : 'prod' },
+            }),
+        }),
         UserModule,
         AuthModule,
         TwitchModule,

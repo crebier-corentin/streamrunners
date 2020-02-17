@@ -108,7 +108,7 @@
                                            <a class="nav-link" href="/giveaway"><i class="fas fa-star"></i> GiveAway</a>
                                        </li>
                                        <li class="nav-items">
-                                           <a class="nav-link" href="/pointsFunc"><i class="fas fa-plus"></i> Plus de pointsFunc</a>
+                                           <a class="nav-link" href="/points"><i class="fas fa-plus"></i> Plus de points</a>
                                        </li>
                                        #}
                 {% else %}
@@ -125,7 +125,7 @@
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="/logout"><i class="fas fa-sign-out-alt"></i> Se déconnecter</a>
+                        <a class="nav-link" href="/auth/logout"><i class="fas fa-sign-out-alt"></i> Se déconnecter</a>
                     </li>
                 {% else %}
 

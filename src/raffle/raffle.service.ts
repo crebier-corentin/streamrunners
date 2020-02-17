@@ -1,6 +1,6 @@
 import { UserEntity } from '../user/user.entity';
 import { UserService } from '../user/user.service';
-import { EntityService } from '../utils/EntityService';
+import { EntityService } from '../utils/entity-service';
 import { RaffleParticipationEntity } from './raffle-participation.entity';
 import { RaffleEntity } from './raffle.entity';
 import { Injectable, InternalServerErrorException } from '@nestjs/common';

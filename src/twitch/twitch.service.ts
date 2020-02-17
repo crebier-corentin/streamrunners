@@ -1,5 +1,5 @@
-import CacheService from '../utils/CacheService';
-import { Semaphore } from '../utils/Semaphore';
+import CacheService from '../utils/cache-service';
+import { Semaphore } from '../utils/semaphore';
 import { sleep } from '../utils/utils';
 import { TwitchResponse, TwitchUser } from './twitch.interfaces';
 import { Injectable, Scope } from '@nestjs/common';

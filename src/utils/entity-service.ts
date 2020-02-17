@@ -23,4 +23,8 @@ export abstract class EntityService<T> {
     public remove(entity: T): Promise<T> {
         return this.repo.remove(entity);
     }
+
+    public count(): Promise<number> {
+        return this.repo.count();
+    }
 }

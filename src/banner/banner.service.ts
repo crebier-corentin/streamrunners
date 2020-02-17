@@ -2,15 +2,20 @@ import * as fs from 'fs';
 import * as path from 'path';
 import { UserService } from '../user/user.service';
 import { duplicatedArray } from '../utils/utils';
-import { Injectable } from '@nestjs/common';
+import { Injectable, OnApplicationBootstrap } from '@nestjs/common';
 import { Cron, CronExpression } from '@nestjs/schedule';
 import { createCanvas, Image, loadImage } from 'canvas';
 
 @Injectable()
-export class BannerService {
+export class BannerService implements OnApplicationBootstrap {
     constructor(private readonly userService: UserService) {}
 
     private cache: Buffer;
+
+    async onApplicationBootstrap() {
+        await this.loadDefaultBanner();
+        await this.updateBanner();
+    }
 
     public async loadDefaultBanner() {
         this.cache = await fs.promises.readFile(path.join(__dirname, '../../public/img/photo-wall.png'));

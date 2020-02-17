@@ -1,5 +1,5 @@
 import { UserEntity } from '../user/user.entity';
-import { EntityService } from '../utils/EntityService';
+import { EntityService } from '../utils/entity-service';
 import { StreamQueueEntity } from './stream-queue.entity';
 import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { HttpException } from '@nestjs/common/exceptions/http.exception';

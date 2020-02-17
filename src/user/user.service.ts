@@ -1,21 +1,25 @@
 import { TwitchUser } from '../twitch/twitch.interfaces';
-import { EntityService } from '../utils/EntityService';
+import { EntityService } from '../utils/entity-service';
 import { formatDatetimeSQL } from '../utils/utils';
 import { UserEntity } from './user.entity';
-import { Injectable } from '@nestjs/common';
+import { forwardRef, Inject, Injectable } from '@nestjs/common';
 import { Cron, CronExpression } from '@nestjs/schedule';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import moment = require('moment');
 import { RaffleEntity } from '../raffle/raffle.entity';
 import { TwitchService } from '../twitch/twitch.service';
+import CacheService from '../utils/cache-service';
+import { DiscordBotService } from '../discord/discord-bot.service';
 
 @Injectable()
 export class UserService extends EntityService<UserEntity> {
     constructor(
         @InjectRepository(UserEntity)
         repo: Repository<UserEntity>,
-        private readonly twitchService: TwitchService
+        private readonly twitchService: TwitchService,
+        @Inject(forwardRef(() => DiscordBotService))
+        private readonly discordBot: DiscordBotService
     ) {
         super(repo);
     }
@@ -116,5 +120,33 @@ export class UserService extends EntityService<UserEntity> {
 
             await this.syncFromTwitchProcess(users.map(u => u.twitchId));
         } while (users.length > 0);
+    }
+
+    private cache = new CacheService(120);
+
+    async mostPoints(): Promise<any> {
+        return await this.cache.get('mostPoints', async () => {
+            return await this.repo
+                .createQueryBuilder('user')
+                .select(['user.username', 'user.display_name', 'user.points'])
+                .orderBy('user.points', 'DESC')
+                .limit(10)
+                .getMany();
+        });
+    }
+
+    async mostPlace(): Promise<any> {
+        return await this.cache.get('mostPlace', async () => {
+            return await this.repo
+                .createQueryBuilder('user')
+                .leftJoin('user.streamQueue', 'queue')
+                .select('user.username', 'username')
+                .addSelect('user.display_name', 'display_name')
+                .addSelect('SUM(queue.time)', 'time')
+                .orderBy('time', 'DESC')
+                .groupBy('user.id')
+                .limit(10)
+                .getRawMany();
+        });
     }
 }

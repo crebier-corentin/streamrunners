@@ -4,6 +4,7 @@ import ormconfig = require('./ormconfig');
 import { BannerModule } from './banner/banner.module';
 import { ChatModule } from './chat/chat.module';
 import { CouponModule } from './coupon/coupon.module';
+import { DiscordModule } from './discord/discord.module';
 import { RaffleModule } from './raffle/raffle.module';
 import { StreamQueueModule } from './stream-queue/stream-queue.module';
 import { TwitchModule } from './twitch/twitch.module';
@@ -35,6 +36,7 @@ import { OgmaModule } from 'nestjs-ogma';
         CouponModule,
         RaffleModule,
         BannerModule,
+        DiscordModule,
     ],
     controllers: [AppController],
 })

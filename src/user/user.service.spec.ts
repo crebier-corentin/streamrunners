@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/camelcase,@typescript-eslint/ban-ts-ignore */
+import { DiscordBotService } from '../discord/discord-bot.service';
 import { TwitchUser } from '../twitch/twitch.interfaces';
 import { TwitchService } from '../twitch/twitch.service';
 import { UserEntity } from './user.entity';
@@ -25,6 +26,10 @@ describe('UserService', () => {
                     useValue: {
                         getUsers: jest.fn(),
                     },
+                },
+                {
+                    provide: DiscordBotService,
+                    useValue: {},
                 },
             ],
         }).compile();

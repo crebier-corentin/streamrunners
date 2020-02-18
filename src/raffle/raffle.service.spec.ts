@@ -8,13 +8,14 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import MockDate = require('mockdate');
+import { DiscordBotService } from '../discord/discord-bot.service';
 
 describe('RaffleService', () => {
     let service: RaffleService;
     let userService: UserService;
     let repo: Repository<RaffleEntity>;
     let RPrepo: Repository<RaffleParticipationEntity>;
-
+    let discord: DiscordBotService;
     beforeEach(async () => {
         const module: TestingModule = await Test.createTestingModule({
             providers: [
@@ -37,6 +38,12 @@ describe('RaffleService', () => {
                     provide: getRepositoryToken(RaffleParticipationEntity),
                     useClass: Repository,
                 },
+                {
+                    provide: DiscordBotService,
+                    useValue: {
+                        sendRaffleNotificationMessage: jest.fn(),
+                    },
+                },
             ],
         }).compile();
 
@@ -44,7 +51,7 @@ describe('RaffleService', () => {
         userService = module.get<UserService>(UserService);
         repo = module.get<Repository<RaffleEntity>>(getRepositoryToken(RaffleEntity));
         RPrepo = module.get<Repository<RaffleParticipationEntity>>(getRepositoryToken(RaffleParticipationEntity));
-
+        discord = module.get<DiscordBotService>(DiscordBotService);
         // @ts-ignore
         jest.spyOn(repo, 'save').mockImplementation(async entity => entity);
         // @ts-ignore
@@ -255,6 +262,39 @@ describe('RaffleService', () => {
             await service.buy(1, user);
             expect(user.points).toBe(900);
             expect(rp.tickets).toBe(11);
+        });
+    });
+
+    describe('add', () => {
+        it('should insert a new raffle and call DiscordBotService.sendRaffleNotificationMessage', async () => {
+            const mockedSave = jest.spyOn(repo, 'save');
+            const mockedDiscord = jest.spyOn(discord, 'sendRaffleNotificationMessage');
+
+            const raffleData = {
+                title: 'title',
+                description: null,
+                icon: 'icon',
+                price: 100,
+                maxTickets: -1,
+                endingDate: new Date('2019-01-01'),
+                code: 'abc',
+                value: 5,
+            };
+
+            const raffle = new RaffleEntity();
+            raffle.title = raffleData.title;
+            raffle.description = ''; //Null description should become empty string
+            raffle.icon = raffleData.icon;
+            raffle.price = raffleData.price;
+            raffle.maxTickets = raffleData.maxTickets;
+            raffle.endingDate = raffleData.endingDate;
+            raffle.code = raffleData.code;
+            raffle.value = raffleData.value;
+
+            await service.add(raffleData);
+            expect(mockedSave).toHaveBeenCalledWith(raffle);
+
+            expect(mockedDiscord).toHaveBeenCalledWith(raffle);
         });
     });
 });

@@ -26,13 +26,18 @@ export class UserService extends EntityService<UserEntity> {
 
     /**
      * Creates or update an user from twitch authentication
+     * Updates the discord site user count in case of new user
      *
      * @param data Data from the twitch request
      * @return The newly created or updated user
      */
     async updateFromTwitch(data: TwitchUser): Promise<UserEntity> {
         //Find or create
-        const user = (await this.repo.findOne({ where: { twitchId: data.id } })) ?? new UserEntity();
+        let user = await this.repo.findOne({ where: { twitchId: data.id } });
+        const isNewUser = user == undefined;
+        if (isNewUser) {
+            user = new UserEntity();
+        }
 
         //Update data
         user.twitchId = data.id;
@@ -41,7 +46,12 @@ export class UserService extends EntityService<UserEntity> {
         user.avatar = data.profile_image_url;
 
         //Save
-        return this.repo.save(user);
+        const result = await this.repo.save(user);
+        //Update count if new users
+        if (isNewUser) {
+            await this.discordBot.updateSiteUserCount();
+        }
+        return result;
     }
 
     async changePointsSave(user: UserEntity, amount: number) {

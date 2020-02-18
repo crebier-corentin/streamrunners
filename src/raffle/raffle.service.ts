@@ -1,3 +1,4 @@
+import { DiscordBotService } from '../discord/discord-bot.service';
 import { UserEntity } from '../user/user.entity';
 import { UserService } from '../user/user.service';
 import { EntityService } from '../utils/entity-service';
@@ -16,7 +17,8 @@ export class RaffleService extends EntityService<RaffleEntity> {
     constructor(
         @InjectRepository(RaffleEntity) repo,
         @InjectRepository(RaffleParticipationEntity) private readonly RPrepo: Repository<RaffleParticipationEntity>,
-        private readonly userService: UserService
+        private readonly userService: UserService,
+        private readonly discordBot: DiscordBotService
     ) {
         super(repo);
     }
@@ -134,5 +136,40 @@ export class RaffleService extends EntityService<RaffleEntity> {
         await this.userService.changePointsSave(user, -raffle.price);
         rp.tickets++;
         await this.RPrepo.save(rp);
+    }
+
+    async add({
+        title,
+        description,
+        icon,
+        price,
+        maxTickets,
+        endingDate,
+        code,
+        value,
+    }: {
+        title: string;
+        description: string | null | undefined;
+        icon: string;
+        price: number;
+        maxTickets: number;
+        endingDate: Date;
+        code: string | null | undefined;
+        value: number;
+    }) {
+        const raffle = new RaffleEntity();
+        raffle.title = title;
+        raffle.description = description ?? '';
+        raffle.icon = icon;
+        raffle.price = price;
+        raffle.maxTickets = maxTickets;
+        raffle.endingDate = endingDate;
+        raffle.code = code;
+        raffle.value = value;
+
+        await this.repo.save(raffle);
+
+        //Discord notification
+        await this.discordBot.sendRaffleNotificationMessage(raffle);
     }
 }

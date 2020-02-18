@@ -12,6 +12,7 @@ describe('UserService', () => {
     let service: UserService;
     let repo: Repository<UserEntity>;
     let twitch: TwitchService;
+    let discord: DiscordBotService;
 
     beforeEach(async () => {
         const module: TestingModule = await Test.createTestingModule({
@@ -29,7 +30,9 @@ describe('UserService', () => {
                 },
                 {
                     provide: DiscordBotService,
-                    useValue: {},
+                    useValue: {
+                        updateSiteUserCount: jest.fn(),
+                    },
                 },
             ],
         }).compile();
@@ -37,6 +40,7 @@ describe('UserService', () => {
         service = module.get<UserService>(UserService);
         repo = module.get<Repository<UserEntity>>(getRepositoryToken(UserEntity));
         twitch = module.get<TwitchService>(TwitchService);
+        discord = module.get<DiscordBotService>(DiscordBotService);
         // @ts-ignore
         jest.spyOn(repo, 'save').mockImplementation(async entity => entity);
     });
@@ -58,14 +62,17 @@ describe('UserService', () => {
             view_count: 0,
         };
 
-        it('should create a new user', async () => {
+        it('should create a new user and call DiscordBotService.updateSiteUserCount', async () => {
             jest.spyOn(repo, 'findOne').mockResolvedValue(undefined);
+            const mockedFunc = jest.spyOn(discord, 'updateSiteUserCount');
 
             const user = await service.updateFromTwitch(twitchUser);
             expect(user.twitchId).toBe(twitchUser.id);
             expect(user.username).toBe(twitchUser.login);
             expect(user.displayName).toBe(twitchUser.display_name);
             expect(user.avatar).toBe(twitchUser.profile_image_url);
+
+            expect(mockedFunc).toHaveBeenCalled();
         });
 
         it('update an already existing user', async () => {
@@ -85,8 +92,8 @@ describe('UserService', () => {
         });
     });
 
-    describe('refund', () => {
-        it('should refund the user', async () => {
+    describe('changePointsSave', () => {
+        it("should change the user's points", async () => {
             const user = new UserEntity();
             user.points = 1000;
 

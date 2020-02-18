@@ -1,3 +1,4 @@
+import { DiscordBotService } from '../discord/discord-bot.service';
 import { UserEntity } from '../user/user.entity';
 import { EntityService } from '../utils/entity-service';
 import { StreamQueueEntity } from './stream-queue.entity';
@@ -9,7 +10,10 @@ import { Repository } from 'typeorm';
 
 @Injectable()
 export class StreamQueueService extends EntityService<StreamQueueEntity> {
-    constructor(@InjectRepository(StreamQueueEntity) repo: Repository<StreamQueueEntity>) {
+    constructor(
+        @InjectRepository(StreamQueueEntity) repo: Repository<StreamQueueEntity>,
+        private readonly discordBot: DiscordBotService
+    ) {
         super(repo);
     }
 
@@ -63,6 +67,8 @@ export class StreamQueueService extends EntityService<StreamQueueEntity> {
         stream.time = time;
         stream.user = user;
         await this.repo.save(stream);
+
+        await this.discordBot.sendStreamNotificationMessage();
     }
 
     async skipCurrent() {

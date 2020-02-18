@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/ban-ts-ignore */
+import { DiscordBotService } from '../discord/discord-bot.service';
 import { UserEntity } from '../user/user.entity';
 import { UserService } from '../user/user.service';
 import { RaffleParticipationEntity } from './raffle-participation.entity';
@@ -8,7 +9,6 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import MockDate = require('mockdate');
-import { DiscordBotService } from '../discord/discord-bot.service';
 
 describe('RaffleService', () => {
     let service: RaffleService;
@@ -23,7 +23,7 @@ describe('RaffleService', () => {
                 {
                     provide: UserService,
                     useValue: {
-                        changePointsSave: jest.fn(async (user: UserEntity, amount: number) => {
+                        changePointsSave: jest.fn((user: UserEntity, amount: number) => {
                             user.points += amount;
                         }),
                         byId: jest.fn(),
@@ -53,9 +53,9 @@ describe('RaffleService', () => {
         RPrepo = module.get<Repository<RaffleParticipationEntity>>(getRepositoryToken(RaffleParticipationEntity));
         discord = module.get<DiscordBotService>(DiscordBotService);
         // @ts-ignore
-        jest.spyOn(repo, 'save').mockImplementation(async entity => entity);
+        jest.spyOn(repo, 'save').mockImplementation(entity => entity);
         // @ts-ignore
-        jest.spyOn(RPrepo, 'save').mockImplementation(async entity => entity);
+        jest.spyOn(RPrepo, 'save').mockImplementation(entity => entity);
 
         MockDate.reset();
     });
@@ -84,6 +84,7 @@ describe('RaffleService', () => {
                 }),
             });
 
+            // @ts-ignore
             const raffles = await service.active();
             expect(raffles[0].id).toBe(1);
             expect(raffles[0].total).toBe(10);
@@ -156,7 +157,8 @@ describe('RaffleService', () => {
             });
 
             // @ts-ignore
-            const mockedSave = jest.spyOn(repo, 'save').mockImplementation(async entity => entity);
+            const mockedSave = jest.spyOn(repo, 'save').mockImplementation(entity => entity);
+            // @ts-ignore
             await service.pickWinners();
 
             const calls = mockedSave.mock.calls;

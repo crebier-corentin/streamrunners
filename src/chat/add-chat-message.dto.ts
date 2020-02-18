@@ -6,5 +6,5 @@ export class AddChatMessageDto {
     @IsString()
     @MaxLength(200)
     @Trim()
-    message: string;
+    public message: string;
 }

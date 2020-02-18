@@ -8,24 +8,24 @@ import moment = require('moment');
 @Expose()
 export class ChatMessageEntity {
     @PrimaryGeneratedColumn()
-    id: number;
+    public id: number;
 
     @Type(type => UserEntity)
     @ManyToOne(
         type => UserEntity,
         user => user.chatMessages
     )
-    author: UserEntity;
+    public author: UserEntity;
 
     @Transform((value, obj: ChatMessageEntity) =>
         obj.deleted ? `Message supprimé par ${obj.deletedBy.displayName}` : value
     ) //Deleted by message
     @Column()
-    message: string;
+    public message: string;
 
     @Exclude()
     @ManyToOne(type => UserEntity, { nullable: true })
-    deletedBy: UserEntity | null;
+    public deletedBy: UserEntity | null;
 
     @Transform(value =>
         moment(value)
@@ -33,10 +33,10 @@ export class ChatMessageEntity {
             .fromNow()
     )
     @CreateDateColumn()
-    createdAt: Date;
+    public createdAt: Date;
 
     @Expose()
-    get deleted() {
+    public get deleted(): boolean {
         return this.deletedBy != null;
     }
 }

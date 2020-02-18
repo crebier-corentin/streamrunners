@@ -5,11 +5,11 @@ import { InjectRepository } from '@nestjs/typeorm';
 
 @Injectable()
 export class DiscordUserService extends EntityService<DiscordUserEntity> {
-    constructor(@InjectRepository(DiscordUserEntity) repo) {
+    public constructor(@InjectRepository(DiscordUserEntity) repo) {
         super(repo);
     }
 
-    async byDiscordIdOrCreate(discordId: string): Promise<DiscordUserEntity> {
+    public async byDiscordIdOrCreate(discordId: string): Promise<DiscordUserEntity> {
         let discordUser = await this.repo.findOne({ where: { discordId } });
 
         if (discordUser == undefined) {
@@ -27,7 +27,7 @@ export class DiscordUserService extends EntityService<DiscordUserEntity> {
      *
      * @return if the user leveled up
      */
-    async increaseXp(discordUser: DiscordUserEntity): Promise<boolean> {
+    public async increaseXp(discordUser: DiscordUserEntity): Promise<boolean> {
         discordUser.xp++;
         //Level up
         if (discordUser.xp > 100) {

@@ -1,6 +1,7 @@
 import { ModeratorGuard } from './moderator.guard';
 
 describe('ModeratorGuard', () => {
+    // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
     const getMockedContext = user => {
         return {
             switchToHttp: jest.fn().mockReturnThis(),

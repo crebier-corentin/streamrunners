@@ -5,7 +5,7 @@ export enum CouponExceptionType {
 }
 
 export class CouponException {
-    constructor(public readonly type: CouponExceptionType) {}
+    public constructor(public readonly type: CouponExceptionType) {}
 
     public errorMessage(): string {
         switch (this.type) {

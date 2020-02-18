@@ -1,4 +1,8 @@
+import { DiscordBotService } from '../discord/discord-bot.service';
+import { RaffleEntity } from '../raffle/raffle.entity';
 import { TwitchUser } from '../twitch/twitch.interfaces';
+import { TwitchService } from '../twitch/twitch.service';
+import CacheService from '../utils/cache-service';
 import { EntityService } from '../utils/entity-service';
 import { formatDatetimeSQL } from '../utils/utils';
 import { UserEntity } from './user.entity';
@@ -7,14 +11,10 @@ import { Cron, CronExpression } from '@nestjs/schedule';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import moment = require('moment');
-import { RaffleEntity } from '../raffle/raffle.entity';
-import { TwitchService } from '../twitch/twitch.service';
-import CacheService from '../utils/cache-service';
-import { DiscordBotService } from '../discord/discord-bot.service';
 
 @Injectable()
 export class UserService extends EntityService<UserEntity> {
-    constructor(
+    public constructor(
         @InjectRepository(UserEntity)
         repo: Repository<UserEntity>,
         private readonly twitchService: TwitchService,
@@ -31,7 +31,7 @@ export class UserService extends EntityService<UserEntity> {
      * @param data Data from the twitch request
      * @return The newly created or updated user
      */
-    async updateFromTwitch(data: TwitchUser): Promise<UserEntity> {
+    public async updateFromTwitch(data: TwitchUser): Promise<UserEntity> {
         //Find or create
         let user = await this.repo.findOne({ where: { twitchId: data.id } });
         const isNewUser = user == undefined;
@@ -54,12 +54,12 @@ export class UserService extends EntityService<UserEntity> {
         return result;
     }
 
-    async changePointsSave(user: UserEntity, amount: number) {
+    public async changePointsSave(user: UserEntity, amount: number): Promise<void> {
         user.changePoints(amount);
         await this.repo.save(user);
     }
 
-    pickRaffleWinner(raffle: RaffleEntity): Promise<UserEntity> {
+    public pickRaffleWinner(raffle: RaffleEntity): Promise<UserEntity> {
         return this.repo
             .createQueryBuilder('user')
             .leftJoin('user.raffleParticipations', 'rp')
@@ -69,7 +69,7 @@ export class UserService extends EntityService<UserEntity> {
             .getOne();
     }
 
-    pickRandomNonDefaultAvatars(count: number) {
+    public pickRandomNonDefaultAvatars(count: number): Promise<UserEntity[]> {
         return this.repo
             .createQueryBuilder('user')
             .select('user.avatar')
@@ -79,7 +79,7 @@ export class UserService extends EntityService<UserEntity> {
             .getMany();
     }
 
-    viewers() {
+    public viewers(): Promise<UserEntity[]> {
         return this.repo
             .createQueryBuilder('user')
             .where('user.lastOnWatchPage > :datetime', {
@@ -89,7 +89,7 @@ export class UserService extends EntityService<UserEntity> {
             .getMany();
     }
 
-    async syncFromTwitchProcess(ids: string[]): Promise<void> {
+    private async syncFromTwitchProcess(ids: string[]): Promise<void> {
         //Do nothing if ids is empty
         if (ids.length === 0) return;
 
@@ -113,7 +113,7 @@ export class UserService extends EntityService<UserEntity> {
      * 100 users at a time
      */
     @Cron(CronExpression.EVERY_HOUR)
-    async syncFromTwitch(): Promise<void> {
+    public async syncFromTwitch(): Promise<void> {
         let users: { twitchId: string }[];
         let offset = 0;
 
@@ -134,9 +134,9 @@ export class UserService extends EntityService<UserEntity> {
 
     private cache = new CacheService(120);
 
-    async mostPoints(): Promise<any> {
-        return await this.cache.get('mostPoints', async () => {
-            return await this.repo
+    public mostPoints(): Promise<any> {
+        return this.cache.get('mostPoints', () => {
+            return this.repo
                 .createQueryBuilder('user')
                 .select(['user.username', 'user.display_name', 'user.points'])
                 .orderBy('user.points', 'DESC')
@@ -145,9 +145,9 @@ export class UserService extends EntityService<UserEntity> {
         });
     }
 
-    async mostPlace(): Promise<any> {
-        return await this.cache.get('mostPlace', async () => {
-            return await this.repo
+    public mostPlace(): Promise<any> {
+        return this.cache.get('mostPlace', () => {
+            return this.repo
                 .createQueryBuilder('user')
                 .leftJoin('user.streamQueue', 'queue')
                 .select('user.username', 'username')

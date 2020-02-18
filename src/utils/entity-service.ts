@@ -3,7 +3,7 @@ import { HttpException } from '@nestjs/common/exceptions/http.exception';
 import { Repository } from 'typeorm';
 
 export abstract class EntityService<T> {
-    constructor(protected readonly repo: Repository<T>) {}
+    public constructor(protected readonly repo: Repository<T>) {}
 
     public byId(id: number): Promise<T | undefined> {
         return this.repo.findOne(id);

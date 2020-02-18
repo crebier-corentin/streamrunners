@@ -3,11 +3,11 @@ import NodeCache = require('node-cache');
 class CacheService {
     private cache: NodeCache;
 
-    constructor(ttlSeconds) {
+    public constructor(ttlSeconds) {
         this.cache = new NodeCache({ stdTTL: ttlSeconds, checkperiod: ttlSeconds * 0.2, useClones: false });
     }
 
-    get<T>(key: string, storeFunction: () => Promise<T>): Promise<T> {
+    public get<T>(key: string, storeFunction: () => Promise<T>): Promise<T> {
         const value = this.cache.get(key) as T;
         if (value) {
             return Promise.resolve(value);
@@ -19,11 +19,11 @@ class CacheService {
         });
     }
 
-    del(keys) {
+    public del(keys): void {
         this.cache.del(keys);
     }
 
-    delStartWith(startStr = '') {
+    public delStartWith(startStr = ''): void {
         if (!startStr) {
             return;
         }
@@ -36,7 +36,7 @@ class CacheService {
         }
     }
 
-    flush() {
+    public flush(): void {
         this.cache.flushAll();
     }
 }

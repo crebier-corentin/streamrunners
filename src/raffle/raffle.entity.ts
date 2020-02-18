@@ -3,46 +3,36 @@ import { formatDuration } from '../shared/shared-utils';
 import { UserEntity } from '../user/user.entity';
 import { RaffleParticipationEntity } from './raffle-participation.entity';
 import * as moment from 'moment';
-import {
-    Column,
-    CreateDateColumn,
-    Entity,
-    JoinColumn,
-    JoinTable,
-    ManyToMany,
-    ManyToOne,
-    OneToMany,
-    PrimaryGeneratedColumn,
-} from 'typeorm';
+import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('raffle')
 export class RaffleEntity {
     @PrimaryGeneratedColumn()
-    id: number;
+    public id: number;
 
     @Column()
-    title: string;
+    public title: string;
 
     @Column({ default: '' })
-    description: string;
+    public description: string;
 
     @Column()
-    icon: string;
+    public icon: string;
 
     @Column()
-    price: number;
+    public price: number;
 
     @Column({ default: -1 })
-    maxTickets: number;
+    public maxTickets: number;
 
     @Column('datetime')
-    endingDate: Date;
+    public endingDate: Date;
 
     @Column({ nullable: true })
-    code: string | null;
+    public code: string | null;
 
     @Column({ default: 0 })
-    value: number;
+    public value: number;
 
     @ManyToOne(
         type => UserEntity,
@@ -50,28 +40,28 @@ export class RaffleEntity {
         { nullable: true }
     )
     @JoinColumn({ name: 'winnerId' })
-    winner: UserEntity | null;
+    public winner: UserEntity | null;
 
     @OneToMany(
         type => RaffleParticipationEntity,
         r => r.raffle
     )
-    participations: RaffleParticipationEntity[];
+    public participations: RaffleParticipationEntity[];
 
     @CreateDateColumn()
-    createdAt: Date;
+    public createdAt: Date;
 
-    isActive(): boolean {
+    public isActive(): boolean {
         return this.winner == null && this.endingDate.getTime() > new Date().getTime();
     }
 
-    remainingTime(): string {
+    public remainingTime(): string {
         const timeLeft = moment.duration(moment(this.endingDate).diff(moment()));
 
         return formatDuration(timeLeft);
     }
 
-    formattedEnded(): string {
+    public formattedEnded(): string {
         return moment(this.endingDate)
             .locale('fr')
             .format('LL');

@@ -10,14 +10,14 @@ import { Repository } from 'typeorm';
 
 @Injectable()
 export class StreamQueueService extends EntityService<StreamQueueEntity> {
-    constructor(
+    public constructor(
         @InjectRepository(StreamQueueEntity) repo: Repository<StreamQueueEntity>,
         private readonly discordBot: DiscordBotService
     ) {
         super(repo);
     }
 
-    byIdAndUserId(streamId: number, userId: number): Promise<StreamQueueEntity | undefined> {
+    public byIdAndUserId(streamId: number, userId: number): Promise<StreamQueueEntity | undefined> {
         return this.repo
             .createQueryBuilder('queue')
             .leftJoinAndSelect('queue.user', 'user')
@@ -37,7 +37,7 @@ export class StreamQueueService extends EntityService<StreamQueueEntity> {
         return entity;
     }
 
-    currentStream(): Promise<StreamQueueEntity | undefined> {
+    public currentStream(): Promise<StreamQueueEntity | undefined> {
         return this.repo
             .createQueryBuilder('queue')
             .leftJoinAndSelect('queue.user', 'user')
@@ -46,7 +46,7 @@ export class StreamQueueService extends EntityService<StreamQueueEntity> {
             .getOne();
     }
 
-    currentAndNextStreams(): Promise<StreamQueueEntity[]> {
+    public currentAndNextStreams(): Promise<StreamQueueEntity[]> {
         return this.repo
             .createQueryBuilder('queue')
             .select(['queue.time', 'queue.current', 'queue.id'])
@@ -57,11 +57,11 @@ export class StreamQueueService extends EntityService<StreamQueueEntity> {
             .getMany();
     }
 
-    async isEmpty(): Promise<boolean> {
+    public async isEmpty(): Promise<boolean> {
         return (await this.currentStream()) == undefined;
     }
 
-    async insert(cost: number, time: number, user: UserEntity) {
+    public async insert(cost: number, time: number, user: UserEntity): Promise<void> {
         const stream = new StreamQueueEntity();
         stream.amount = cost;
         stream.time = time;
@@ -71,7 +71,7 @@ export class StreamQueueService extends EntityService<StreamQueueEntity> {
         await this.discordBot.sendStreamNotificationMessage();
     }
 
-    async skipCurrent() {
+    public async skipCurrent(): Promise<void> {
         const stream = await this.currentStream();
         if (stream == undefined) return;
 
@@ -80,7 +80,7 @@ export class StreamQueueService extends EntityService<StreamQueueEntity> {
     }
 
     @Cron(CronExpression.EVERY_SECOND)
-    async updateQueue() {
+    private async updateQueue(): Promise<void> {
         const currentStream = await this.currentStream();
 
         //If queue is empty do nothing

@@ -1,6 +1,6 @@
+import { AnnouncementModule } from './announcement/announcement.module';
 import { AppController } from './app.controller';
 import { AuthModule } from './auth/auth.module';
-import ormconfig = require('./ormconfig');
 import { BannerModule } from './banner/banner.module';
 import { ChatModule } from './chat/chat.module';
 import { CouponModule } from './coupon/coupon.module';
@@ -15,7 +15,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { ScheduleModule } from '@nestjs/schedule';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { OgmaModule } from 'nestjs-ogma';
-import { AnnouncementModule } from './announcement/announcement.module';
+import ormconfig = require('./ormconfig');
 
 @Module({
     imports: [

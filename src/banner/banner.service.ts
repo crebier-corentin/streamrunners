@@ -8,16 +8,16 @@ import { createCanvas, Image, loadImage } from 'canvas';
 
 @Injectable()
 export class BannerService implements OnApplicationBootstrap {
-    constructor(private readonly userService: UserService) {}
+    public constructor(private readonly userService: UserService) {}
 
     private cache: Buffer;
 
-    async onApplicationBootstrap() {
+    public async onApplicationBootstrap(): Promise<void> {
         await this.loadDefaultBanner();
         await this.updateBanner();
     }
 
-    public async loadDefaultBanner() {
+    public async loadDefaultBanner(): Promise<void> {
         this.cache = await fs.promises.readFile(path.join(__dirname, '../../public/img/photo-wall.png'));
     }
 
@@ -36,7 +36,7 @@ export class BannerService implements OnApplicationBootstrap {
         return avatars;
     }
 
-    private async drawBanner(columns: number, rows: number, avatars: Image[]): Promise<Buffer> {
+    private drawBanner(columns: number, rows: number, avatars: Image[]): Buffer {
         const canvas = createCanvas(columns * 100, rows * 100);
         const ctx = canvas.getContext('2d');
 
@@ -69,7 +69,7 @@ export class BannerService implements OnApplicationBootstrap {
         this.cache = await this.drawBanner(columnCount, rowsCount, avatars);
     }
 
-    public getBanner() {
+    public getBanner(): Buffer {
         return this.cache;
     }
 }

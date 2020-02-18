@@ -1,5 +1,4 @@
 import { UserModule } from '../user/user.module';
-import { UserService } from '../user/user.service';
 import { BannerController } from './banner.controller';
 import { BannerService } from './banner.service';
 import { Module } from '@nestjs/common';

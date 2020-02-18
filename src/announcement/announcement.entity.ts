@@ -5,23 +5,23 @@ import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn } f
 @Entity('announcement')
 export class AnnouncementEntity {
     @PrimaryGeneratedColumn()
-    id: number;
+    public id: number;
 
     @Column()
-    text: string;
+    public text: string;
 
     @Column()
-    color: string;
+    public color: string;
 
     @Column()
-    url: string;
+    public url: string;
 
     @Column({ default: false })
-    active: boolean;
+    public active: boolean;
 
     @ManyToOne(type => UserEntity)
-    createdBy: UserEntity;
+    public createdBy: UserEntity;
 
     @CreateDateColumn()
-    createdAt: Date;
+    public createdAt: Date;
 }

@@ -20,8 +20,8 @@ export function formatDatetimeSQL(date: moment.Moment | Date): string {
     return momentDate.utc().format('YYYY-MM-DD HH:mm:ss');
 }
 
-export function intervalWait(ms: number, callback: () => Promise<unknown>) {
-    const func = () => {
+export function intervalWait(ms: number, callback: () => Promise<unknown>): void {
+    const func = (): void => {
         callback()
             .then(() => {
                 setTimeout(func, ms);

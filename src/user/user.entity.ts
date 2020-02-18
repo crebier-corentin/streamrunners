@@ -21,78 +21,78 @@ import {
 @Entity('user')
 export class UserEntity {
     @PrimaryGeneratedColumn()
-    id: number;
+    public id: number;
 
     @Column()
-    twitchId: string;
+    public twitchId: string;
 
     @Column()
-    username: string;
+    public username: string;
 
     @Expose()
     @Column()
-    displayName: string;
+    public displayName: string;
 
     @Column()
-    avatar: string;
+    public avatar: string;
 
     @Column({ default: 0 })
-    points: number;
+    public points: number;
 
     @Column({ default: false })
-    moderator: boolean;
+    public moderator: boolean;
 
     @Column('datetime', { default: () => 'CURRENT_TIMESTAMP' })
-    lastUpdate: Date;
+    public lastUpdate: Date;
 
     @Column('datetime', { default: () => 'CURRENT_TIMESTAMP' })
-    lastOnWatchPage: Date;
+    public lastOnWatchPage: Date;
 
     @Expose()
     @Column({ default: ChatRank.Member })
-    chatRank: ChatRank;
+    public chatRank: ChatRank;
 
     @OneToMany(
         type => StreamQueueEntity,
         StreamQueue => StreamQueue.user
     )
-    streamsQueued: StreamQueueEntity[];
+    public streamsQueued: StreamQueueEntity[];
 
     @OneToMany(
         type => ChatMessageEntity,
         message => message.author
     )
-    chatMessages: ChatMessageEntity[];
+    public chatMessages: ChatMessageEntity[];
 
     @ManyToMany(
         type => CouponEntity,
         coupon => coupon.users
     )
     @JoinTable()
-    coupons: CouponEntity[];
+    public coupons: CouponEntity[];
 
     @OneToMany(
         type => RaffleEntity,
         r => r.winner,
         { eager: true }
     )
-    rafflesWon: RaffleEntity[];
+    public rafflesWon: RaffleEntity[];
 
     @OneToMany(
         type => RaffleParticipationEntity,
         r => r.user
     )
-    raffleParticipations: RaffleParticipationEntity[];
+    public raffleParticipations: RaffleParticipationEntity[];
 
     @Exclude()
     @CreateDateColumn()
-    createdAt: Date;
+    public createdAt: Date;
 
     @Exclude()
     @UpdateDateColumn()
-    updatedAt: Date;
+    public updatedAt: Date;
 
-    changePoints(amount: number) {
+    public changePoints(amount: number): void {
         if (this.points != undefined) {
             this.points = Math.round(this.points + amount);
         } else {

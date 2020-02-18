@@ -6,21 +6,21 @@ import { Controller, Get, Redirect, Req, UseGuards } from '@nestjs/common';
 export class AuthController {
     @UseGuards(LoginGuard)
     @Get('/twitch')
-    loginRedirect() {
+    public loginRedirect(): void {
         //
     }
 
     @UseGuards(LoginGuard)
     @Redirect('/')
     @Get('/twitch/callback')
-    loginCallback() {
+    public loginCallback(): void {
         //
     }
 
     @UseGuards(AuthenticatedGuard)
     @Redirect('/')
     @Get('/logout')
-    logout(@Req() req) {
+    public logout(@Req() req): void {
         req.logout();
     }
 }

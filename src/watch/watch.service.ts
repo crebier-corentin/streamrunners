@@ -7,13 +7,13 @@ import * as moment from 'moment';
 
 @Injectable()
 export class WatchService {
-    constructor(
+    public constructor(
         private readonly streamQueueService: StreamQueueService,
         private readonly userService: UserService,
         private readonly twitch: TwitchService
     ) {}
 
-    async updatePoints(user: UserEntity) {
+    public async updatePoints(user: UserEntity): Promise<void> {
         try {
             //Check if stream is online
             const current = await this.streamQueueService.currentStream();
@@ -39,7 +39,7 @@ export class WatchService {
         }
     }
 
-    async addStreamToQueue(user: UserEntity): Promise<{ enough: boolean; cost?: number }> {
+    public async addStreamToQueue(user: UserEntity): Promise<{ enough: boolean; cost?: number }> {
         //Check if queue is empty
         const cost = (await this.streamQueueService.isEmpty()) ? 0 : 1000;
 
@@ -62,7 +62,7 @@ export class WatchService {
         return { enough: true };
     }
 
-    async removeFromQueue(streamId: number, user: UserEntity): Promise<boolean> {
+    public async removeFromQueue(streamId: number, user: UserEntity): Promise<boolean> {
         const stream = await this.streamQueueService.byIdAndUserIdOrFail(streamId, user.id);
 
         //Refuse if stream is in first place

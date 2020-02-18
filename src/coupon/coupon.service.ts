@@ -8,7 +8,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 
 @Injectable()
 export class CouponService extends EntityService<CouponEntity> {
-    constructor(@InjectRepository(CouponEntity) repo, private readonly userService: UserService) {
+    public constructor(@InjectRepository(CouponEntity) repo, private readonly userService: UserService) {
         super(repo);
     }
 
@@ -34,7 +34,7 @@ export class CouponService extends EntityService<CouponEntity> {
         return count > 0;
     }
 
-    public async useCoupon(name: string, user: UserEntity) {
+    public async useCoupon(name: string, user: UserEntity): Promise<CouponEntity> {
         const coupon = await this.byNameOrFail(name);
 
         if (!coupon.isValid()) throw new CouponException(CouponExceptionType.Invalid);

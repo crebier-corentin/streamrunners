@@ -10,7 +10,7 @@ import * as helmet from 'helmet';
 import * as nunjucks from 'nunjucks';
 import * as passport from 'passport';
 
-async function bootstrap() {
+async function bootstrap(): Promise<void> {
     const app = await NestFactory.create<NestExpressApplication>(AppModule);
     const config = app.get(ConfigService);
     const isDev = config.get('ENV') === 'development';

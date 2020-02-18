@@ -10,17 +10,20 @@ import { Body, Controller, ParseIntPipe, Post, UseGuards, UsePipes, ValidationPi
 @UseGuards(AuthenticatedGuard)
 @Controller('chat')
 export class ChatController {
-    constructor(private readonly chatService: ChatService) {}
+    public constructor(private readonly chatService: ChatService) {}
 
     @UsePipes(new ValidationPipe({ disableErrorMessages: true }), SanitizationPipe)
     @Post('add')
-    async addMessage(@Body() body: AddChatMessageDto, @User() user: UserEntity) {
+    public async addMessage(@Body() body: AddChatMessageDto, @User() user: UserEntity): Promise<void> {
         await this.chatService.addMessage(body.message, user);
     }
 
     @UseGuards(ModeratorGuard)
     @Post('delete')
-    async softDeleteMessage(@Body('messageId', ParseIntPipe) id: number, @User() user: UserEntity) {
+    public async softDeleteMessage(
+        @Body('messageId', ParseIntPipe) id: number,
+        @User() user: UserEntity
+    ): Promise<void> {
         await this.chatService.softDelete(id, user);
     }
 }

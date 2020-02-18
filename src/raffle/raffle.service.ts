@@ -14,7 +14,7 @@ export type RaffleEntityAndTotalAndTicketCount = RaffleEntityAndTotal & { ticket
 
 @Injectable()
 export class RaffleService extends EntityService<RaffleEntity> {
-    constructor(
+    public constructor(
         @InjectRepository(RaffleEntity) repo,
         @InjectRepository(RaffleParticipationEntity) private readonly RPrepo: Repository<RaffleParticipationEntity>,
         private readonly userService: UserService,
@@ -24,7 +24,7 @@ export class RaffleService extends EntityService<RaffleEntity> {
     }
 
     //Raffle Participation
-    RPfindForUserAndRaffle(
+    private RPfindForUserAndRaffle(
         user: UserEntity | number,
         raffle: RaffleEntity | number
     ): Promise<RaffleParticipationEntity | undefined> {
@@ -39,7 +39,10 @@ export class RaffleService extends EntityService<RaffleEntity> {
             .getOne();
     }
 
-    async RPfindOrCreate(user: UserEntity | number, raffle: RaffleEntity | number): Promise<RaffleParticipationEntity> {
+    private async RPfindOrCreate(
+        user: UserEntity | number,
+        raffle: RaffleEntity | number
+    ): Promise<RaffleParticipationEntity> {
         let rp = await this.RPfindForUserAndRaffle(user, raffle);
 
         //Create new RaffleParticipation
@@ -57,7 +60,7 @@ export class RaffleService extends EntityService<RaffleEntity> {
     }
 
     //Raffle
-    async totalTickets(raffle: RaffleEntity): Promise<number> {
+    public async totalTickets(raffle: RaffleEntity): Promise<number> {
         return (
             await this.RPrepo.createQueryBuilder('rp')
                 .select('SUM(rp.tickets)', 'sum')
@@ -66,7 +69,7 @@ export class RaffleService extends EntityService<RaffleEntity> {
         ).sum;
     }
 
-    async active(): Promise<RaffleEntityAndTotal[]> {
+    private async active(): Promise<RaffleEntityAndTotal[]> {
         const { entities, raw } = await this.repo
             .createQueryBuilder('raffle')
             .leftJoin('raffle.participations', 'rp')
@@ -84,7 +87,7 @@ export class RaffleService extends EntityService<RaffleEntity> {
         });
     }
 
-    async activeAndTicketCount(user: UserEntity): Promise<RaffleEntityAndTotalAndTicketCount[]> {
+    public async activeAndTicketCount(user: UserEntity): Promise<RaffleEntityAndTotalAndTicketCount[]> {
         const raffles = await this.active();
         return Promise.all(
             raffles.map(async (r: RaffleEntityAndTotalAndTicketCount) => {
@@ -94,7 +97,7 @@ export class RaffleService extends EntityService<RaffleEntity> {
         );
     }
 
-    async endedAndNoWinner(): Promise<RaffleEntity[]> {
+    private async endedAndNoWinner(): Promise<RaffleEntity[]> {
         return this.repo
             .createQueryBuilder('raffle')
             .where('raffle.winnerId IS NULL')
@@ -102,18 +105,18 @@ export class RaffleService extends EntityService<RaffleEntity> {
             .getMany();
     }
 
-    async pickWinner(raffle: RaffleEntity) {
+    private async pickWinner(raffle: RaffleEntity): Promise<void> {
         raffle.winner = await this.userService.pickRaffleWinner(raffle);
         await this.repo.save(raffle);
     }
 
     @Cron(CronExpression.EVERY_MINUTE)
-    async pickWinners(): Promise<void> {
+    private async pickWinners(): Promise<void> {
         const raffles = await this.endedAndNoWinner();
         await Promise.all(raffles.map(this.pickWinner.bind(this)));
     }
 
-    ended(count = 5): Promise<RaffleEntity[]> {
+    public ended(count = 5): Promise<RaffleEntity[]> {
         return this.repo
             .createQueryBuilder('raffle')
             .leftJoinAndSelect('raffle.winner', 'winner')
@@ -123,7 +126,7 @@ export class RaffleService extends EntityService<RaffleEntity> {
             .getMany();
     }
 
-    async buy(raffleId: number, user: UserEntity) {
+    public async buy(raffleId: number, user: UserEntity): Promise<void> {
         const raffle = await this.byIdOrFail(raffleId);
         //Assure that is active and can afford
         if (!raffle.isActive() || user.points < raffle.price) throw new InternalServerErrorException();
@@ -138,7 +141,7 @@ export class RaffleService extends EntityService<RaffleEntity> {
         await this.RPrepo.save(rp);
     }
 
-    async add({
+    public async add({
         title,
         description,
         icon,
@@ -156,7 +159,7 @@ export class RaffleService extends EntityService<RaffleEntity> {
         endingDate: Date;
         code: string | null | undefined;
         value: number;
-    }) {
+    }): Promise<void> {
         const raffle = new RaffleEntity();
         raffle.title = title;
         raffle.description = description ?? '';

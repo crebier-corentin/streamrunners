@@ -12,7 +12,7 @@ export function formatDuration(duration: moment.Duration): string {
 
     //Biggest non zero unit
     //Example: 0 months 10 days 0 hours 0 minutes 4 seconds -> days
-    const biggestUnitIndex = (() => {
+    const biggestUnitIndex = ((): number => {
         for (let i = 0; i < values.length; i++) {
             if (values[i] > 0) {
                 return i;

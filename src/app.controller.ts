@@ -4,10 +4,10 @@ import { Controller, Get, Render, Req, Res, UseGuards } from '@nestjs/common';
 
 @Controller()
 export class AppController {
-    constructor(private readonly userService: UserService) {}
+    public constructor(private readonly userService: UserService) {}
 
     @Get()
-    async index(@Req() req, @Res() res) {
+    public async index(@Req() req, @Res() res): Promise<void> {
         if (req.isAuthenticated()) {
             res.render('./watch');
         } else {
@@ -20,7 +20,7 @@ export class AppController {
     @UseGuards(AuthenticatedGuard)
     @Render('inventory')
     @Get('inventory')
-    async inventory() {
+    public async inventory(): Promise<void> {
         //
     }
 }

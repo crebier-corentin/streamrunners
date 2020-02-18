@@ -12,7 +12,7 @@ import * as ExpressRateLimit from 'express-rate-limit';
     exports: [ChatService],
 })
 export class ChatModule implements NestModule {
-    configure(consumer: MiddlewareConsumer) {
+    public configure(consumer: MiddlewareConsumer): void {
         //1 request/second per user
         // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
         // @ts-ignore

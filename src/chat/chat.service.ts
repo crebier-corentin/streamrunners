@@ -6,24 +6,24 @@ import { InjectRepository } from '@nestjs/typeorm';
 
 @Injectable()
 export class ChatService extends EntityService<ChatMessageEntity> {
-    constructor(@InjectRepository(ChatMessageEntity) repo) {
+    public constructor(@InjectRepository(ChatMessageEntity) repo) {
         super(repo);
     }
 
-    addMessage(message: string, user: UserEntity) {
+    public addMessage(message: string, user: UserEntity): Promise<ChatMessageEntity> {
         const chatMessage = new ChatMessageEntity();
         chatMessage.author = user;
         chatMessage.message = message;
         return this.repo.save(chatMessage);
     }
 
-    async softDelete(messageId: number, deletedBy: UserEntity) {
+    public async softDelete(messageId: number, deletedBy: UserEntity): Promise<ChatMessageEntity> {
         const message = await this.byIdOrFail(messageId);
         message.deletedBy = deletedBy;
-        return await this.repo.save(message);
+        return this.repo.save(message);
     }
 
-    getLastMessages(): Promise<ChatMessageEntity[]> {
+    public getLastMessages(): Promise<ChatMessageEntity[]> {
         return this.repo
             .createQueryBuilder('chat')
             .leftJoinAndSelect('chat.author', 'author')

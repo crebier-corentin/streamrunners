@@ -26,7 +26,7 @@ describe('ChatService', () => {
         repo = module.get<Repository<ChatMessageEntity>>(getRepositoryToken(ChatMessageEntity));
 
         // @ts-ignore
-        jest.spyOn(repo, 'save').mockImplementation(async entity => entity);
+        jest.spyOn(repo, 'save').mockImplementation(entity => entity);
     });
 
     it('should be defined', () => {
@@ -49,7 +49,7 @@ describe('ChatService', () => {
         let mod: UserEntity;
         let user: UserEntity;
 
-        beforeEach(async () => {
+        beforeEach(() => {
             user = new UserEntity();
             user.id = 50;
 
@@ -63,7 +63,8 @@ describe('ChatService', () => {
             chatMessage.author = user;
             chatMessage.deletedBy = null;
 
-            jest.spyOn(repo, 'findOne').mockImplementation(async id => (id === 1 ? chatMessage : undefined));
+            // @ts-ignore
+            jest.spyOn(repo, 'findOne').mockImplementation(id => (id === 1 ? chatMessage : undefined));
         });
 
         it('should soft delete', async () => {

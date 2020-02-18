@@ -42,7 +42,7 @@ describe('UserService', () => {
         twitch = module.get<TwitchService>(TwitchService);
         discord = module.get<DiscordBotService>(DiscordBotService);
         // @ts-ignore
-        jest.spyOn(repo, 'save').mockImplementation(async entity => entity);
+        jest.spyOn(repo, 'save').mockImplementation(entity => entity);
     });
 
     it('should be defined', () => {
@@ -104,6 +104,7 @@ describe('UserService', () => {
 
     describe('syncFromTwitch', () => {
         it('should call syncFromTwitchProcess with ids', async () => {
+            // @ts-ignore
             const mockedFunc = jest.spyOn(service, 'syncFromTwitchProcess').mockResolvedValue();
 
             //Generate mock ids
@@ -184,6 +185,7 @@ describe('UserService', () => {
                 execute: jest.fn().mockReturnThis(),
             });
 
+            // @ts-ignore
             await service.syncFromTwitchProcess(['123', '456']);
             expect(mockedSet).toHaveBeenCalledWith({ displayName: 'a', avatar: 'avatar-a' });
             expect(mockedSet).toHaveBeenCalledWith({ displayName: 'b', avatar: 'avatar-b' });

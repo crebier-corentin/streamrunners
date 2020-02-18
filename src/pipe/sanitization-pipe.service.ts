@@ -3,7 +3,7 @@ import { sanitize } from 'class-sanitizer';
 
 @Injectable()
 export class SanitizationPipe implements PipeTransform<any> {
-    async transform(value: any, { metatype }: ArgumentMetadata) {
+    public transform(value: any, { metatype }: ArgumentMetadata): any {
         if (metatype && this.toValidate(metatype)) {
             sanitize(value);
         }

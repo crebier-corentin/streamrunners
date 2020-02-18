@@ -20,7 +20,7 @@ describe('CouponService', () => {
                 {
                     provide: UserService,
                     useValue: {
-                        changePointsSave: jest.fn(async (user: UserEntity, amount: number) => {
+                        changePointsSave: jest.fn((user: UserEntity, amount: number) => {
                             user.points += amount;
                         }),
                     },
@@ -36,7 +36,7 @@ describe('CouponService', () => {
         repo = module.get<Repository<CouponEntity>>(getRepositoryToken(CouponEntity));
 
         // @ts-ignore
-        jest.spyOn(repo, 'save').mockImplementation(async entity => entity);
+        jest.spyOn(repo, 'save').mockImplementation(entity => entity);
 
         MockDate.reset();
     });

@@ -6,7 +6,7 @@ import { Strategy } from 'passport-twitch-new';
 
 @Injectable()
 export class TwitchStrategy extends PassportStrategy(Strategy, 'twitch') {
-    constructor(private readonly config: ConfigService, private readonly userService: UserService) {
+    public constructor(private readonly config: ConfigService, private readonly userService: UserService) {
         super(
             {
                 clientID: config.get('TWITCH_CLIENT_ID'),

@@ -1,12 +1,12 @@
-import { Channel, Client, Message, Role, TextChannel, VoiceChannel } from 'discord.js';
-import * as moment from 'moment';
-import Discord = require('discord.js');
 import { RaffleEntity } from '../raffle/raffle.entity';
 import { UserService } from '../user/user.service';
 import { DiscordUserEntity } from './discord-user.entity';
 import { DiscordUserService } from './discord-user.service';
 import { forwardRef, Inject, Injectable, OnApplicationBootstrap } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
+import { Client, Message, Role, TextChannel, VoiceChannel } from 'discord.js';
+import * as moment from 'moment';
+import Discord = require('discord.js');
 
 interface DiscordBotConstructor {
     token: string;
@@ -32,17 +32,17 @@ export class DiscordBotService implements OnApplicationBootstrap {
     private raffleNotificationChannel: TextChannel;
     private raffleNotificationRole: Role;
 
-    constructor(
+    public constructor(
         private readonly config: ConfigService,
         @Inject(forwardRef(() => UserService)) private readonly userService: UserService,
         private readonly discordUserService: DiscordUserService
     ) {}
 
-    async onApplicationBootstrap() {
+    public async onApplicationBootstrap(): Promise<void> {
         await this.initFromConfig();
     }
 
-    private async initFromConfig() {
+    private async initFromConfig(): Promise<void> {
         await this.initializeDiscordClient({
             token: this.config.get('DISCORD_TOKEN'),
             siteUserCountChannelId: this.config.get('SITE_USER_COUNT_CHANNEL_ID'),
@@ -130,8 +130,8 @@ export class DiscordBotService implements OnApplicationBootstrap {
         return this.client;
     }
 
-    public async pingCommand(message: Message) {
-        message.channel.send({
+    public async pingCommand(message: Message): Promise<void> {
+        await message.channel.send({
             embed: {
                 title: 'Ping',
                 url: 'https://streamrunners.fr',
@@ -161,25 +161,23 @@ export class DiscordBotService implements OnApplicationBootstrap {
         });
     }
 
-    public async levelCommand(message: Message, discordUser: DiscordUserEntity) {
-        const member = message.mentions.members.first();
-        //Self
+    public async levelCommand(message: Message, discordUser: DiscordUserEntity): Promise<void> {
+        const mentionedMember = message.mentions.members.first();
+
+        //Self if mentionedMember is empty
+        const targetUser =
+            mentionedMember == null
+                ? discordUser
+                : await this.discordUserService.byDiscordIdOrCreate(mentionedMember.id);
+
         const embed = new Discord.RichEmbed()
             .setColor(0x4286f4)
-            .addField('Niveau', discordUser.level)
-            .addField('XP', discordUser.xp + '/100');
-        if (!member) return message.channel.sendEmbed(embed);
-
-        //Other member
-        const memberInfo = await this.discordUserService.byDiscordIdOrCreate(member.id);
-        const embed2 = new Discord.RichEmbed()
-            .setColor(0x4286f4)
-            .addField('Niveau', memberInfo.level)
-            .addField('XP', memberInfo.xp + '/100');
-        message.channel.sendEmbed(embed2);
+            .addField('Niveau', targetUser.level)
+            .addField('XP', targetUser.xp + '/100');
+        message.channel.sendEmbed(embed);
     }
 
-    public async leaderboardCommand(message: Message) {
+    public async leaderboardCommand(message: Message): Promise<void> {
         //Most points
         const mostPoints = await this.userService.mostPoints();
 

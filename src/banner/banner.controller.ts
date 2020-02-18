@@ -3,11 +3,11 @@ import { Controller, Get, Header, Res } from '@nestjs/common';
 
 @Controller('banner')
 export class BannerController {
-    constructor(private readonly bannerService: BannerService) {}
+    public constructor(private readonly bannerService: BannerService) {}
 
     @Get()
     @Header('Content-Type', 'image/png')
-    banner(@Res() res) {
+    public banner(@Res() res): void {
         res.send(this.bannerService.getBanner());
     }
 }

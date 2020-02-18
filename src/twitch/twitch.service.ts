@@ -17,7 +17,7 @@ export class TwitchService {
 
     private readonly cache = new CacheService(120);
 
-    constructor(config: ConfigService) {
+    public constructor(config: ConfigService) {
         this.clientId = config.get('TWITCH_CLIENT_ID');
     }
 
@@ -47,8 +47,8 @@ export class TwitchService {
         }
     }
 
-    public async isStreamOnline(twitchId: string): Promise<boolean> {
-        return await this.cache.get(twitchId, async () => {
+    public isStreamOnline(twitchId: string): Promise<boolean> {
+        return this.cache.get(twitchId, async () => {
             const request: AxiosRequestConfig = {
                 method: 'GET',
                 url: 'https://api.twitch.tv/helix/streams',

@@ -2,6 +2,7 @@ import { ChatService } from '../chat/chat.service';
 import { User } from '../decorator/user.decorator';
 import { AuthenticatedGuard } from '../guard/authenticated.guard';
 import { ModeratorGuard } from '../guard/moderator.guard';
+import { StreamQueueEntity } from '../stream-queue/stream-queue.entity';
 import { StreamQueueService } from '../stream-queue/stream-queue.service';
 import { UserEntity } from '../user/user.entity';
 import { UserService } from '../user/user.service';
@@ -12,7 +13,7 @@ import { classToPlain } from 'class-transformer';
 @UseGuards(AuthenticatedGuard)
 @Controller('watch')
 export class WatchController {
-    constructor(
+    public constructor(
         private readonly watchService: WatchService,
         private readonly streamQueueService: StreamQueueService,
         private readonly userService: UserService,
@@ -20,7 +21,9 @@ export class WatchController {
     ) {}
 
     @Post('update')
-    async update(@User() user: UserEntity) {
+    public async update(
+        @User() user: UserEntity
+    ): Promise<{ viewers: any; auth: boolean; messages: any; queue: StreamQueueEntity[]; points: number }> {
         //Update lastOnWatchPage
         user.lastOnWatchPage = new Date();
 
@@ -42,7 +45,7 @@ export class WatchController {
     }
 
     @Post('add')
-    async add(@User() user: UserEntity) {
+    public async add(@User() user: UserEntity): Promise<{ cost?: number; enough: boolean; points?: number }> {
         const result = await this.watchService.addStreamToQueue(user);
 
         if (!result.enough) {
@@ -54,13 +57,13 @@ export class WatchController {
     }
 
     @Post('delete')
-    async delete(@Body('id', ParseIntPipe) id: number, @User() user: UserEntity) {
+    public async delete(@Body('id', ParseIntPipe) id: number, @User() user: UserEntity): Promise<{ success: boolean }> {
         return { success: await this.watchService.removeFromQueue(id, user) };
     }
 
     @UseGuards(ModeratorGuard)
     @Post('skip')
-    async skip() {
+    public async skip(): Promise<void> {
         await this.streamQueueService.skipCurrent();
     }
 }

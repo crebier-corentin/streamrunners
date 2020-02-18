@@ -1,7 +1,7 @@
 import { MigrationInterface, QueryRunner } from 'typeorm';
 
 export class DiscordUser1581962599974 implements MigrationInterface {
-    name = 'DiscordUser1581962599974';
+    public name = 'DiscordUser1581962599974';
 
     public async up(queryRunner: QueryRunner): Promise<any> {
         await queryRunner.query(

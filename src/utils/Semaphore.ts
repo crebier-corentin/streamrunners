@@ -1,11 +1,11 @@
 //Taken from here https://gist.github.com/Gericop/e33be1f201cf242197d9c4d0a1fa7335
 
 export class Semaphore {
-    counter = 0;
-    waiting: { resolve: () => any; err: (message: string) => any }[] = [];
-    max: number;
+    private counter = 0;
+    private waiting: { resolve: () => any; err: (message: string) => any }[] = [];
+    private max: number;
 
-    constructor(max: number) {
+    public constructor(max: number) {
         this.max = max;
     }
 
@@ -17,7 +17,7 @@ export class Semaphore {
         }
     }
 
-    acquire(): Promise<unknown> {
+    public acquire(): Promise<unknown> {
         if (this.counter < this.max) {
             this.counter++;
             return new Promise(resolve => {
@@ -30,12 +30,12 @@ export class Semaphore {
         }
     }
 
-    release(): void {
+    public release(): void {
         this.counter--;
         this.take();
     }
 
-    purge(): number {
+    public purge(): number {
         const unresolved = this.waiting.length;
 
         for (let i = 0; i < unresolved; i++) {

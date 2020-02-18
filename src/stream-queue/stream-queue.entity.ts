@@ -4,21 +4,21 @@ import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn } f
 @Entity('stream_queue')
 export class StreamQueueEntity {
     @PrimaryGeneratedColumn()
-    id: number;
+    public id: number;
 
     //Price in points
     @Column({ default: 100 })
-    amount: number;
+    public amount: number;
 
     //Time in seconds
     @Column({ default: 60 })
-    time: number;
+    public time: number;
 
     @Column({ default: 0 })
-    current: number;
+    public current: number;
 
     @Column('datetime', { nullable: true, default: null })
-    start: Date;
+    public start: Date;
 
     @ManyToOne(
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -26,13 +26,13 @@ export class StreamQueueEntity {
         user => user.streamsQueued,
         { nullable: false }
     )
-    user: UserEntity;
+    public user: UserEntity;
 
     @CreateDateColumn()
-    createdAt: Date;
+    public createdAt: Date;
 
     //If session has ended
-    ended(): boolean {
+    public ended(): boolean {
         return this.current >= this.time;
     }
 }

@@ -1,7 +1,7 @@
 import { MigrationInterface, QueryRunner } from 'typeorm';
 
 export class StreamQueue1581616758925 implements MigrationInterface {
-    name = 'StreamQueue1581616758925';
+    public name = 'StreamQueue1581616758925';
 
     public async up(queryRunner: QueryRunner): Promise<any> {
         await queryRunner.query(

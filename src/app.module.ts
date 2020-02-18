@@ -15,6 +15,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { ScheduleModule } from '@nestjs/schedule';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { OgmaModule } from 'nestjs-ogma';
+import { AnnouncementModule } from './announcement/announcement.module';
 
 @Module({
     imports: [
@@ -37,6 +38,7 @@ import { OgmaModule } from 'nestjs-ogma';
         RaffleModule,
         BannerModule,
         DiscordModule,
+        AnnouncementModule,
     ],
     controllers: [AppController],
 })

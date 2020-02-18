@@ -1,4 +1,5 @@
 import { join } from 'path';
+import { AnnouncementService } from './announcement/announcement.service';
 import { AppModule } from './app.module';
 import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
@@ -13,6 +14,8 @@ async function bootstrap() {
     const app = await NestFactory.create<NestExpressApplication>(AppModule);
     const config = app.get(ConfigService);
     const isDev = config.get('ENV') === 'development';
+
+    const announcementService = app.get(AnnouncementService);
 
     //Global middlewares
     app.use(helmet());
@@ -34,7 +37,6 @@ async function bootstrap() {
             express: app,
         })
         .addGlobal('HOSTNAME', config.get('HOSTNAME'))
-        //TODO .addGlobal('LastAnnouncement', Announcement.LastAnnouncement)
         //Await nunjucks (https://www.npmjs.com/package/nunjucks-await-filter)
         .addFilter(
             'await',
@@ -57,9 +59,9 @@ async function bootstrap() {
     app.setViewEngine('nunj');
 
     //Pass req to template engine
-    app.use((req, res, next) => {
+    app.use(async (req, res, next) => {
         res.locals.req = req;
-        req.session.userId = '1';
+        res.locals.announcement = await announcementService.current();
         next();
     });
 

@@ -88,20 +88,8 @@
         </template>
 
         <Chat :messages="messages" :active-users="viewers" :show-delete="{{ req.user.moderator }}"></Chat>
-        {#
-         <leaderboard class="col-6"
-                      heading1="Utilisateur"
-                      heading2="Nombre de points"
-                      :data="mostPoints"
-                      field-name="points"></leaderboard>
-         <leaderboard class="col-6"
-                      heading1="Utilisateur"
-                      heading2="Nombre de seconde streamé"
-                      :data="mostPlace"
-                      field-name="time"></leaderboard>
-                  #}
-    </div>
 
+    </div>
 
 {% endblock %}
 

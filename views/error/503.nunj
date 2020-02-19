@@ -1,10 +1,22 @@
-<!DOCTYPE html>
-<html lang="fr">
+<html>
 <head>
     <meta charset="UTF-8">
-    <title>Maintenance</title>
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Streamrunners est en maintenance</title>
+
+    <style>
+        h1 {
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
-Maintenance
+
+
+<h1>Streamrunners est en maintenance</h1>
+
+
 </body>
 </html>

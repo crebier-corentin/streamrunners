@@ -58,6 +58,3 @@
     <hr>
     {% endblock %}
 </div>
-{% block script %}
-    <script src="/js/inventory.js"></script>
-{% endblock %}

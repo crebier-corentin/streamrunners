@@ -18,9 +18,6 @@ mix.webpackConfig({
 mix.ts("asset/js/bundle.js", "public/js/");
 mix.ts("asset/js/watch.ts", "public/js/");
 mix.ts("asset/js/coupon.ts", "public/js/");
-mix.ts("asset/js/case.ts", "public/js/");
-mix.ts("asset/js/inventory.ts", "public/js/");
-mix.ts("asset/js/shop.ts", "public/js/");
 mix.ts("asset/js/raffle.ts", "public/js/");
 
 const postCss = [];

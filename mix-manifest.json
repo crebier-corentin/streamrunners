@@ -1,10 +1,7 @@
 {
     "/public/js/bundle.js": "/public/js/bundle.js",
     "/public/css/style.css": "/public/css/style.css",
-    "/public/js/case.js": "/public/js/case.js",
     "/public/js/coupon.js": "/public/js/coupon.js",
-    "/public/js/inventory.js": "/public/js/inventory.js",
     "/public/js/raffle.js": "/public/js/raffle.js",
-    "/public/js/shop.js": "/public/js/shop.js",
     "/public/js/watch.js": "/public/js/watch.js"
 }

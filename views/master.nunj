@@ -16,45 +16,41 @@
     <meta property="og:site_name" content="StreamRunners" />
     <title>{{ title | default("Titre") }}</title>
     <link rel="icon" href="/img/favicon.ico" />
-    <link rel="stylesheet"
-          href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-          crossorigin="anonymous">
     <link rel="stylesheet" href="/css/style.css">
-
-    <!-- ??? CSS -->
-    <script>
-        window.addEventListener("load", function () {
-            window.cookieconsent.initialise({
-                "palette": {
-                    "popup": {
-                        "background": "#8c6dc5",
-                        "text": "#ffffff"
-                    },
-                    "button": {
-                        "background": "#ffffff",
-                        "text": "#8c6dc5"
-                    }
-                },
-                "theme": "classic",
-                "position": "bottom-right",
-                "content": {
-                    "message": "Ce site utilise des cookies pour améliorer votre expérience de navigation.",
-                    "dismiss": "OK !",
-                    "link": "En savoir plus"
-                }
-            })
-        });
-    </script>
 
     {% block css %}
 
     {% endblock %}
+
+    <script>
+        window.addEventListener('load', function() {
+            window.cookieconsent.initialise({
+                'palette': {
+                    'popup': {
+                        'background': '#8c6dc5',
+                        'text': '#ffffff',
+                    },
+                    'button': {
+                        'background': '#ffffff',
+                        'text': '#8c6dc5',
+                    },
+                },
+                'theme': 'classic',
+                'position': 'bottom-right',
+                'content': {
+                    'message': 'Ce site utilise des cookies pour améliorer votre expérience de navigation.',
+                    'dismiss': 'OK !',
+                    'link': 'En savoir plus',
+                },
+            });
+        });
+    </script>
+
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
     <script>
         (adsbygoogle = window.adsbygoogle || []).push({
-            google_ad_client: "ca-pub-7690571679670706",
-            enable_page_level_ads: true
+            google_ad_client: 'ca-pub-7690571679670706',
+            enable_page_level_ads: true,
         });
     </script>
 
@@ -99,19 +95,7 @@
                             <a class="red nav-link" href="/admin"><i class="fas fa-lock"></i> Admin</a>
                         </li>
                     {% endif %}
-                    {#
-                                       <li class="nav-items">
-                                           <a class="nav-link" href="/shop"><i class="fas fa-shopping-cart"></i> Boutique</a>
-                                    </li>
-                                       {#
-                                       <li class="nav-items">
-                                           <a class="nav-link" href="/giveaway"><i class="fas fa-star"></i> GiveAway</a>
-                                       </li>
-                                       <li class="nav-items">
-                                           <a class="nav-link" href="/points"><i class="fas fa-plus"></i> Plus de points</a>
-                                       </li>
-                                       #}
-                {% else %}
+
                 {% endif %}
 
             </ul>
@@ -158,9 +142,9 @@
 <footer class="footer">
     <div class="container">
         <hr>
-        <center><h3>Ils nous font confiance :</h3></center>
+        <h3 class="text-center">Ils nous font confiance :</h3>
         <br>
-        <a href="https://elkir.fr/stream" target="_blank"><img width="10%" src="/img/partenaires/elkirblack.png"></img></a>
+        <a href="https://elkir.fr/stream" target="_blank"><img width="10%" src="/img/partenaires/elkirblack.png" /></a>
         <hr>
     </div>
     <p>© 2019 StreamRunners

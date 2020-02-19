@@ -2,7 +2,6 @@
 
 import Vue from 'vue/dist/vue.esm.js';
 import TwitchViewer from './component/TwitchViewer.vue';
-import Leaderboard from './component/Leaderboard.vue';
 import Chat from './component/Chat.vue';
 
 import axios, { AxiosError } from 'axios';
@@ -11,7 +10,6 @@ import swal from 'sweetalert2';
 window['swal'] = swal;
 
 Vue.component(TwitchViewer.name, TwitchViewer);
-Vue.component(Leaderboard.name, Leaderboard);
 Vue.component(Chat.name, Chat);
 
 window['vm'] = new Vue({

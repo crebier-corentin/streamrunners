@@ -1,6 +1,8 @@
 import { join } from 'path';
 import { AnnouncementService } from './announcement/announcement.service';
 import { AppModule } from './app.module';
+import { ErrorViewFilter } from './filter/error-view.filter';
+import { VIEW_DIR_PATH } from './utils/constants';
 import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
 import { NestExpressApplication } from '@nestjs/platform-express';
@@ -17,6 +19,8 @@ async function bootstrap(): Promise<void> {
 
     const announcementService = app.get(AnnouncementService);
 
+    app.useGlobalFilters(new ErrorViewFilter());
+
     //Global middlewares
     app.use(helmet());
     app.use(cookieParser());
@@ -31,7 +35,7 @@ async function bootstrap(): Promise<void> {
 
     //Nunjucks
     nunjucks
-        .configure(join(__dirname, '..', 'views'), {
+        .configure(VIEW_DIR_PATH, {
             watch: isDev,
             noCache: isDev,
             express: app,

@@ -1,4 +1,5 @@
-{% extends "master.nunj" %}
+{% set title = "StreamRunners - Administration Annonces" %}
+{% extends "../master.nunj" %}
 
 {% block content %}
 

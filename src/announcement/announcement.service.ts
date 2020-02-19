@@ -14,7 +14,7 @@ export class AnnouncementService extends EntityService<AnnouncementEntity> {
         return this.repo.findOne({ where: { active: true } });
     }
 
-    public async disablePrevious(): Promise<void> {
+    public async disableCurrent(): Promise<void> {
         await this.repo
             .createQueryBuilder()
             .update()
@@ -24,7 +24,7 @@ export class AnnouncementService extends EntityService<AnnouncementEntity> {
     }
 
     public async setNew(text: string, color: string, url: string, user: UserEntity): Promise<void> {
-        await this.disablePrevious();
+        await this.disableCurrent();
 
         const announcement = new AnnouncementEntity();
         announcement.text = text;

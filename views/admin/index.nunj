@@ -1,0 +1,65 @@
+{% set title = "StreamRunners - Administration" %}
+{% extends "../master.nunj" %}
+
+{% block content %}
+    <div class="container d-flex justify-content-center flex-column align-items-center">
+
+        <section class="row text-center">
+            <div class="card col-sm-3" style="width: 18rem; margin-right: 0.50rem;">
+                <img style="height: 184px; width: 184px;"
+                     src="https://image.freepik.com/photos-gratuite/billets-tombola-verts_1101-961.jpg"
+                     class="card-img-top"
+                     alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">Tombola</h5>
+                    <p class="card-text">Créer ou modifie des tombolas.</p>
+                    <a href="/admin/raffle" class="btn btn-primary">GO</a>
+                </div>
+            </div>
+            <div class="card col-sm-3" style="width: 18rem; margin-right: 0.50rem;">
+                <img style="height: 184px; width: 184px;"
+                     src="https://image.flaticon.com/icons/png/512/172/172094.png"
+                     class="card-img-top"
+                     alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">Coupons</h5>
+                    <p class="card-text">Créer des codes coupons.</p>
+                    <a href="/admin/coupon" class="btn btn-primary">GO</a>
+                </div>
+            </div>
+            <div class="card col-sm-3" style="width: 18rem; margin-right: 0.50rem;">
+                <img style="height: 184px; width: 184px;"
+                     src="https://image.flaticon.com/icons/svg/214/214347.svg"
+                     class="card-img-top"
+                     alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">Annonces</h5>
+                    <p class="card-text">Créer ou supprimer une annonce.</p>
+                    <a href="/admin/announcement" class="btn btn-primary">GO</a>
+                </div>
+            </div>
+        </section>
+        <hr>
+
+        <input type="text" placeholder="Chaine a Bannir" />
+        <button type="button" class="btn btn-danger">Bannir (bientôt™)</button>
+        <h3>Stats</h3>
+
+        <table class="table table-striped table-bordered table-hover">
+            <tbody>
+
+            <tr>
+                <td>Nombre d'utilisateurs</td>
+                <td>{{ totalUsers }}</td>
+            </tr>
+
+            <tr>
+                <td>Nombre de points total sur le site</td>
+                <td>{{ totalPoints }}</td>
+            </tr>
+
+            </tbody>
+        </table>
+
+    </div>
+{% endblock %}

@@ -49,4 +49,13 @@ export class CouponService extends EntityService<CouponEntity> {
 
         return coupon;
     }
+
+    public async add(name: string, amount: number, max: number, expires: Date): Promise<void> {
+        const coupon = new CouponEntity();
+        coupon.name = name;
+        coupon.amount = amount;
+        coupon.max = max;
+        coupon.expires = expires;
+        await this.repo.save(coupon);
+    }
 }

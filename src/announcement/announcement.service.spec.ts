@@ -30,7 +30,7 @@ describe('AnnouncementService', () => {
 
     describe('setNew', () => {
         it('should disable previous announcement and create a new active one', async () => {
-            const mockedDisable = jest.spyOn(service, 'disablePrevious').mockResolvedValue();
+            const mockedDisable = jest.spyOn(service, 'disableCurrent').mockResolvedValue();
             // @ts-ignore
             const mockedSave = jest.spyOn(repo, 'save').mockImplementation(entity => entity);
 

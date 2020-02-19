@@ -24,6 +24,8 @@ export class UserService extends EntityService<UserEntity> {
         super(repo);
     }
 
+    private cache = new CacheService(120);
+
     /**
      * Creates or update an user from twitch authentication
      * Updates the discord site user count in case of new user
@@ -132,8 +134,6 @@ export class UserService extends EntityService<UserEntity> {
         } while (users.length > 0);
     }
 
-    private cache = new CacheService(120);
-
     public mostPoints(): Promise<any> {
         return this.cache.get('mostPoints', () => {
             return this.repo
@@ -158,5 +158,14 @@ export class UserService extends EntityService<UserEntity> {
                 .limit(10)
                 .getRawMany();
         });
+    }
+
+    public async totalPoints(): Promise<number> {
+        return (
+            await this.repo
+                .createQueryBuilder('user')
+                .select('SUM(user.points)', 'totalPoints')
+                .getRawOne()
+        ).totalPoints;
     }
 }

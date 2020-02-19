@@ -1,5 +1,5 @@
-{% extends "master.nunj" %}
-
+{% set title = "StreamRunners - Administration Coupons" %}
+{% extends "../master.nunj" %}
 {% block content %}
     <div class="container d-flex justify-content-center flex-column align-items-center">
         {# Add new coupon form #}

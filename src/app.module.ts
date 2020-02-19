@@ -1,3 +1,4 @@
+import { AdminModule } from './admin/admin.module';
 import { AnnouncementModule } from './announcement/announcement.module';
 import { AppController } from './app.controller';
 import { AuthModule } from './auth/auth.module';
@@ -39,6 +40,7 @@ import ormconfig = require('./ormconfig');
         BannerModule,
         DiscordModule,
         AnnouncementModule,
+        AdminModule,
     ],
     controllers: [AppController],
 })

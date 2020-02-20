@@ -6,6 +6,7 @@ import Chat from './component/Chat.vue';
 
 import axios, { AxiosError } from 'axios';
 import swal from 'sweetalert2';
+import { intervalWait } from '../../src/shared/shared-utils';
 
 window['swal'] = swal;
 
@@ -23,7 +24,7 @@ window['vm'] = new Vue({
         deleteUrl: '/watch/delete',
         skipUrl: '/watch/skip',
 
-        pause: false,
+        isPaused: false,
         interval: 1000,
 
         queue: [],
@@ -115,29 +116,12 @@ window['vm'] = new Vue({
             }
         },
 
-        makeRequestUpdate() {
+        async makeRequestUpdate() {
+            //Assure that player is not paused and tab active
+            if (this.isPaused || document.hidden) return;
 
-            const self = this;
-
-            axios.post(self.updateUrl)
-                .then((result) => {
-
-                    self.updateData(result.data);
-
-                    //Make new Request
-                    setTimeout(self.makeRequestUpdate, self.interval);
-
-                })
-                .catch((error: AxiosError) => {
-
-                    console.log(error.response);
-
-                    //Make new Request
-                    setTimeout(self.makeRequestUpdate, self.interval);
-
-                });
-
-
+            const result = await axios.post(this.updateUrl);
+            this.updateData(result.data);
         },
 
         async makeRequestAdd() {
@@ -245,8 +229,7 @@ window['vm'] = new Vue({
     },
 
     mounted() {
-        this.makeRequestUpdate();
-
+        intervalWait(this.interval, this.makeRequestUpdate.bind(this));
     },
 
 

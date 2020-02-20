@@ -72,7 +72,8 @@
                 </button>
             {% endif %}
 
-            <twitch-viewer :channel="channel"></twitch-viewer>
+            <twitch-viewer :channel="channel" @playing="isPaused = false" @paused="isPaused = true"></twitch-viewer>
+            <div class="alert alert-danger" v-if="isPaused">Le stream est en pause. Vous ne gagnerez pas de points.</div>
             <hr>
             <div class="d-flex justify-content-center">
                 <span class="badge badge-secondary">{% raw %}{{ timeLeft }}{% endraw %}s <i class="fas fa-clock"
@@ -94,6 +95,7 @@
 {% endblock %}
 
 {% block script %}
+    <script src= "https://player.twitch.tv/js/embed/v1.js"></script>
     <script>window['username'] = '{{ req.user.username }}';</script>
     <script src="/js/watch.js"></script>
 {% endblock %}

@@ -29,3 +29,17 @@ export function formatDuration(duration: moment.Duration): string {
 
     return result;
 }
+
+export function intervalWait(ms: number, callback: () => Promise<unknown>): void {
+    const func = (): void => {
+        callback()
+            .catch(err => {
+                console.error(err);
+            })
+            .finally(() => {
+                setTimeout(func, ms);
+            });
+    };
+
+    func();
+}

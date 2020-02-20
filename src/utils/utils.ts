@@ -20,21 +20,6 @@ export function formatDatetimeSQL(date: moment.Moment | Date): string {
     return momentDate.utc().format('YYYY-MM-DD HH:mm:ss');
 }
 
-export function intervalWait(ms: number, callback: () => Promise<unknown>): void {
-    const func = (): void => {
-        callback()
-            .then(() => {
-                setTimeout(func, ms);
-            })
-            .catch(err => {
-                console.error(err);
-                setTimeout(func, ms);
-            });
-    };
-
-    func();
-}
-
 export function sleep(ms: number): Promise<void> {
     return new Promise(resolve => setTimeout(resolve, ms));
 }

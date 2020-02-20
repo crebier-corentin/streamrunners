@@ -117,8 +117,8 @@ window['vm'] = new Vue({
         },
 
         async makeRequestUpdate() {
-            //Assure that player is not paused and tab active
-            if (this.isPaused || document.hidden) return;
+            //Assure that player is not paused
+            if (this.isPaused) return;
 
             const result = await axios.post(this.updateUrl);
             this.updateData(result.data);

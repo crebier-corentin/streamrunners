@@ -28,7 +28,7 @@ export class WatchService {
             const now = moment();
 
             //If lastUpdate was one minutes or less ago
-            if (moment(user.lastUpdate).add(1, 'minutes') >= now) {
+            if (moment(user.lastUpdate).add(5, 'seconds') >= now) {
                 await user.changePoints((now.toDate().getTime() - user.lastUpdate.getTime()) / 1000);
             }
 

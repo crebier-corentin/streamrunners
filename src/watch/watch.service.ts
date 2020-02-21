@@ -22,8 +22,7 @@ export class WatchService {
             if (current == undefined || current.user.id === user.id) return;
 
             //Check if stream is online
-            const isOnline = await this.twitch.isStreamOnline(current.user.twitchId);
-            if (!isOnline) return;
+            if (!(await this.twitch.isStreamOnline(current.user.twitchId))) return;
 
             const now = moment();
 
@@ -56,9 +55,6 @@ export class WatchService {
         await user.changePoints(-cost);
         await this.userService.save(user);
 
-        //TODO: Discord
-        //await DiscordBot.sendStreamNotificationMessage();
-
         return { enough: true };
     }
 
@@ -72,7 +68,7 @@ export class WatchService {
         this.streamQueueService.remove(stream);
 
         //Refund
-        this.userService.changePointsSave(user, stream.amount);
+        await this.userService.changePointsSave(user, stream.amount);
 
         return true;
     }

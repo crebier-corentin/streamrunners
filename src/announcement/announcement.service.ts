@@ -10,7 +10,7 @@ export class AnnouncementService extends EntityService<AnnouncementEntity> {
         super(repo);
     }
 
-    public async current(): Promise<AnnouncementEntity | undefined> {
+    public current(): Promise<AnnouncementEntity | undefined> {
         return this.repo.findOne({ where: { active: true } });
     }
 

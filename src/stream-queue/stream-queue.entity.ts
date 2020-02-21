@@ -18,7 +18,7 @@ export class StreamQueueEntity {
     public current: number;
 
     @Column('datetime', { nullable: true, default: null })
-    public start: Date;
+    public start: Date | null;
 
     @ManyToOne(
         // eslint-disable-next-line @typescript-eslint/no-unused-vars

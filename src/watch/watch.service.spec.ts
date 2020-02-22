@@ -6,6 +6,7 @@ import { WatchService } from './watch.service';
 import { Test, TestingModule } from '@nestjs/testing';
 import MockDate = require('mockdate');
 import { StreamQueueEntity } from '../stream-queue/stream-queue.entity';
+import { NotEnoughPointsException } from '../user/user.exception';
 
 describe('WatchService', () => {
     it('placeholder', () => {
@@ -35,7 +36,9 @@ describe('WatchService', () => {
                     provide: UserService,
                     useValue: {
                         save: jest.fn().mockImplementation(entity => entity),
-                        changePointsSave: jest.fn(),
+                        changePointsSave: jest.fn().mockImplementation((user, cost) => {
+                            user.points += cost;
+                        }),
                     },
                 },
                 {
@@ -142,15 +145,22 @@ describe('WatchService', () => {
     });
 
     describe('addStreamToQueue', () => {
-        it('should return {enough: false, cost} if the user doesn`t have enough points', async () => {
+        it('should throw if the user doesn`t have enough points', async () => {
             const user = new UserEntity();
             user.points = 100;
 
             jest.spyOn(streamQueueService, 'isEmpty').mockResolvedValue(false);
 
-            const result = await service.addStreamToQueue(user);
-            expect(result.enough).toBe(false);
-            expect(result.cost).toBe(1000);
+            let error: NotEnoughPointsException;
+
+            try {
+                await service.addStreamToQueue(user);
+            } catch (e) {
+                error = e;
+            }
+            expect(error).toBeInstanceOf(NotEnoughPointsException);
+            expect(error.user).toEqual(user);
+            expect(error.cost).toBe(1000);
         });
 
         it('should cost 0 if there are no active stream', async () => {
@@ -160,8 +170,7 @@ describe('WatchService', () => {
             jest.spyOn(streamQueueService, 'isEmpty').mockResolvedValue(true);
             const mockedInsert = jest.spyOn(streamQueueService, 'insert');
 
-            const result = await service.addStreamToQueue(user);
-            expect(result.enough).toBe(true);
+            await service.addStreamToQueue(user);
             expect(mockedInsert).toHaveBeenCalledWith(0, 600, user);
         });
 
@@ -172,8 +181,8 @@ describe('WatchService', () => {
             jest.spyOn(streamQueueService, 'isEmpty').mockResolvedValue(false);
             const mockedInsert = jest.spyOn(streamQueueService, 'insert');
 
-            const result = await service.addStreamToQueue(user);
-            expect(result.enough).toBe(true);
+            await service.addStreamToQueue(user);
+
             expect(user.points).toBe(0);
             expect(mockedInsert).toHaveBeenCalledWith(1000, 600, user);
         });

@@ -5,6 +5,7 @@ import { ModeratorGuard } from '../guard/moderator.guard';
 import { StreamQueueEntity } from '../stream-queue/stream-queue.entity';
 import { StreamQueueService } from '../stream-queue/stream-queue.service';
 import { UserEntity } from '../user/user.entity';
+import { NotEnoughPointsException } from '../user/user.exception';
 import { UserService } from '../user/user.service';
 import { WatchService } from './watch.service';
 import { Body, Controller, ParseIntPipe, Post, UseGuards } from '@nestjs/common';
@@ -46,14 +47,14 @@ export class WatchController {
 
     @Post('add')
     public async add(@User() user: UserEntity): Promise<{ cost?: number; enough: boolean; points?: number }> {
-        const result = await this.watchService.addStreamToQueue(user);
-
-        if (!result.enough) {
-            //Add points to reply
-            return { ...result, points: user.points };
+        try {
+            await this.watchService.addStreamToQueue(user);
+            return { enough: true };
+        } catch (e) {
+            if (e instanceof NotEnoughPointsException) {
+                return { enough: false, cost: e.cost, points: user.points };
+            }
         }
-
-        return result;
     }
 
     @Post('delete')

@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/ban-ts-ignore */
 import { DiscordBotService } from '../discord/discord-bot.service';
 import { UserEntity } from '../user/user.entity';
+import { NotEnoughPointsException } from '../user/user.exception';
 import { UserService } from '../user/user.service';
 import { RaffleParticipationEntity } from './raffle-participation.entity';
 import { RaffleEntity } from './raffle.entity';
@@ -197,7 +198,7 @@ describe('RaffleService', () => {
             return expect(service.buy(1, new UserEntity())).rejects.toBeDefined();
         });
 
-        it('should fail if the user can\t afford the raffle', () => {
+        it("should fail if the user can't afford the raffle", async () => {
             const r = new RaffleEntity();
             r.winner = null;
             r.endingDate = new Date('2020-01-01');
@@ -209,7 +210,7 @@ describe('RaffleService', () => {
 
             MockDate.set('2019-01-01');
 
-            return expect(service.buy(1, user)).rejects.toBeDefined();
+            return expect(service.buy(1, user)).rejects.toBeInstanceOf(NotEnoughPointsException);
         });
 
         it('should fail if the user has bought max tickets', () => {

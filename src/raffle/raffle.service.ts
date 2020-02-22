@@ -129,7 +129,8 @@ export class RaffleService extends EntityService<RaffleEntity> {
     public async buy(raffleId: number, user: UserEntity): Promise<void> {
         const raffle = await this.byIdOrFail(raffleId);
         //Assure that is active and can afford
-        if (!raffle.isActive() || user.points < raffle.price) throw new InternalServerErrorException();
+        if (!raffle.isActive()) throw new InternalServerErrorException();
+        user.canAffordOrFail(raffle.price);
 
         const rp = await this.RPfindOrCreate(user, raffle);
         //Assure that user has less than max tickets

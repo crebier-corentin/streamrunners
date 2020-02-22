@@ -38,24 +38,16 @@ export class WatchService {
         }
     }
 
-    public async addStreamToQueue(user: UserEntity): Promise<{ enough: boolean; cost?: number }> {
+    public async addStreamToQueue(user: UserEntity): Promise<void> {
         //Check if queue is empty
         const cost = (await this.streamQueueService.isEmpty()) ? 0 : 1000;
 
-        //Check if enough points
-        if (user.points < cost) {
-            //Not enough point
-            return { enough: false, cost };
-        }
+        user.canAffordOrFail(cost);
 
-        //Enough point
         await this.streamQueueService.insert(cost, 60 * 10, user);
 
         //Change points
-        await user.changePoints(-cost);
-        await this.userService.save(user);
-
-        return { enough: true };
+        await this.userService.changePointsSave(user, -cost);
     }
 
     public async removeFromQueue(streamId: number, user: UserEntity): Promise<boolean> {

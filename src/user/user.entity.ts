@@ -5,6 +5,7 @@ import { RaffleParticipationEntity } from '../raffle/raffle-participation.entity
 import { RaffleEntity } from '../raffle/raffle.entity';
 import { ChatRank } from '../shared/types';
 import { StreamQueueEntity } from '../stream-queue/stream-queue.entity';
+import { NotEnoughPointsException } from './user.exception';
 import { Exclude, Expose } from 'class-transformer';
 import {
     Column,
@@ -98,5 +99,13 @@ export class UserEntity {
         } else {
             this.points = Math.round(amount);
         }
+    }
+
+    public canAfford(cost: number): boolean {
+        return this.points >= cost;
+    }
+
+    public canAffordOrFail(cost: number): void {
+        if (!this.canAfford(cost)) throw new NotEnoughPointsException(this, cost);
     }
 }

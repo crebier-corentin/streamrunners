@@ -1,11 +1,11 @@
-import CacheService from '../utils/cache-service';
-import { Semaphore } from '../utils/semaphore';
-import { sleep } from '../utils/utils';
-import { TwitchResponse, TwitchUser } from './twitch.interfaces';
 import { Injectable, Scope } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 import * as moment from 'moment';
+import CacheService from '../utils/cache-service';
+import { Semaphore } from '../utils/semaphore';
+import { sleep } from '../utils/utils';
+import { TwitchResponse, TwitchUser } from './twitch.interfaces';
 
 @Injectable({ scope: Scope.DEFAULT })
 export class TwitchService {

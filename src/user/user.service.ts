@@ -1,3 +1,7 @@
+import { forwardRef, Inject, Injectable } from '@nestjs/common';
+import { Cron, CronExpression } from '@nestjs/schedule';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 import { DiscordBotService } from '../discord/discord-bot.service';
 import { RaffleEntity } from '../raffle/raffle.entity';
 import { TwitchUser } from '../twitch/twitch.interfaces';
@@ -6,10 +10,6 @@ import CacheService from '../utils/cache-service';
 import { EntityService } from '../utils/entity-service';
 import { formatDatetimeSQL } from '../utils/utils';
 import { UserEntity } from './user.entity';
-import { forwardRef, Inject, Injectable } from '@nestjs/common';
-import { Cron, CronExpression } from '@nestjs/schedule';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
 import moment = require('moment');
 
 @Injectable()

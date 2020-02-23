@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
+import * as moment from 'moment';
+import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { formatDuration } from '../shared/shared-utils';
 import { UserEntity } from '../user/user.entity';
 import { RaffleParticipationEntity } from './raffle-participation.entity';
-import * as moment from 'moment';
-import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('raffle')
 export class RaffleEntity {

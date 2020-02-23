@@ -1,8 +1,4 @@
 import { join } from 'path';
-import { AnnouncementService } from './announcement/announcement.service';
-import { AppModule } from './app.module';
-import { ErrorViewFilter } from './filter/error-view.filter';
-import { VIEW_DIR_PATH } from './utils/constants';
 import { ServiceUnavailableException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
@@ -12,6 +8,10 @@ import * as cookieSession from 'cookie-session';
 import * as helmet from 'helmet';
 import * as nunjucks from 'nunjucks';
 import * as passport from 'passport';
+import { AnnouncementService } from './announcement/announcement.service';
+import { AppModule } from './app.module';
+import { ErrorViewFilter } from './filter/error-view.filter';
+import { VIEW_DIR_PATH } from './utils/constants';
 
 async function bootstrap(): Promise<void> {
     const app = await NestFactory.create<NestExpressApplication>(AppModule);

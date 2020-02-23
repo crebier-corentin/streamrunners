@@ -3,23 +3,30 @@
     <section class="chat-grid">
         <!-- Messages -->
         <div class="messages rounded chat-container" ref="chat">
-            <div class="chat-messages p-0 m-0">
-                <template v-for="msg in cMessages">
-                    <small class="font-italic text-center mr-1">{{msg.createdAt}} </small>
+            <div class="d-flex flex-column p-0 m-0">
+                <div class="chat-message" v-for="msg in cMessages">
 
-                    <ChatUsername class="mr-1" :name="msg.author.displayName" :rank="msg.author.chatRank" />
-                    <span :class="{'font-italic': msg.deleted}"> : {{msg.message}}</span>
-                    <button class="text-danger" :style="{opacity: showDelete ? 1 : 0}" @click="deleteMessage(msg.id)"><i
-                            class="fas fa-times" /></button>
+                    <img class="avatar" :src="msg.author.avatar" :alt="msg.author.displayName">
 
-                </template>
+                    <ChatUsername class="username" :name="msg.author.displayName" :rank="msg.author.chatRank"/>
+
+                    <small class="timestamp">{{msg.createdAt}} </small>
+
+                    <span class="message" :class="{'font-italic': msg.deleted, 'text-danger': msg.deleted}">{{msg.message}}
+                        <button class="text-danger" :style="{opacity: showDelete ? 1 : 0}"
+                                @click="deleteMessage(msg.id)"><i class="fas fa-times"/></button>
+                    </span>
+
+
+                </div>
             </div>
 
         </div>
 
         <!-- Active users -->
         <div class="users rounded chat-container d-flex flex-column">
-            <ChatUsername :name="user.displayName" :rank="user.chatRank" v-for="user in cActiveUsers" :key="user.displayName" />
+            <ChatUsername :name="user.displayName" :rank="user.chatRank" v-for="user in cActiveUsers"
+                          :key="user.displayName"/>
         </div>
 
         <!-- Input-->
@@ -29,11 +36,11 @@
                type="text"
                placeholder=" Votre message..."
                v-model="message"
-               @keyup.enter="sendMessage" />
+               @keyup.enter="sendMessage"/>
         <button class="button btn btn-outline-success sub m-0"
                 :disabled="!messageValid || sending"
                 @click="sendMessage">
-            Envoyer&nbsp;&nbsp;&nbsp;<i class="fas fa-paper-plane" /></button>
+            Envoyer&nbsp;&nbsp;&nbsp;<i class="fas fa-paper-plane"/></button>
 
     </section>
 

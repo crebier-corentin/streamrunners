@@ -5,10 +5,41 @@
   padding: map_get($spacers, 1);
 }
 
-.chat-messages {
+.chat-message {
   display: grid;
-  grid-template-columns: auto auto 1fr auto;
-  grid-template-rows: repeat(auto-fill, 1fr);
+  grid-template-columns: auto 1fr auto;
+  grid-template-rows: auto 1fr 1fr;
+  grid-template-areas: "avatar username timestamp" "avatar message message" ". message message";
+
+  margin-bottom: map_get($spacers, 1);
+
+  .avatar {
+    grid-area: avatar;
+    align-self: center;
+
+    max-width: 30px;
+
+    margin: 0 map_get($spacers, 2);
+
+    border-radius: 50%;
+
+  }
+
+  .username {
+    grid-area: username;
+  }
+
+  .timestamp {
+    grid-area: timestamp;
+
+    margin-right: map_get($spacers, 1);
+
+    font-style: italic;
+  }
+
+  .message {
+    grid-area: message;
+  }
 }
 
 .chat-grid {
@@ -36,7 +67,11 @@
 
 }
 
-//Chat username colors
+//Chat usernames
+.chat-username {
+  font-weight: $font-weight-bold;
+}
+
 .chat-name-member {
   color: $black;
 }
@@ -56,6 +91,7 @@
 .chat-name-moderator {
   color: $green;
 }
+
 .chat-name-admin {
   color: $red;
 }

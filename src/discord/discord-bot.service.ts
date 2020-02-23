@@ -1,11 +1,11 @@
-import { RaffleEntity } from '../raffle/raffle.entity';
-import { UserService } from '../user/user.service';
-import { DiscordUserEntity } from './discord-user.entity';
-import { DiscordUserService } from './discord-user.service';
 import { forwardRef, Inject, Injectable, OnApplicationBootstrap } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { Client, Message, Role, TextChannel, VoiceChannel } from 'discord.js';
 import * as moment from 'moment';
+import { RaffleEntity } from '../raffle/raffle.entity';
+import { UserService } from '../user/user.service';
+import { DiscordUserEntity } from './discord-user.entity';
+import { DiscordUserService } from './discord-user.service';
 import Discord = require('discord.js');
 
 interface DiscordBotConstructor {

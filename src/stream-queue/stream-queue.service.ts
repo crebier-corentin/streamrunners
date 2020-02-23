@@ -1,12 +1,12 @@
-import { DiscordBotService } from '../discord/discord-bot.service';
-import { UserEntity } from '../user/user.entity';
-import { EntityService } from '../utils/entity-service';
-import { StreamQueueEntity } from './stream-queue.entity';
 import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { HttpException } from '@nestjs/common/exceptions/http.exception';
 import { Cron, CronExpression } from '@nestjs/schedule';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { DiscordBotService } from '../discord/discord-bot.service';
+import { UserEntity } from '../user/user.entity';
+import { EntityService } from '../utils/entity-service';
+import { StreamQueueEntity } from './stream-queue.entity';
 
 @Injectable()
 export class StreamQueueService extends EntityService<StreamQueueEntity> {

@@ -1,7 +1,7 @@
-import { EntityService } from '../utils/entity-service';
-import { DiscordUserEntity } from './discord-user.entity';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { EntityService } from '../utils/entity-service';
+import { DiscordUserEntity } from './discord-user.entity';
 
 @Injectable()
 export class DiscordUserService extends EntityService<DiscordUserEntity> {

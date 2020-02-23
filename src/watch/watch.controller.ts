@@ -1,3 +1,5 @@
+import { Body, Controller, ParseIntPipe, Post, UseGuards } from '@nestjs/common';
+import { classToPlain } from 'class-transformer';
 import { ChatService } from '../chat/chat.service';
 import { User } from '../decorator/user.decorator';
 import { AuthenticatedGuard } from '../guard/authenticated.guard';
@@ -8,8 +10,6 @@ import { UserEntity } from '../user/user.entity';
 import { NotEnoughPointsException } from '../user/user.exception';
 import { UserService } from '../user/user.service';
 import { WatchService } from './watch.service';
-import { Body, Controller, ParseIntPipe, Post, UseGuards } from '@nestjs/common';
-import { classToPlain } from 'class-transformer';
 
 @UseGuards(AuthenticatedGuard)
 @Controller('watch')

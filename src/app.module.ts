@@ -1,3 +1,8 @@
+import { Module } from '@nestjs/common';
+import { ConfigModule, ConfigService } from '@nestjs/config';
+import { ScheduleModule } from '@nestjs/schedule';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { OgmaModule } from 'nestjs-ogma';
 import { AdminModule } from './admin/admin.module';
 import { AnnouncementModule } from './announcement/announcement.module';
 import { AppController } from './app.controller';
@@ -11,11 +16,6 @@ import { StreamQueueModule } from './stream-queue/stream-queue.module';
 import { TwitchModule } from './twitch/twitch.module';
 import { UserModule } from './user/user.module';
 import { WatchModule } from './watch/watch.module';
-import { Module } from '@nestjs/common';
-import { ConfigModule, ConfigService } from '@nestjs/config';
-import { ScheduleModule } from '@nestjs/schedule';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { OgmaModule } from 'nestjs-ogma';
 import ormconfig = require('./ormconfig');
 
 @Module({

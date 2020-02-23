@@ -1,9 +1,9 @@
+import { Injectable } from '@nestjs/common';
+import * as moment from 'moment';
 import { StreamQueueService } from '../stream-queue/stream-queue.service';
 import { TwitchService } from '../twitch/twitch.service';
 import { UserEntity } from '../user/user.entity';
 import { UserService } from '../user/user.service';
-import { Injectable } from '@nestjs/common';
-import * as moment from 'moment';
 
 @Injectable()
 export class WatchService {

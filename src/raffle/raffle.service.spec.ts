@@ -1,4 +1,7 @@
 /* eslint-disable @typescript-eslint/ban-ts-ignore */
+import { Test, TestingModule } from '@nestjs/testing';
+import { getRepositoryToken } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 import { DiscordBotService } from '../discord/discord-bot.service';
 import { UserEntity } from '../user/user.entity';
 import { NotEnoughPointsException } from '../user/user.exception';
@@ -6,9 +9,6 @@ import { UserService } from '../user/user.service';
 import { RaffleParticipationEntity } from './raffle-participation.entity';
 import { RaffleEntity } from './raffle.entity';
 import { RaffleService } from './raffle.service';
-import { Test, TestingModule } from '@nestjs/testing';
-import { getRepositoryToken } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
 import MockDate = require('mockdate');
 
 describe('RaffleService', () => {

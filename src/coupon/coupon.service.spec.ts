@@ -1,12 +1,12 @@
 /* eslint-disable @typescript-eslint/ban-ts-ignore */
+import { Test, TestingModule } from '@nestjs/testing';
+import { getRepositoryToken } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 import { UserEntity } from '../user/user.entity';
 import { UserService } from '../user/user.service';
 import { CouponEntity } from './coupon.entity';
 import { CouponExceptionType } from './coupon.exception';
 import { CouponService } from './coupon.service';
-import { Test, TestingModule } from '@nestjs/testing';
-import { getRepositoryToken } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
 import MockDate = require('mockdate');
 
 describe('CouponService', () => {

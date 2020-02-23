@@ -1,9 +1,9 @@
+import { Body, Controller, Get, Post, Render, UseGuards } from '@nestjs/common';
 import { User } from '../decorator/user.decorator';
 import { AuthenticatedGuard } from '../guard/authenticated.guard';
 import { UserEntity } from '../user/user.entity';
 import { CouponException } from './coupon.exception';
 import { CouponService } from './coupon.service';
-import { Body, Controller, Get, Post, Render, UseGuards } from '@nestjs/common';
 
 @UseGuards(AuthenticatedGuard)
 @Controller('coupon')

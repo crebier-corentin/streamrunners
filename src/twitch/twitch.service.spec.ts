@@ -1,7 +1,7 @@
 /*  eslint-disable @typescript-eslint/camelcase */
-import { TwitchService } from './twitch.service';
 import { ConfigModule } from '@nestjs/config';
 import { Test, TestingModule } from '@nestjs/testing';
+import { TwitchService } from './twitch.service';
 import nock = require('nock');
 
 describe('TwitchService', () => {

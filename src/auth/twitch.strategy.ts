@@ -1,8 +1,8 @@
-import { UserService } from '../user/user.service';
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { PassportStrategy } from '@nestjs/passport';
 import { Strategy } from 'passport-twitch-new';
+import { UserService } from '../user/user.service';
 
 @Injectable()
 export class TwitchStrategy extends PassportStrategy(Strategy, 'twitch') {

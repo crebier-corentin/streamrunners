@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { UserEntity } from '../user/user.entity';
 import { Column, Entity, ManyToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { UserEntity } from '../user/user.entity';
 
 @Entity('coupon')
 export class CouponEntity {

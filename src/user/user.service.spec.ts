@@ -1,12 +1,12 @@
 /* eslint-disable @typescript-eslint/camelcase,@typescript-eslint/ban-ts-ignore */
+import { Test, TestingModule } from '@nestjs/testing';
+import { getRepositoryToken } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 import { DiscordBotService } from '../discord/discord-bot.service';
 import { TwitchUser } from '../twitch/twitch.interfaces';
 import { TwitchService } from '../twitch/twitch.service';
 import { UserEntity } from './user.entity';
 import { UserService } from './user.service';
-import { Test, TestingModule } from '@nestjs/testing';
-import { getRepositoryToken } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
 
 describe('UserService', () => {
     let service: UserService;

@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/ban-ts-ignore */
-import { DiscordUserEntity } from './discord-user.entity';
-import { DiscordUserService } from './discord-user.service';
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { DiscordUserEntity } from './discord-user.entity';
+import { DiscordUserService } from './discord-user.service';
 
 describe('DiscordUserService', () => {
     let service: DiscordUserService;

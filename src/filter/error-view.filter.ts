@@ -1,8 +1,8 @@
 import { readdirSync } from 'fs';
 import { join } from 'path';
-import { VIEW_DIR_PATH } from '../utils/constants';
 import { ArgumentsHost, Catch, ExceptionFilter, HttpException, HttpStatus } from '@nestjs/common';
 import { Response } from 'express';
+import { VIEW_DIR_PATH } from '../utils/constants';
 
 @Catch()
 export class ErrorViewFilter<T> implements ExceptionFilter {

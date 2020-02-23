@@ -1,8 +1,8 @@
+import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
 import { UserEntity } from '../user/user.entity';
 import { EntityService } from '../utils/entity-service';
 import { AnnouncementEntity } from './announcement.entity';
-import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
 
 @Injectable()
 export class AnnouncementService extends EntityService<AnnouncementEntity> {

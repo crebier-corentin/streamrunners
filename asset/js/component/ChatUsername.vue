@@ -1,5 +1,5 @@
 <template>
-    <span class="text-align" :class="rankClass"><i class="fas" :class="pawn" /> {{name}}</span>
+    <span class="text-align chat-username" :class="rankClass"><i class="fas" :class="pawn" /> {{name}}</span>
 </template>
 
 <script lang="ts">

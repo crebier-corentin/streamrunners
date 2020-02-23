@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/ban-ts-ignore */
+import { Test, TestingModule } from '@nestjs/testing';
+import { getRepositoryToken } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 import { DiscordBotService } from '../discord/discord-bot.service';
 import { UserEntity } from '../user/user.entity';
 import { StreamQueueEntity } from './stream-queue.entity';
 import { StreamQueueService } from './stream-queue.service';
-import { Test, TestingModule } from '@nestjs/testing';
-import { getRepositoryToken } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
 import MockDate = require('mockdate');
 
 describe('StreamQueueService', () => {

@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/ban-ts-ignore */
-import { UserEntity } from '../user/user.entity';
-import { AnnouncementEntity } from './announcement.entity';
-import { AnnouncementService } from './announcement.service';
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { UserEntity } from '../user/user.entity';
+import { AnnouncementEntity } from './announcement.entity';
+import { AnnouncementService } from './announcement.service';
 
 describe('AnnouncementService', () => {
     let service: AnnouncementService;

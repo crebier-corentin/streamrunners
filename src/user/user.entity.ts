@@ -1,11 +1,4 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { ChatMessageEntity } from '../chat/chat-message.entity';
-import { CouponEntity } from '../coupon/coupon.entity';
-import { RaffleParticipationEntity } from '../raffle/raffle-participation.entity';
-import { RaffleEntity } from '../raffle/raffle.entity';
-import { ChatRank } from '../shared/types';
-import { StreamQueueEntity } from '../stream-queue/stream-queue.entity';
-import { NotEnoughPointsException } from './user.exception';
 import { Exclude, Expose } from 'class-transformer';
 import {
     Column,
@@ -17,6 +10,13 @@ import {
     PrimaryGeneratedColumn,
     UpdateDateColumn,
 } from 'typeorm';
+import { ChatMessageEntity } from '../chat/chat-message.entity';
+import { CouponEntity } from '../coupon/coupon.entity';
+import { RaffleParticipationEntity } from '../raffle/raffle-participation.entity';
+import { RaffleEntity } from '../raffle/raffle.entity';
+import { ChatRank } from '../shared/types';
+import { StreamQueueEntity } from '../stream-queue/stream-queue.entity';
+import { NotEnoughPointsException } from './user.exception';
 
 @Exclude()
 @Entity('user')
@@ -34,6 +34,7 @@ export class UserEntity {
     @Column()
     public displayName: string;
 
+    @Expose()
     @Column()
     public avatar: string;
 

@@ -1,10 +1,10 @@
 import * as fs from 'fs';
 import * as path from 'path';
-import { UserService } from '../user/user.service';
-import { duplicatedArray } from '../utils/utils';
 import { Injectable, OnApplicationBootstrap } from '@nestjs/common';
 import { Cron, CronExpression } from '@nestjs/schedule';
 import { createCanvas, Image, loadImage } from 'canvas';
+import { UserService } from '../user/user.service';
+import { duplicatedArray } from '../utils/utils';
 
 @Injectable()
 export class BannerService implements OnApplicationBootstrap {

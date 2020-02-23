@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/ban-ts-ignore */
-import { UserEntity } from '../user/user.entity';
-import { ChatMessageEntity } from './chat-message.entity';
-import { ChatService } from './chat.service';
 import { InternalServerErrorException } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { UserEntity } from '../user/user.entity';
+import { ChatMessageEntity } from './chat-message.entity';
+import { ChatService } from './chat.service';
 
 describe('ChatService', () => {
     let service: ChatService;

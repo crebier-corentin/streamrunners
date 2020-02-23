@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/ban-ts-ignore */
+import { ArgumentsHost, NotFoundException } from '@nestjs/common';
 import { ErrorViewFilter } from './error-view.filter';
 import fs = require('fs');
-import { ArgumentsHost, NotFoundException } from '@nestjs/common';
 
 describe('ErrorViewFilter', () => {
     let host: ArgumentsHost & { render: () => void };

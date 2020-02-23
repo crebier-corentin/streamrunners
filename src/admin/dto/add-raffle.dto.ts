@@ -1,5 +1,5 @@
 import { ToDate, ToInt, Trim } from 'class-sanitizer';
-import { IsDate, IsDateString, IsEmpty, IsNotEmpty, IsNumber, IsOptional, IsString, Min } from 'class-validator';
+import { IsDate, IsNotEmpty, IsNumber, IsOptional, IsString, Min } from 'class-validator';
 
 export class AddRaffleDto {
     @IsNotEmpty()

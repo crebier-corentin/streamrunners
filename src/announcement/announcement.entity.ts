@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
 import { UserEntity } from '../user/user.entity';
 
 @Entity('announcement')
@@ -24,4 +24,7 @@ export class AnnouncementEntity {
 
     @CreateDateColumn()
     public createdAt: Date;
+
+    @UpdateDateColumn()
+    public updatedAt: Date;
 }

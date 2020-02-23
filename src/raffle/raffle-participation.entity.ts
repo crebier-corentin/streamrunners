@@ -1,5 +1,13 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import {
+    Column,
+    CreateDateColumn,
+    Entity,
+    JoinColumn,
+    ManyToOne,
+    PrimaryGeneratedColumn,
+    UpdateDateColumn,
+} from 'typeorm';
 import { UserEntity } from '../user/user.entity';
 import { RaffleEntity } from './raffle.entity';
 
@@ -26,4 +34,7 @@ export class RaffleParticipationEntity {
 
     @CreateDateColumn()
     public createdAt: Date;
+
+    @UpdateDateColumn()
+    public updatedAt: Date;
 }

@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { Column, Entity, ManyToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, CreateDateColumn, Entity, ManyToMany, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
 import { UserEntity } from '../user/user.entity';
 
 @Entity('coupon')
@@ -25,6 +25,12 @@ export class CouponEntity {
         { cascade: true }
     )
     public users: UserEntity[];
+
+    @CreateDateColumn()
+    public createdAt: Date;
+
+    @UpdateDateColumn()
+    public updatedAt: Date;
 
     public isValid(): boolean {
         //Is not expired and used less than max

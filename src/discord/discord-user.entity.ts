@@ -1,4 +1,4 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
 
 @Entity('discord_user')
 export class DiscordUserEntity {
@@ -13,4 +13,10 @@ export class DiscordUserEntity {
 
     @Column({ default: 0 })
     public level: number;
+
+    @CreateDateColumn()
+    public createdAt: Date;
+
+    @UpdateDateColumn()
+    public updatedAt: Date;
 }

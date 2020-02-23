@@ -1,6 +1,15 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import * as moment from 'moment';
-import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import {
+    Column,
+    CreateDateColumn,
+    Entity,
+    JoinColumn,
+    ManyToOne,
+    OneToMany,
+    PrimaryGeneratedColumn,
+    UpdateDateColumn,
+} from 'typeorm';
 import { formatDuration } from '../shared/shared-utils';
 import { UserEntity } from '../user/user.entity';
 import { RaffleParticipationEntity } from './raffle-participation.entity';
@@ -50,6 +59,9 @@ export class RaffleEntity {
 
     @CreateDateColumn()
     public createdAt: Date;
+
+    @UpdateDateColumn()
+    public updatedAt: Date;
 
     public isActive(): boolean {
         return this.winner == null && this.endingDate.getTime() > new Date().getTime();

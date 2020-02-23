@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { Exclude, Expose, Transform, Type } from 'class-transformer';
-import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
 import { UserEntity } from '../user/user.entity';
 import moment = require('moment');
 
@@ -34,6 +34,10 @@ export class ChatMessageEntity {
     )
     @CreateDateColumn()
     public createdAt: Date;
+
+    @Exclude()
+    @UpdateDateColumn()
+    public updatedAt: Date;
 
     @Expose()
     public get deleted(): boolean {

@@ -1,12 +1,12 @@
 import { Test, TestingModule } from '@nestjs/testing';
+import { StreamQueueEntity } from '../stream-queue/stream-queue.entity';
 import { StreamQueueService } from '../stream-queue/stream-queue.service';
 import { TwitchService } from '../twitch/twitch.service';
 import { UserEntity } from '../user/user.entity';
+import { NotEnoughPointsException } from '../user/user.exception';
 import { UserService } from '../user/user.service';
 import { WatchService } from './watch.service';
 import MockDate = require('mockdate');
-import { StreamQueueEntity } from '../stream-queue/stream-queue.entity';
-import { NotEnoughPointsException } from '../user/user.exception';
 
 describe('WatchService', () => {
     it('placeholder', () => {

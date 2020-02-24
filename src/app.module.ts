@@ -16,6 +16,7 @@ import { StreamQueueModule } from './stream-queue/stream-queue.module';
 import { TwitchModule } from './twitch/twitch.module';
 import { UserModule } from './user/user.module';
 import { WatchModule } from './watch/watch.module';
+import { LeaderboardModule } from './leaderboard/leaderboard.module';
 import ormconfig = require('./ormconfig');
 
 @Module({
@@ -41,6 +42,7 @@ import ormconfig = require('./ormconfig');
         DiscordModule,
         AnnouncementModule,
         AdminModule,
+        LeaderboardModule,
     ],
     controllers: [AppController],
 })

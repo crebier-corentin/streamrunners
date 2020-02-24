@@ -1,30 +1,28 @@
-import { forwardRef, Inject, Injectable } from '@nestjs/common';
-import { Cron, CronExpression } from '@nestjs/schedule';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
-import { DiscordBotService } from '../discord/discord-bot.service';
-import { RaffleEntity } from '../raffle/raffle.entity';
-import { TwitchUser } from '../twitch/twitch.interfaces';
-import { TwitchService } from '../twitch/twitch.service';
+import {forwardRef, Inject, Injectable} from '@nestjs/common';
+import {Cron, CronExpression} from '@nestjs/schedule';
+import {InjectRepository} from '@nestjs/typeorm';
+import {Repository} from 'typeorm';
+import {DiscordBotService} from '../discord/discord-bot.service';
+import {RaffleEntity} from '../raffle/raffle.entity';
+import {TwitchUser} from '../twitch/twitch.interfaces';
+import {TwitchService} from '../twitch/twitch.service';
 import CacheService from '../utils/cache-service';
-import { EntityService } from '../utils/entity-service';
-import { formatDatetimeSQL } from '../utils/utils';
-import { UserEntity } from './user.entity';
-import moment = require('moment');
+import {EntityService} from '../utils/entity-service';
+import {formatDatetimeSQL} from '../utils/utils';
+import {UserEntity} from './user.entity';
+import * as moment from "moment";
 
 @Injectable()
 export class UserService extends EntityService<UserEntity> {
     public constructor(
         @InjectRepository(UserEntity)
-        repo: Repository<UserEntity>,
+            repo: Repository<UserEntity>,
         private readonly twitchService: TwitchService,
         @Inject(forwardRef(() => DiscordBotService))
         private readonly discordBot: DiscordBotService
     ) {
         super(repo);
     }
-
-    private cache = new CacheService(120);
 
     /**
      * Creates or update an user from twitch authentication
@@ -35,7 +33,7 @@ export class UserService extends EntityService<UserEntity> {
      */
     public async updateFromTwitch(data: TwitchUser): Promise<UserEntity> {
         //Find or create
-        let user = await this.repo.findOne({ where: { twitchId: data.id } });
+        let user = await this.repo.findOne({where: {twitchId: data.id}});
         const isNewUser = user == undefined;
         if (isNewUser) {
             user = new UserEntity();
@@ -66,7 +64,7 @@ export class UserService extends EntityService<UserEntity> {
             .createQueryBuilder('user')
             .leftJoin('user.raffleParticipations', 'rp')
             .leftJoin('rp.raffle', 'raffle')
-            .where('raffle.id = :id', { id: raffle.id })
+            .where('raffle.id = :id', {id: raffle.id})
             .orderBy('-LOG(1.0 - rand()) / rp.tickets')
             .getOne();
     }
@@ -103,8 +101,8 @@ export class UserService extends EntityService<UserEntity> {
                 this.repo
                     .createQueryBuilder('user')
                     .update()
-                    .set({ displayName: user.display_name, avatar: user.profile_image_url })
-                    .where('user.twitchId = :twitchId', { twitchId: user.id })
+                    .set({displayName: user.display_name, avatar: user.profile_image_url})
+                    .where('user.twitchId = :twitchId', {twitchId: user.id})
                     .execute()
             )
         );
@@ -135,29 +133,32 @@ export class UserService extends EntityService<UserEntity> {
     }
 
     public mostPoints(): Promise<any> {
-        return this.cache.get('mostPoints', () => {
-            return this.repo
-                .createQueryBuilder('user')
-                .select(['user.username', 'user.display_name', 'user.points'])
-                .orderBy('user.points', 'DESC')
-                .limit(10)
-                .getMany();
-        });
+        return this.repo
+            .createQueryBuilder('user')
+            .select(['user.username', 'user.display_name', 'user.points'])
+            .orderBy('user.points', 'DESC')
+            .limit(10)
+            .getMany();
+
     }
 
-    public mostPlace(): Promise<any> {
-        return this.cache.get('mostPlace', () => {
-            return this.repo
-                .createQueryBuilder('user')
-                .leftJoin('user.streamQueue', 'queue')
-                .select('user.username', 'username')
-                .addSelect('user.display_name', 'display_name')
-                .addSelect('SUM(queue.time)', 'time')
-                .orderBy('time', 'DESC')
-                .groupBy('user.id')
-                .limit(10)
-                .getRawMany();
-        });
+    public mostPlace(limitDate: moment.Moment | null = null): Promise<any> {
+        const query = this.repo
+            .createQueryBuilder('user')
+            .leftJoin('user.streamsQueued', 'queue')
+            .select('user.username', 'username')
+            .addSelect('user.displayName', 'displayName')
+            .addSelect('SUM(queue.current)', 'time')
+            .orderBy('time', 'DESC')
+            .groupBy('user.id')
+            .limit(10);
+
+        if (limitDate != null) {
+            query.where('queue.createdAt >= :limitDate', {limitDate: formatDatetimeSQL(limitDate)});
+        }
+
+        return query.getRawMany();
+
     }
 
     public async totalPoints(): Promise<number> {

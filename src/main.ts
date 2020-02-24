@@ -20,7 +20,7 @@ async function bootstrap(): Promise<void> {
 
     const announcementService = app.get(AnnouncementService);
 
-    app.useGlobalFilters(new ErrorViewFilter());
+    app.useGlobalFilters(new ErrorViewFilter(isDev));
 
     //Maintenance
     if (config.get('MAINTENANCE') === 'true') {

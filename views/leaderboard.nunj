@@ -1,0 +1,45 @@
+{% macro leaderboard(title, users) %}
+
+    <h5>{{ title }}</h5>
+
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+            <thead>
+            <tr>
+                <th scope="col">Utilisateur</th>
+                <th scope="col">Nombre de seconde streamé</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            {% for user in users %}
+                <tr>
+                    <td><a href="https://www.twitch.tv/{{ user.username }}"
+                           target="_blank">{{ user.displayName }}</a>
+                    </td>
+                    <td>{{ user.time }}</td>
+                </tr>
+            {% endfor %}
+
+            </tbody>
+        </table>
+    </div>
+
+{% endmacro %}
+
+{% set title = "StreamRunners - Leaderboard" %}
+{% extends "master.nunj" %}
+
+{% block content %}
+    <div class="container">
+
+        {{ leaderboard("Aujourd'hui", day) }}
+        {{ leaderboard("Cette Semaine", week) }}
+        {{ leaderboard("Ce Mois-Ci", month) }}
+        {{ leaderboard("Cette Année", year) }}
+        {{ leaderboard("LifeTime", all) }}
+
+    </div>
+{% endblock %}
+
+

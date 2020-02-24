@@ -1,22 +1,21 @@
-import {forwardRef, Inject, Injectable} from '@nestjs/common';
-import {Cron, CronExpression} from '@nestjs/schedule';
-import {InjectRepository} from '@nestjs/typeorm';
-import {Repository} from 'typeorm';
-import {DiscordBotService} from '../discord/discord-bot.service';
-import {RaffleEntity} from '../raffle/raffle.entity';
-import {TwitchUser} from '../twitch/twitch.interfaces';
-import {TwitchService} from '../twitch/twitch.service';
-import CacheService from '../utils/cache-service';
-import {EntityService} from '../utils/entity-service';
-import {formatDatetimeSQL} from '../utils/utils';
-import {UserEntity} from './user.entity';
-import * as moment from "moment";
+import { forwardRef, Inject, Injectable } from '@nestjs/common';
+import { Cron, CronExpression } from '@nestjs/schedule';
+import { InjectRepository } from '@nestjs/typeorm';
+import * as moment from 'moment';
+import { Repository } from 'typeorm';
+import { DiscordBotService } from '../discord/discord-bot.service';
+import { RaffleEntity } from '../raffle/raffle.entity';
+import { TwitchUser } from '../twitch/twitch.interfaces';
+import { TwitchService } from '../twitch/twitch.service';
+import { EntityService } from '../utils/entity-service';
+import { formatDatetimeSQL } from '../utils/utils';
+import { UserEntity } from './user.entity';
 
 @Injectable()
 export class UserService extends EntityService<UserEntity> {
     public constructor(
         @InjectRepository(UserEntity)
-            repo: Repository<UserEntity>,
+        repo: Repository<UserEntity>,
         private readonly twitchService: TwitchService,
         @Inject(forwardRef(() => DiscordBotService))
         private readonly discordBot: DiscordBotService
@@ -33,7 +32,7 @@ export class UserService extends EntityService<UserEntity> {
      */
     public async updateFromTwitch(data: TwitchUser): Promise<UserEntity> {
         //Find or create
-        let user = await this.repo.findOne({where: {twitchId: data.id}});
+        let user = await this.repo.findOne({ where: { twitchId: data.id } });
         const isNewUser = user == undefined;
         if (isNewUser) {
             user = new UserEntity();
@@ -64,7 +63,7 @@ export class UserService extends EntityService<UserEntity> {
             .createQueryBuilder('user')
             .leftJoin('user.raffleParticipations', 'rp')
             .leftJoin('rp.raffle', 'raffle')
-            .where('raffle.id = :id', {id: raffle.id})
+            .where('raffle.id = :id', { id: raffle.id })
             .orderBy('-LOG(1.0 - rand()) / rp.tickets')
             .getOne();
     }
@@ -101,8 +100,8 @@ export class UserService extends EntityService<UserEntity> {
                 this.repo
                     .createQueryBuilder('user')
                     .update()
-                    .set({displayName: user.display_name, avatar: user.profile_image_url})
-                    .where('user.twitchId = :twitchId', {twitchId: user.id})
+                    .set({ displayName: user.display_name, avatar: user.profile_image_url })
+                    .where('user.twitchId = :twitchId', { twitchId: user.id })
                     .execute()
             )
         );
@@ -139,7 +138,6 @@ export class UserService extends EntityService<UserEntity> {
             .orderBy('user.points', 'DESC')
             .limit(10)
             .getMany();
-
     }
 
     public mostPlace(limitDate: moment.Moment | null = null): Promise<any> {
@@ -154,11 +152,10 @@ export class UserService extends EntityService<UserEntity> {
             .limit(10);
 
         if (limitDate != null) {
-            query.where('queue.createdAt >= :limitDate', {limitDate: formatDatetimeSQL(limitDate)});
+            query.where('queue.createdAt >= :limitDate', { limitDate: formatDatetimeSQL(limitDate) });
         }
 
         return query.getRawMany();
-
     }
 
     public async totalPoints(): Promise<number> {

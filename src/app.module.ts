@@ -11,12 +11,12 @@ import { BannerModule } from './banner/banner.module';
 import { ChatModule } from './chat/chat.module';
 import { CouponModule } from './coupon/coupon.module';
 import { DiscordModule } from './discord/discord.module';
+import { LeaderboardModule } from './leaderboard/leaderboard.module';
 import { RaffleModule } from './raffle/raffle.module';
 import { StreamQueueModule } from './stream-queue/stream-queue.module';
 import { TwitchModule } from './twitch/twitch.module';
 import { UserModule } from './user/user.module';
 import { WatchModule } from './watch/watch.module';
-import { LeaderboardModule } from './leaderboard/leaderboard.module';
 import ormconfig = require('./ormconfig');
 
 @Module({

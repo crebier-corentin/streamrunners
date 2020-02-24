@@ -1,14 +1,14 @@
-import {readdirSync} from 'fs';
-import {join} from 'path';
-import {ArgumentsHost, Catch, ExceptionFilter, HttpException, HttpStatus} from '@nestjs/common';
-import {Response} from 'express';
-import {VIEW_DIR_PATH} from '../utils/constants';
+import { readdirSync } from 'fs';
+import { join } from 'path';
+import { ArgumentsHost, Catch, ExceptionFilter, HttpException, HttpStatus } from '@nestjs/common';
+import { Response } from 'express';
+import { VIEW_DIR_PATH } from '../utils/constants';
 
 @Catch()
 export class ErrorViewFilter<T> implements ExceptionFilter {
     private readonly errorViews: Set<string>;
 
-    public constructor(private readonly isDev: boolean) {
+    public constructor(private readonly isDev: boolean = false) {
         const viewErrorDirPath = join(VIEW_DIR_PATH, 'error/');
         const files = readdirSync(viewErrorDirPath);
 

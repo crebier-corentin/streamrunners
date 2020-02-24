@@ -1,4 +1,4 @@
-import axios, {AxiosError} from 'axios';
+import axios, {AxiosResponse} from 'axios';
 import swal from 'sweetalert2';
 
 window['swal'] = swal;
@@ -7,24 +7,24 @@ let button = <HTMLButtonElement>document.getElementById("submit");
 let coupon = <HTMLInputElement>document.getElementById("coupon");
 
 //Onclick
-button.addEventListener("click", evt => {
+button.addEventListener("click", async evt => {
     evt.preventDefault();
 
-    axios.post("coupon/add", {coupon: coupon.value})
-        .then((response) => {
+    try {
 
-            swal({
-                text: response.data.message,
-                type: response.data.error ? "error" : "success"
-            });
+        const response = await axios.post("coupon/add", {coupon: coupon.value});
 
-        })
-        .catch((error : AxiosError) => {
-            swal({
-                title: "Erreur",
-                text: error.message,
-                type: "error"
-            });
+        swal({
+            text: response.data.message,
+            type: "success"
         });
+
+    } catch (e) {
+
+        swal({
+            text: e.response.data.message,
+            type: "error"
+        });
+    }
 
 });

@@ -11,6 +11,7 @@ import * as passport from 'passport';
 import { AnnouncementService } from './announcement/announcement.service';
 import { AppModule } from './app.module';
 import { ErrorViewFilter } from './filter/error-view.filter';
+import { UserErrorFilter } from './filter/user-error.filter';
 import { VIEW_DIR_PATH } from './utils/constants';
 
 async function bootstrap(): Promise<void> {
@@ -21,6 +22,7 @@ async function bootstrap(): Promise<void> {
     const announcementService = app.get(AnnouncementService);
 
     app.useGlobalFilters(new ErrorViewFilter(isDev));
+    app.useGlobalFilters(new UserErrorFilter());
 
     //Maintenance
     if (config.get('MAINTENANCE') === 'true') {

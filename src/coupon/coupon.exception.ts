@@ -1,11 +1,15 @@
+import { UserError } from '../utils/user-error';
+
 export enum CouponExceptionType {
     NotFound,
     Invalid,
     AlreadyUsed,
 }
 
-export class CouponException {
-    public constructor(public readonly type: CouponExceptionType) {}
+export class CouponException extends UserError {
+    public constructor(public readonly type: CouponExceptionType) {
+        super();
+    }
 
     public errorMessage(): string {
         switch (this.type) {

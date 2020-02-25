@@ -1,7 +1,8 @@
-import { Body, Controller, ParseIntPipe, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, ParseIntPipe, Post, UseFilters, UseGuards } from '@nestjs/common';
 import { classToPlain } from 'class-transformer';
 import { ChatService } from '../chat/chat.service';
 import { User } from '../decorator/user.decorator';
+import { JsonUserErrorFilter } from '../filter/json-user-error.filter';
 import { AuthenticatedGuard } from '../guard/authenticated.guard';
 import { ModeratorGuard } from '../guard/moderator.guard';
 import { StreamQueueEntity } from '../stream-queue/stream-queue.entity';
@@ -45,16 +46,10 @@ export class WatchController {
         };
     }
 
+    @UseFilters(JsonUserErrorFilter)
     @Post('add')
-    public async add(@User() user: UserEntity): Promise<{ cost?: number; enough: boolean; points?: number }> {
-        try {
-            await this.watchService.addStreamToQueue(user);
-            return { enough: true };
-        } catch (e) {
-            if (e instanceof NotEnoughPointsException) {
-                return { enough: false, cost: e.cost, points: user.points };
-            }
-        }
+    public async add(@User() user: UserEntity): Promise<void> {
+        await this.watchService.addStreamToQueue(user);
     }
 
     @Post('delete')

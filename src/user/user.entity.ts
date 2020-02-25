@@ -105,8 +105,4 @@ export class UserEntity {
     public canAfford(cost: number): boolean {
         return this.points >= cost;
     }
-
-    public canAffordOrFail(cost: number): void {
-        if (!this.canAfford(cost)) throw new NotEnoughPointsException(this, cost);
-    }
 }

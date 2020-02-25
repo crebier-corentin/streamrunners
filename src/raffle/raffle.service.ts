@@ -4,6 +4,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { DiscordBotService } from '../discord/discord-bot.service';
 import { UserEntity } from '../user/user.entity';
+import { NotEnoughPointsException } from '../user/user.exception';
 import { UserService } from '../user/user.service';
 import { EntityService } from '../utils/entity-service';
 import { RaffleParticipationEntity } from './raffle-participation.entity';
@@ -130,7 +131,7 @@ export class RaffleService extends EntityService<RaffleEntity> {
         const raffle = await this.byIdOrFail(raffleId);
         //Assure that is active and can afford
         if (!raffle.isActive()) throw new InternalServerErrorException();
-        user.canAffordOrFail(raffle.price);
+        if (!user.canAfford(raffle.price)) throw new NotEnoughPointsException(user, raffle.price, 'Le ticket');
 
         const rp = await this.RPfindOrCreate(user, raffle);
         //Assure that user has less than max tickets

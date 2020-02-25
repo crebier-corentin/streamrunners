@@ -10,8 +10,7 @@ import * as nunjucks from 'nunjucks';
 import * as passport from 'passport';
 import { AnnouncementService } from './announcement/announcement.service';
 import { AppModule } from './app.module';
-import { ErrorViewFilter } from './filter/error-view.filter';
-import { UserErrorFilter } from './filter/user-error.filter';
+import { ViewFilter } from './filter/view.filter';
 import { VIEW_DIR_PATH } from './utils/constants';
 
 async function bootstrap(): Promise<void> {
@@ -21,8 +20,7 @@ async function bootstrap(): Promise<void> {
 
     const announcementService = app.get(AnnouncementService);
 
-    app.useGlobalFilters(new ErrorViewFilter(isDev));
-    app.useGlobalFilters(new UserErrorFilter());
+    app.useGlobalFilters(new ViewFilter(isDev));
 
     //Maintenance
     if (config.get('MAINTENANCE') === 'true') {

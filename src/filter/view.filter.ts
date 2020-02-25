@@ -5,7 +5,7 @@ import { Response } from 'express';
 import { VIEW_DIR_PATH } from '../utils/constants';
 
 @Catch()
-export class ErrorViewFilter<T> implements ExceptionFilter {
+export class ViewFilter<T> implements ExceptionFilter {
     private readonly errorViews: Set<string>;
 
     public constructor(private readonly isDev: boolean = false) {

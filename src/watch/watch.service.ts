@@ -3,6 +3,7 @@ import * as moment from 'moment';
 import { StreamQueueService } from '../stream-queue/stream-queue.service';
 import { TwitchService } from '../twitch/twitch.service';
 import { UserEntity } from '../user/user.entity';
+import { NotEnoughPointsException } from '../user/user.exception';
 import { UserService } from '../user/user.service';
 
 @Injectable()
@@ -42,7 +43,7 @@ export class WatchService {
         //Check if queue is empty
         const cost = (await this.streamQueueService.isEmpty()) ? 0 : 1000;
 
-        user.canAffordOrFail(cost);
+        if (!user.canAfford(cost)) throw new NotEnoughPointsException(user, cost, 'La place');
 
         await this.streamQueueService.insert(cost, 60 * 10, user);
 

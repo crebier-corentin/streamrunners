@@ -1,5 +1,6 @@
-import { Body, Controller, Get, Post, Render, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Post, Render, UseFilters, UseGuards } from '@nestjs/common';
 import { User } from '../decorator/user.decorator';
+import { JsonUserErrorFilter } from '../filter/json-user-error.filter';
 import { AuthenticatedGuard } from '../guard/authenticated.guard';
 import { UserEntity } from '../user/user.entity';
 import { CouponService } from './coupon.service';
@@ -15,6 +16,7 @@ export class CouponController {
         //
     }
 
+    @UseFilters(JsonUserErrorFilter)
     @Post('add')
     public async useCoupon(@Body('coupon') couponCode: string, @User() user: UserEntity): Promise<{ message: string }> {
         const coupon = await this.couponService.useCoupon(couponCode, user);

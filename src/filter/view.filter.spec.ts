@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-ts-ignore */
 import { ArgumentsHost, NotFoundException } from '@nestjs/common';
-import { ErrorViewFilter } from './error-view.filter';
+import { ViewFilter } from './view.filter';
 import fs = require('fs');
 
 describe('ErrorViewFilter', () => {
@@ -18,14 +18,14 @@ describe('ErrorViewFilter', () => {
     it('should be defined', () => {
         jest.spyOn(fs, 'readdirSync').mockReturnValue([]);
 
-        expect(new ErrorViewFilter()).toBeDefined();
+        expect(new ViewFilter()).toBeDefined();
     });
 
     it('should render the error view corresponding to the http status code', () => {
         // @ts-ignore
         jest.spyOn(fs, 'readdirSync').mockReturnValue(['500.nunj', '404.nunj']);
 
-        new ErrorViewFilter().catch(new NotFoundException(), host);
+        new ViewFilter().catch(new NotFoundException(), host);
         expect(host.render).toHaveBeenCalledWith('error/404');
     });
 
@@ -33,7 +33,7 @@ describe('ErrorViewFilter', () => {
         // @ts-ignore
         jest.spyOn(fs, 'readdirSync').mockReturnValue(['500.nunj']);
 
-        new ErrorViewFilter().catch(new NotFoundException(), host);
+        new ViewFilter().catch(new NotFoundException(), host);
         expect(host.render).toHaveBeenCalledWith('error/500');
     });
 
@@ -41,7 +41,7 @@ describe('ErrorViewFilter', () => {
         // @ts-ignore
         jest.spyOn(fs, 'readdirSync').mockReturnValue(['500.nunj']);
 
-        new ErrorViewFilter().catch(new Error(), host);
+        new ViewFilter().catch(new Error(), host);
         expect(host.render).toHaveBeenCalledWith('error/500');
     });
 });

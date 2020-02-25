@@ -4,9 +4,9 @@ import Vue from 'vue/dist/vue.esm.js';
 import TwitchViewer from './component/TwitchViewer.vue';
 import Chat from './component/Chat.vue';
 
-import axios, { AxiosError } from 'axios';
+import axios, {AxiosError} from 'axios';
 import swal from 'sweetalert2';
-import { intervalWait } from '../../src/shared/shared-utils';
+import {intervalWait} from '../../src/shared/shared-utils';
 
 window['swal'] = swal;
 
@@ -138,25 +138,22 @@ window['vm'] = new Vue({
             //Ignore if user clicked no
             if (!swalRes.value) return;
 
-            const res = await axios.post(this.addUrl);
+            try {
 
-            //Check if enough points
-            if (res.data.enough) {
-                //Success
+                await axios.post(this.addUrl);
+
                 swal({
                     title: 'Vous avez acheté une place !',
                     type: 'success',
                 });
 
-            }
-            else {
+            } catch (e) {
                 //Error
                 swal({
-                    title: 'Vous n\'avez pas assez de points.',
-                    text: `Vous avez ${res.data.points} points. \n La place coûte ${res.data.cost} points.`,
+                    title: e.response.data.title,
+                    text: e.response.data.message,
                     type: 'error',
                 });
-
             }
 
         },
@@ -175,7 +172,7 @@ window['vm'] = new Vue({
             //Ignore if user clicked no
             if (!swalRes.value) return;
 
-            const res = await axios.post(this.deleteUrl, { id: id });
+            const res = await axios.post(this.deleteUrl, {id: id});
 
             if (res.data.success) {
 
@@ -217,8 +214,7 @@ window['vm'] = new Vue({
                     type: 'success',
                 });
 
-            }
-            catch (e) {
+            } catch (e) {
                 swal({
                     title: e.response.data,
                     type: 'error',

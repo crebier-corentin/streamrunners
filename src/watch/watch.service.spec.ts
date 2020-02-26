@@ -7,6 +7,7 @@ import { NotEnoughPointsException } from '../user/user.exception';
 import { UserService } from '../user/user.service';
 import { WatchService } from './watch.service';
 import MockDate = require('mockdate');
+import { StreamOfflineException } from './watch.exception';
 
 describe('WatchService', () => {
     it('placeholder', () => {
@@ -150,6 +151,7 @@ describe('WatchService', () => {
             user.points = 100;
 
             jest.spyOn(streamQueueService, 'isEmpty').mockResolvedValue(false);
+            jest.spyOn(twitch, 'isStreamOnline').mockResolvedValue(true);
 
             let error: NotEnoughPointsException;
 
@@ -163,11 +165,22 @@ describe('WatchService', () => {
             expect(error.cost).toBe(1000);
         });
 
+        it("should throw if the user's stream is offline", () => {
+            const user = new UserEntity();
+            user.points = 5000;
+
+            jest.spyOn(streamQueueService, 'isEmpty').mockResolvedValue(true);
+            jest.spyOn(twitch, 'isStreamOnline').mockResolvedValue(false);
+
+            return expect(service.addStreamToQueue(user)).rejects.toBeInstanceOf(StreamOfflineException);
+        });
+
         it('should cost 0 if there are no active stream', async () => {
             const user = new UserEntity();
             user.points = 100;
 
             jest.spyOn(streamQueueService, 'isEmpty').mockResolvedValue(true);
+            jest.spyOn(twitch, 'isStreamOnline').mockResolvedValue(true);
             const mockedInsert = jest.spyOn(streamQueueService, 'insert');
 
             await service.addStreamToQueue(user);
@@ -179,6 +192,7 @@ describe('WatchService', () => {
             user.points = 1000;
 
             jest.spyOn(streamQueueService, 'isEmpty').mockResolvedValue(false);
+            jest.spyOn(twitch, 'isStreamOnline').mockResolvedValue(true);
             const mockedInsert = jest.spyOn(streamQueueService, 'insert');
 
             await service.addStreamToQueue(user);

@@ -5,6 +5,7 @@ import { TwitchService } from '../twitch/twitch.service';
 import { UserEntity } from '../user/user.entity';
 import { NotEnoughPointsException } from '../user/user.exception';
 import { UserService } from '../user/user.service';
+import { StreamOfflineException } from './watch.exception';
 
 @Injectable()
 export class WatchService {
@@ -44,6 +45,9 @@ export class WatchService {
         const cost = (await this.streamQueueService.isEmpty()) ? 0 : 1000;
 
         if (!user.canAfford(cost)) throw new NotEnoughPointsException(user, cost, 'La place');
+
+        //Check if stream is online
+        if (!(await this.twitch.isStreamOnline(user.twitchId))) throw new StreamOfflineException();
 
         await this.streamQueueService.insert(cost, 60 * 10, user);
 

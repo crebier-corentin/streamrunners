@@ -135,7 +135,7 @@ export class UserService extends EntityService<UserEntity> {
     public mostPoints(): Promise<any> {
         return this.repo
             .createQueryBuilder('user')
-            .select(['user.username', 'user.display_name', 'user.points'])
+            .select(['user.username', 'user.displayName', 'user.points'])
             .orderBy('user.points', 'DESC')
             .limit(10)
             .getMany();

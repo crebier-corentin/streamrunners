@@ -1,6 +1,6 @@
 import * as fs from 'fs';
 import * as path from 'path';
-import { Injectable, OnApplicationBootstrap } from '@nestjs/common';
+import { forwardRef, Inject, Injectable, OnApplicationBootstrap } from '@nestjs/common';
 import { createCanvas, Image, loadImage, registerFont } from 'canvas';
 import * as moment from 'moment';
 import { MostPlaceResult } from '../user/most-place-result.interface';
@@ -27,7 +27,7 @@ export class LeaderboardDrawerService implements OnApplicationBootstrap {
     private secondTrophyImage: Image;
     private thirdTrophyImage: Image;
 
-    public constructor(private readonly userService: UserService) {}
+    public constructor(@Inject(forwardRef(() => UserService)) private readonly userService: UserService) {}
 
     public async onApplicationBootstrap(): Promise<void> {
         [

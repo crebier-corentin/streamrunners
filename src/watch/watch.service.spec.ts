@@ -9,7 +9,6 @@ import { StreamOfflineException } from './watch.exception';
 import { WatchService } from './watch.service';
 import MockDate = require('mockdate');
 
-
 describe('WatchService', () => {
     it('placeholder', () => {
         expect(true).toBe(true);

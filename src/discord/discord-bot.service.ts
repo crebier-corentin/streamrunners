@@ -2,6 +2,7 @@ import { forwardRef, Inject, Injectable, OnApplicationBootstrap } from '@nestjs/
 import { ConfigService } from '@nestjs/config';
 import { Client, Message, Role, TextChannel, VoiceChannel } from 'discord.js';
 import * as moment from 'moment';
+import { LeaderboardDrawerService } from '../leaderboard/leaderboard-drawer.service';
 import { RaffleEntity } from '../raffle/raffle.entity';
 import { UserService } from '../user/user.service';
 import { DiscordUserEntity } from './discord-user.entity';
@@ -35,6 +36,8 @@ export class DiscordBotService implements OnApplicationBootstrap {
     public constructor(
         private readonly config: ConfigService,
         @Inject(forwardRef(() => UserService)) private readonly userService: UserService,
+        @Inject(forwardRef(() => LeaderboardDrawerService))
+        private readonly leaderboardDrawer: LeaderboardDrawerService,
         private readonly discordUserService: DiscordUserService
     ) {}
 
@@ -78,17 +81,17 @@ export class DiscordBotService implements OnApplicationBootstrap {
             }
 
             //Commands
-            if (message.content.startsWith('!niveau')) {
+            if (message.content.startsWith('+niveau')) {
                 await this.levelCommand(message, discordUser);
             }
 
             //Ping
-            else if (message.content.startsWith('!ping')) {
+            else if (message.content.startsWith('+ping')) {
                 await this.pingCommand(message);
             }
 
             //Leaderboard
-            else if (message.content.startsWith('!leaderboardpoints')) {
+            else if (message.content.startsWith('+leaderboard')) {
                 await this.leaderboardCommand(message);
             }
         });
@@ -174,32 +177,48 @@ export class DiscordBotService implements OnApplicationBootstrap {
             .setColor(0x4286f4)
             .addField('Niveau', targetUser.level)
             .addField('XP', targetUser.xp + '/100');
-        message.channel.sendEmbed(embed);
+        message.channel.send(embed);
     }
 
     public async leaderboardCommand(message: Message): Promise<void> {
-        //Most points
-        const mostPoints = await this.userService.mostPoints();
+        const args = message.content.split(/\s+/);
 
-        let pointsResponse = 'Points```';
-        let placement = 0;
-        for (const user of mostPoints) {
-            pointsResponse += `${++placement}# ${user.display_name}\n\t${user.points}\n`;
+        //Most points
+        if (/points?/i.test(args[1])) {
+            const mostPoints = await this.userService.mostPoints();
+
+            let pointsResponse = 'Points```';
+            let placement = 0;
+            for (const user of mostPoints) {
+                pointsResponse += `${++placement}# ${user.displayName}\n\t${user.points}\n`;
+            }
+            pointsResponse += '```';
+
+            await message.channel.send(pointsResponse);
         }
-        pointsResponse += '```';
 
         //Most place
-        const mostPlace = await this.userService.mostPlace();
+        else if (/streamer/i.test(args[1])) {
+            let unitOfTime;
 
-        let placeResponse = 'Seconde streamé```';
-        placement = 0;
-        for (const user of mostPlace) {
-            placeResponse += `${++placement}# ${user.display_name}\n\t${user.time}\n`;
+            if (args[2] == undefined) unitOfTime = null;
+            else if (/jour/i.test(args[2])) unitOfTime = 'day';
+            else if (/mois/i.test(args[2])) unitOfTime = 'month';
+            else if (/semaine/i.test(args[2])) unitOfTime = 'isoWeek';
+            else if (/ann[ée]e?/i.test(args[2])) unitOfTime = 'year';
+            //Invalid
+            else {
+                await message.channel.send(':x: Période de leaderboard inconnu (jour/mois/semaine/année)');
+                return;
+            }
+
+            await message.channel.send({ file: await this.leaderboardDrawer.getLeaderboardFor(unitOfTime) });
         }
-        placeResponse += '```';
 
-        await message.channel.send(pointsResponse);
-        await message.channel.send(placeResponse);
+        //Invalid
+        else {
+            await message.channel.send(':x: Type de leaderboard inconnu (points/streamer)');
+        }
     }
 
     public async updateSiteUserCount(): Promise<void> {

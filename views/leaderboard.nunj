@@ -1,43 +1,14 @@
-{% macro leaderboard(title, users) %}
-
-    <h5>{{ title }}</h5>
-
-    <div class="table-responsive">
-        <table class="table table-bordered table-striped">
-            <thead>
-            <tr>
-                <th scope="col">Utilisateur</th>
-                <th scope="col">Nombre de seconde streamé</th>
-            </tr>
-            </thead>
-            <tbody>
-
-            {% for user in users %}
-                <tr>
-                    <td><a href="https://www.twitch.tv/{{ user.username }}"
-                           target="_blank">{{ user.displayName }}</a>
-                    </td>
-                    <td>{{ user.time }}</td>
-                </tr>
-            {% endfor %}
-
-            </tbody>
-        </table>
-    </div>
-
-{% endmacro %}
-
 {% set title = "StreamRunners - Leaderboard" %}
 {% extends "master.nunj" %}
 
 {% block content %}
     <div class="container">
 
-        {{ leaderboard("Aujourd'hui", day) }}
-        {{ leaderboard("Cette Semaine", week) }}
-        {{ leaderboard("Ce Mois-Ci", month) }}
-        {{ leaderboard("Cette Année", year) }}
-        {{ leaderboard("LifeTime", all) }}
+        <img src="/leaderboard/image?unitOfTime=day" alt="Aujourd'hui" class="d-block mx-auto my-2 img-fluid">
+        <img src="/leaderboard/image?unitOfTime=isoWeek" alt="Semaine" class="d-block mx-auto my-2 img-fluid">
+        <img src="/leaderboard/image?unitOfTime=month" alt="Mois" class="d-block mx-auto my-2 img-fluid">
+        <img src="/leaderboard/image?unitOfTime=year" alt="Année" class="d-block mx-auto my-2 img-fluid">
+        <img src="/leaderboard/image/" alt="Lifetime" class="d-block mx-auto my-2 img-fluid">
 
     </div>
 {% endblock %}

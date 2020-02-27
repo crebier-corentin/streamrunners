@@ -5,9 +5,10 @@ import { TwitchService } from '../twitch/twitch.service';
 import { UserEntity } from '../user/user.entity';
 import { NotEnoughPointsException } from '../user/user.exception';
 import { UserService } from '../user/user.service';
+import { StreamOfflineException } from './watch.exception';
 import { WatchService } from './watch.service';
 import MockDate = require('mockdate');
-import { StreamOfflineException } from './watch.exception';
+
 
 describe('WatchService', () => {
     it('placeholder', () => {

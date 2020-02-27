@@ -4,6 +4,7 @@ import { Injectable, OnApplicationBootstrap } from '@nestjs/common';
 import { Cron, CronExpression } from '@nestjs/schedule';
 import { createCanvas, Image, loadImage } from 'canvas';
 import { UserService } from '../user/user.service';
+import { PUBLIC_DIR_PATH } from '../utils/constants';
 import { duplicatedArray } from '../utils/utils';
 
 @Injectable()
@@ -18,7 +19,7 @@ export class BannerService implements OnApplicationBootstrap {
     }
 
     public async loadDefaultBanner(): Promise<void> {
-        this.cache = await fs.promises.readFile(path.join(__dirname, '../../public/img/photo-wall.png'));
+        this.cache = await fs.promises.readFile(path.join(PUBLIC_DIR_PATH, 'img/photo-wall.png'));
     }
 
     private async pickAvatars(count: number): Promise<Image[]> {

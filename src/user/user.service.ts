@@ -9,6 +9,7 @@ import { TwitchUser } from '../twitch/twitch.interfaces';
 import { TwitchService } from '../twitch/twitch.service';
 import { EntityService } from '../utils/entity-service';
 import { formatDatetimeSQL } from '../utils/utils';
+import { MostPlaceResult } from './most-place-result.interface';
 import { UserEntity } from './user.entity';
 
 @Injectable()
@@ -140,7 +141,7 @@ export class UserService extends EntityService<UserEntity> {
             .getMany();
     }
 
-    public mostPlace(limitDate: moment.Moment | null = null): Promise<any> {
+    public mostPlace(limitDate: moment.Moment | null = null): Promise<MostPlaceResult[]> {
         const query = this.repo
             .createQueryBuilder('user')
             .leftJoin('user.streamsQueued', 'queue')

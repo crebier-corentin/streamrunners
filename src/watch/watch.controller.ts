@@ -8,7 +8,6 @@ import { ModeratorGuard } from '../guard/moderator.guard';
 import { StreamQueueEntity } from '../stream-queue/stream-queue.entity';
 import { StreamQueueService } from '../stream-queue/stream-queue.service';
 import { UserEntity } from '../user/user.entity';
-import { NotEnoughPointsException } from '../user/user.exception';
 import { UserService } from '../user/user.service';
 import { WatchService } from './watch.service';
 

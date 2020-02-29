@@ -117,8 +117,8 @@ window['vm'] = new Vue({
         },
 
         async makeRequestUpdate() {
-            //Assure that player is not paused
-            if (this.isPaused) return;
+            //Assure that player is not paused when there's a stream
+            if (this.currentStream != null && this.isPaused) return;
 
             const result = await axios.post(this.updateUrl);
             this.updateData(result.data);

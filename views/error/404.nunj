@@ -53,7 +53,7 @@ DRIBBBLE: https://dribbble.com/shots/4330167-404-Page-Lost-In-Space
 }
 
 .spin-earth-on-hover{
-    
+
     transition: ease 200s !important;
     transform: rotate(-3600deg) !important;
 }
@@ -77,7 +77,7 @@ html, body{
     background-position: left top;
     height: 100%;
     overflow: hidden;
-    
+
 }
 
 .custom-navbar{
@@ -95,8 +95,8 @@ html, body{
     float: right;
     margin-right: 15px;
     text-transform: uppercase;
-    
-    
+
+
 }
 
 ul {
@@ -104,8 +104,8 @@ ul {
     margin: 0;
     padding: 0;
 /*    overflow: hidden;*/
-    display: flex; 
-    align-items: center; 
+    display: flex;
+    align-items: center;
 }
 
 li {
@@ -120,7 +120,7 @@ li a {
     text-decoration: none;
     letter-spacing : 2px;
     font-size: 12px;
-    
+
     -webkit-transition: all 0.3s ease-in;
     -moz-transition: all 0.3s ease-in;
     -ms-transition: all 0.3s ease-in;
@@ -161,7 +161,7 @@ li a:hover {
     text-decoration: none;
     letter-spacing : 2px;
     font-size: 11px;
-    
+
     -webkit-transition: all 0.3s ease-in;
     -moz-transition: all 0.3s ease-in;
     -ms-transition: all 0.3s ease-in;
@@ -215,7 +215,7 @@ li a:hover {
 }
 
 .earth-moon{
-    
+
 }
 
 .object_astronaut{
@@ -284,19 +284,19 @@ li a:hover {
     .navbar-links{
         display: none;
     }
-    
+
     .custom-navbar{
         text-align: center;
     }
-    
+
     .brand-logo img{
         width: 120px;
     }
-    
+
     .box_astronaut{
         top: 70%;
     }
-    
+
     .central-body{
         padding-top: 25%;
     }
@@ -304,21 +304,21 @@ li a:hover {
 </style>
 </head>
 <body class="bg-purple">
-        
+
         <div class="stars">
             <div class="custom-navbar">
                 <div class="brand-logo">
-                    <img src="https://streamrunners.fr/img/navbrand.png" width="200px">
+                    <img src="/img/navbrand.png" width="200px">
                 </div>
                 <div class="navbar-links">
                     <ul>
-                      <li><a href="https://streamrunners.fr/" class="btn-request" target="_blank">Accueil</a></li>
+                      <li><a href="/" class="btn-request" target="_blank">Accueil</a></li>
                     </ul>
                 </div>
             </div>
             <div class="central-body">
                 <img class="image-404" src="https://salehriaz.com/404Page/img/404.svg" width="300px">
-                <a href="https://streamrunners.fr/" class="btn-go-home" target="_blank">RETOUR A L'ACCUEIL</a>
+                <a href="/" class="btn-go-home" target="_blank">RETOUR A L'ACCUEIL</a>
             </div>
             <div class="objects">
                 <img class="object_rocket" src="img/rocket.svg" width="100px">

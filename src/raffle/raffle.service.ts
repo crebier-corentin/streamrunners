@@ -8,10 +8,7 @@ import { NotEnoughPointsException } from '../user/user.exception';
 import { UserService } from '../user/user.service';
 import { EntityService } from '../utils/entity-service';
 import { RaffleParticipationEntity } from './raffle-participation.entity';
-import { RaffleEntity } from './raffle.entity';
-
-export type RaffleEntityAndTotal = RaffleEntity & { total: number };
-export type RaffleEntityAndTotalAndTicketCount = RaffleEntityAndTotal & { ticketCount: number };
+import { RaffleEntity, RaffleEntityExtra } from './raffle.entity';
 
 @Injectable()
 export class RaffleService extends EntityService<RaffleEntity> {
@@ -70,7 +67,7 @@ export class RaffleService extends EntityService<RaffleEntity> {
         ).sum;
     }
 
-    private async active(): Promise<RaffleEntityAndTotal[]> {
+    private async active(): Promise<RaffleEntityExtra[]> {
         const { entities, raw } = await this.repo
             .createQueryBuilder('raffle')
             .leftJoin('raffle.participations', 'rp')
@@ -82,17 +79,17 @@ export class RaffleService extends EntityService<RaffleEntity> {
 
         //Map total to entities
         let i = 0;
-        return entities.map((e: RaffleEntityAndTotal) => {
-            e.total = raw[i++].total ?? 0;
+        return entities.map((e: RaffleEntityExtra) => {
+            e.totalTickets = raw[i++].total ?? 0;
             return e;
         });
     }
 
-    public async activeAndTicketCount(user: UserEntity): Promise<RaffleEntityAndTotalAndTicketCount[]> {
+    public async activeAndTicketCount(user: UserEntity): Promise<RaffleEntityExtra[]> {
         const raffles = await this.active();
         return Promise.all(
-            raffles.map(async (r: RaffleEntityAndTotalAndTicketCount) => {
-                r.ticketCount = (await this.RPfindForUserAndRaffle(user, r))?.tickets ?? 0; //Ticket count or 0 if none
+            raffles.map(async (r: RaffleEntityExtra) => {
+                r.userTickets = (await this.RPfindForUserAndRaffle(user, r))?.tickets ?? 0; //Ticket count or 0 if none
                 return r;
             })
         );

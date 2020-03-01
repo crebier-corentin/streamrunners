@@ -27,7 +27,10 @@ module.exports = {
         '@typescript-eslint/return-await': 'error',
         'require-await': 'off',
         '@typescript-eslint/require-await': 'error',
-        'import/order': ['warn', { alphabetize: { order: 'asc' } }],
+        'import/order': ['warn', {
+            alphabetize: { order: 'asc' },
+            groups: ['builtin', ['unknown', 'external'], 'internal'],
+        }],
         'import/namespace': 'off',
     },
 };

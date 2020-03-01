@@ -1,20 +1,30 @@
-let moment = require("moment");
-if ("default" in moment) {
-    moment = moment["default"];
-}
+import Raffle from './component/Raffle.vue';
+import Vue from 'vue';
+import axios from 'axios';
 
-import {formatDuration} from "../../src/shared/shared-utils";
+new Vue({
+    el: '#app',
 
-const countdownsAndDate = Array.from(document.getElementsByClassName("countdown")).map(el => ({
-    el: <HTMLElement>el,
-    date: moment((<HTMLElement>el).dataset.endingDate)
-}));
+    components: { Raffle },
 
-const updateCountdowns = () => {
-    for (const {el, date} of countdownsAndDate) {
-        const duration = moment.duration(date.diff(moment()));
-        el.innerText = formatDuration(duration);
-    }
-};
+    data() {
+        return {
+            points: 0,
+            raffles: [],
+        };
+    },
 
-setInterval(updateCountdowns, 1000);
+    methods: {
+        async buy(raffleId) {
+            const response = await axios.post('/raffle/buy', {raffleId});
+
+            this.points = response.data.points;
+            this.raffles = response.data.raffles;
+        },
+    },
+
+    mounted() {
+        this.points = window['defaultPoints'];
+        this.raffles = window['defaultRaffles'];
+    },
+});

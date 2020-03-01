@@ -1,0 +1,56 @@
+{% set title = "StreamRunners - Giveaway" %}
+{% extends "master.nunj" %}
+
+{% block content %}
+    <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+        <h1 class="display-4">GiveAways</h1>
+        <p class="lead">Achète des tickets pour tenter de remporter ces lots !</p>
+    </div>
+
+    <div id="app" class="container">
+
+        {# Points
+        {% if rafflesActive.length > 0 %}
+            <div class="d-flex justify-content-center align-items-center">
+                <span class="mr-1">{{ req.user.points }}</span>
+                <img src="/img/po.png" alt="points" width="16px" height="16px" />
+            </div>
+        {% endif %} #}
+
+        {# Active raffles #}
+        <section class="card-deck mb-3 text-center">
+
+            <raffle v-for="raffle in raffles" :points="points" :info="raffle" :key="raffle.id" @buy="buy"></raffle>
+
+            <p v-if="raffles.length === 0" class="lead text-center w-100">Aucun giveway actif pour le moment.</p>
+
+
+        </section>
+        <hr>
+        <br>
+
+        {# Ended raffles #}
+        <h3 class="text-center">DERNIERS GAGNANTS :</h3><br>
+        <ul class="giveaway-winner-list">
+            {% for raffle in rafflesEnded %}
+
+                <li class="giveaway-winner">
+                    <small class="date">{{ raffle.formattedEnded() }}</small>
+                    <img src="{{ raffle.winner.avatar }}" alt="avatar" class="avatar" />
+                    <p class="username">{{ raffle.winner.displayName }}</p>
+                    <p class="title">{{ raffle.title }}</p>
+                </li>
+
+            {% endfor %}
+        </ul>
+    </div>
+
+{% endblock %}
+
+{% block script %}
+    <script>
+        var defaultPoints = {{ req.user.points | safe }};
+        var defaultRaffles = {{ rafflesActive | safe }};
+    </script>
+    <script src="/js/raffle.js"></script>
+{% endblock %}

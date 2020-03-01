@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
+import { Exclude, Expose, Type } from 'class-transformer';
 import * as moment from 'moment';
 import {
     Column,
@@ -14,6 +15,7 @@ import { formatDuration } from '../shared/shared-utils';
 import { UserEntity } from '../user/user.entity';
 import { RaffleParticipationEntity } from './raffle-participation.entity';
 
+@Expose()
 @Entity('raffle')
 export class RaffleEntity {
     @PrimaryGeneratedColumn()
@@ -37,12 +39,15 @@ export class RaffleEntity {
     @Column('datetime')
     public endingDate: Date;
 
+    @Exclude()
     @Column({ nullable: true })
     public code: string | null;
 
+    @Exclude()
     @Column({ default: 0 })
     public value: number;
 
+    @Type(type => UserEntity)
     @ManyToOne(
         type => UserEntity,
         u => u.rafflesWon,
@@ -51,15 +56,18 @@ export class RaffleEntity {
     @JoinColumn({ name: 'winnerId' })
     public winner: UserEntity | null;
 
+    @Exclude()
     @OneToMany(
         type => RaffleParticipationEntity,
         r => r.raffle
     )
     public participations: RaffleParticipationEntity[];
 
+    @Exclude()
     @CreateDateColumn()
     public createdAt: Date;
 
+    @Exclude()
     @UpdateDateColumn()
     public updatedAt: Date;
 
@@ -78,4 +86,11 @@ export class RaffleEntity {
             .locale('fr')
             .format('LL');
     }
+}
+
+@Expose()
+export class RaffleEntityExtra extends RaffleEntity {
+    public totalTickets: number;
+
+    public userTickets: number;
 }

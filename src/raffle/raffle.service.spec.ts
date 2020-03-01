@@ -88,10 +88,10 @@ describe('RaffleService', () => {
             // @ts-ignore
             const raffles = await service.active();
             expect(raffles[0].id).toBe(1);
-            expect(raffles[0].total).toBe(10);
+            expect(raffles[0].totalTickets).toBe(10);
 
             expect(raffles[1].id).toBe(2);
-            expect(raffles[1].total).toBe(0);
+            expect(raffles[1].totalTickets).toBe(0);
         });
     });
 
@@ -131,12 +131,12 @@ describe('RaffleService', () => {
 
             const raffles = await service.activeAndTicketCount(new UserEntity());
             expect(raffles[0].id).toBe(1);
-            expect(raffles[0].total).toBe(10);
-            expect(raffles[0].ticketCount).toBe(5);
+            expect(raffles[0].totalTickets).toBe(10);
+            expect(raffles[0].userTickets).toBe(5);
 
             expect(raffles[1].id).toBe(2);
-            expect(raffles[1].total).toBe(0);
-            expect(raffles[1].ticketCount).toBe(0);
+            expect(raffles[1].totalTickets).toBe(0);
+            expect(raffles[1].userTickets).toBe(0);
         });
     });
 

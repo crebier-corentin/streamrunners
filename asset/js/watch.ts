@@ -126,10 +126,10 @@ window['vm'] = new Vue({
 
         async makeRequestAdd() {
 
-            const swalRes = await swal({
+            const swalRes = await swal.fire({
                 title: 'Acheter une place?',
                 text: '1 000 points pour 10 minutes. \n Si la queue est vide la place est gratuite !',
-                type: 'warning',
+                icon: 'warning',
                 showCancelButton: true,
                 confirmButtonText: 'Oui',
                 cancelButtonText: 'Non',
@@ -142,17 +142,17 @@ window['vm'] = new Vue({
 
                 await axios.post(this.addUrl);
 
-                swal({
+                swal.fire({
                     title: 'Vous avez acheté une place !',
-                    type: 'success',
+                    icon: 'success',
                 });
 
             } catch (e) {
                 //Error
-                swal({
+                swal.fire({
                     title: e.response.data.title,
                     text: e.response.data.message,
-                    type: 'error',
+                    icon: 'error',
                 });
             }
 
@@ -160,10 +160,10 @@ window['vm'] = new Vue({
 
         async makeRequestDelete(id: string) {
 
-            const swalRes = await swal({
+            const swalRes = await swal.fire({
                 title: 'Supprimer ça place ?',
                 text: 'Vous serez remboursé',
-                type: 'warning',
+                icon: 'warning',
                 showCancelButton: true,
                 confirmButtonText: 'Oui',
                 cancelButtonText: 'Non',
@@ -177,16 +177,16 @@ window['vm'] = new Vue({
             if (res.data.success) {
 
                 //Success
-                swal({
+                swal.fire({
                     title: 'Vous avez supprimé votre place !',
-                    type: 'success',
+                    icon: 'success',
                 });
             }
             else {
 
                 //Error
-                swal({
-                    type: 'error',
+                swal.fire({
+                    icon: 'error',
                     title: 'Erreur',
                 });
 
@@ -196,9 +196,9 @@ window['vm'] = new Vue({
         },
 
         async makeRequestSkip() {
-            const swalRes = await swal({
+            const swalRes = await swal.fire({
                 title: 'Passer ?',
-                type: 'warning',
+                icon: 'warning',
                 showCancelButton: true,
                 confirmButtonText: 'Oui',
                 cancelButtonText: 'Non',
@@ -209,15 +209,15 @@ window['vm'] = new Vue({
 
             try {
                 await axios.post(this.skipUrl);
-                swal({
+                swal.fire({
                     title: 'Stream passé',
-                    type: 'success',
+                    icon: 'success',
                 });
 
             } catch (e) {
-                swal({
+                swal.fire({
                     title: e.response.data,
-                    type: 'error',
+                    icon: 'error',
                 });
             }
 

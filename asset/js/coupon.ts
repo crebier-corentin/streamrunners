@@ -14,16 +14,16 @@ button.addEventListener("click", async evt => {
 
         const response = await axios.post("coupon/add", {coupon: coupon.value});
 
-        swal({
+        swal.fire({
             text: response.data.message,
-            type: "success"
+            icon: "success"
         });
 
     } catch (e) {
 
-        swal({
+        swal.fire({
             text: e.response.data.message,
-            type: "error"
+            icon: "error"
         });
     }
 

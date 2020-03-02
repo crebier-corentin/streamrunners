@@ -110,7 +110,7 @@
     "sass": "^1.25.0",
     "sass-loader": "^8.0.2",
     "supertest": "^4.0.2",
-    "sweetalert2": "^7.26.12",
+    "sweetalert2": "^9.8.2",
     "ts-jest": "25.1.0",
     "ts-loader": "^6.2.1",
     "ts-node": "^8.6.0",

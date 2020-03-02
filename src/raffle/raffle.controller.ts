@@ -23,9 +23,10 @@ export class RaffleController {
     @Post('buy')
     public async buy(
         @Body('raffleId', ParseIntPipe) raffleId: number,
+        @Body('amount', ParseIntPipe) amount: number,
         @User() user: UserEntity
     ): Promise<{ points: number; raffles: any }> {
-        await this.raffleService.buy(raffleId, user);
+        await this.raffleService.buy(raffleId, amount, user);
 
         const raffles = await this.raffleService.activeAndTicketCount(user);
         return { points: user.points, raffles: classToPlain(raffles) };

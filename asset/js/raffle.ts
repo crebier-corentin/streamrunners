@@ -16,7 +16,7 @@ new Vue({
 
     methods: {
         async buy(raffleId) {
-            const response = await axios.post('/raffle/buy', {raffleId});
+            const response = await axios.post('/raffle/buy', {raffleId, amount: 1});
 
             this.points = response.data.points;
             this.raffles = response.data.raffles;

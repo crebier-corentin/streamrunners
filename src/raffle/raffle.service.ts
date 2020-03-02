@@ -124,19 +124,22 @@ export class RaffleService extends EntityService<RaffleEntity> {
             .getMany();
     }
 
-    public async buy(raffleId: number, user: UserEntity): Promise<void> {
+    public async buy(raffleId: number, amount: number, user: UserEntity): Promise<void> {
+        //Assure that amount is superior to 0
+        if (amount <= 0) throw new InternalServerErrorException();
+
         const raffle = await this.byIdOrFail(raffleId);
         //Assure that is active and can afford
         if (!raffle.isActive()) throw new InternalServerErrorException();
-        if (!user.canAfford(raffle.price)) throw new NotEnoughPointsException(user, raffle.price, 'Le ticket');
+        if (!user.canAfford(raffle.price * amount)) throw new NotEnoughPointsException(user, raffle.price, 'Le ticket');
 
         const rp = await this.RPfindOrCreate(user, raffle);
         //Assure that user has less than max tickets
-        if (raffle.maxTickets > 0 && rp.tickets === raffle.maxTickets) throw new InternalServerErrorException();
+        if (raffle.maxTickets > 0 && rp.tickets + amount > raffle.maxTickets) throw new InternalServerErrorException();
 
         //Pay and add ticket
-        await this.userService.changePointsSave(user, -raffle.price);
-        rp.tickets++;
+        await this.userService.changePointsSave(user, -(raffle.price * amount));
+        rp.tickets += amount;
         await this.RPrepo.save(rp);
     }
 

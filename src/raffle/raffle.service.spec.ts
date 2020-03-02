@@ -171,9 +171,13 @@ describe('RaffleService', () => {
     });
 
     describe('buy', () => {
+        it.each([0, -10, -2453])('should fail if amount is inferior or equal to 0', amount => {
+            return expect(service.buy(1, amount, new UserEntity())).rejects.toBeDefined();
+        });
+
         it("should fail if the raffle doesn't exist", () => {
             jest.spyOn(repo, 'findOne').mockResolvedValue(undefined);
-            return expect(service.buy(1, new UserEntity())).rejects.toBeDefined();
+            return expect(service.buy(1, 1, new UserEntity())).rejects.toBeDefined();
         });
 
         it('should fail if the raffle is inactive (winner)', () => {
@@ -184,7 +188,7 @@ describe('RaffleService', () => {
             MockDate.set('2021-01-01');
 
             jest.spyOn(repo, 'findOne').mockResolvedValue(r);
-            return expect(service.buy(1, new UserEntity())).rejects.toBeDefined();
+            return expect(service.buy(1, 1, new UserEntity())).rejects.toBeDefined();
         });
 
         it('should fail if the raffle is inactive (endingDate)', () => {
@@ -195,14 +199,14 @@ describe('RaffleService', () => {
             MockDate.set('2019-01-01');
 
             jest.spyOn(repo, 'findOne').mockResolvedValue(r);
-            return expect(service.buy(1, new UserEntity())).rejects.toBeDefined();
+            return expect(service.buy(1, 1, new UserEntity())).rejects.toBeDefined();
         });
 
         it("should fail if the user can't afford the raffle", async () => {
             const r = new RaffleEntity();
             r.winner = null;
             r.endingDate = new Date('2020-01-01');
-            r.price = 200;
+            r.price = 60;
             jest.spyOn(repo, 'findOne').mockResolvedValue(r);
 
             const user = new UserEntity();
@@ -210,7 +214,7 @@ describe('RaffleService', () => {
 
             MockDate.set('2019-01-01');
 
-            return expect(service.buy(1, user)).rejects.toBeInstanceOf(NotEnoughPointsException);
+            return expect(service.buy(1, 2, user)).rejects.toBeInstanceOf(NotEnoughPointsException);
         });
 
         it('should fail if the user has bought max tickets', () => {
@@ -222,7 +226,7 @@ describe('RaffleService', () => {
             jest.spyOn(repo, 'findOne').mockResolvedValue(r);
 
             const rp = new RaffleParticipationEntity();
-            rp.tickets = 10;
+            rp.tickets = 6;
             // @ts-ignore
             jest.spyOn(RPrepo, 'createQueryBuilder').mockReturnValue({
                 leftJoinAndSelect: jest.fn().mockReturnThis(),
@@ -236,7 +240,7 @@ describe('RaffleService', () => {
             const user = new UserEntity();
             user.points = 1000;
 
-            return expect(service.buy(1, user)).rejects.toBeDefined();
+            return expect(service.buy(1, 5, user)).rejects.toBeDefined();
         });
 
         it('should remove the points from user when bought and increase the ticket count', async () => {
@@ -262,9 +266,9 @@ describe('RaffleService', () => {
             const user = new UserEntity();
             user.points = 1000;
 
-            await service.buy(1, user);
-            expect(user.points).toBe(900);
-            expect(rp.tickets).toBe(11);
+            await service.buy(1, 2, user);
+            expect(user.points).toBe(800);
+            expect(rp.tickets).toBe(12);
         });
     });
 

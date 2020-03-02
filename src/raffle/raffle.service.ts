@@ -120,7 +120,7 @@ export class RaffleService extends EntityService<RaffleEntity> {
             .createQueryBuilder('raffle')
             .leftJoinAndSelect('raffle.winner', 'winner')
             .where('raffle.winnerId IS NOT NULL')
-            .orderBy('raffle.createdAt', 'DESC')
+            .orderBy('raffle.endingDate', 'DESC')
             .limit(count)
             .getMany();
     }

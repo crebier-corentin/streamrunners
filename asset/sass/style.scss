@@ -144,53 +144,53 @@ hr {
   margin-bottom: 5px;
 }
 
-.sub{
-    color: #fff;
-    background-color: #28a745;
-    border-color: #28a745!important;
-    margin-bottom: 5px;
-    border: solid 2px;
+.sub {
+  color: #fff;
+  background-color: #28a745;
+  border-color: #28a745 !important;
+  margin-bottom: 5px;
+  border: solid 2px;
 }
 
-.sub:hover{
-    color: #28a745;
-    background-color: #fff;
-    border-color: #28a745!important;
-    margin-bottom: 5px;
-    border: solid 2px;
+.sub:hover {
+  color: #28a745;
+  background-color: #fff;
+  border-color: #28a745 !important;
+  margin-bottom: 5px;
+  border: solid 2px;
 }
 
-.skip{
+.skip {
   color: #fff;
   background-color: $blue;
-  border-color: $blue!important;
+  border-color: $blue !important;
   margin-bottom: 5px;
   border: solid 2px;
   float: right;
 }
 
-.skip:hover{
+.skip:hover {
   color: $blue;
   background-color: #fff;
-  border-color: $blue!important;
+  border-color: $blue !important;
   margin-bottom: 5px;
   border: solid 2px;
 }
 
-.follow{
-    color: #fff;
-    background-color: #8c6dc5;
-    border-color: #8c6dc5!important;
-    margin-bottom: 5px;
-    border: solid 2px;
+.follow {
+  color: #fff;
+  background-color: #8c6dc5;
+  border-color: #8c6dc5 !important;
+  margin-bottom: 5px;
+  border: solid 2px;
 }
 
-.follow:hover{
-    color: #8c6dc5;
-    background-color: #fff;
-    border-color: #8c6dc5!important;
-    margin-bottom: 5px;
-    border: solid 2px;
+.follow:hover {
+  color: #8c6dc5;
+  background-color: #fff;
+  border-color: #8c6dc5 !important;
+  margin-bottom: 5px;
+  border: solid 2px;
 }
 
 .btn.disable, .btn.disable:hover, .btn.disable:active {
@@ -219,67 +219,67 @@ a:hover {
 
 /* END BANNER WALL */
 
-.badge-secondary{
-    margin: 2px;
-    background-color: #8c6dc5!important;
+.badge-secondary {
+  margin: 2px;
+  background-color: #8c6dc5 !important;
 }
 
-.perso{
-    margin: 15px;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    border :1px solid;
-    border-color: #8c6dc5;
-    background-color: #000;
+.perso {
+  margin: 15px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  border: 1px solid;
+  border-color: #8c6dc5;
+  background-color: #000;
 }
 
-.rounded-circle{
-    margin: 15px;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
+.rounded-circle {
+  margin: 15px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-.jumbotron{
-    margin-top: 15px;
-    padding: 2rem 2rem !important;
+.jumbotron {
+  margin-top: 15px;
+  padding: 2rem 2rem !important;
 }
 
-.form-control{
-    margin-bottom: 15px !important;
+.form-control {
+  margin-bottom: 15px !important;
 }
 
-.boutique{
-    margin-top: 15px;
+.boutique {
+  margin-top: 15px;
 }
 
-.boutique:hover{
-    margin-top: 15px;
+.boutique:hover {
+  margin-top: 15px;
 }
 
-.morepoint{
-    margin-right: 15px;
+.morepoint {
+  margin-right: 15px;
 }
 
-.badgepoint{
-    float:right;
+.badgepoint {
+  float: right;
 }
 
 .badge-success {
-    margin-top: -8px !important;
-    margin-right: -15px !important;
+  margin-top: -8px !important;
+  margin-right: -15px !important;
 }
 
-.badge{
-    font-weight: 1000 !important;
-    padding: .20em .4em !important;
-    line-height: 2 !important;
-    font-size: 100% !important;
+.badge {
+  font-weight: 1000 !important;
+  padding: .20em .4em !important;
+  line-height: 2 !important;
+  font-size: 100% !important;
 }
 
-.headp{
-    color: white;
+.headp {
+  color: white;
 }
 
 .line-height-60 {
@@ -290,6 +290,7 @@ a:hover {
   margin-top: 1rem;
 }
 
-.giveaway-winner .title {
-  margin-right: 1rem;
+//bootstrap fix
+.input-group > .form-control, .input-group > .custom-select, .input-group > .custom-file {
+  margin-bottom: 0 !important;
 }

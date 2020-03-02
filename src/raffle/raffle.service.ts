@@ -80,7 +80,7 @@ export class RaffleService extends EntityService<RaffleEntity> {
         //Map total to entities
         let i = 0;
         return entities.map((e: RaffleEntityExtra) => {
-            e.totalTickets = raw[i++].total ?? 0;
+            e.totalTickets = Number(raw[i++].total ?? 0);
             return e;
         });
     }

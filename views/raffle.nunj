@@ -9,13 +9,12 @@
 
     <div id="app" class="container">
 
-        {# Points
-        {% if rafflesActive.length > 0 %}
-            <div class="d-flex justify-content-center align-items-center">
-                <span class="mr-1">{{ req.user.points }}</span>
-                <img src="/img/po.png" alt="points" width="16px" height="16px" />
-            </div>
-        {% endif %} #}
+        {# Points  #}
+        <div class="d-flex justify-content-center align-items-center">
+            <span class="mr-1">{% raw %}{{ points }}{% endraw %}</span>
+            <img src="/img/po.png" alt="points" width="16px" height="16px" />
+        </div>
+
 
         {# Active raffles #}
         <section class="card-deck mb-3 text-center">
@@ -38,7 +37,7 @@
                     <small class="date">{{ raffle.formattedEnded() }}</small>
                     <img src="{{ raffle.winner.avatar }}" alt="avatar" class="avatar" />
                     <p class="username">{{ raffle.winner.displayName }}</p>
-                    <p class="title">{{ raffle.title }}</p>
+                    <p class="title mr-3">{{ raffle.title }}</p>
                 </li>
 
             {% endfor %}

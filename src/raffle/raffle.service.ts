@@ -75,6 +75,7 @@ export class RaffleService extends EntityService<RaffleEntity> {
             .andWhere('raffle.endingDate > NOW()')
             .addSelect('SUM(rp.tickets)', 'total')
             .groupBy('raffle.id')
+            .orderBy('endingDate', 'ASC')
             .getRawAndEntities();
 
         //Map total to entities

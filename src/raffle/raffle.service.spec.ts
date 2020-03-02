@@ -79,6 +79,7 @@ describe('RaffleService', () => {
                 andWhere: jest.fn().mockReturnThis(),
                 addSelect: jest.fn().mockReturnThis(),
                 groupBy: jest.fn().mockReturnThis(),
+                orderBy: jest.fn().mockReturnThis(),
                 getRawAndEntities: jest.fn().mockResolvedValue({
                     entities: [r1, r2],
                     raw: [{ total: 10 }, { total: undefined }],
@@ -109,6 +110,7 @@ describe('RaffleService', () => {
                 andWhere: jest.fn().mockReturnThis(),
                 addSelect: jest.fn().mockReturnThis(),
                 groupBy: jest.fn().mockReturnThis(),
+                orderBy: jest.fn().mockReturnThis(),
                 getRawAndEntities: jest.fn().mockReturnValue({
                     entities: [r1, r2],
                     raw: [{ total: 10 }, { total: undefined }],

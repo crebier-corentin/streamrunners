@@ -8,7 +8,7 @@ export class JsonUserErrorFilter implements ExceptionFilter {
         const ctx = host.switchToHttp();
         const response = ctx.getResponse<Response>();
 
-        response.status(422).json({
+        response.status(exception.getStatus()).json({
             title: exception.errorTitle(),
             message: exception.errorMessage(),
         });

@@ -10,7 +10,9 @@ import * as nunjucks from 'nunjucks';
 import * as passport from 'passport';
 import { AnnouncementService } from './announcement/announcement.service';
 import { AppModule } from './app.module';
+import { BanFilter } from './common/filter/ban.filter';
 import { ViewFilter } from './common/filter/view.filter';
+import { BanGuard } from './common/guard/ban.guard';
 import { VIEW_DIR_PATH } from './common/utils/constants';
 
 async function bootstrap(): Promise<void> {
@@ -21,6 +23,9 @@ async function bootstrap(): Promise<void> {
     const announcementService = app.get(AnnouncementService);
 
     app.useGlobalFilters(new ViewFilter(isDev));
+    app.useGlobalFilters(new BanFilter());
+
+    app.useGlobalGuards(new BanGuard());
 
     //Maintenance
     if (config.get('MAINTENANCE') === 'true') {

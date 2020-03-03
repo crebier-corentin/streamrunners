@@ -5,12 +5,16 @@ import { Repository } from 'typeorm';
 export abstract class EntityService<T> {
     public constructor(protected readonly repo: Repository<T>) {}
 
-    public byId(id: number): Promise<T | undefined> {
-        return this.repo.findOne(id);
+    public byId(id: number, relations: string[] = []): Promise<T | undefined> {
+        return this.repo.findOne(id, { relations });
     }
 
-    public async byIdOrFail(id: number, exception: HttpException = new InternalServerErrorException()): Promise<T> {
-        const entity = await this.byId(id);
+    public async byIdOrFail(
+        id: number,
+        relations: string[] = [],
+        exception: HttpException = new InternalServerErrorException()
+    ): Promise<T> {
+        const entity = await this.byId(id, relations);
         if (entity == undefined) throw exception;
 
         return entity;

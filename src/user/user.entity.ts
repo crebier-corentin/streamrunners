@@ -4,8 +4,10 @@ import {
     Column,
     CreateDateColumn,
     Entity,
+    JoinColumn,
     JoinTable,
     ManyToMany,
+    ManyToOne,
     OneToMany,
     PrimaryGeneratedColumn,
     UpdateDateColumn,
@@ -53,6 +55,14 @@ export class UserEntity {
     @Expose()
     @Column({ default: ChatRank.Member })
     public chatRank: ChatRank;
+
+    //Ban
+    @ManyToOne(type => UserEntity, { nullable: true })
+    @JoinColumn({ name: 'bannedById' })
+    public bannedBy: UserEntity | null;
+
+    @Column({ nullable: true, default: null })
+    public banDate: Date | null;
 
     @OneToMany(
         type => StreamQueueEntity,

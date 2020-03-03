@@ -1,10 +1,10 @@
 import { Body, Controller, ParseIntPipe, Post, UseFilters, UseGuards } from '@nestjs/common';
 import { classToPlain } from 'class-transformer';
 import { ChatService } from '../chat/chat.service';
-import { User } from '../decorator/user.decorator';
-import { JsonUserErrorFilter } from '../filter/json-user-error.filter';
-import { AuthenticatedGuard } from '../guard/authenticated.guard';
-import { ModeratorGuard } from '../guard/moderator.guard';
+import { User } from '../common/decorator/user.decorator';
+import { JsonUserErrorFilter } from '../common/filter/json-user-error.filter';
+import { AuthenticatedGuard } from '../common/guard/authenticated.guard';
+import { ModeratorGuard } from '../common/guard/moderator.guard';
 import { StreamQueueEntity } from '../stream-queue/stream-queue.entity';
 import { StreamQueueService } from '../stream-queue/stream-queue.service';
 import { UserEntity } from '../user/user.entity';

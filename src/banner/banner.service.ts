@@ -3,9 +3,9 @@ import * as path from 'path';
 import { Injectable, OnApplicationBootstrap } from '@nestjs/common';
 import { Cron, CronExpression } from '@nestjs/schedule';
 import { createCanvas, Image, loadImage } from 'canvas';
+import { PUBLIC_DIR_PATH } from '../common/utils/constants';
+import { duplicatedArray } from '../common/utils/utils';
 import { UserService } from '../user/user.service';
-import { PUBLIC_DIR_PATH } from '../utils/constants';
-import { duplicatedArray } from '../utils/utils';
 
 @Injectable()
 export class BannerService implements OnApplicationBootstrap {

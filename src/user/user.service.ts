@@ -3,12 +3,12 @@ import { Cron, CronExpression } from '@nestjs/schedule';
 import { InjectRepository } from '@nestjs/typeorm';
 import * as moment from 'moment';
 import { Repository } from 'typeorm';
+import { EntityService } from '../common/utils/entity-service';
+import { formatDatetimeSQL } from '../common/utils/utils';
 import { DiscordBotService } from '../discord/discord-bot.service';
 import { RaffleEntity } from '../raffle/raffle.entity';
 import { TwitchUser } from '../twitch/twitch.interfaces';
 import { TwitchService } from '../twitch/twitch.service';
-import { EntityService } from '../utils/entity-service';
-import { formatDatetimeSQL } from '../utils/utils';
 import { MostPlaceResult } from './most-place-result.interface';
 import { UserEntity } from './user.entity';
 

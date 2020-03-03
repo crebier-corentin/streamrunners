@@ -1,7 +1,7 @@
 import { Body, Controller, Get, ParseIntPipe, Post, Render, UseGuards } from '@nestjs/common';
 import { classToPlain, serialize } from 'class-transformer';
-import { User } from '../decorator/user.decorator';
-import { AuthenticatedGuard } from '../guard/authenticated.guard';
+import { User } from '../common/decorator/user.decorator';
+import { AuthenticatedGuard } from '../common/guard/authenticated.guard';
 import { UserEntity } from '../user/user.entity';
 import { RaffleEntity } from './raffle.entity';
 import { RaffleService } from './raffle.service';

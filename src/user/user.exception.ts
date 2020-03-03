@@ -1,7 +1,7 @@
-import { UserError } from '../utils/user-error';
+import { UserErrorException } from '../common/exception/user-error.exception';
 import { UserEntity } from './user.entity';
 
-export class NotEnoughPointsException extends UserError {
+export class NotEnoughPointsException extends UserErrorException {
     public constructor(
         public readonly user: UserEntity,
         public readonly cost: number,

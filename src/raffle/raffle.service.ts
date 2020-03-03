@@ -2,11 +2,11 @@ import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { Cron, CronExpression } from '@nestjs/schedule';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { EntityService } from '../common/utils/entity-service';
 import { DiscordBotService } from '../discord/discord-bot.service';
 import { UserEntity } from '../user/user.entity';
 import { NotEnoughPointsException } from '../user/user.exception';
 import { UserService } from '../user/user.service';
-import { EntityService } from '../utils/entity-service';
 import { RaffleParticipationEntity } from './raffle-participation.entity';
 import { RaffleEntity, RaffleEntityExtra } from './raffle.entity';
 

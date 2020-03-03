@@ -3,10 +3,10 @@ import * as path from 'path';
 import { forwardRef, Inject, Injectable, OnApplicationBootstrap } from '@nestjs/common';
 import { createCanvas, Image, loadImage, registerFont } from 'canvas';
 import * as moment from 'moment';
+import CacheService from '../common/utils/cache-service';
+import { PUBLIC_DIR_PATH } from '../common/utils/constants';
 import { MostPlaceResult } from '../user/most-place-result.interface';
 import { UserService } from '../user/user.service';
-import CacheService from '../utils/cache-service';
-import { PUBLIC_DIR_PATH } from '../utils/constants';
 
 @Injectable()
 export class LeaderboardDrawerService implements OnApplicationBootstrap {

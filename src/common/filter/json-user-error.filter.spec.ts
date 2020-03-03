@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/ban-ts-ignore */
 import { ArgumentsHost } from '@nestjs/common';
-import { UserError } from '../utils/user-error';
+import { UserErrorException } from '../exception/user-error.exception';
 import { JsonUserErrorFilter } from './json-user-error.filter';
 
-class TestUserError extends UserError {
+class TestUserError extends UserErrorException {
     public errorTitle(): string {
         return 'Test';
     }

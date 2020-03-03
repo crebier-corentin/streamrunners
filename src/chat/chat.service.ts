@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { EntityService } from '../common/utils/entity-service';
 import { UserEntity } from '../user/user.entity';
-import { EntityService } from '../utils/entity-service';
 import { ChatMessageEntity } from './chat-message.entity';
 
 @Injectable()

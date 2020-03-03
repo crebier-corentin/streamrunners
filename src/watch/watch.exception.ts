@@ -1,6 +1,6 @@
-import { UserError } from '../utils/user-error';
+import { UserErrorException } from '../common/exception/user-error.exception';
 
-export class StreamOfflineException extends UserError {
+export class StreamOfflineException extends UserErrorException {
     public errorTitle(): string {
         return 'Votre stream est hors-ligne.';
     }

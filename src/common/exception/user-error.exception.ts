@@ -1,6 +1,6 @@
 import { HttpException } from '@nestjs/common';
 
-export class UserError extends HttpException {
+export class UserErrorException extends HttpException {
     public constructor() {
         //For logging the correct http return code
         super('', 422);

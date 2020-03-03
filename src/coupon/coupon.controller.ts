@@ -1,7 +1,7 @@
 import { Body, Controller, Get, Post, Render, UseFilters, UseGuards } from '@nestjs/common';
-import { User } from '../decorator/user.decorator';
-import { JsonUserErrorFilter } from '../filter/json-user-error.filter';
-import { AuthenticatedGuard } from '../guard/authenticated.guard';
+import { User } from '../common/decorator/user.decorator';
+import { JsonUserErrorFilter } from '../common/filter/json-user-error.filter';
+import { AuthenticatedGuard } from '../common/guard/authenticated.guard';
 import { UserEntity } from '../user/user.entity';
 import { CouponService } from './coupon.service';
 

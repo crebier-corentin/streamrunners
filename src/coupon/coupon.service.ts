@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { EntityService } from '../common/utils/entity-service';
 import { UserEntity } from '../user/user.entity';
 import { UserService } from '../user/user.service';
-import { EntityService } from '../utils/entity-service';
 import { CouponEntity } from './coupon.entity';
 import { CouponException, CouponExceptionType } from './coupon.exception';
 

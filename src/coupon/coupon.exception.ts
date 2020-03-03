@@ -1,4 +1,4 @@
-import { UserError } from '../utils/user-error';
+import { UserErrorException } from '../common/exception/user-error.exception';
 
 export enum CouponExceptionType {
     NotFound,
@@ -6,7 +6,7 @@ export enum CouponExceptionType {
     AlreadyUsed,
 }
 
-export class CouponException extends UserError {
+export class CouponException extends UserErrorException {
     public constructor(public readonly type: CouponExceptionType) {
         super();
     }

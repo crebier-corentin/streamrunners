@@ -10,8 +10,8 @@ import * as nunjucks from 'nunjucks';
 import * as passport from 'passport';
 import { AnnouncementService } from './announcement/announcement.service';
 import { AppModule } from './app.module';
-import { ViewFilter } from './filter/view.filter';
-import { VIEW_DIR_PATH } from './utils/constants';
+import { ViewFilter } from './common/filter/view.filter';
+import { VIEW_DIR_PATH } from './common/utils/constants';
 
 async function bootstrap(): Promise<void> {
     const app = await NestFactory.create<NestExpressApplication>(AppModule);

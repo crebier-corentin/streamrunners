@@ -3,9 +3,9 @@ import { HttpException } from '@nestjs/common/exceptions/http.exception';
 import { Cron, CronExpression } from '@nestjs/schedule';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { EntityService } from '../common/utils/entity-service';
 import { DiscordBotService } from '../discord/discord-bot.service';
 import { UserEntity } from '../user/user.entity';
-import { EntityService } from '../utils/entity-service';
 import { StreamQueueEntity } from './stream-queue.entity';
 
 @Injectable()

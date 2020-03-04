@@ -9,8 +9,8 @@ export class JsonUserErrorFilter implements ExceptionFilter {
         const response = ctx.getResponse<Response>();
 
         response.status(exception.getStatus()).json({
-            title: exception.errorTitle(),
-            message: exception.errorMessage(),
+            title: exception.title,
+            message: exception.message,
         });
     }
 }

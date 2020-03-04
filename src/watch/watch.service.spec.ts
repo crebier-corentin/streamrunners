@@ -5,9 +5,9 @@ import { TwitchService } from '../twitch/twitch.service';
 import { UserEntity } from '../user/user.entity';
 import { NotEnoughPointsException } from '../user/user.exception';
 import { UserService } from '../user/user.service';
-import { StreamOfflineException } from './watch.exception';
 import { WatchService } from './watch.service';
 import MockDate = require('mockdate');
+import { UserErrorException } from '../common/exception/user-error.exception';
 
 describe('WatchService', () => {
     it('placeholder', () => {
@@ -161,8 +161,6 @@ describe('WatchService', () => {
                 error = e;
             }
             expect(error).toBeInstanceOf(NotEnoughPointsException);
-            expect(error.user).toEqual(user);
-            expect(error.cost).toBe(1000);
         });
 
         it("should throw if the user's stream is offline", () => {
@@ -172,7 +170,7 @@ describe('WatchService', () => {
             jest.spyOn(streamQueueService, 'isEmpty').mockResolvedValue(true);
             jest.spyOn(twitch, 'isStreamOnline').mockResolvedValue(false);
 
-            return expect(service.addStreamToQueue(user)).rejects.toBeInstanceOf(StreamOfflineException);
+            return expect(service.addStreamToQueue(user)).rejects.toBeInstanceOf(UserErrorException);
         });
 
         it('should cost 0 if there are no active stream', async () => {

@@ -3,16 +3,6 @@ import { ArgumentsHost } from '@nestjs/common';
 import { UserErrorException } from '../exception/user-error.exception';
 import { JsonUserErrorFilter } from './json-user-error.filter';
 
-class TestUserError extends UserErrorException {
-    public errorTitle(): string {
-        return 'Test';
-    }
-
-    public errorMessage(): string {
-        return 'test';
-    }
-}
-
 describe('UserErrorFilter', () => {
     let host: ArgumentsHost & { status: () => void; json: () => void };
 
@@ -31,7 +21,7 @@ describe('UserErrorFilter', () => {
     });
 
     it('should return the error message with status code 422', () => {
-        new JsonUserErrorFilter().catch(new TestUserError(), host);
+        new JsonUserErrorFilter().catch(new UserErrorException('Test', 'test'), host);
         expect(host.status).toHaveBeenCalledWith(422);
         expect(host.json).toHaveBeenCalledWith({ title: 'Test', message: 'test' });
     });

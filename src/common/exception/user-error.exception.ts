@@ -1,36 +1,35 @@
 import { HttpException } from '@nestjs/common';
 
 export class UserErrorException extends HttpException {
-    public constructor(status = 422) {
-        //For logging the correct http return code
-        super('', status);
-    }
+    public readonly title: string | null;
 
-    public errorTitle(): string {
-        return '';
-    }
+    public constructor(title: string, message: string, status: number);
+    public constructor(title: string, message: string);
+    public constructor(message: string, status: number);
+    public constructor(message: string);
+    public constructor(
+        titleOrMessage: string,
+        messageOrStatus: string | number = 422,
+        statusOrUndefined: number | undefined = 422
+    ) {
+        let title;
+        let message;
+        let status;
 
-    public errorMessage(): string {
-        return '';
-    }
+        //(title: string, message: string, status: number)
+        if (typeof messageOrStatus == 'string') {
+            title = titleOrMessage;
+            message = messageOrStatus;
+            status = statusOrUndefined;
+        }
+        //(message: string, status: number)
+        else {
+            title = '';
+            message = titleOrMessage;
+            status = messageOrStatus;
+        }
 
-    public errorFull(separator = '\n'): string {
-        return this.errorTitle() + separator + this.errorMessage();
-    }
-
-    /**
-     * Return errorTitle() if errorMessage() is empty,
-     * errorMessage() if errorTitle() is empty,
-     * Defaults to errorTitle() if both or none are not empty.
-     */
-    public errorNonEmpty(): string {
-        const title = this.errorTitle();
-        const message = this.errorMessage();
-
-        if (title != '' && message != '') return title;
-        //Both not empty
-        else if (message != '') return message;
-        //Only message not empty
-        else return title; //Only title not empty or both empty
+        super(message, status);
+        this.title = title;
     }
 }

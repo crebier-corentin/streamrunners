@@ -5,9 +5,9 @@ import { Repository } from 'typeorm';
 import { UserEntity } from '../user/user.entity';
 import { UserService } from '../user/user.service';
 import { CouponEntity } from './coupon.entity';
-import { CouponExceptionType } from './coupon.exception';
 import { CouponService } from './coupon.service';
 import MockDate = require('mockdate');
+import { UserErrorException } from '../common/exception/user-error.exception';
 
 describe('CouponService', () => {
     let service: CouponService;
@@ -49,10 +49,7 @@ describe('CouponService', () => {
         it("should fail if coupon doesn't exist", () => {
             jest.spyOn(repo, 'findOne').mockResolvedValue(undefined);
 
-            return expect(service.useCoupon('a', new UserEntity())).rejects.toHaveProperty(
-                'type',
-                CouponExceptionType.NotFound
-            );
+            return expect(service.useCoupon('a', new UserEntity())).rejects.toBeInstanceOf(UserErrorException);
         });
 
         it('should fail if coupon is expired', () => {
@@ -62,10 +59,7 @@ describe('CouponService', () => {
             jest.spyOn(repo, 'findOne').mockResolvedValue(coupon);
             MockDate.set('2019-01-01T12:00:00.000Z');
 
-            return expect(service.useCoupon('a', new UserEntity())).rejects.toHaveProperty(
-                'type',
-                CouponExceptionType.Invalid
-            );
+            return expect(service.useCoupon('a', new UserEntity())).rejects.toBeInstanceOf(UserErrorException);
         });
 
         it('should fail if coupon is maxed out', () => {
@@ -77,10 +71,7 @@ describe('CouponService', () => {
             jest.spyOn(repo, 'findOne').mockResolvedValue(coupon);
             MockDate.set('2019-01-01T12:00:00.000Z');
 
-            return expect(service.useCoupon('a', new UserEntity())).rejects.toHaveProperty(
-                'type',
-                CouponExceptionType.Invalid
-            );
+            return expect(service.useCoupon('a', new UserEntity())).rejects.toBeInstanceOf(UserErrorException);
         });
 
         it('should fail if coupon has already been used by user', () => {
@@ -100,10 +91,7 @@ describe('CouponService', () => {
                 getCount: jest.fn().mockResolvedValue(1),
             });
 
-            return expect(service.useCoupon('a', new UserEntity())).rejects.toHaveProperty(
-                'type',
-                CouponExceptionType.AlreadyUsed
-            );
+            return expect(service.useCoupon('a', new UserEntity())).rejects.toBeInstanceOf(UserErrorException);
         });
 
         it("should add user to coupon's users and add points to user", async () => {

@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { UserErrorException } from '../common/exception/user-error.exception';
 import { EntityService } from '../common/utils/entity-service';
 import { UserEntity } from '../user/user.entity';
 import { UserService } from '../user/user.service';
 import { CouponEntity } from './coupon.entity';
-import { CouponException, CouponExceptionType } from './coupon.exception';
 
 @Injectable()
 export class CouponService extends EntityService<CouponEntity> {
@@ -18,7 +18,7 @@ export class CouponService extends EntityService<CouponEntity> {
 
     private async byNameOrFail(name: string): Promise<CouponEntity> {
         const entity = await this.byName(name);
-        if (entity == undefined) throw new CouponException(CouponExceptionType.NotFound);
+        if (entity == undefined) throw new UserErrorException("Le coupon n'existe pas.");
 
         return entity;
     }
@@ -37,9 +37,9 @@ export class CouponService extends EntityService<CouponEntity> {
     public async useCoupon(name: string, user: UserEntity): Promise<CouponEntity> {
         const coupon = await this.byNameOrFail(name);
 
-        if (!coupon.isValid()) throw new CouponException(CouponExceptionType.Invalid);
+        if (!coupon.isValid()) throw new UserErrorException("Le coupon n'est plus valide.");
 
-        if (await this.couponUsed(coupon, user)) throw new CouponException(CouponExceptionType.AlreadyUsed);
+        if (await this.couponUsed(coupon, user)) throw new UserErrorException('Le coupon est déjà utilisé.');
 
         //Coupon is valid
         coupon.users.push(user);

@@ -1,16 +1,6 @@
 import { UserErrorException } from '../exception/user-error.exception';
 import { FlashAndRedirectUserErrorFilter } from './flash-and-redirect-user-error.filter';
 
-class TestUserError extends UserErrorException {
-    public errorTitle(): string {
-        return '';
-    }
-
-    public errorMessage(): string {
-        return 'test';
-    }
-}
-
 describe('FlashUserErrorFilter', () => {
     it('should be defined', () => {
         expect(new FlashAndRedirectUserErrorFilter()).toBeDefined();
@@ -32,7 +22,7 @@ describe('FlashUserErrorFilter', () => {
             getResponse: jest.fn().mockReturnValue(response),
         };
 
-        new FlashAndRedirectUserErrorFilter().catch(new TestUserError(), host as any);
+        new FlashAndRedirectUserErrorFilter().catch(new UserErrorException('test'), host as any);
 
         expect(request.flash).toHaveBeenCalledWith('error', 'test');
         expect(response.redirect).toHaveBeenCalledWith('/test/example');

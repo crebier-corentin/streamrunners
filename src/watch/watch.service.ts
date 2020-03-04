@@ -1,11 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import * as moment from 'moment';
+import { UserErrorException } from '../common/exception/user-error.exception';
 import { StreamQueueService } from '../stream-queue/stream-queue.service';
 import { TwitchService } from '../twitch/twitch.service';
 import { UserEntity } from '../user/user.entity';
 import { NotEnoughPointsException } from '../user/user.exception';
 import { UserService } from '../user/user.service';
-import { StreamOfflineException } from './watch.exception';
 
 @Injectable()
 export class WatchService {
@@ -47,7 +47,11 @@ export class WatchService {
         if (!user.canAfford(cost)) throw new NotEnoughPointsException(user, cost, 'La place');
 
         //Check if stream is online
-        if (!(await this.twitch.isStreamOnline(user.twitchId))) throw new StreamOfflineException();
+        if (!(await this.twitch.isStreamOnline(user.twitchId)))
+            throw new UserErrorException(
+                'Votre stream est hors-ligne.',
+                `Votre stream doit être en ligne pour pouvoir vous ajouter dans la queue.`
+            );
 
         await this.streamQueueService.insert(cost, 60 * 10, user);
 

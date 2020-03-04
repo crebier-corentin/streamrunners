@@ -9,7 +9,7 @@ export class FlashAndRedirectUserErrorFilter implements ExceptionFilter {
         const request = ctx.getRequest<Request>();
         const response = ctx.getResponse<Response>();
 
-        request.flash('error', exception.errorNonEmpty());
+        request.flash('error', exception.message);
 
         response.redirect(request.originalUrl);
     }

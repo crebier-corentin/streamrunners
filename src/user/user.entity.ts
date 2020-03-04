@@ -57,11 +57,14 @@ export class UserEntity {
     public chatRank: ChatRank;
 
     //Ban
+    @Column({ default: false })
+    public banned: boolean;
+
     @ManyToOne(type => UserEntity, { nullable: true })
     @JoinColumn({ name: 'bannedById' })
     public bannedBy: UserEntity | null;
 
-    @Column({ nullable: true, default: null })
+    @Column({ type: 'datetime', nullable: true, default: null })
     public banDate: Date | null;
 
     @OneToMany(

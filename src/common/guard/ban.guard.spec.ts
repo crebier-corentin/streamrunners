@@ -1,5 +1,4 @@
 import { ExecutionContext } from '@nestjs/common';
-import { UserEntity } from '../../user/user.entity';
 import { BannedUserException } from '../exception/banned-user.exception';
 import { BanGuard } from './ban.guard';
 
@@ -22,7 +21,7 @@ describe('BanGuard', () => {
             switchToHttp: jest.fn().mockReturnThis(),
             getRequest: jest.fn().mockReturnValue({
                 isAuthenticated: jest.fn().mockReturnValue(true),
-                user: { bannedBy: null },
+                user: { banned: false },
             }),
         } as any) as ExecutionContext;
 
@@ -34,7 +33,7 @@ describe('BanGuard', () => {
             switchToHttp: jest.fn().mockReturnThis(),
             getRequest: jest.fn().mockReturnValue({
                 isAuthenticated: jest.fn().mockReturnValue(true),
-                user: { bannedBy: new UserEntity() },
+                user: { banned: true },
             }),
         } as any) as ExecutionContext;
 

@@ -3,6 +3,7 @@ import { ServiceUnavailableException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
 import { NestExpressApplication } from '@nestjs/platform-express';
+import flash = require('connect-flash');
 import * as cookieParser from 'cookie-parser';
 import * as cookieSession from 'cookie-session';
 import * as helmet from 'helmet';
@@ -38,6 +39,7 @@ async function bootstrap(): Promise<void> {
     app.use(helmet());
     app.use(cookieParser());
     app.use(cookieSession({ keys: [config.get('COOKIE_SECRET')] }));
+    app.use(flash());
 
     //Passport
     app.use(passport.initialize());

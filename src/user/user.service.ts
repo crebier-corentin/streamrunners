@@ -1,4 +1,4 @@
-import { forwardRef, Inject, Injectable } from '@nestjs/common';
+import { forwardRef, HttpException, Inject, Injectable, InternalServerErrorException } from '@nestjs/common';
 import { Cron, CronExpression } from '@nestjs/schedule';
 import { InjectRepository } from '@nestjs/typeorm';
 import * as moment from 'moment';
@@ -22,6 +22,21 @@ export class UserService extends EntityService<UserEntity> {
         private readonly discordBot: DiscordBotService
     ) {
         super(repo);
+    }
+
+    public byUsername(username: string, relations: string[] = []): Promise<UserEntity | undefined> {
+        return this.repo.findOne({ where: { username }, relations });
+    }
+
+    public async byUsernameOrFail(
+        username: string,
+        relations: string[] = [],
+        exception: HttpException = new InternalServerErrorException()
+    ): Promise<UserEntity> {
+        const user = await this.byUsername(username, relations);
+        if (user == undefined) throw exception;
+
+        return user;
     }
 
     /**
@@ -132,6 +147,12 @@ export class UserService extends EntityService<UserEntity> {
         } while (users.length > 0);
     }
 
+    //Leaderboards//
+
+    /**
+     * @return The top 10 users ordered by points.
+     * Return fields are username, displayName and points.
+     */
     public mostPoints(): Promise<any> {
         return this.repo
             .createQueryBuilder('user')
@@ -141,6 +162,12 @@ export class UserService extends EntityService<UserEntity> {
             .getMany();
     }
 
+    /**
+     * @param limitDate Queues must be created after this date. null for no limit.
+     *
+     * @return The top 10 users ordered by total stream_queue time.
+     * Return fields are username, displayName and time.
+     */
     public mostPlace(limitDate: moment.Moment | null = null): Promise<MostPlaceResult[]> {
         const query = this.repo
             .createQueryBuilder('user')
@@ -159,6 +186,11 @@ export class UserService extends EntityService<UserEntity> {
         return query.getRawMany();
     }
 
+    //Admin//
+
+    /**
+     * @return The sum of every user's points
+     */
     public async totalPoints(): Promise<number> {
         return (
             await this.repo
@@ -166,5 +198,20 @@ export class UserService extends EntityService<UserEntity> {
                 .select('SUM(user.points)', 'totalPoints')
                 .getRawOne()
         ).totalPoints;
+    }
+
+    /**
+     * Bans userToBeBanned, sets userToBeBanned.bannedBy to bannedBy and userToBeBanned.banDate to now.
+     * Note: performs no check.
+     *
+     * @param userToBeBanned
+     * @param bannedBy
+     */
+    public async ban(userToBeBanned: UserEntity, bannedBy: UserEntity): Promise<void> {
+        userToBeBanned.banned = true;
+        userToBeBanned.bannedBy = bannedBy;
+        userToBeBanned.banDate = new Date();
+
+        await this.repo.save(userToBeBanned);
     }
 }

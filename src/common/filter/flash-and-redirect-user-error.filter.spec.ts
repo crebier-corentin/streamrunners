@@ -3,13 +3,12 @@ import { FlashAndRedirectUserErrorFilter } from './flash-and-redirect-user-error
 
 describe('FlashUserErrorFilter', () => {
     it('should be defined', () => {
-        expect(new FlashAndRedirectUserErrorFilter()).toBeDefined();
+        expect(new FlashAndRedirectUserErrorFilter('')).toBeDefined();
     });
 
     it('should flash the error message and redirect the user back', () => {
         const request = {
             flash: jest.fn(),
-            originalUrl: '/test/example',
         };
 
         const response = {
@@ -22,7 +21,7 @@ describe('FlashUserErrorFilter', () => {
             getResponse: jest.fn().mockReturnValue(response),
         };
 
-        new FlashAndRedirectUserErrorFilter().catch(new UserErrorException('test'), host as any);
+        new FlashAndRedirectUserErrorFilter('/test/example').catch(new UserErrorException('test'), host as any);
 
         expect(request.flash).toHaveBeenCalledWith('error', 'test');
         expect(response.redirect).toHaveBeenCalledWith('/test/example');

@@ -1,6 +1,20 @@
-import { Body, Controller, Get, Post, Redirect, Render, UseGuards, UsePipes, ValidationPipe } from '@nestjs/common';
+import {
+    Body,
+    Controller,
+    Get,
+    Post,
+    Redirect,
+    Render,
+    Req,
+    UseFilters,
+    UseGuards,
+    UsePipes,
+    ValidationPipe,
+} from '@nestjs/common';
+import { Request } from 'express';
 import { AnnouncementService } from '../announcement/announcement.service';
 import { User } from '../common/decorator/user.decorator';
+import { FlashAndRedirectUserErrorFilter } from '../common/filter/flash-and-redirect-user-error.filter';
 import { AuthenticatedGuard } from '../common/guard/authenticated.guard';
 import { ModeratorGuard } from '../common/guard/moderator.guard';
 import { SanitizationPipe } from '../common/pipe/sanitization-pipe.service';
@@ -8,6 +22,7 @@ import { CouponService } from '../coupon/coupon.service';
 import { RaffleService } from '../raffle/raffle.service';
 import { UserEntity } from '../user/user.entity';
 import { UserService } from '../user/user.service';
+import { AdminService } from './admin.service';
 import { AddAnnouncementDto } from './dto/add-announcement.dto';
 import { AddCouponDto } from './dto/add-coupon.dto';
 import { AddRaffleDto } from './dto/add-raffle.dto';
@@ -16,6 +31,7 @@ import { AddRaffleDto } from './dto/add-raffle.dto';
 @Controller('admin')
 export class AdminController {
     public constructor(
+        private readonly adminService: AdminService,
         private readonly userService: UserService,
         private readonly raffleService: RaffleService,
         private readonly announcementService: AnnouncementService,
@@ -24,8 +40,24 @@ export class AdminController {
 
     @Get()
     @Render('admin/index')
-    public async index(): Promise<{ totalUsers: number; totalPoints: number }> {
-        return { totalUsers: await this.userService.count(), totalPoints: await this.userService.totalPoints() };
+    public async index(
+        @Req() req: Request
+    ): Promise<{ totalUsers: number; totalPoints: number; success: string; error: string }> {
+        return {
+            totalUsers: await this.userService.count(),
+            totalPoints: await this.userService.totalPoints(),
+            success: req.flash('success'),
+            error: req.flash('error'),
+        };
+    }
+
+    @UseFilters(new FlashAndRedirectUserErrorFilter('/admin'))
+    @Post('ban')
+    @Redirect('/admin')
+    public async ban(@Body('username') username: string, @User() user: UserEntity, @Req() req: Request): Promise<void> {
+        await this.adminService.ban(username, user);
+
+        req.flash('success', 'Utilisateur banni avec succès.');
     }
 
     //Raffle

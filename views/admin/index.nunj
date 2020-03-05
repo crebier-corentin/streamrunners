@@ -41,8 +41,23 @@
         </section>
         <hr>
 
-        <input type="text" placeholder="Chaine a Bannir" />
-        <button type="button" class="btn btn-danger">Bannir (bientôt™)</button>
+        {% if success | length %}
+            <div class="alert alert-success">
+                {{ success }}
+            </div>
+        {% endif %}
+
+        {% if error | length %}
+            <div class="alert alert-danger">
+                {{ error }}
+            </div>
+        {% endif %}
+
+
+        <form action="/admin/ban" method="post">
+            <input name="username" type="text" placeholder="Chaine a Bannir (Nom d'utilisateur)" />
+            <button type="submit" class="btn btn-danger">Bannir</button>
+        </form>
         <h3>Stats</h3>
 
         <table class="table table-striped table-bordered table-hover">

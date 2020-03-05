@@ -7,6 +7,8 @@ import { TwitchUser } from '../twitch/twitch.interfaces';
 import { TwitchService } from '../twitch/twitch.service';
 import { UserEntity } from './user.entity';
 import { UserService } from './user.service';
+import MockDate = require('mockdate');
+import exp = require('constants');
 
 describe('UserService', () => {
     let service: UserService;
@@ -43,6 +45,8 @@ describe('UserService', () => {
         discord = module.get<DiscordBotService>(DiscordBotService);
         // @ts-ignore
         jest.spyOn(repo, 'save').mockImplementation(entity => entity);
+
+        MockDate.reset();
     });
 
     it('should be defined', () => {
@@ -189,6 +193,33 @@ describe('UserService', () => {
             await service.syncFromTwitchProcess(['123', '456']);
             expect(mockedSet).toHaveBeenCalledWith({ displayName: 'a', avatar: 'avatar-a' });
             expect(mockedSet).toHaveBeenCalledWith({ displayName: 'b', avatar: 'avatar-b' });
+        });
+    });
+
+    describe('ban', () => {
+        it('should set banned to true, bannedBy to correct user and banDate to now', async () => {
+            const userToBeBanned = new UserEntity();
+            userToBeBanned.id = 1;
+            userToBeBanned.username = 'a';
+
+            const bannedBy = new UserEntity();
+            bannedBy.id = 2;
+            bannedBy.username = 'b';
+
+            MockDate.set('2019-01-01T10:00');
+
+            const spySave = jest.spyOn(repo, 'save');
+
+            const expected = new UserEntity();
+            expected.id = 1;
+            expected.username = 'a';
+            expected.banned = true;
+            expected.bannedBy = bannedBy;
+            expected.banDate = new Date('2019-01-01T10:00');
+
+            await service.ban(userToBeBanned, bannedBy);
+
+            expect(spySave).toHaveBeenCalledWith(expected);
         });
     });
 });

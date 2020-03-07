@@ -106,7 +106,7 @@ export class DiscordBotService implements OnApplicationBootstrap {
             this.discordMemberCountChannel = this.client.channels.find(
                 c => c.id === discordMemberCountChannelId
             ) as VoiceChannel;
-            await this.updateDiscordMemberCountChannel();
+            await this.updateDiscordMemberCount();
 
             //Stream notification
             this.streamNotificationChannel = this.client.channels.find(
@@ -125,8 +125,8 @@ export class DiscordBotService implements OnApplicationBootstrap {
             );
         });
 
-        this.client.on('guildMemberAdd', this.updateDiscordMemberCountChannel);
-        this.client.on('guildMemberRemove', this.updateDiscordMemberCountChannel);
+        this.client.on('guildMemberAdd', this.updateDiscordMemberCount.bind(this));
+        this.client.on('guildMemberRemove', this.updateDiscordMemberCount.bind(this));
 
         await this.client.login(token);
 
@@ -225,7 +225,7 @@ export class DiscordBotService implements OnApplicationBootstrap {
         await this.siteUserCountChannel?.setName(`👍 Inscrits : ${await this.userService.count()}`);
     }
 
-    public async updateDiscordMemberCountChannel(): Promise<void> {
+    public async updateDiscordMemberCount(): Promise<void> {
         const count = this.discordMemberCountChannel?.guild.memberCount;
         await this.discordMemberCountChannel?.setName(`👤 Membres : ${count}`);
     }

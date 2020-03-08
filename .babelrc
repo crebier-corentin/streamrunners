@@ -1,0 +1,13 @@
+{
+  "plugins": [
+    "annotate-pure-calls"
+  ],
+  "presets": [
+    [
+      "@babel/preset-env",
+      {
+        "targets": "defaults"
+      }
+    ]
+  ]
+}

@@ -27,6 +27,7 @@ mix.options({
 });
 
 mix.ts('asset/js/bundle.js', 'public/js/');
+mix.ts('asset/js/points-counter.ts', 'public/js/');
 mix.ts('asset/js/watch.ts', 'public/js/');
 mix.ts('asset/js/coupon.ts', 'public/js/');
 mix.ts('asset/js/raffle.ts', 'public/js/');

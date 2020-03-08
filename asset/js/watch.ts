@@ -1,12 +1,11 @@
-/* eslint-disable no-undef */
-
 import Vue from 'vue/dist/vue.esm.js';
 import TwitchViewer from './component/TwitchViewer.vue';
 import Chat from './component/Chat.vue';
 
 import axios, { AxiosError } from 'axios';
 import swal from 'sweetalert2';
-import { intervalWait, sleep } from '../../src/shared/shared-utils';
+import { sleep } from '../../src/shared/shared-utils';
+import { updatePoints } from './points';
 
 window['swal'] = swal;
 
@@ -110,6 +109,9 @@ window['vm'] = new Vue({
                 this.mostPoints = data.mostPoints;
                 this.mostPlace = data.mostPlace;
                 this.messages = data.messages;
+
+                //Update points on navbar
+                updatePoints(this.points);
             }
             else {
                 location.reload();

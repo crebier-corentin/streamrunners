@@ -2,6 +2,7 @@ import Raffle from './component/Raffle.vue';
 import Vue from 'vue';
 import axios, { AxiosResponse } from 'axios';
 import swal from 'sweetalert2';
+import { updatePoints } from './points';
 
 new Vue({
     el: '#app',
@@ -38,6 +39,9 @@ new Vue({
 
                 this.points = response.data.points;
                 this.raffles = response.data.raffles;
+
+                //Update points on navbar
+                updatePoints(this.points);
 
                 swal.fire({
                     icon: 'success',

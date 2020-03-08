@@ -118,9 +118,12 @@
                 {% if req.isAuthenticated() %}
                     <li class="nav-item">
                         <img src="{{ req.user.avatar }}" alt="avatar" class="loggedImage">
-                        <a class="nav-link d-inline-block loggedPseudo" href="#">
-                            <div>{{ req.user.displayName }}</div>
-                            <div id="points-counter">{{ req.user.points }}</div>
+                        <a class="nav-link d-inline-block" href="#">
+                            <div class="loggedPseudo">{{ req.user.displayName }}</div>
+                            <div>
+                                <span id="points-counter" class="text-small text-white">{{ req.user.points }}</span>
+                                <img src="/img/po.png" alt="points" width="16px" height="16px" />
+                            </div>
 
                         </a>
                     </li>

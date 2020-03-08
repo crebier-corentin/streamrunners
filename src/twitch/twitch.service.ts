@@ -4,7 +4,7 @@ import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 import * as moment from 'moment';
 import CacheService from '../common/utils/cache-service';
 import { Semaphore } from '../common/utils/semaphore';
-import { sleep } from '../common/utils/utils';
+import { sleep } from '../shared/shared-utils';
 import { TwitchResponse, TwitchUser } from './twitch.interfaces';
 
 @Injectable({ scope: Scope.DEFAULT })

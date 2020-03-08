@@ -1,4 +1,4 @@
-import { duplicatedArray, formatDatetimeSQL, shuffledArray, sleep } from './utils';
+import { duplicatedArray, formatDatetimeSQL, shuffledArray } from './utils';
 import moment = require('moment');
 
 describe('shuffledArray', () => {
@@ -56,22 +56,5 @@ describe('formatDatetimeSQL', () => {
     it('should convert a moment Date to UTC and format it for a sql query', () => {
         const date = moment('2011-12-03T10:15:30+01:00');
         expect(formatDatetimeSQL(date)).toEqual('2011-12-03 09:15:30');
-    });
-});
-
-describe('sleep', () => {
-    beforeEach(() => {
-        jest.useFakeTimers();
-    });
-
-    it.each([1000, 2000, 5000])('should sleep for %i ms seconds', async ms => {
-        const promise = sleep(ms);
-
-        jest.runAllTimers();
-
-        await promise;
-
-        expect(setTimeout).toHaveBeenCalledTimes(1);
-        expect(setTimeout).toHaveBeenLastCalledWith(expect.any(Function), ms);
     });
 });

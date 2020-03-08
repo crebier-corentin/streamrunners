@@ -19,7 +19,3 @@ export function formatDatetimeSQL(date: moment.Moment | Date): string {
 
     return momentDate.utc().format('YYYY-MM-DD HH:mm:ss');
 }
-
-export function sleep(ms: number): Promise<void> {
-    return new Promise(resolve => setTimeout(resolve, ms));
-}

@@ -1,12 +1,5 @@
 import * as moment from 'moment';
-import { formatDuration, intervalWait } from './shared-utils';
-
-function flushPromises(): Promise<unknown> {
-    jest.useRealTimers();
-    const tmp = new Promise(resolve => setImmediate(resolve));
-    jest.useFakeTimers();
-    return tmp;
-}
+import { formatDuration, sleep } from './shared-utils';
 
 describe('formatDuration', () => {
     it.each([
@@ -45,36 +38,19 @@ describe('formatDuration', () => {
     });
 });
 
-describe('intervalWait', () => {
+describe('sleep', () => {
     beforeEach(() => {
         jest.useFakeTimers();
     });
 
-    it.each([1000, 2000, 5000])('should call the callback once and every %i ms', async ms => {
-        const callback = jest.fn().mockResolvedValue('yay');
-        intervalWait(ms, callback);
-
-        expect(callback).toHaveBeenCalledTimes(1);
-
-        await flushPromises();
-
-        expect(setTimeout).toHaveBeenCalledWith(expect.any(Function), ms);
+    it.each([1000, 2000, 5000])('should sleep for %i ms seconds', async ms => {
+        const promise = sleep(ms);
 
         jest.runAllTimers();
 
-        expect(callback).toHaveBeenCalledTimes(2);
-    });
+        await promise;
 
-    it('should log errors to the console', async () => {
-        const spyError = jest.spyOn(global.console, 'error').mockImplementation();
-
-        const callback = jest.fn().mockReturnValue(Promise.reject('oops'));
-        intervalWait(1000, callback);
-
-        expect(callback).toHaveBeenCalledTimes(1);
-
-        await flushPromises();
-
-        expect(spyError).toHaveBeenLastCalledWith('oops');
+        expect(setTimeout).toHaveBeenCalledTimes(1);
+        expect(setTimeout).toHaveBeenLastCalledWith(expect.any(Function), ms);
     });
 });

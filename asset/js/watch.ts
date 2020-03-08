@@ -4,9 +4,9 @@ import Vue from 'vue/dist/vue.esm.js';
 import TwitchViewer from './component/TwitchViewer.vue';
 import Chat from './component/Chat.vue';
 
-import axios, {AxiosError} from 'axios';
+import axios, { AxiosError } from 'axios';
 import swal from 'sweetalert2';
-import {intervalWait} from '../../src/shared/shared-utils';
+import { intervalWait, sleep } from '../../src/shared/shared-utils';
 
 window['swal'] = swal;
 
@@ -147,7 +147,8 @@ window['vm'] = new Vue({
                     icon: 'success',
                 });
 
-            } catch (e) {
+            }
+            catch (e) {
                 //Error
                 swal.fire({
                     title: e.response.data.title,
@@ -172,7 +173,7 @@ window['vm'] = new Vue({
             //Ignore if user clicked no
             if (!swalRes.value) return;
 
-            const res = await axios.post(this.deleteUrl, {id: id});
+            const res = await axios.post(this.deleteUrl, { id: id });
 
             if (res.data.success) {
 
@@ -214,7 +215,8 @@ window['vm'] = new Vue({
                     icon: 'success',
                 });
 
-            } catch (e) {
+            }
+            catch (e) {
                 swal.fire({
                     title: e.response.data,
                     icon: 'error',
@@ -224,8 +226,18 @@ window['vm'] = new Vue({
         },
     },
 
-    mounted() {
-        intervalWait(this.interval, this.makeRequestUpdate.bind(this));
+    async mounted() {
+        //Repeat the request indefinitely
+        while (true) {
+            try {
+                await this.makeRequestUpdate();
+            }
+            catch (e) {
+                console.error(e);
+            }
+
+            await sleep(this.interval);
+        }
     },
 
 

@@ -1,0 +1,89 @@
+{% set title = "StreamRunners - Administration Partenaires" %}
+{% extends "../master.nunj" %}
+{% block content %}
+    <div class="container-fluid d-flex justify-content-center flex-column align-items-center">
+
+        {# New partner form #}
+        <form method="post" action="/admin/partner/add">
+            {# name #}
+            <div class="form-group row">
+                <label class="col-4 col-form-label" for="name">Nom</label>
+                <div class="col-8">
+                    <input id="name" name="name" type="text" required="required" class="form-control">
+                </div>
+            </div>
+            {# image #}
+            <div class="form-group row">
+                <label class="col-4 col-form-label" for="image">Image (Lien ou chemin depuis public/)</label>
+                <div class="col-8">
+                    <input id="image"
+                           name="image"
+                           type="text"
+                           required="required"
+                           class="form-control"
+                           placeholder="/img/...">
+                </div>
+            </div>
+            {# url #}
+            <div class="form-group row">
+                <label class="col-4 col-form-label" for="name">url</label>
+                <div class="col-8">
+                    <input id="url" name="url" type="url" required="required" class="form-control">
+                </div>
+            </div>
+            {# submit #}
+            <div class="form-group row">
+                <div class="offset-4 col-8">
+                    <button name="submit" type="submit" class="btn btn-primary">Ajouter un nouveau partenaire</button>
+                </div>
+            </div>
+        </form>
+
+        {% if success | length %}
+            <div class="alert alert-success">
+                {{ success }}
+            </div>
+        {% endif %}
+
+
+        <h3>Partenaires</h3>
+
+        <div class="table-responsive">
+            <table class="table table-striped table-bordered table-hover">
+                <thead>
+                <tr>
+                    <th>Nom</th>
+                    <th>Image</th>
+                    <th>Url</th>
+                    <th>Date d'ajout</th>
+                    <th>Supprimer</th>
+
+                </tr>
+                </thead>
+                <tbody>
+
+                {% for partner in partners %}
+                    <tr>
+                        <td>{{ partner.name }}</td>
+                        <td>{{ partner.image }}</td>
+                        <td>{{ partner.url }}</td>
+                        <td>{{ partner.createdAt.toISOString() }}</td>
+                        <td>
+                            <form action="/admin/partner/delete" method="post">
+                                <input type="hidden" name="partnerId" value="{{ partner.id }}">
+                                <button name="submit" type="submit" class="btn btn-primary"><i class="fas fa-trash"
+                                                                                               aria-hidden="true"></i>
+                                </button>
+                            </form>
+                        </td>
+
+                    </tr>
+                {% endfor %}
+
+                </tbody>
+            </table>
+        </div>
+
+
+    </div>
+{% endblock %}

@@ -38,6 +38,17 @@
                     <a href="/admin/announcement" class="btn btn-primary">GO</a>
                 </div>
             </div>
+            <div class="card col-sm-3" style="width: 18rem; margin-right: 0.50rem;">
+                <img style="height: 184px; width: 184px;"
+                     src="https://image.flaticon.com/icons/svg/833/833514.svg"
+                     class="card-img-top"
+                     alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">Partneraires</h5>
+                    <p class="card-text">Modifier la liste des partenaires.</p>
+                    <a href="/admin/partner" class="btn btn-primary">GO</a>
+                </div>
+            </div>
         </section>
         <hr>
 

@@ -163,7 +163,9 @@
     <div class="container">
         <hr>
         <h3 class="text-center">Ils nous font confiance :</h3><br>
-        <a href="https://elkir.fr/stream" target="_blank"><img width="10%" src="/img/partenaires/elkirblack.png" /></a>
+        {% for partner in partners %}
+            <a href="{{ partner.url }}" target="_blank"><img width="10%" src="{{ partner.image }}" /></a>
+        {% endfor %}
         <hr>
     </div>
     <p>© 2019 StreamRunners

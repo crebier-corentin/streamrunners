@@ -15,6 +15,7 @@ import { BanFilter } from './common/filter/ban.filter';
 import { ViewFilter } from './common/filter/view.filter';
 import { BanGuard } from './common/guard/ban.guard';
 import { VIEW_DIR_PATH } from './common/utils/constants';
+import { PartnerService } from './partner/partner.service';
 
 async function bootstrap(): Promise<void> {
     const app = await NestFactory.create<NestExpressApplication>(AppModule);
@@ -22,6 +23,7 @@ async function bootstrap(): Promise<void> {
     const isDev = config.get('ENV') === 'development';
 
     const announcementService = app.get(AnnouncementService);
+    const partnerService = app.get(PartnerService);
 
     app.useGlobalFilters(new ViewFilter(isDev));
     app.useGlobalFilters(new BanFilter());
@@ -81,6 +83,7 @@ async function bootstrap(): Promise<void> {
     app.use(async (req, res, next) => {
         res.locals.req = req;
         res.locals.announcement = await announcementService.current();
+        res.locals.partners = await partnerService.all();
         next();
     });
 

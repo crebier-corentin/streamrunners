@@ -31,4 +31,8 @@ export abstract class EntityService<T> {
     public count(): Promise<number> {
         return this.repo.count();
     }
+
+    public all(): Promise<T[]> {
+        return this.repo.find();
+    }
 }

@@ -46,6 +46,12 @@
             </div>
         </form>
 
+        {% if success | length %}
+            <div class="alert alert-success">
+                {{ success }}
+            </div>
+        {% endif %}
+
         {# Coupons #}
         <h3>Coupons</h3>
 

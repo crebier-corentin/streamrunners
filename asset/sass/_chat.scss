@@ -63,6 +63,8 @@
 
   .button {
     grid-area: button;
+    background: none;
+    border: none;
   }
 
 }
@@ -70,6 +72,7 @@
 //Chat usernames
 .chat-username {
   font-weight: $font-weight-bold;
+  margin-left: 0.50rem;
 }
 
 .chat-name-member {

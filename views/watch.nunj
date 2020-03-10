@@ -42,9 +42,9 @@
             </div>
 
             <div class="d-flex justify-content-center">
-                <span class="badge badge-secondary">Taille de la queue : {% raw %}{{ queueLength }}{% endraw %}
+                <span class="badge badge-secondary">Taille de la file : {% raw %}{{ queueLength }}{% endraw %}
                     utilisateurs</span>
-                <span class="badge badge-secondary" v-if="positions.length > 0">Positions dans la queue :
+                <span class="badge badge-secondary" v-if="positions.length > 0">Positions dans la file :
                     {% raw %}{{ positionsText }}{% endraw %}
                 </span>
             </div>
@@ -55,8 +55,8 @@
         {# If queue is empty#}
         <template v-if="channel == null || channel === 'null' ">
             <div class="jumbotron text-center">
-                <h1 class="display-4">La queue est vide</h1>
-                Pourquoi ne pas prendre une place ? C'est <strong>gratuit</strong> si la queue est vide !
+                <h1 class="display-4">La file est vide</h1>
+                Pourquoi ne pas prendre une place ? C'est <strong>gratuit</strong> si la file est vide !
             </div>
         </template>
 

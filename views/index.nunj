@@ -49,8 +49,7 @@
                     obligatoires !</p>
             </div><!-- /.col-lg-4 -->
             <div class="col-lg-4 d-flex flex-column align-items-center justify-content-center">
-                <img class="rounded-circle"
-                     src="img/gift-solid.svg"
+                <img src="img/gift-solid.svg"
                      alt="Generic placeholder image"
                      width="140"
                      height="140">
@@ -66,9 +65,9 @@
 {% block script %}
 
     <script type="text/javascript">
-        var n = 1000; // Nombre final du compteur
+        var n = {{ totalUsers }}; // Nombre final du compteur
         var cpt = 52; // Initialisation du compteur
-        var duree = 100; // Durée en seconde pendant laquel le compteur ira de 0 à 15
+        var duree = 30; // Durée en seconde pendant laquel le compteur ira de 0 à 15
         var delta = Math.ceil((duree * 1000) / n); // On calcule l'intervalle de temps entre chaque rafraîchissement du compteur (durée mise en milliseconde)
         var node = document.getElementById('compteur'); // On récupère notre noeud où sera rafraîchi la valeur du compteur
 

@@ -487,7 +487,7 @@ a:hover {
 
                       <li><a href="/coupon"><i class="fas fa-ticket-alt"></i> Coupon</a></li>
                       <li><a href="/inventory"><i class="fas fa-suitcase"></i> Inventaire</a></li>
-                      <li><a href="/giveaway"><i class="fas fa-boxes"></i> GiveAway</a></li>
+                      <li><a href="/raffle"><i class="fas fa-boxes"></i> GiveAway</a></li>
 
                       {% if req.user.moderator %}
 

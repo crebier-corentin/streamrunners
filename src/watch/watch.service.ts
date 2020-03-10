@@ -42,7 +42,7 @@ export class WatchService {
 
     public async addStreamToQueue(user: UserEntity): Promise<void> {
         //Check if queue is empty
-        const cost = (await this.streamQueueService.isEmpty()) ? 0 : 1000;
+        const cost = (await this.streamQueueService.isEmpty()) ? 0 : 2000;
 
         if (!user.canAfford(cost)) throw new NotEnoughPointsException(user, cost, 'La place');
 

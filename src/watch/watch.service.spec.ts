@@ -185,9 +185,9 @@ describe('WatchService', () => {
             expect(mockedInsert).toHaveBeenCalledWith(0, 600, user);
         });
 
-        it('should cost 1000 if there are streams in the queue', async () => {
+        it('should cost 2000 if there are streams in the queue', async () => {
             const user = new UserEntity();
-            user.points = 1000;
+            user.points = 2000;
 
             jest.spyOn(streamQueueService, 'isEmpty').mockResolvedValue(false);
             jest.spyOn(twitch, 'isStreamOnline').mockResolvedValue(true);
@@ -196,7 +196,7 @@ describe('WatchService', () => {
             await service.addStreamToQueue(user);
 
             expect(user.points).toBe(0);
-            expect(mockedInsert).toHaveBeenCalledWith(1000, 600, user);
+            expect(mockedInsert).toHaveBeenCalledWith(2000, 600, user);
         });
     });
 

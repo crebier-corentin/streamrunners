@@ -2,8 +2,8 @@
 
     <section class="chat-grid">
         <!-- Messages -->
-        <div class="messages rounded chat-container" ref="chat">
-            <div class="d-flex flex-column p-0 m-0">
+        <div id="style-1" class="messages rounded chat-container scrollbar" ref="chat">
+            <div class="d-flex flex-column p-0 m-0 force-overflow">
                 <div class="chat-message" v-for="msg in cMessages">
 
                     <img class="avatar" :src="msg.author.avatar" :alt="msg.author.displayName">
@@ -37,8 +37,7 @@
                placeholder=" Votre message..."
                v-model="message"
                @keyup.enter="sendMessage"/>
-        <button class="button btn btn-outline-success sub m-0"
-                :disabled="!messageValid || sending"
+        <button class="btn btn-outline-success sub"
                 @click="sendMessage">
             Envoyer&nbsp;&nbsp;&nbsp;<i class="fas fa-paper-plane"/></button>
 

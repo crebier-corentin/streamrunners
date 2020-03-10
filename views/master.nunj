@@ -122,6 +122,7 @@ html, body{
     font-family: 'Dosis', sans-serif;
     font-weight: 300;
     color: #fff;
+    overflow-x: hidden;
 }
 
 .bg-purple{
@@ -131,7 +132,7 @@ html, body{
     background-size: cover;
     background-position: left top;
     height: 100%;
-    overflow: scroll;
+    overflow-y: scroll;
     
 }
 
@@ -427,6 +428,38 @@ a:hover {
     position: relative;
 };
 
+.margright {
+	margin-right: 1rem;
+}
+
+.inline {
+	display: inline-block;
+	font-size: 26px;
+	letter-spacing: 12px;
+}
+
+#style-1::-webkit-scrollbar-track
+{
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	border-radius: 10px;
+}
+
+#style-1::-webkit-scrollbar
+{
+	width: 12px;
+	background-color: rgba(255, 255, 255, 0.4);
+  background: rgba(255, 255, 255, 0.4);
+}
+
+#style-1::-webkit-scrollbar-thumb
+{
+	border-radius: 10px;
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0, 0.3);
+	background-color: #fff;
+}
+
+
+
 </style>
 
 </head>
@@ -561,16 +594,18 @@ a:hover {
 
         <hr>
     </div>
-    <p>© 2019 StreamRunners
+    <p>© 2020 StreamRunners
         <br>
-        <a href="https://www.facebook.com/StreamRunners/" aria-label="Facebook StreamRunners"><i style="color:blue"
-                                                                                                 class="fab fa-facebook"></i></a>
-        <a href="https://twitter.com/StreamRunners" aria-label="Twitter StreamRunners"><i style="color:deepskyblue"
-                                                                                          class="fab fa-twitter-square"></i></a>
-        <a href="https://www.instagram.com/twitchrunners/" aria-label="Instagram StreamRunners"><i style="color:pink"
-                                                                                                   class="fab fa-instagram"></i></a>
-        <a href="https://discord.gg/PjQFW8z" aria-label="Discord StreamRunners"><i style="color:lightgrey"
-                                                                                   class="fab fa-discord"></i></a>
+        <div class="container">
+		        <a class="inline" href="https://www.facebook.com/StreamRunners/" aria-label="Facebook StreamRunners"><i style="color:blue"
+		                                                                                                 class="fab fa-facebook margright"></i></a>
+		        <a class="inline" href="https://twitter.com/StreamRunners" aria-label="Twitter StreamRunners"><i style="color:deepskyblue"
+		                                                                                          class="fab fa-twitter-square margright"></i></a>
+		        <a class="inline" href="https://www.instagram.com/twitchrunners/" aria-label="Instagram StreamRunners"><i style="color:pink"
+		                                                                                                   class="fab fa-instagram margright"></i></a>
+		        <a class="inline" href="https://discord.gg/PjQFW8z" aria-label="Discord StreamRunners"><i style="color:lightgrey"
+		                                                                                   class="fab fa-discord margright"></i></a>
+       </div>
     </p>
 </div>
     <div id="awn-z2990251"></div>

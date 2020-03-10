@@ -13,6 +13,7 @@ export class AppController {
         } else {
             res.render('./index', {
                 viewers: (await this.userService.viewers()).length,
+                totalUsers: await this.userService.count(),
             });
         }
     }

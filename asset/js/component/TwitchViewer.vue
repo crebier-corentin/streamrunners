@@ -1,7 +1,7 @@
 <template>
     <div class="d-flex flex-row">
         <div id="twitch-embed" style="width: 100%"></div>
-        <iframe :src="chatUrl" frameborder="0" scrolling="no" height="410" width="30%"></iframe>
+        <iframe :src="chatUrl" frameborder="0" scrolling="no" height="456" width="30%"></iframe>
     </div>
 </template>
 
@@ -38,7 +38,7 @@
             //Initialize a new stream
             this.player = new Twitch.Player('twitch-embed', {
                 width: '100%',
-                height: 410,
+                height: 456,
                 channel: this.channel,
                 layout: 'video',
                 autoplay: true,

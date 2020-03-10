@@ -4,12 +4,6 @@
     <meta charset="UTF-8">
     <title>404</title>
     <style>
-    	/*
-VIEW IN FULL SCREEN MODE
-FULL SCREEN MODE: http://salehriaz.com/404Page/404.html
-
-DRIBBBLE: https://dribbble.com/shots/4330167-404-Page-Lost-In-Space
-*/
 
 @import url('https://fonts.googleapis.com/css?family=Dosis:300,400,500');
 
@@ -317,14 +311,16 @@ li a:hover {
                 </div>
             </div>
             <div class="central-body">
-                <img class="image-404" src="https://salehriaz.com/404Page/img/404.svg" width="300px">
-                <a href="/" class="btn-go-home" target="_blank">RETOUR A L'ACCUEIL</a>
+
+                <img class="image-404" src="img/404.svg" width="300px">
+                <a href="https://streamrunners.fr/" class="btn-go-home" target="_blank">RETOUR A L'ACCUEIL</a>
+
             </div>
             <div class="objects">
                 <img class="object_rocket" src="img/rocket.svg" width="100px">
                 <div class="earth-moon">
-                    <img class="object_earth" src="https://salehriaz.com/404Page/img/earth.svg" width="100px">
-                    <img class="object_moon" src="https://salehriaz.com/404Page/img/moon.svg" width="80px">
+                    <img class="object_earth" src="img/earth.svg" width="100px">
+                    <img class="object_moon" src="img/moon.svg" width="80px">
                 </div>
                 <div class="box_astronaut">
                     <img class="object_astronaut" src="img/astronaute.svg" width="140px">

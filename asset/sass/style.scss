@@ -16,19 +16,15 @@ Twitch Runner
 
 .loggedImage {
   border-radius: 50%;
-  height: 42px;
-  width: 42px;
+  height: 30px;
+  width: 30px;
   float: left;
 
 }
 
 .loggedPseudo {
-  font-size: 18px;
+  font-size: 12px;
   font-weight: bold;
-}
-
-a:hover {
-  Text-Decoration: None !important;
 }
 
 .rounded {
@@ -38,9 +34,12 @@ a:hover {
 }
 
 hr {
-  border: 0;
-  height: 1px;
-  background: linear-gradient(to left, #f0f0f0, #8c6dc5, #f0f0f0);
+     border: none;
+    width: 90%;
+    height: 50px;
+    border-bottom: 1px solid #f6c23c;
+    box-shadow: 0 20px 20px -20px #ffcb39;
+    margin: -0.50rem auto 3rem;
 }
 
 .footer {
@@ -59,8 +58,8 @@ hr {
 /* BANNER WALL*/
 .photo-wall {
   padding: 50px 0 50px 0;
-  margin-top: 20px;
-  margin-bottom: -20px;
+  margin-top: 40px;
+  margin-bottom: 20px;
   background: #000 url(/banner) top left;
   color: #fff;
   font-size: 15px;
@@ -152,6 +151,7 @@ hr {
   border: solid 2px;
 }
 
+
 .sub:hover {
   color: #28a745;
   background-color: #fff;
@@ -204,15 +204,6 @@ hr {
   box-shadow: 0 0 0;
 }
 
-a {
-  background: transparent;
-}
-
-a:active,
-a:hover {
-  outline: 0;
-}
-
 .text-shadow {
   text-shadow: 1px 1px 2px black;
 }
@@ -221,7 +212,8 @@ a:hover {
 
 .badge-secondary {
   margin: 2px;
-  background-color: #8c6dc5 !important;
+  background-color: rgba(0, 0, 0, 0.4);
+  background: rgba(0, 0, 0, 0.4);
 }
 
 .perso {
@@ -241,9 +233,13 @@ a:hover {
   margin-right: auto;
 }
 
-.jumbotron {
-  margin-top: 15px;
-  padding: 2rem 2rem !important;
+
+.jumbotron{
+    margin-top: 15px;
+    padding: 2rem 2rem !important;
+    background-color: rgba(0, 0, 0, 0.4);
+    background: rgba(0, 0, 0, 0.4);
+    color: rgba(255, 255, 255, 1);
 }
 
 .form-control {
@@ -288,9 +284,110 @@ a:hover {
 
 .alert {
   margin-top: 1rem;
+  background-color: #007bff;
+  border-width: 0px;
+  color: #fff;
 }
 
 //bootstrap fix
 .input-group > .form-control, .input-group > .custom-select, .input-group > .custom-file {
   margin-bottom: 0 !important;
 }
+
+.giveaway-winner .title {
+  margin-right: 1rem;
+}
+
+a {
+
+    display: block;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    letter-spacing: 2px;
+    font-size: 12px;
+    -webkit-transition: all 0.3s ease-in;
+    -moz-transition: all 0.3s ease-in;
+    -ms-transition: all 0.3s ease-in;
+    -o-transition: all 0.3s ease-in;
+    transition: all 0.3s ease-in;
+
+};
+
+a:hover {
+
+  text-decoration: non;
+
+};
+
+.register {
+    color: #f6c23c;
+    font-weight: 600;
+    font-size: 20px;
+    margin-right: 0.50rem;
+};
+
+.online {
+    color: #00d5c6;
+    font-weight: 600;
+    font-size: 20px;
+    margin-left: 50px;
+    margin-right: 0.50rem;
+};
+
+.giveaway {
+    color: #f6c23c;
+    font-weight: 600;
+    font-size: 20px;
+}
+
+.resume {
+    position: relative;
+    overflow: hidden;
+    z-index: 2;
+    width: 100%;
+    height: 85vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+};
+
+.resume {
+    margin-top: 0;
+};
+
+.resume .resumeContainer {
+    width: 1110px;
+    max-width: 90%;
+    height: 100vh;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+};
+
+.resume .resumeContainer .visual .mockup {
+    width: 70vw;
+    max-width: 1100px;
+    object-fit: contain;
+};
+
+.resume .resumeContainer .resumeText {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: calc(70vw/1.68);
+};
+
+.resume .resumeContainer .resumeText .title {
+    font-size: 36px;
+    font-weight: bold;
+    line-height: 1.23;
+    margin-bottom: 36px;
+};
+
+.resume .resumeContainer .resumeText .description {
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 1.5;
+};

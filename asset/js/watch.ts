@@ -164,7 +164,7 @@ window['vm'] = new Vue({
         async makeRequestDelete(id: string) {
 
             const swalRes = await swal.fire({
-                title: 'Supprimer ça place ?',
+                title: 'Supprimer sa place ?',
                 text: 'Vous serez remboursé',
                 icon: 'warning',
                 showCancelButton: true,

@@ -55,6 +55,7 @@ export class LeaderboardDrawerService implements OnApplicationBootstrap {
         ctx.drawImage(this.backgroundImage, 0, 0, this.width, this.height);
 
         //Header text
+        ctx.fillStyle = 'white';
         ctx.font = `bold ${this.bigTextSize}px "Dosis"`;
         ctx.textAlign = 'center';
         ctx.fillText('Classement', this.width / 2, this.bigTextLineHeight);

@@ -17,15 +17,15 @@
 
                     <a class="btn btn-primary" href="/auth/twitch">Se connecter avec Twitch.Tv
                         <i class="fab fa-twitch"></i></a>
-                    <p class="mt-5">
-                        Rejoins les <strong>{{ viewers }}</strong> viewers actuellement connectés ! </p>
-                    <p class="mt-5">Déjà plus de <strong>
-                            <text id="compteur">0</text>
-                            inscrits </strong></p>
                 </div>
             </div>
         </div>
         <div class="clear"></div>
+    </div>
+    <div class="container">
+        <span class="online"><i class="fas fa-circle"></i> {{ viewers }} En ligne</span>
+        <span class="register"><i class="fas fa-users"></i> <text id="compteur">0</text> Inscrits</span>
+        <span class="giveaway"><i class="fas fa-gifts"></i> <text id="giftcount">0</text> € de Cadeaux</span>
     </div>
     <div class="container marketing">
         <hr>
@@ -80,6 +80,23 @@
         }
 
         setTimeout(countdown, delta);
+    </script>
+
+        <script type="text/javascript">
+        var ng = 325; // Nombre final du compteur
+        var cptg = 0; // Initialisation du compteur
+        var dureeg = 70; // Durée en seconde pendant laquel le compteur ira de 0 à 15
+        var deltag = Math.ceil((dureeg * 1000) / ng); // On calcule l'intervalle de temps entre chaque rafraîchissement du compteur (durée mise en milliseconde)
+        var nodeg = document.getElementById('giftcount'); // On récupère notre noeud où sera rafraîchi la valeur du compteur
+
+        function giftcountdown() {
+            nodeg.innerHTML = ++cptg;
+            if (cptg < ng) { // Si on est pas arrivé à la valeur finale, on relance notre compteur une nouvelle fois
+                setTimeout(giftcountdown, deltag);
+            }
+        }
+
+        setTimeout(giftcountdown, deltag);
     </script>
 
 {% endblock %}

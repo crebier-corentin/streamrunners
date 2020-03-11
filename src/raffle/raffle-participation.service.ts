@@ -11,6 +11,7 @@ import { RaffleService } from './raffle.service';
 export class RaffleParticipationService extends EntityService<RaffleParticipationEntity> {
     public constructor(
         @InjectRepository(RaffleParticipationEntity) repo,
+        @Inject(forwardRef(() => UserService))
         private readonly userService: UserService,
         @Inject(forwardRef(() => RaffleService))
         private readonly raffleService: RaffleService

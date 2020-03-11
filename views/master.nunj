@@ -22,6 +22,7 @@
 
     {% endblock %}
 
+    {# Cookie consent #}
     <script>
         window.addEventListener('load', function() {
             window.cookieconsent.initialise({
@@ -46,13 +47,6 @@
         });
     </script>
 
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-    <script>
-        (adsbygoogle = window.adsbygoogle || []).push({
-            google_ad_client: 'ca-pub-7690571679670706',
-            enable_page_level_ads: true,
-        });
-    </script>
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-114414235-2"></script>
     <script>
@@ -110,7 +104,7 @@
 }
 
 .spin-earth-on-hover{
-    
+
     transition: ease 200s !important;
     transform: rotate(-3600deg) !important;
 }
@@ -133,7 +127,7 @@ html, body{
     background-position: left top;
     height: 100%;
     overflow-y: scroll;
-    
+
 }
 
 .custom-navbar{
@@ -151,8 +145,8 @@ html, body{
     float: right;
     margin-right: 15px;
     text-transform: uppercase;
-    
-    
+
+
 }
 
 ul {
@@ -160,8 +154,8 @@ ul {
     margin: 0;
     padding: 0;
 /*    overflow: hidden;*/
-    display: flex; 
-    align-items: center; 
+    display: flex;
+    align-items: center;
 }
 
 li {
@@ -176,7 +170,7 @@ li a {
     text-decoration: none;
     letter-spacing : 2px;
     font-size: 12px;
-    
+
     -webkit-transition: all 0.3s ease-in;
     -moz-transition: all 0.3s ease-in;
     -ms-transition: all 0.3s ease-in;
@@ -196,7 +190,7 @@ a {
     text-decoration: none;
     letter-spacing : 2px;
     font-size: 12px;
-    
+
     -webkit-transition: all 0.3s ease-in;
     -moz-transition: all 0.3s ease-in;
     -ms-transition: all 0.3s ease-in;
@@ -239,7 +233,7 @@ a:hover {
     text-decoration: none;
     letter-spacing : 2px;
     font-size: 11px;
-    
+
     -webkit-transition: all 0.3s ease-in;
     -moz-transition: all 0.3s ease-in;
     -ms-transition: all 0.3s ease-in;
@@ -293,7 +287,7 @@ a:hover {
 }
 
 .earth-moon{
-    
+
 }
 
 .object_astronaut{
@@ -362,19 +356,19 @@ a:hover {
     .navbar-links{
         display: none;
     }
-    
+
     .custom-navbar{
         text-align: center;
     }
-    
+
     .brand-logo img{
         width: 120px;
     }
-    
+
     .box_astronaut{
         top: 70%;
     }
-    
+
     .central-body{
         padding-top: 25%;
     }

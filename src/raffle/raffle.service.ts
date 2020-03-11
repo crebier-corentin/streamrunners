@@ -15,7 +15,9 @@ export class RaffleService extends EntityService<RaffleEntity> {
         @InjectRepository(RaffleEntity) repo,
         @Inject(forwardRef(() => RaffleParticipationService))
         private readonly rpService: RaffleParticipationService,
+        @Inject(forwardRef(() => UserService))
         private readonly userService: UserService,
+        @Inject(forwardRef(() => DiscordBotService))
         private readonly discordBot: DiscordBotService
     ) {
         super(repo);
@@ -28,6 +30,15 @@ export class RaffleService extends EntityService<RaffleEntity> {
                 .where('raffle.id = :id', { id: raffle.id })
                 .leftJoin('raffle.participations', 'rp')
                 .select('SUM(rp.tickets)', 'sum')
+                .getRawOne()
+        ).sum;
+    }
+
+    public async totalValue(): Promise<number> {
+        return (
+            await this.repo
+                .createQueryBuilder('raffle')
+                .select('SUM(raffle.value)', 'sum')
                 .getRawOne()
         ).sum;
     }
@@ -142,5 +153,6 @@ export class RaffleService extends EntityService<RaffleEntity> {
 
         //Discord notification
         await this.discordBot.sendRaffleNotificationMessage(raffle);
+        await this.discordBot.updateRaffleValueCount();
     }
 }

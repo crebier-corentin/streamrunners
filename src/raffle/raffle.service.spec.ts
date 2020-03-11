@@ -48,6 +48,7 @@ describe('RaffleService', () => {
                     provide: DiscordBotService,
                     useValue: {
                         sendRaffleNotificationMessage: jest.fn(),
+                        updateRaffleValueCount: jest.fn(),
                     },
                 },
             ],

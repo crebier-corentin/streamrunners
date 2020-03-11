@@ -24,8 +24,8 @@
     </div>
     <div class="container">
         <span class="online"><i class="fas fa-circle"></i> {{ viewers }} En ligne</span>
-        <span class="register"><i class="fas fa-users"></i> <text id="compteur">0</text> Inscrits</span>
-        <span class="giveaway"><i class="fas fa-gifts"></i> <text id="giftcount">0</text> € de Cadeaux</span>
+        <span class="register"><i class="fas fa-users"></i> <span id="users-count">0</span> Inscrits</span>
+        <span class="giveaway"><i class="fas fa-gifts"></i> <span id="gift-value-count">0</span> € de Cadeaux</span>
     </div>
     <div class="container marketing">
         <hr>
@@ -49,10 +49,7 @@
                     obligatoires !</p>
             </div><!-- /.col-lg-4 -->
             <div class="col-lg-4 d-flex flex-column align-items-center justify-content-center">
-                <img src="img/gift-solid.svg"
-                     alt="Generic placeholder image"
-                     width="140"
-                     height="140">
+                <img src="img/gift-solid.svg" alt="Generic placeholder image" width="140" height="140">
                 <h2>Cadeaux</h2>
                 <p>Des tonnes de cadeaux a gagner gratuitement tous les mois tout en soutenant des petits streameurs
                     francophones !</p>
@@ -64,38 +61,11 @@
 
 {% block script %}
 
+    <script type="text/javascript" src="/js/countdown.js"></script>
+
     <script type="text/javascript">
-        var n = {{ totalUsers }}; // Nombre final du compteur
-        var cpt = 52; // Initialisation du compteur
-        var duree = 30; // Durée en seconde pendant laquel le compteur ira de 0 à 15
-        var delta = Math.ceil((duree * 1000) / n); // On calcule l'intervalle de temps entre chaque rafraîchissement du compteur (durée mise en milliseconde)
-        var node = document.getElementById('compteur'); // On récupère notre noeud où sera rafraîchi la valeur du compteur
-
-        function countdown() {
-            node.innerHTML = ++cpt;
-            if (cpt < n) { // Si on est pas arrivé à la valeur finale, on relance notre compteur une nouvelle fois
-                setTimeout(countdown, delta);
-            }
-        }
-
-        setTimeout(countdown, delta);
-    </script>
-
-        <script type="text/javascript">
-        var ng = 325; // Nombre final du compteur
-        var cptg = 0; // Initialisation du compteur
-        var dureeg = 70; // Durée en seconde pendant laquel le compteur ira de 0 à 15
-        var deltag = Math.ceil((dureeg * 1000) / ng); // On calcule l'intervalle de temps entre chaque rafraîchissement du compteur (durée mise en milliseconde)
-        var nodeg = document.getElementById('giftcount'); // On récupère notre noeud où sera rafraîchi la valeur du compteur
-
-        function giftcountdown() {
-            nodeg.innerHTML = ++cptg;
-            if (cptg < ng) { // Si on est pas arrivé à la valeur finale, on relance notre compteur une nouvelle fois
-                setTimeout(giftcountdown, deltag);
-            }
-        }
-
-        setTimeout(giftcountdown, deltag);
+        countdown(document.getElementById('users-count'), 0, {{ totalUsers }});
+        countdown(document.getElementById('gift-value-count'), 0, {{ raffleTotalValue }});
     </script>
 
 {% endblock %}

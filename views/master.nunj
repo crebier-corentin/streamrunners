@@ -608,13 +608,11 @@ a:hover {
        </div>
     </p>
 </div>
-    <div id="awn-z2990251"></div>
 </footer>
 
 </body>
 
 <script src="/js/bundle.js"></script>
-<script src="/js/atag.js"></script>
 
 {% if req.isAuthenticated() %}
     <script src="/js/points-counter.js"></script>

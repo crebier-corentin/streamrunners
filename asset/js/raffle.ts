@@ -20,7 +20,7 @@ new Vue({
         async buy(raffleId, amount) {
 
             const swalRes = await swal.fire({
-                title: `Acheter ${amount} ticket${amount > 1 ? 's' : ''}?`,
+                title: `Acheter ${amount} ticket${amount > 1 ? 's' : ''} ?`,
                 icon: 'question',
                 showCancelButton: true,
                 cancelButtonText: 'Annuler',

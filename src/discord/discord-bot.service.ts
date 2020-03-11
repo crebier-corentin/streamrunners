@@ -4,6 +4,7 @@ import { Client, Message, Role, TextChannel, VoiceChannel } from 'discord.js';
 import * as moment from 'moment';
 import { LeaderboardDrawerService } from '../leaderboard/leaderboard-drawer.service';
 import { RaffleEntity } from '../raffle/raffle.entity';
+import { RaffleService } from '../raffle/raffle.service';
 import { UserService } from '../user/user.service';
 import { DiscordUserEntity } from './discord-user.entity';
 import { DiscordUserService } from './discord-user.service';
@@ -13,6 +14,7 @@ interface DiscordBotConstructor {
     token: string;
     siteUserCountChannelId: string;
     discordMemberCountChannelId: string;
+    raffleValueCountChannelId: string;
     streamNotificationChannelId: string;
     streamNotificationRoleId: string;
     raffleNotificationChannelId: string;
@@ -25,6 +27,7 @@ export class DiscordBotService implements OnApplicationBootstrap {
 
     private siteUserCountChannel: VoiceChannel;
     private discordMemberCountChannel: VoiceChannel;
+    private raffleValueCountChannel: VoiceChannel;
 
     private streamNotificationChannel: TextChannel;
     private streamNotificationRole: Role;
@@ -38,6 +41,7 @@ export class DiscordBotService implements OnApplicationBootstrap {
         @Inject(forwardRef(() => UserService)) private readonly userService: UserService,
         @Inject(forwardRef(() => LeaderboardDrawerService))
         private readonly leaderboardDrawer: LeaderboardDrawerService,
+        @Inject(forwardRef(() => RaffleService)) private readonly raffleService: RaffleService,
         private readonly discordUserService: DiscordUserService
     ) {}
 
@@ -50,6 +54,7 @@ export class DiscordBotService implements OnApplicationBootstrap {
             token: this.config.get('DISCORD_TOKEN'),
             siteUserCountChannelId: this.config.get('SITE_USER_COUNT_CHANNEL_ID'),
             discordMemberCountChannelId: this.config.get('DISCORD_MEMBER_COUNT_CHANNEL_ID'),
+            raffleValueCountChannelId: this.config.get('RAFFLE_VALUE_CHANNEL_ID'),
             streamNotificationChannelId: this.config.get('STREAM_NOTIFICATION_CHANNEL_ID'),
             streamNotificationRoleId: this.config.get('STREAM_NOTIFICATION_ROLE_ID'),
             raffleNotificationChannelId: this.config.get('RAFFLE_NOTIFICATION_CHANNEL_ID'),
@@ -61,6 +66,7 @@ export class DiscordBotService implements OnApplicationBootstrap {
         token,
         siteUserCountChannelId,
         discordMemberCountChannelId,
+        raffleValueCountChannelId,
         streamNotificationChannelId,
         streamNotificationRoleId,
         raffleNotificationChannelId,
@@ -107,6 +113,12 @@ export class DiscordBotService implements OnApplicationBootstrap {
                 c => c.id === discordMemberCountChannelId
             ) as VoiceChannel;
             await this.updateDiscordMemberCount();
+
+            //Raffle count
+            this.raffleValueCountChannel = this.client.channels.find(
+                c => c.id === raffleValueCountChannelId
+            ) as VoiceChannel;
+            await this.updateRaffleValueCount();
 
             //Stream notification
             this.streamNotificationChannel = this.client.channels.find(
@@ -228,6 +240,10 @@ export class DiscordBotService implements OnApplicationBootstrap {
     public async updateDiscordMemberCount(): Promise<void> {
         const count = this.discordMemberCountChannel?.guild.memberCount;
         await this.discordMemberCountChannel?.setName(`👤 Membres : ${count}`);
+    }
+
+    public async updateRaffleValueCount(): Promise<void> {
+        await this.raffleValueCountChannel?.setName(`💲 Total Cadeaux : ${await this.raffleService.totalValue()}€`);
     }
 
     public async sendStreamNotificationMessage(): Promise<void> {

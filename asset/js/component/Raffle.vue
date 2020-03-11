@@ -41,7 +41,7 @@
 
             <!-- Buy button -->
             <button type="submit" class="btn btn-lg btn-block btn-primary boutique" @click="buy" :disabled="error">
-                Acheter {{ this.amount }} ticket{{ this.amount > 1 ? 's' : '' }} pour {{ this.price }} points
+                Acheter
             </button>
 
 
@@ -107,7 +107,7 @@
 
         methods: {
             buy(): void {
-                this.$emit('buy', this.info.id, this.amount);
+                this.$emit('buy', this.info.id, this.amount, this.price);
             },
 
             maxTickets(): void {

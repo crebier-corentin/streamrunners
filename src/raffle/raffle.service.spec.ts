@@ -7,6 +7,7 @@ import { UserEntity } from '../user/user.entity';
 import { NotEnoughPointsException } from '../user/user.exception';
 import { UserService } from '../user/user.service';
 import { RaffleParticipationEntity } from './raffle-participation.entity';
+import { RaffleParticipationService } from './raffle-participation.service';
 import { RaffleEntity } from './raffle.entity';
 import { RaffleService } from './raffle.service';
 import MockDate = require('mockdate');
@@ -15,7 +16,7 @@ describe('RaffleService', () => {
     let service: RaffleService;
     let userService: UserService;
     let repo: Repository<RaffleEntity>;
-    let RPrepo: Repository<RaffleParticipationEntity>;
+    let rpService: RaffleParticipationService;
     let discord: DiscordBotService;
     beforeEach(async () => {
         const module: TestingModule = await Test.createTestingModule({
@@ -36,8 +37,12 @@ describe('RaffleService', () => {
                     useClass: Repository,
                 },
                 {
-                    provide: getRepositoryToken(RaffleParticipationEntity),
-                    useClass: Repository,
+                    provide: RaffleParticipationService,
+                    useValue: {
+                        findForUserAndRaffle: jest.fn(),
+                        findOrCreate: jest.fn(),
+                        save: jest.fn(),
+                    },
                 },
                 {
                     provide: DiscordBotService,
@@ -51,12 +56,12 @@ describe('RaffleService', () => {
         service = module.get<RaffleService>(RaffleService);
         userService = module.get<UserService>(UserService);
         repo = module.get<Repository<RaffleEntity>>(getRepositoryToken(RaffleEntity));
-        RPrepo = module.get<Repository<RaffleParticipationEntity>>(getRepositoryToken(RaffleParticipationEntity));
+        rpService = module.get<RaffleParticipationService>(RaffleParticipationService);
         discord = module.get<DiscordBotService>(DiscordBotService);
         // @ts-ignore
         jest.spyOn(repo, 'save').mockImplementation(entity => entity);
         // @ts-ignore
-        jest.spyOn(RPrepo, 'save').mockImplementation(entity => entity);
+        jest.spyOn(rpService, 'save').mockImplementation(entity => entity);
 
         MockDate.reset();
     });
@@ -121,15 +126,9 @@ describe('RaffleService', () => {
             rp1.raffle = r1;
             rp1.tickets = 5;
             // @ts-ignore
-            jest.spyOn(RPrepo, 'createQueryBuilder').mockReturnValue({
-                leftJoinAndSelect: jest.fn().mockReturnThis(),
-                where: jest.fn().mockReturnThis(),
-                andWhere: jest.fn().mockReturnThis(),
-                getOne: jest
-                    .fn()
-                    .mockResolvedValueOnce(rp1)
-                    .mockResolvedValueOnce(undefined),
-            });
+            jest.spyOn(rpService, 'findForUserAndRaffle')
+                .mockResolvedValueOnce(rp1)
+                .mockResolvedValueOnce(undefined);
 
             const raffles = await service.activeAndTicketCount(new UserEntity());
             expect(raffles[0].id).toBe(1);
@@ -230,12 +229,7 @@ describe('RaffleService', () => {
             const rp = new RaffleParticipationEntity();
             rp.tickets = 6;
             // @ts-ignore
-            jest.spyOn(RPrepo, 'createQueryBuilder').mockReturnValue({
-                leftJoinAndSelect: jest.fn().mockReturnThis(),
-                where: jest.fn().mockReturnThis(),
-                andWhere: jest.fn().mockReturnThis(),
-                getOne: jest.fn().mockResolvedValue(rp),
-            });
+            jest.spyOn(rpService, 'findOrCreate').mockResolvedValue(rp);
 
             MockDate.set('2019-01-01');
 
@@ -256,12 +250,7 @@ describe('RaffleService', () => {
             const rp = new RaffleParticipationEntity();
             rp.tickets = 10;
             // @ts-ignore
-            jest.spyOn(RPrepo, 'createQueryBuilder').mockReturnValue({
-                leftJoinAndSelect: jest.fn().mockReturnThis(),
-                where: jest.fn().mockReturnThis(),
-                andWhere: jest.fn().mockReturnThis(),
-                getOne: jest.fn().mockResolvedValue(rp),
-            });
+            jest.spyOn(rpService, 'findOrCreate').mockResolvedValue(rp);
 
             MockDate.set('2019-01-01');
 

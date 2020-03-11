@@ -1,68 +1,33 @@
-import { Injectable, InternalServerErrorException } from '@nestjs/common';
+import { forwardRef, Inject, Injectable, InternalServerErrorException } from '@nestjs/common';
 import { Cron, CronExpression } from '@nestjs/schedule';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
 import { EntityService } from '../common/utils/entity-service';
 import { DiscordBotService } from '../discord/discord-bot.service';
 import { UserEntity } from '../user/user.entity';
 import { NotEnoughPointsException } from '../user/user.exception';
 import { UserService } from '../user/user.service';
-import { RaffleParticipationEntity } from './raffle-participation.entity';
+import { RaffleParticipationService } from './raffle-participation.service';
 import { RaffleEntity, RaffleEntityExtra } from './raffle.entity';
 
 @Injectable()
 export class RaffleService extends EntityService<RaffleEntity> {
     public constructor(
         @InjectRepository(RaffleEntity) repo,
-        @InjectRepository(RaffleParticipationEntity) private readonly RPrepo: Repository<RaffleParticipationEntity>,
+        @Inject(forwardRef(() => RaffleParticipationService))
+        private readonly rpService: RaffleParticipationService,
         private readonly userService: UserService,
         private readonly discordBot: DiscordBotService
     ) {
         super(repo);
     }
 
-    //Raffle Participation
-    private RPfindForUserAndRaffle(
-        user: UserEntity | number,
-        raffle: RaffleEntity | number
-    ): Promise<RaffleParticipationEntity | undefined> {
-        const userId = user instanceof UserEntity ? user.id : user;
-        const raffleId = raffle instanceof RaffleEntity ? raffle.id : raffle;
-
-        return this.RPrepo.createQueryBuilder('rp')
-            .leftJoinAndSelect('rp.user', 'user')
-            .leftJoinAndSelect('rp.raffle', 'raffle')
-            .where('user.id = :userId', { userId })
-            .andWhere('raffle.id = :raffleId', { raffleId })
-            .getOne();
-    }
-
-    private async RPfindOrCreate(
-        user: UserEntity | number,
-        raffle: RaffleEntity | number
-    ): Promise<RaffleParticipationEntity> {
-        let rp = await this.RPfindForUserAndRaffle(user, raffle);
-
-        //Create new RaffleParticipation
-        if (rp == undefined) {
-            rp = new RaffleParticipationEntity();
-
-            //Relations
-            rp.user = user instanceof UserEntity ? user : await this.userService.byId(user);
-            rp.raffle = raffle instanceof RaffleEntity ? raffle : await this.repo.findOne(raffle);
-
-            await this.RPrepo.save(rp);
-        }
-
-        return rp;
-    }
-
-    //Raffle
     public async totalTickets(raffle: RaffleEntity): Promise<number> {
         return (
-            await this.RPrepo.createQueryBuilder('rp')
+            await this.repo
+                .createQueryBuilder('raffle')
+                .where('raffle.id = :id', { id: raffle.id })
+                .leftJoin('raffle.participations', 'rp')
                 .select('SUM(rp.tickets)', 'sum')
-                .where('rp.raffleId = :id', { id: raffle.id })
                 .getRawOne()
         ).sum;
     }
@@ -90,7 +55,7 @@ export class RaffleService extends EntityService<RaffleEntity> {
         const raffles = await this.active();
         return Promise.all(
             raffles.map(async (r: RaffleEntityExtra) => {
-                r.userTickets = (await this.RPfindForUserAndRaffle(user, r))?.tickets ?? 0; //Ticket count or 0 if none
+                r.userTickets = (await this.rpService.findForUserAndRaffle(user, r))?.tickets ?? 0; //Ticket count or 0 if none
                 return r;
             })
         );
@@ -134,14 +99,14 @@ export class RaffleService extends EntityService<RaffleEntity> {
         if (!raffle.isActive()) throw new InternalServerErrorException();
         if (!user.canAfford(raffle.price * amount)) throw new NotEnoughPointsException(user, raffle.price, 'Le ticket');
 
-        const rp = await this.RPfindOrCreate(user, raffle);
+        const rp = await this.rpService.findOrCreate(user, raffle);
         //Assure that user has less than max tickets
         if (raffle.maxTickets > 0 && rp.tickets + amount > raffle.maxTickets) throw new InternalServerErrorException();
 
         //Pay and add ticket
         await this.userService.changePointsSave(user, -(raffle.price * amount));
         rp.tickets += amount;
-        await this.RPrepo.save(rp);
+        await this.rpService.save(rp);
     }
 
     public async add({

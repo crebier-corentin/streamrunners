@@ -5,7 +5,7 @@
             <small class="countdown">{{ remainingTime }}</small>
         </div>
         <div class="card-body">
-            <img :src="info.icon" height="250px" alt="icon" />
+            <img style="max-width: 100%;" :src="info.icon" height="250px" alt="icon" />
 
             <p v-html="info.description"></p>
 

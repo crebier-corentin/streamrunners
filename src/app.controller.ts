@@ -20,6 +20,12 @@ export class AppController {
         }
     }
 
+    @Render('rules')
+    @Get('rules')
+    public rules(): void {
+        //
+    }
+
     @UseGuards(AuthenticatedGuard)
     @Render('inventory')
     @Get('inventory')

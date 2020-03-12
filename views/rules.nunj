@@ -1,0 +1,6 @@
+{% set title = "StreamRunners - Règlement" %}
+{% extends "master.nunj" %}
+
+{% block content %}
+
+{% endblock %}

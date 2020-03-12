@@ -79,6 +79,23 @@ export class StreamQueueService extends EntityService<StreamQueueEntity> {
         await this.repo.save(stream);
     }
 
+    /**
+     * @return The number of places the user has in the queue.
+     */
+    public async placesCount(user: UserEntity);
+    public async placesCount(userId: number);
+    public async placesCount(userOrUserId: UserEntity | number): Promise<number> {
+        const userId = userOrUserId instanceof UserEntity ? userOrUserId.id : userOrUserId;
+
+        return this.repo
+            .createQueryBuilder('queue')
+            .leftJoinAndSelect('queue.user', 'user')
+            .where('user.id = :userId', { userId })
+            .andWhere('queue.current < queue.time')
+            .orderBy('queue.createdAt', 'ASC')
+            .getCount();
+    }
+
     @Cron(CronExpression.EVERY_SECOND)
     private async updateQueue(): Promise<void> {
         const currentStream = await this.currentStream();

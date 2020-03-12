@@ -41,6 +41,14 @@ export class WatchService {
     }
 
     public async addStreamToQueue(user: UserEntity): Promise<void> {
+        //Check number of places
+        const placesCount = await this.streamQueueService.placesCount(user);
+        if (placesCount >= 1)
+            throw new UserErrorException(
+                'Nombre de places limite dans la file atteint.',
+                "Vous ne pouvez qu'avoir que 1 place simultané dans la file."
+            );
+
         //Check if queue is empty
         const cost = (await this.streamQueueService.isEmpty()) ? 0 : 2000;
 

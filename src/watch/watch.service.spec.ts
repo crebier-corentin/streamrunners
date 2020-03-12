@@ -31,6 +31,7 @@ describe('WatchService', () => {
                         insert: jest.fn(),
                         remove: jest.fn(),
                         byIdAndUserIdOrFail: jest.fn(),
+                        placesCount: jest.fn(),
                     },
                 },
                 {
@@ -146,10 +147,20 @@ describe('WatchService', () => {
     });
 
     describe('addStreamToQueue', () => {
+        it('should throw if the user has exceeded the simultaneous place limit', async () => {
+            const user = new UserEntity();
+            user.points = 5000;
+
+            jest.spyOn(streamQueueService, 'placesCount').mockResolvedValue(1);
+
+            return expect(service.addStreamToQueue(user)).rejects.toBeInstanceOf(UserErrorException);
+        });
+
         it('should throw if the user doesn`t have enough points', async () => {
             const user = new UserEntity();
             user.points = 100;
 
+            jest.spyOn(streamQueueService, 'placesCount').mockResolvedValue(0);
             jest.spyOn(streamQueueService, 'isEmpty').mockResolvedValue(false);
             jest.spyOn(twitch, 'isStreamOnline').mockResolvedValue(true);
 
@@ -167,6 +178,7 @@ describe('WatchService', () => {
             const user = new UserEntity();
             user.points = 5000;
 
+            jest.spyOn(streamQueueService, 'placesCount').mockResolvedValue(0);
             jest.spyOn(streamQueueService, 'isEmpty').mockResolvedValue(true);
             jest.spyOn(twitch, 'isStreamOnline').mockResolvedValue(false);
 
@@ -177,6 +189,7 @@ describe('WatchService', () => {
             const user = new UserEntity();
             user.points = 100;
 
+            jest.spyOn(streamQueueService, 'placesCount').mockResolvedValue(0);
             jest.spyOn(streamQueueService, 'isEmpty').mockResolvedValue(true);
             jest.spyOn(twitch, 'isStreamOnline').mockResolvedValue(true);
             const mockedInsert = jest.spyOn(streamQueueService, 'insert');
@@ -189,6 +202,7 @@ describe('WatchService', () => {
             const user = new UserEntity();
             user.points = 2000;
 
+            jest.spyOn(streamQueueService, 'placesCount').mockResolvedValue(0);
             jest.spyOn(streamQueueService, 'isEmpty').mockResolvedValue(false);
             jest.spyOn(twitch, 'isStreamOnline').mockResolvedValue(true);
             const mockedInsert = jest.spyOn(streamQueueService, 'insert');

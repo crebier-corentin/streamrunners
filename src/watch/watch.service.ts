@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import * as moment from 'moment';
 import { UserErrorException } from '../common/exception/user-error.exception';
 import { StreamQueueService } from '../stream-queue/stream-queue.service';
+import { SubscriptionLevel } from '../subscription/subscription-level.enum';
 import { TwitchService } from '../twitch/twitch.service';
 import { UserEntity } from '../user/user.entity';
 import { NotEnoughPointsException } from '../user/user.exception';
@@ -14,6 +15,28 @@ export class WatchService {
         private readonly userService: UserService,
         private readonly twitch: TwitchService
     ) {}
+
+    private static pointsMultiplier(lvl: SubscriptionLevel): number {
+        switch (lvl) {
+            case SubscriptionLevel.None:
+                return 1;
+            case SubscriptionLevel.VIP:
+                return 1.5;
+            case SubscriptionLevel.Diamond:
+                return 2;
+        }
+    }
+
+    private static placeLimit(lvl: SubscriptionLevel): number {
+        switch (lvl) {
+            case SubscriptionLevel.None:
+                return 1;
+            case SubscriptionLevel.VIP:
+                return 4;
+            case SubscriptionLevel.Diamond:
+                return 6;
+        }
+    }
 
     public async updatePoints(user: UserEntity): Promise<void> {
         try {
@@ -30,7 +53,10 @@ export class WatchService {
 
             //If lastUpdate was one minutes or less ago
             if (moment(user.lastUpdate).add(5, 'seconds') >= now) {
-                await user.changePoints((now.toDate().getTime() - user.lastUpdate.getTime()) / 1000);
+                const points = (now.toDate().getTime() - user.lastUpdate.getTime()) / 1000;
+                const multiplier = WatchService.pointsMultiplier(await this.userService.getSubscriptionLevel(user));
+
+                await user.changePoints(Math.ceil(points * multiplier));
             }
 
             user.lastUpdate = now.toDate();
@@ -43,11 +69,15 @@ export class WatchService {
     public async addStreamToQueue(user: UserEntity): Promise<void> {
         //Check number of places
         const placesCount = await this.streamQueueService.placesCount(user);
-        if (placesCount >= 1)
+        const placeLimit = WatchService.placeLimit(await this.userService.getSubscriptionLevel(user));
+        if (placesCount >= placeLimit) {
+            const limitPlural = placeLimit > 1 ? 's' : '';
+
             throw new UserErrorException(
                 'Nombre de places limite dans la file atteint.',
-                "Vous ne pouvez qu'avoir que 1 place simultané dans la file."
+                `Vous ne pouvez qu'avoir que ${placeLimit} place${limitPlural} simultanée${limitPlural} dans la file.`
             );
+        }
 
         //Check if queue is empty
         const cost = (await this.streamQueueService.isEmpty()) ? 0 : 2000;

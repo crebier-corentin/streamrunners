@@ -7,6 +7,7 @@ import { EntityService } from '../common/utils/entity-service';
 import { formatDatetimeSQL } from '../common/utils/utils';
 import { DiscordBotService } from '../discord/discord-bot.service';
 import { RaffleEntity } from '../raffle/raffle.entity';
+import { SubscriptionLevel } from '../subscription/subscription-level.enum';
 import { TwitchUser } from '../twitch/twitch.interfaces';
 import { TwitchService } from '../twitch/twitch.service';
 import { MostPlaceResult } from './most-place-result.interface';
@@ -72,6 +73,12 @@ export class UserService extends EntityService<UserEntity> {
     public async changePointsSave(user: UserEntity, amount: number): Promise<void> {
         user.changePoints(amount);
         await this.repo.save(user);
+    }
+
+    public async getSubscriptionLevel(user: UserEntity): Promise<SubscriptionLevel> {
+        //TODO: Implement
+        await 1; //REMOVE THIS (to stop eslint warning)
+        return SubscriptionLevel.None;
     }
 
     public pickRaffleWinner(raffle: RaffleEntity): Promise<UserEntity> {

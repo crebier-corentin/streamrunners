@@ -84,7 +84,7 @@ describe('WatchService', () => {
             streamer.points = 0;
         });
 
-        it('should not increase the user\'s points if there is no stream active', async () => {
+        it("should not increase the user's points if there is no stream active", async () => {
             jest.spyOn(streamQueueService, 'currentStream').mockResolvedValue(undefined);
 
             await service.updatePoints(user);
@@ -92,7 +92,7 @@ describe('WatchService', () => {
             expect(user.points).toBe(100);
         });
 
-        it('should not increase the user\'s points if the current stream is made by user', async () => {
+        it("should not increase the user's points if the current stream is made by user", async () => {
             const stream = new StreamQueueEntity();
             stream.user = user;
 
@@ -103,7 +103,7 @@ describe('WatchService', () => {
             expect(user.points).toBe(100);
         });
 
-        it('should not increase the user\'s points if the current stream is offline', async () => {
+        it("should not increase the user's points if the current stream is offline", async () => {
             const stream = new StreamQueueEntity();
             stream.user = streamer;
 
@@ -115,7 +115,7 @@ describe('WatchService', () => {
             expect(user.points).toBe(100);
         });
 
-        it('should not increase the user\'s points if it\'s been more than 5 seconds since user.lastUpdate and should update user.lastUpdate', async () => {
+        it("should not increase the user's points if it's been more than 5 seconds since user.lastUpdate and should update user.lastUpdate", async () => {
             const stream = new StreamQueueEntity();
             stream.user = streamer;
 
@@ -134,7 +134,7 @@ describe('WatchService', () => {
             [SubscriptionLevel.VIP, 106],
             [SubscriptionLevel.Diamond, 108],
         ])(
-            'should increase the user\'s points if it\'s been less than 5 seconds since user.lastUpdate and should update user.lastUpdate (%s)',
+            "should increase the user's points if it's been less than 5 seconds since user.lastUpdate and should update user.lastUpdate (%s)",
             async (lvl, expectedPoints) => {
                 user.subscriptionLevel = lvl;
 
@@ -149,12 +149,11 @@ describe('WatchService', () => {
 
                 expect(user.points).toBe(expectedPoints);
                 expect(user.lastUpdate).toStrictEqual(new Date('2020-01-01T00:00:04'));
-            },
+            }
         );
     });
 
     describe('addStreamToQueue', () => {
-
         it.each([
             [SubscriptionLevel.None, 2],
             [SubscriptionLevel.VIP, 4],
@@ -169,7 +168,7 @@ describe('WatchService', () => {
             return expect(service.addStreamToQueue(user)).rejects.toBeInstanceOf(UserErrorException);
         });
 
-        it('should throw if the user doesn\'t have enough points', async () => {
+        it("should throw if the user doesn't have enough points", async () => {
             const user = new UserEntity();
             user.points = 100;
             user.subscriptionLevel = SubscriptionLevel.None;
@@ -182,14 +181,13 @@ describe('WatchService', () => {
 
             try {
                 await service.addStreamToQueue(user);
-            }
-            catch (e) {
+            } catch (e) {
                 error = e;
             }
             expect(error).toBeInstanceOf(NotEnoughPointsException);
         });
 
-        it('should throw if the user\'s stream is offline', () => {
+        it("should throw if the user's stream is offline", () => {
             const user = new UserEntity();
             user.points = 5000;
             user.subscriptionLevel = SubscriptionLevel.None;
@@ -230,9 +228,7 @@ describe('WatchService', () => {
             expect(user.points).toBe(0);
             expect(mockedInsert).toHaveBeenCalledWith(2000, 600, user);
         });
-
     });
-
 
     describe('removeFromQueue', () => {
         let stream: StreamQueueEntity;

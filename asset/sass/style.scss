@@ -13,6 +13,7 @@ Twitch Runner
 @import "shop";
 @import "chat";
 @import "giveaway";
+@import "slider";
 
 .loggedImage {
   border-radius: 50%;
@@ -305,7 +306,7 @@ hr {
   margin-bottom: 0 !important;
 }
 
-.giveaway-winner .title {
+.giveaway-winner .slider-title {
   margin-right: 1rem;
 }
 
@@ -394,7 +395,7 @@ a:hover {
     height: calc(70vw/1.68);
 };
 
-.resume .resumeContainer .resumeText .title {
+.resume .resumeContainer .resumeText .slider-title {
     font-size: 36px;
     font-weight: bold;
     line-height: 1.23;

@@ -48,5 +48,3 @@ mix.sass('asset/sass/style.scss', 'public/css/')
         folders: ['views', 'asset'],
         extensions: ['html', 'js', 'php', 'vue', 'nunj'],
     });
-
-mix.copy('node_modules/vue-slick-carousel/dist/vue-slick-carousel.css', 'public/css/');

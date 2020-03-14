@@ -104,10 +104,10 @@ export class UserService extends EntityService<UserEntity> {
             .getMany();
     }
 
-    public partners(): Promise<Pick<UserEntity, 'username' | 'displayName' | 'avatar'>[]> {
+    public partners(): Promise<Pick<UserEntity, 'username' | 'displayName' | 'avatar' | 'twitchDescription'>[]> {
         return this.repo
             .createQueryBuilder('user')
-            .select(['user.username', 'user.displayName', 'user.avatar'])
+            .select(['user.username', 'user.displayName', 'user.avatar', 'user.twitchDescription'])
             .where('user.partner = true')
             .orderBy('RAND()')
             .getMany();
@@ -127,7 +127,11 @@ export class UserService extends EntityService<UserEntity> {
                 this.repo
                     .createQueryBuilder('user')
                     .update()
-                    .set({ displayName: user.display_name, avatar: user.profile_image_url })
+                    .set({
+                        displayName: user.display_name,
+                        avatar: user.profile_image_url,
+                        twitchDescription: user.description,
+                    })
                     .where('user.twitchId = :twitchId', { twitchId: user.id })
                     .execute()
             )

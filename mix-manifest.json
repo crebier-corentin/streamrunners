@@ -5,6 +5,5 @@
     "/public/js/index.js": "/public/js/index.js",
     "/public/js/points-counter.js": "/public/js/points-counter.js",
     "/public/js/raffle.js": "/public/js/raffle.js",
-    "/public/js/watch.js": "/public/js/watch.js",
-    "/public/css/vue-slick-carousel.css": "/public/css/vue-slick-carousel.css"
+    "/public/js/watch.js": "/public/js/watch.js"
 }

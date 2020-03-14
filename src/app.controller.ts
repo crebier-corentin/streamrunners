@@ -16,7 +16,7 @@ export class AppController {
                 viewers: (await this.userService.viewers()).length,
                 totalUsers: await this.userService.count(),
                 raffleTotalValue: await this.raffleService.totalValue(),
-                partners: await this.userService.partners(),
+                streamerPartners: JSON.stringify(await this.userService.partners()),
             });
         }
     }

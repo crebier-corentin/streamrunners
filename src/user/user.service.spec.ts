@@ -155,7 +155,7 @@ describe('UserService', () => {
                         display_name: 'a',
                         type: '',
                         broadcaster_type: '',
-                        description: '',
+                        description: 'abc',
                         profile_image_url: 'avatar-a',
                         offline_image_url: '',
                         view_count: 49,
@@ -166,7 +166,7 @@ describe('UserService', () => {
                         display_name: 'b',
                         type: '',
                         broadcaster_type: 'partner',
-                        description: '',
+                        description: 'def',
                         profile_image_url: 'avatar-b',
                         offline_image_url:
                             'https://static-cdn.jtvnw.net/jtv_user_pictures/b7fb5e6e-a8f7-40fb-98de-d9180d052665-channel_offline_image-1920x1080.png',
@@ -191,8 +191,8 @@ describe('UserService', () => {
 
             // @ts-ignore
             await service.syncFromTwitchProcess(['123', '456']);
-            expect(mockedSet).toHaveBeenCalledWith({ displayName: 'a', avatar: 'avatar-a' });
-            expect(mockedSet).toHaveBeenCalledWith({ displayName: 'b', avatar: 'avatar-b' });
+            expect(mockedSet).toHaveBeenCalledWith({ displayName: 'a', avatar: 'avatar-a', twitchDescription: 'abc' });
+            expect(mockedSet).toHaveBeenCalledWith({ displayName: 'b', avatar: 'avatar-b', twitchDescription: 'def' });
         });
     });
 

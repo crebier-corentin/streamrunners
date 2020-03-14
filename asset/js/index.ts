@@ -1,6 +1,7 @@
 import { sleep } from '../../src/shared/shared-utils';
 import Vue from 'vue/dist/vue.esm.js';
-import VueSlickCarousel = require('vue-slick-carousel/dist/vue-slick-carousel.common.js');
+import StreamerPartners from './component/StreamerPartners.vue';
+
 
 window['countdown'] = async function countdown(el: HTMLElement, countStart: number, countEnd: number, seconds: number = 20): Promise<void> {
 
@@ -15,7 +16,18 @@ window['countdown'] = async function countdown(el: HTMLElement, countStart: numb
 };
 
 //Partners
+Vue.component(StreamerPartners.name, StreamerPartners);
+
 new Vue({
     el: '#partners',
-    components: { VueSlickCarousel },
+
+    data() {
+        return {
+            streamerPartners: [],
+        };
+    },
+
+    mounted() {
+        this.streamerPartners = window['defaultStreamerPartners'];
+    },
 });

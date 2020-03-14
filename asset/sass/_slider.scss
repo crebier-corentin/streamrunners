@@ -1,0 +1,413 @@
+/*! Based on wolfy.fr
+*/
+.slider-presentation {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.slider-presentation .slider-title {
+  font-size: 36px;
+  font-weight: bold;
+  line-height: 1.23;
+  margin-bottom: 12vh;
+  text-align: center;
+  padding: 0 20px;
+}
+
+@media (max-width: 768px) {
+  .slider-presentation .slider-title {
+    font-size: 22px;
+    margin-bottom: 40px;
+  }
+}
+
+.slider-presentation .slider-container {
+  width: 1110px;
+  max-width: 90%;
+  height: 72px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+@media (max-width: 768px) {
+  .slider-presentation .slider-container {
+    flex-direction: column;
+    height: 140px;
+  }
+}
+
+.slider-presentation .slider-container .slider-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  width: 26%;
+  min-width: 255px;
+}
+
+@media (max-width: 768px) {
+  .slider-presentation .slider-container .slider-info {
+    align-items: center;
+    width: 80%;
+  }
+}
+
+.slider-presentation .slider-container .slider-info .roleName {
+  font-size: 32px;
+  font-weight: 500;
+  text-align: right;
+}
+
+@media (max-width: 768px) {
+  .slider-presentation .slider-container .slider-info .roleName {
+    font-size: 22px;
+  }
+}
+
+.slider-presentation .slider-container .slider-info .team {
+  font-size: 15px;
+  font-weight: 600;
+  text-align: right;
+  margin-top: 3px;
+}
+
+@media (max-width: 768px) {
+  .slider-presentation .slider-container .slider-info .team {
+    font-size: 12px;
+  }
+}
+
+.followers {
+  color: #f6c23c;
+}
+
+.slider-presentation .slider-container .slider-description {
+  position: relative;
+  width: 26%;
+  min-width: 255px;
+  min-height: 72px;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1.5;
+  opacity: .9;
+  text-align: left;
+  transition: opacity .3s;
+}
+
+.slider-presentation .slider-container .slider-description .text {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.slider-presentation .slider-container .slider-description .text.novisible {
+  opacity: 0;
+}
+
+@media (max-width: 768px) {
+  .slider-presentation .slider-container .slider-description {
+    width: 80%;
+    text-align: center;
+    margin-top: 15px;
+  }
+}
+
+.slider-presentation .slider {
+  display: flex;
+  align-items: center;
+  position: relative;
+  height: 50vh;
+  width: 100%;
+  overflow: hidden;
+  user-select: none;
+}
+
+@media (max-width: 768px) {
+  .slider-presentation .slider {
+    height: 45vh;
+    margin-top: 20px;
+  }
+}
+
+.slider-presentation .slider .arrow {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 63px;
+  padding: 10px;
+  z-index: 10;
+  cursor: pointer;
+  transition: transform .3s;
+  user-select: none;
+}
+
+@media (max-width: 768px) {
+  .slider-presentation .slider .arrow {
+    top: 20px;
+  }
+}
+
+.slider-presentation .slider .arrow.left {
+  transform: translate(calc(-35vh - 50%), calc(-50% + 16vh));
+}
+
+@media (max-width: 768px) {
+  .slider-presentation .slider .arrow.left {
+    transform: translate(calc(-50% - 120px), calc(-50%));
+  }
+}
+
+.slider-presentation .slider .arrow.left:hover {
+  transform: translate(calc(-35vh - 50% - 5px), calc(-50% + 16vh));
+}
+
+@media (max-width: 768px) {
+  .slider-presentation .slider .arrow.left:hover {
+    transform: translate(calc(-50% - 120px), calc(-50%));
+  }
+}
+
+.slider-presentation .slider .arrow.right {
+  transform: translate(calc(35vh - 50%), calc(-50% + 16vh)) rotate(180deg);
+}
+
+@media (max-width: 768px) {
+  .slider-presentation .slider .arrow.right {
+    transform: translate(calc(-50% + 120px), calc(-50%)) rotate(180deg);
+  }
+}
+
+.slider-presentation .slider .arrow.right:hover {
+  transform: translate(calc(35vh - 50% + 5px), calc(-50% + 16vh)) rotate(180deg);
+}
+
+@media (max-width: 768px) {
+  .slider-presentation .slider .arrow.right:hover {
+    transform: translate(calc(-50% + 120px), calc(-50%)) rotate(180deg);
+  }
+}
+
+.slider-presentation .slider .slider-group {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 16vh;
+  transition: all .3s;
+  cursor: pointer;
+}
+
+.slider-presentation .slider .slider-group .role {
+  width: 16vh;
+  height: 16vh;
+  border-radius: 6vh;
+  box-shadow: 0 3px 25px 0 rgba(0, 0, 0, 0.5);
+  transition: all .3s;
+}
+
+.slider-presentation .slider .slider-group .role img {
+  user-select: none;
+  width: 16vh;
+  height: 16vh;
+  border-radius: 6vh;
+}
+
+.role {
+  background-color: #f6c23c;
+  width: 100%;
+}
+
+.slider-presentation .slider .slider-group .name {
+  position: absolute;
+  font-size: 15px;
+  font-weight: 500;
+  text-align: center;
+  opacity: 1;
+  transition: opacity .3s;
+  transition-delay: .2s;
+  user-select: none;
+  left: 50%;
+  transform: translate(-50%, 0);
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+  .slider-presentation .slider .slider-group .name {
+    display: none;
+  }
+}
+
+.slider-presentation .slider > .container {
+  position: relative;
+  height: 100%;
+  width: 100%;
+}
+
+.slider-presentation .slider .dashRound {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 48vh;
+  height: 48vh;
+  animation-name: round;
+  animation-duration: 40s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+  user-select: none;
+}
+
+@media (max-width: 768px) {
+  .slider-presentation .slider .dashRound {
+    width: 38vh;
+    height: 38vh;
+  }
+}
+
+.slider-presentation .slider .center {
+  transform: translate(-50%, -50%) scale(2.4);
+  cursor: default;
+}
+
+@media (max-width: 768px) {
+  .slider-presentation .slider .center {
+    transform: translate(-50%, -50%) scale(1.7);
+  }
+}
+
+.slider-presentation .slider .center .role {
+  border-radius: 16vh;
+}
+
+.slider-presentation .slider .center .role img {
+  max-width: 100%;
+  max-height: 100%;
+  border-radius: 16vh;
+}
+
+.slider-presentation .slider .left-1 {
+  transform: translate(calc(-38vh - 50%), -50%);
+}
+
+@media (max-width: 768px) {
+  .slider-presentation .slider .left-1 {
+    transform: translate(calc(-30vh - 50%), -50%);
+  }
+}
+
+.slider-presentation .slider .left-2 {
+  transform: translate(calc(-38vh - 50% - (16vh + 20px) * 1), -50%);
+}
+
+.slider-presentation .slider .left-3 {
+  transform: translate(calc(-38vh - 50% - (16vh + 20px) * 2), -50%);
+}
+
+@media (max-width: 768px) {
+  .slider-presentation .slider .left-3 {
+    display: none;
+  }
+}
+
+.slider-presentation .slider .left-4 {
+  transform: translate(calc(-38vh - 50% - (16vh + 20px) * 3), -50%);
+}
+
+@media (max-width: 768px) {
+  .slider-presentation .slider .left-4 {
+    display: none;
+  }
+}
+
+.slider-presentation .slider .left-5 {
+  transform: translate(calc(-38vh - 50% - (16vh + 20px) * 6), -50%);
+}
+
+@media (max-width: 768px) {
+  .slider-presentation .slider .left-5 {
+    display: none;
+  }
+}
+
+.slider-presentation .slider .right-1 {
+  transform: translate(calc(38vh - 50%), -50%);
+}
+
+@media (max-width: 768px) {
+  .slider-presentation .slider .right-1 {
+    transform: translate(calc(30vh - 50%), -50%);
+  }
+}
+
+.slider-presentation .slider .right-2 {
+  transform: translate(calc(38vh - 50% + (16vh + 20px) * 1), -50%);
+}
+
+.slider-presentation .slider .right-3 {
+  transform: translate(calc(38vh - 50% + (16vh + 20px) * 2), -50%);
+}
+
+@media (max-width: 768px) {
+  .slider-presentation .slider .right-3 {
+    display: none;
+  }
+}
+
+.slider-presentation .slider .right-4 {
+  transform: translate(calc(38vh - 50% + (16vh + 20px) * 3), -50%);
+}
+
+@media (max-width: 768px) {
+  .slider-presentation .slider .right-4 {
+    display: none;
+  }
+}
+
+.slider-presentation .slider .right-5 {
+  transform: translate(calc(38vh - 50% + (16vh + 20px) * 6), -50%);
+}
+
+@media (max-width: 768px) {
+  .slider-presentation .slider .right-5 {
+    display: none;
+  }
+}
+
+.slider-presentation.notAnimated > .slider > .roleGroup {
+  transition: initial;
+}
+
+.slider-presentation .helpMessage {
+  margin-top: 8px;
+  font-size: 16px;
+  font-weight: 300;
+  font-style: italic;
+  color: #f6c23c;
+}
+
+@media (max-width: 768px) {
+  .slider-presentation .helpMessage {
+    display: none;
+  }
+}
+
+@keyframes round {
+  0% {
+    transform: translate(-50%, -50%) rotate(0);
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+

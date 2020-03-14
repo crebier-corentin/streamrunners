@@ -1,9 +1,10 @@
 {
     "/public/js/bundle.js": "/public/js/bundle.js",
     "/public/css/style.css": "/public/css/style.css",
-    "/public/js/countdown.js": "/public/js/countdown.js",
     "/public/js/coupon.js": "/public/js/coupon.js",
+    "/public/js/index.js": "/public/js/index.js",
     "/public/js/points-counter.js": "/public/js/points-counter.js",
     "/public/js/raffle.js": "/public/js/raffle.js",
-    "/public/js/watch.js": "/public/js/watch.js"
+    "/public/js/watch.js": "/public/js/watch.js",
+    "/public/css/vue-slick-carousel.css": "/public/css/vue-slick-carousel.css"
 }

@@ -104,6 +104,17 @@ export class UserService extends EntityService<UserEntity> {
             .getMany();
     }
 
+    public partners(): Promise<Pick<UserEntity, 'username' | 'displayName' | 'avatar'>[]> {
+        return this.repo
+            .createQueryBuilder('user')
+            .select(['user.username', 'user.displayName', 'user.avatar'])
+            .where('user.partner = true')
+            .orderBy('RAND()')
+            .getMany();
+    }
+
+    //Twitch sync//
+
     private async syncFromTwitchProcess(ids: string[]): Promise<void> {
         //Do nothing if ids is empty
         if (ids.length === 0) return;

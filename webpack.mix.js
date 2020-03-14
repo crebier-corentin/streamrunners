@@ -22,14 +22,14 @@ mix.options({
                 keep_infinity: true,
                 passes: 10,
             },
-            ecma: 8
+            ecma: 8,
         },
     },
 });
 
 mix.ts('asset/js/bundle.js', 'public/js/');
 mix.ts('asset/js/points-counter.ts', 'public/js/');
-mix.ts('asset/js/countdown.ts', 'public/js/');
+mix.ts('asset/js/index.ts', 'public/js/');
 mix.ts('asset/js/watch.ts', 'public/js/');
 mix.ts('asset/js/coupon.ts', 'public/js/');
 mix.ts('asset/js/raffle.ts', 'public/js/');
@@ -48,3 +48,5 @@ mix.sass('asset/sass/style.scss', 'public/css/')
         folders: ['views', 'asset'],
         extensions: ['html', 'js', 'php', 'vue', 'nunj'],
     });
+
+mix.copy('node_modules/vue-slick-carousel/dist/vue-slick-carousel.css', 'public/css/');

@@ -56,6 +56,9 @@ export class UserEntity {
     @Column({ default: ChatRank.Member })
     public chatRank: ChatRank;
 
+    @Column({ default: false })
+    public partner: boolean;
+
     //Ban
     @Column({ default: false })
     public banned: boolean;

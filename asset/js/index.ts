@@ -1,4 +1,6 @@
 import { sleep } from '../../src/shared/shared-utils';
+import Vue from 'vue/dist/vue.esm.js';
+import VueSlickCarousel = require('vue-slick-carousel/dist/vue-slick-carousel.common.js');
 
 window['countdown'] = async function countdown(el: HTMLElement, countStart: number, countEnd: number, seconds: number = 20): Promise<void> {
 
@@ -11,3 +13,9 @@ window['countdown'] = async function countdown(el: HTMLElement, countStart: numb
     }
 
 };
+
+//Partners
+new Vue({
+    el: '#partners',
+    components: { VueSlickCarousel },
+});

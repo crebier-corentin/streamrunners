@@ -3,21 +3,36 @@
 
 <head>
 
+    <!-- META -->
+
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
     <meta property="og:type" content="website" />
     <meta property="og:image" content="/img/brand.png" />
     <meta property="og:title" content="Gagne des viewers ou des cadeaux ?!" />
-    <meta property="og:description"
-          content="Gagne rapidement, et gratuitement des viewers Twitch et des tonnes de cadeaux !" />
+    <meta property="og:description" content="Gagne rapidement, et gratuitement des viewers Twitch et des tonnes de cadeaux !" />
     <meta property="og:url" content="{{ HOSTNAME }}" />
-    <meta name="description"
-          content="Gagne rapidement, et gratuitement des viewers Twitch et des tonnes de cadeaux !" />
     <meta property="og:site_name" content="StreamRunners" />
+
+    <meta name="twitter:card" content="" />
+    <meta name="twitter-title" content="StreamRunners - Gagne des Cadeaux" />
+    <meta name="twitter-creator" content="@StreamRunners"/>
+    <meta name="twitter-image:src" content="" />
+
+    <meta name="description" content="Gagne rapidement, et gratuitement des viewers Twitch et des tonnes de cadeaux !" />
+    <meta name="owner" content="Kévin Comte" />
+    <meta name="copyright" content="StreamRunners" />
+
+    <!-- FIN META -->
+
+
+
     <title>{{ title | default("Titre") }}</title>
     <link rel="icon" href="/img/favicon.ico" />
     <link rel="stylesheet" href="/css/style.css">
     <script src="https://kit.fontawesome.com/9e4cbfb17e.js" crossorigin="anonymous"></script>
+    <link rel="preload" href="/js/partenairestreamer.js" as="script">
     {% block css %}
 
     {% endblock %}
@@ -452,7 +467,274 @@ a:hover {
 	background-color: #fff;
 }
 
+.rolesPresentation {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center; }
 
+  .rolesPresentation .title {
+    font-size: 36px;
+    font-weight: bold;
+    line-height: 1.23;
+    margin-bottom: 12vh;
+    text-align: center;
+    padding: 0 20px; }
+    @media (max-width: 768px) {
+      .rolesPresentation .title {
+        font-size: 22px;
+        margin-bottom: 40px; } }
+  .rolesPresentation .roleContainer {
+    width: 1110px;
+    max-width: 90%;
+    height: 72px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center; }
+    @media (max-width: 768px) {
+      .rolesPresentation .roleContainer {
+        flex-direction: column;
+        height: 140px; } }
+    .rolesPresentation .roleContainer .roleInfo {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      width: 26%;
+      min-width: 255px; }
+      @media (max-width: 768px) {
+        .rolesPresentation .roleContainer .roleInfo {
+          align-items: center;
+          width: 80%; } }
+      .rolesPresentation .roleContainer .roleInfo .roleName {
+        font-size: 32px;
+        font-weight: 500;
+        text-align: right; }
+        @media (max-width: 768px) {
+          .rolesPresentation .roleContainer .roleInfo .roleName {
+            font-size: 22px; } }
+      .rolesPresentation .roleContainer .roleInfo .team {
+        font-size: 15px;
+        font-weight: 600;
+        text-align: right;
+        margin-top: 3px; }
+        @media (max-width: 768px) {
+          .rolesPresentation .roleContainer .roleInfo .team {
+            font-size: 12px; } }
+        .followers {
+          color: #f6c23c; }
+    .rolesPresentation .roleContainer .roleDescription {
+      position: relative;
+      width: 26%;
+      min-width: 255px;
+      min-height: 72px;
+      font-size: 13px;
+      font-weight: 400;
+      line-height: 1.5;
+      opacity: .9;
+      text-align: left;
+      transition: opacity .3s; }
+      .rolesPresentation .roleContainer .roleDescription .text {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%; }
+        .rolesPresentation .roleContainer .roleDescription .text.novisible {
+          opacity: 0; }
+      @media (max-width: 768px) {
+        .rolesPresentation .roleContainer .roleDescription {
+          width: 80%;
+          text-align: center;
+          margin-top: 15px; } }
+  .rolesPresentation .roleSlider {
+    display: flex;
+    align-items: center;
+    position: relative;
+    height: 50vh;
+    width: 100%;
+    overflow: hidden;
+    user-select: none; }
+    @media (max-width: 768px) {
+      .rolesPresentation .roleSlider {
+        height: 45vh;
+        margin-top: 20px; } }
+    .rolesPresentation .roleSlider .arrow {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 63px;
+      padding: 10px;
+      z-index: 10;
+      cursor: pointer;
+      transition: transform .3s;
+      user-select: none; }
+      @media (max-width: 768px) {
+        .rolesPresentation .roleSlider .arrow {
+          top: 20px; } }
+      .rolesPresentation .roleSlider .arrow.left {
+        transform: translate(calc(-35vh - 50%), calc(-50% + 16vh)); }
+        @media (max-width: 768px) {
+          .rolesPresentation .roleSlider .arrow.left {
+            transform: translate(calc(-50% - 120px), calc(-50%)); } }
+        .rolesPresentation .roleSlider .arrow.left:hover {
+          transform: translate(calc(-35vh - 50% - 5px), calc(-50% + 16vh)); }
+          @media (max-width: 768px) {
+            .rolesPresentation .roleSlider .arrow.left:hover {
+              transform: translate(calc(-50% - 120px), calc(-50%)); } }
+      .rolesPresentation .roleSlider .arrow.right {
+        transform: translate(calc(35vh - 50%), calc(-50% + 16vh)) rotate(180deg); }
+        @media (max-width: 768px) {
+          .rolesPresentation .roleSlider .arrow.right {
+            transform: translate(calc(-50% + 120px), calc(-50%)) rotate(180deg); } }
+        .rolesPresentation .roleSlider .arrow.right:hover {
+          transform: translate(calc(35vh - 50% + 5px), calc(-50% + 16vh)) rotate(180deg); }
+          @media (max-width: 768px) {
+            .rolesPresentation .roleSlider .arrow.right:hover {
+              transform: translate(calc(-50% + 120px), calc(-50%)) rotate(180deg); } }
+    .rolesPresentation .roleSlider .roleGroup {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      width: 16vh;
+      transition: all .3s;
+      cursor: pointer; }
+      .rolesPresentation .roleSlider .roleGroup .role {
+        width: 16vh;
+        height: 16vh;
+        border-radius: 6vh;
+        box-shadow: 0 3px 25px 0 rgba(0, 0, 0, 0.5);
+        transition: all .3s; }
+        .rolesPresentation .roleSlider .roleGroup .role img {
+          user-select: none;
+            width: 16vh;
+            height: 16vh;
+            border-radius: 6vh;}
+
+        .role {
+        background-color: #f6c23c;
+        width: 100%;
+        }
+
+      .rolesPresentation .roleSlider .roleGroup .name {
+        position: absolute;
+        font-size: 15px;
+        font-weight: 500;
+        text-align: center;
+        opacity: 1;
+        transition: opacity .3s;
+        transition-delay: .2s;
+        user-select: none;
+        left: 50%;
+        transform: translate(-50%, 10px);
+        width: 100%; }
+        @media (max-width: 768px) {
+          .rolesPresentation .roleSlider .roleGroup .name {
+            display: none; } }
+    .rolesPresentation .roleSlider > .container {
+      position: relative;
+      height: 100%;
+      width: 100%; }
+    .rolesPresentation .roleSlider .dashRound {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      width: 48vh;
+      height: 48vh;
+      animation-name: round;
+      animation-duration: 40s;
+      animation-iteration-count: infinite;
+      animation-timing-function: linear;
+      user-select: none; }
+      @media (max-width: 768px) {
+        .rolesPresentation .roleSlider .dashRound {
+          width: 38vh;
+          height: 38vh; } }
+    .rolesPresentation .roleSlider .center {
+      transform: translate(-50%, -50%) scale(2.4);
+      cursor: default; }
+      @media (max-width: 768px) {
+        .rolesPresentation .roleSlider .center {
+          transform: translate(-50%, -50%) scale(1.7); } }
+      .rolesPresentation .roleSlider .center .role {
+        border-radius: 16vh; }
+        .rolesPresentation .roleSlider .center .role img {
+          max-width: 100%;
+        max-height: 100%;
+        border-radius: 16vh;
+    }
+      .rolesPresentation .roleSlider .center .name {
+        opacity: 0;
+        transition: opacity .1s; }
+    .rolesPresentation .roleSlider .left-1 {
+      transform: translate(calc(-38vh - 50%), -50%); }
+      @media (max-width: 768px) {
+        .rolesPresentation .roleSlider .left-1 {
+          transform: translate(calc(-30vh - 50%), -50%); } }
+    .rolesPresentation .roleSlider .left-2 {
+      transform: translate(calc(-38vh - 50% - (16vh + 20px) * 1), -50%); }
+    .rolesPresentation .roleSlider .left-3 {
+      transform: translate(calc(-38vh - 50% - (16vh + 20px) * 2), -50%); }
+      @media (max-width: 768px) {
+        .rolesPresentation .roleSlider .left-3 {
+          display: none; } }
+    .rolesPresentation .roleSlider .left-4 {
+      transform: translate(calc(-38vh - 50% - (16vh + 20px) * 3), -50%); }
+      @media (max-width: 768px) {
+        .rolesPresentation .roleSlider .left-4 {
+          display: none; } }
+    .rolesPresentation .roleSlider .left-5 {
+      transform: translate(calc(-38vh - 50% - (16vh + 20px) * 6), -50%); }
+      @media (max-width: 768px) {
+        .rolesPresentation .roleSlider .left-5 {
+          display: none; } }
+    .rolesPresentation .roleSlider .right-1 {
+      transform: translate(calc(38vh - 50%), -50%); }
+      @media (max-width: 768px) {
+        .rolesPresentation .roleSlider .right-1 {
+          transform: translate(calc(30vh - 50%), -50%); } }
+    .rolesPresentation .roleSlider .right-2 {
+      transform: translate(calc(38vh - 50% + (16vh + 20px) * 1), -50%); }
+    .rolesPresentation .roleSlider .right-3 {
+      transform: translate(calc(38vh - 50% + (16vh + 20px) * 2), -50%); }
+      @media (max-width: 768px) {
+        .rolesPresentation .roleSlider .right-3 {
+          display: none; } }
+    .rolesPresentation .roleSlider .right-4 {
+      transform: translate(calc(38vh - 50% + (16vh + 20px) * 3), -50%); }
+      @media (max-width: 768px) {
+        .rolesPresentation .roleSlider .right-4 {
+          display: none; } }
+    .rolesPresentation .roleSlider .right-5 {
+      transform: translate(calc(38vh - 50% + (16vh + 20px) * 6), -50%); }
+      @media (max-width: 768px) {
+        .rolesPresentation .roleSlider .right-5 {
+          display: none; } }
+  .rolesPresentation.notAnimated > .roleSlider > .roleGroup {
+    transition: initial; }
+  .rolesPresentation .helpMessage {
+    margin-top: 8px;
+    font-size: 16px;
+    font-weight: 300;
+    font-style: italic;
+    color: #f6c23c; }
+    @media (max-width: 768px) {
+      .rolesPresentation .helpMessage {
+        display: none; } }
+
+@keyframes round {
+  0% {
+    transform: translate(-50%, -50%) rotate(0); }
+  100% {
+    transform: translate(-50%, -50%) rotate(360deg); } }
 
 </style>
 

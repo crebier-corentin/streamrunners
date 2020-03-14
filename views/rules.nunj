@@ -3,4 +3,6 @@
 
 {% block content %}
 
+	<center><h1>Règlement</h1></center>
+
 {% endblock %}

@@ -215,6 +215,7 @@
             background-position: left top;
             height: 100%;
             overflow-y: scroll;
+            background-attachment: fixed;
 
         }
 
@@ -402,6 +403,7 @@
             background-repeat: repeat;
             background-size: contain;
             background-position: left top;
+            background-attachment: fixed;
         }
 
         .glowing_stars .star {
@@ -534,6 +536,10 @@
             letter-spacing: 12px;
         }
 
+        .inlinelink{
+            display: inline-block;
+        }
+
         #style-1::-webkit-scrollbar-track {
             -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
             border-radius: 10px;
@@ -549,6 +555,24 @@
             border-radius: 10px;
             -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
             background-color: #fff;
+        }
+
+        .partlink{
+            display: contents;
+        }
+
+        .partimg{
+            margin-left: 1rem;
+        }
+
+        .alert-danger{
+            color: #fff;
+            background-color: #dc3545;
+            border-color: #dc3545;
+        }
+
+        .margintop2rem{
+            margin-top: 2rem;
         }
 
     </style>
@@ -654,6 +678,7 @@
         <div class="star"></div>
         <div class="star"></div>
 
+
     </div>
     {# Announcement #}
     {% if req.isAuthenticated() %}
@@ -673,7 +698,6 @@
     {% block content %}
         This is the default content
     {% endblock %}
-</div>
 
 <footer class="footer">
     <div class="container">
@@ -682,12 +706,13 @@
         <h3 class="text-center">Ils nous font confiance :</h3><br>
 
         {% for partner in partners %}
-            <a href="{{ partner.url }}" target="_blank"><img width="10%" src="{{ partner.image }}" /></a>
+            <a class="partlink" href="{{ partner.url }}" target="_blank"><img class="partimg" width="10%" src="{{ partner.image }}" /></a>
         {% endfor %}
 
         <hr>
     </div>
     <p>© 2020 StreamRunners</p>
+    <a class="inlinelink" href="#">CGU</a> - <a class="inlinelink" href="#">Règlement</a> - <a class="inlinelink" href="#">Contact</a> 
         <br>
     <div class="container">
         <a class="inline"
@@ -703,6 +728,7 @@
            href="https://discord.gg/PjQFW8z"
            aria-label="Discord StreamRunners"><i style="color:lightgrey" class="fab fa-discord margright"></i></a>
     </div>
+</div>
 </footer>
 
 </body>

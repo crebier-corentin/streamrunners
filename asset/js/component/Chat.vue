@@ -24,7 +24,7 @@
         </div>
 
         <!-- Active users -->
-        <div class="users rounded chat-container d-flex flex-column">
+        <div class="users rounded chat-container d-flex flex-column scrollbar">
             <ChatUsername :name="user.displayName" :rank="user.chatRank" v-for="user in cActiveUsers"
                           :key="user.displayName"/>
         </div>

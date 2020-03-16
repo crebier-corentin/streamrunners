@@ -40,7 +40,7 @@ export class UserEntity {
     @Column()
     public avatar: string;
 
-    @Column()
+    @Column({ type: 'text' })
     public twitchDescription: string;
 
     @Column({ default: 0 })

@@ -67,6 +67,7 @@ hr {
   text-align: center;
   position: relative;
   top: -20px;
+  z-index: 1px;
 }
 
 .photo-wall .gradient {
@@ -77,6 +78,7 @@ hr {
   bottom: 0;
   height: 130px;
   background: url(/img/black-gradient.png) repeat-x bottom left;
+  z-index: -1px;
 }
 
 .photo-wall h1 {
@@ -189,6 +191,22 @@ hr {
   border-color: #007bff !important;
   margin-bottom: 5px;
 }
+
+.partenaire{
+  color: #fff;
+  background-color: #007bff;
+  border-color: #007bff !important;
+  margin-top: 2rem;
+  position: absolute;
+}
+
+.partenaire:hover {
+  color: #007bff;
+  background-color: #fff;
+  border-color: #007bff !important;
+  margin-top: 2rem;
+}
+
 
 .follow {
   color: #fff;

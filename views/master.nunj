@@ -711,20 +711,20 @@
 
         <hr>
     <p>© 2020 StreamRunners</p>
-    <a class="inlinelink" href="#">CGU</a> - <a class="inlinelink" href="#">Règlement</a> - <a class="inlinelink" href="#">Contact</a> 
+    <a class="inlinelink" href="/cgu">CGU</a> - <a class="inlinelink" href="/rules">Règlement</a> - <a class="inlinelink" href="#">Contact</a> 
         <br>
         <a class="inline"
            href="https://www.facebook.com/StreamRunners/"
-           aria-label="Facebook StreamRunners"><i style="color:blue" class="fab fa-facebook margright"></i></a>
+           aria-label="Facebook StreamRunners" target="_blank"><i style="color:blue" class="fab fa-facebook margright"></i></a>
         <a class="inline"
            href="https://twitter.com/StreamRunners"
-           aria-label="Twitter StreamRunners"><i style="color:deepskyblue" class="fab fa-twitter-square margright"></i></a>
+           aria-label="Twitter StreamRunners" target="_blank"><i style="color:deepskyblue" class="fab fa-twitter-square margright"></i></a>
         <a class="inline"
            href="https://www.instagram.com/twitchrunners/"
-           aria-label="Instagram StreamRunners"><i style="color:pink" class="fab fa-instagram margright"></i></a>
+           aria-label="Instagram StreamRunners" target="_blank"><i style="color:pink" class="fab fa-instagram margright"></i></a>
         <a class="inline"
            href="https://discord.gg/PjQFW8z"
-           aria-label="Discord StreamRunners"><i style="color:lightgrey" class="fab fa-discord margright"></i></a>
+           aria-label="Discord StreamRunners" target="_blank"><i style="color:lightgrey" class="fab fa-discord margright"></i></a>
     </div>
 </div>
 </footer>

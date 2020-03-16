@@ -27,6 +27,12 @@ export class AppController {
         //
     }
 
+    @Render('cgu')
+    @Get('cgu')
+    public cgu(): void {
+        //
+    }
+
     @UseGuards(AuthenticatedGuard)
     @Render('inventory')
     @Get('inventory')

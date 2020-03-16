@@ -24,9 +24,11 @@
         </div>
 
         <!-- Active users -->
-        <div class="users rounded chat-container d-flex flex-column scrollbar">
+        <div id="style-1" class="users rounded chat-container d-flex flex-column scrollbar">
+            <div class="d-flex flex-column p-0 m-0 force-overflow">
             <ChatUsername :name="user.displayName" :rank="user.chatRank" v-for="user in cActiveUsers"
                           :key="user.displayName"/>
+            </div>
         </div>
 
         <!-- Input-->

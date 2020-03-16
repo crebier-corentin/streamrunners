@@ -20,6 +20,7 @@
                  style="visibility: visible; opacity: 0.9; transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); transition: opacity 0.3s ease 0s, opacity 1s cubic-bezier(0.04, 0.3, 0.1, 1) 0.05s, transform 1s cubic-bezier(0.04, 0.3, 0.1, 1) 0.05s;">
 
                 <p class="text">{{currentStreamer.twitchDescription}}</p>
+                <a href="#" class="btn btn-outline-success partenaire">Découvrir sa chaine</a>
             </div>
         </div>
         <div class="slider">
@@ -47,7 +48,7 @@
 
         </div>
         <div class="helpMessage">Clique sur un des autres streamers pour le découvrir</div>
-        <a style="margin-top: 2rem;" class="btn btn-outline-success blue">Devenir Streamer Partenaire</a>
+        <a aria-label="Devenir Partenaire" target="_blank" style="margin-top: 2rem;" class="btn btn-outline-success blue" href="https://discordapp.com/channels/609311986488180757/609321765096914954/688346262503817239n">Devenir Streamer Partenaire</a>
     </div>
 </template>
 

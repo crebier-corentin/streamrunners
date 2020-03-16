@@ -67,7 +67,7 @@ hr {
   text-align: center;
   position: relative;
   top: -20px;
-  z-index: 1px;
+  z-index: 1;
 }
 
 .photo-wall .gradient {
@@ -78,7 +78,7 @@ hr {
   bottom: 0;
   height: 130px;
   background: url(/img/black-gradient.png) repeat-x bottom left;
-  z-index: -1px;
+  z-index: -1;
 }
 
 .photo-wall h1 {

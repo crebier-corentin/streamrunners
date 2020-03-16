@@ -18,6 +18,14 @@ new Vue({
 
     methods: {
         async buy(raffleId, amount, price) {
+            //0 or less Error
+            if (amount <= 0) {
+                swal.fire({
+                    title: 'Impossible d\'acheter moins d\'un ticket.',
+                    icon: 'error',
+                });
+                return;
+            }
 
             const swalRes = await swal.fire({
                 title: `Acheter ${amount} ticket${amount > 1 ? 's' : ''} pour ${price} points ?`,

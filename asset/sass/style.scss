@@ -232,9 +232,12 @@ hr {
   display: block;
   margin-left: auto;
   margin-right: auto;
-  border: 1px solid;
+  border: 2px solid;
   border-color: #f4c23e;;
   background-color: #000;
+  -webkit-box-shadow: 26px 12px 47px -25px rgba(0,0,0,0.75);
+  -moz-box-shadow: 26px 12px 47px -25px rgba(0,0,0,0.75);
+  box-shadow: 26px 12px 47px -25px rgba(0,0,0,0.75);
 }
 
 .rounded-circle {

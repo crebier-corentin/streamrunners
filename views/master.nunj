@@ -710,11 +710,9 @@
         {% endfor %}
 
         <hr>
-    </div>
     <p>© 2020 StreamRunners</p>
     <a class="inlinelink" href="#">CGU</a> - <a class="inlinelink" href="#">Règlement</a> - <a class="inlinelink" href="#">Contact</a> 
         <br>
-    <div class="container">
         <a class="inline"
            href="https://www.facebook.com/StreamRunners/"
            aria-label="Facebook StreamRunners"><i style="color:blue" class="fab fa-facebook margright"></i></a>

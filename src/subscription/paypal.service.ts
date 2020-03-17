@@ -4,7 +4,7 @@ import { ConfigService } from '@nestjs/config';
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 import * as moment from 'moment';
 import { Semaphore } from '../common/utils/semaphore';
-import { PaypalOauthTokenResponse } from './paypal.interfaces';
+import { PaypalOauthTokenResponse, PaypalSubscriptionCreate, PaypalSubscriptionDetails } from './paypal.interfaces';
 
 @Injectable()
 export class PaypalService {
@@ -66,5 +66,60 @@ export class PaypalService {
         } finally {
             this.lock.release();
         }
+    }
+
+    //prettier-ignore
+    public async createSubscription(data: PaypalSubscriptionCreate): Promise<Pick<PaypalSubscriptionDetails, 'id' | 'status' | 'links'>>;
+    //prettier-ignore
+    public async createSubscription(data: PaypalSubscriptionCreate, prefer: 'minimal'): Promise<Pick<PaypalSubscriptionDetails, 'id' | 'status' | 'links'>>;
+    //prettier-ignore
+    public async createSubscription(data: PaypalSubscriptionCreate, prefer: 'representation'): Promise<PaypalSubscriptionDetails>;
+    //prettier-ignore
+    public async createSubscription(
+        data: PaypalSubscriptionCreate,
+        prefer: 'minimal' | 'representation' = 'minimal',
+    ): Promise<Pick<PaypalSubscriptionDetails, 'id' | 'status' | 'links'> | PaypalSubscriptionDetails> {
+
+        const request: AxiosRequestConfig = {
+            url: `${this.baseUrl}/v1/billing/subscriptions`,
+            method: 'POST',
+            data,
+            headers: {
+                Prefer: `return=${prefer}`,
+            },
+        };
+
+        const response = await this.makeRequest(request);
+        return response.data;
+    }
+
+    //prettier-ignore
+    public async getSubscriptionDetails(subscriptionId: string): Promise<PaypalSubscriptionDetails>;
+    //prettier-ignore
+    public async getSubscriptionDetails<K extends keyof PaypalSubscriptionDetails>(subscriptionId: string, fields: K[]): Promise<Pick<PaypalSubscriptionDetails, K>>;
+    //prettier-ignore
+    public async getSubscriptionDetails<K extends keyof PaypalSubscriptionDetails>(subscriptionId: string, fields?: K[]): Promise<PaypalSubscriptionDetails | Pick<PaypalSubscriptionDetails, K>> {
+        const request: AxiosRequestConfig = {
+            url: `${this.baseUrl}/v1/billing/subscriptions/${subscriptionId}`,
+            method: 'GET',
+        };
+
+        if (fields != undefined) {
+            request.params = { fields };
+        }
+
+        const response = await this.makeRequest(request);
+
+        return response.data;
+    }
+
+    public async cancelSubscription(subscriptionId: string, reason: string): Promise<void> {
+        const request: AxiosRequestConfig = {
+            url: `${this.baseUrl}/v1/billing/subscriptions/${subscriptionId}/cancel`,
+            method: 'POST',
+            data: { reason },
+        };
+
+        await this.makeRequest(request);
     }
 }

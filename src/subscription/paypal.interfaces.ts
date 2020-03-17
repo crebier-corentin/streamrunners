@@ -13,6 +13,21 @@ export interface PaypalLinkDescription {
     method: 'GET' | 'POST' | 'PUT' | 'DELETE' | 'HEAD' | 'CONNECT' | 'OPTIONS' | 'PATCH';
 }
 
+export interface PaypalPaymentMethod {
+    payer_selected: 'PAYPAL' | string;
+    payee_preferred: 'UNRESTRICTED' | 'IMMEDIATE_PAYMENT_REQUIRED';
+}
+
+export interface PaypalApplicationContext {
+    brand_name?: string;
+    locale?: string;
+    shipping_preference?: 'GET_FROM_FILE' | 'NO_SHIPPING' | 'SET_PROVIDED_ADDRESS';
+    user_action?: 'CONTINUE' | 'SUBSCRIBE_NOW';
+    payment_method?: PaypalPaymentMethod;
+    return_url: string;
+    cancel_url: string;
+}
+
 export enum PaypalCurrencyCode {
     AUD = 'AUD',
     BRL = 'BRL',
@@ -330,4 +345,13 @@ export interface PaypalSubscriptionDetails {
     create_time: string;
     update_time: string;
     links: PaypalLinkDescription[];
+}
+
+export interface PaypalSubscriptionCreate {
+    plan_id: string;
+    start_time?: string;
+    quantity?: string;
+    shipping_amount?: PaypalMoney;
+    subscriber?: PaypalSubscriber;
+    application_context?: PaypalApplicationContext;
 }

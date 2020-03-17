@@ -1,4 +1,4 @@
-import { duplicatedArray, formatDatetimeSQL, shuffledArray } from './utils';
+import { formatDatetimeSQL, shuffledArray } from './utils';
 import moment = require('moment');
 
 describe('shuffledArray', () => {
@@ -33,17 +33,6 @@ describe('shuffledArray', () => {
         ],
     ])('should shuffle the array randomly (%j -> %j)', (arr: any[], expected: any[]) => {
         expect(shuffledArray(arr)).toEqual(expected);
-    });
-});
-
-describe('duplicatedArray', () => {
-    it.each([
-        [0, []],
-        [1, [1, 2]],
-        [4, [1, 2, 1, 2, 1, 2, 1, 2]],
-        [10, [1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2]],
-    ])("should duplicate the array's content %i times", (amount: number, expected) => {
-        expect(duplicatedArray([1, 2], amount)).toEqual(expected);
     });
 });
 

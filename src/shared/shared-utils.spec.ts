@@ -1,5 +1,5 @@
 import * as moment from 'moment';
-import { formatDuration, sleep } from './shared-utils';
+import { duplicatedArray, formatDuration, mod, sleep } from './shared-utils';
 
 describe('formatDuration', () => {
     it.each([
@@ -52,5 +52,27 @@ describe('sleep', () => {
 
         expect(setTimeout).toHaveBeenCalledTimes(1);
         expect(setTimeout).toHaveBeenLastCalledWith(expect.any(Function), ms);
+    });
+});
+
+describe('mod', () => {
+    it.each([
+        [5, 11, 5],
+        [11, 5, 1],
+        [-5, 11, 6],
+        [-11, 5, 4],
+    ])('mod(%i, %i) should return %i', (n, m, expected) => {
+        expect(mod(n, m)).toBe(expected);
+    });
+});
+
+describe('duplicatedArray', () => {
+    it.each([
+        [0, []],
+        [1, [1, 2]],
+        [4, [1, 2, 1, 2, 1, 2, 1, 2]],
+        [10, [1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2]],
+    ])("should duplicate the array's content %i times", (amount: number, expected) => {
+        expect(duplicatedArray([1, 2], amount)).toEqual(expected);
     });
 });

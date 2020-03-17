@@ -47,3 +47,17 @@ export function intervalWait(ms: number, callback: () => Promise<unknown>): void
 export function sleep(ms: number): Promise<void> {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
+
+/**
+ * In javascript, the % operator is actually the remainder operator, this function provides the actual modulo operation.
+ *
+ * @example    (-5 % 7) -> -5
+ * @example mod(-5, 7)  ->  2
+ */
+export function mod(n: number, m: number): number {
+    return ((n % m) + m) % m;
+}
+
+export function duplicatedArray<T>(array: T[], amount: number): T[] {
+    return new Array(amount).fill(array).flat();
+}

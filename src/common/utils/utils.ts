@@ -10,10 +10,6 @@ export function shuffledArray<T>(array: T[]): T[] {
     return a;
 }
 
-export function duplicatedArray<T>(array: T[], amount: number): T[] {
-    return new Array(amount).fill(array).flat();
-}
-
 export function formatDatetimeSQL(date: moment.Moment | Date): string {
     const momentDate = date instanceof Date ? moment(date) : date;
 

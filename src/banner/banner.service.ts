@@ -4,7 +4,7 @@ import { Injectable, OnApplicationBootstrap } from '@nestjs/common';
 import { Cron, CronExpression } from '@nestjs/schedule';
 import { createCanvas, Image, loadImage } from 'canvas';
 import { PUBLIC_DIR_PATH } from '../common/utils/constants';
-import { duplicatedArray } from '../common/utils/utils';
+import { duplicatedArray } from '../shared/shared-utils';
 import { UserService } from '../user/user.service';
 
 @Injectable()

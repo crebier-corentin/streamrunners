@@ -27,7 +27,7 @@ new Vue({
         };
     },
 
-    mounted() {
+    created() {
         this.streamerPartners = window['defaultStreamerPartners'];
     },
 });

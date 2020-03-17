@@ -30,10 +30,11 @@
 .slider-presentation .slider-container {
   width: 1110px;
   max-width: 90%;
-  height: 72px;
+  height: 100px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  z-index: 1;
 }
 
 @media (max-width: 768px) {

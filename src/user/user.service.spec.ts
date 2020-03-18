@@ -3,6 +3,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { DiscordBotService } from '../discord/discord-bot.service';
+import { SubscriptionService } from '../subscription/subscription.service';
 import { TwitchUser } from '../twitch/twitch.interfaces';
 import { TwitchService } from '../twitch/twitch.service';
 import { UserEntity } from './user.entity';
@@ -35,6 +36,10 @@ describe('UserService', () => {
                     useValue: {
                         updateSiteUserCount: jest.fn(),
                     },
+                },
+                {
+                    provide: SubscriptionService,
+                    useValue: {},
                 },
             ],
         }).compile();

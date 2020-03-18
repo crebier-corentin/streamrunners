@@ -18,7 +18,8 @@ import { RaffleParticipationEntity } from '../raffle/raffle-participation.entity
 import { RaffleEntity } from '../raffle/raffle.entity';
 import { ChatRank } from '../shared/types';
 import { StreamQueueEntity } from '../stream-queue/stream-queue.entity';
-import { SubscriptionLevel } from '../subscription/subscription-level.enum';
+import { SubscriptionEntity } from '../subscription/subscription.entity';
+import { SubscriptionLevel } from '../subscription/subscription.interfaces';
 
 @Exclude()
 @Entity('user')
@@ -104,6 +105,12 @@ export class UserEntity {
         r => r.user
     )
     public raffleParticipations: RaffleParticipationEntity[];
+
+    @OneToMany(
+        type => SubscriptionEntity,
+        s => s.user
+    )
+    public subscriptions: SubscriptionEntity[];
 
     @Exclude()
     @CreateDateColumn()

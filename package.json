@@ -30,7 +30,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm run test && npm run format && npm run lint && npm run asset:production && git add -A"
+      "pre-commit": "npm run test && npm run format && npm run lint && npm run asset:production && git add -u"
     }
   },
   "jest": {

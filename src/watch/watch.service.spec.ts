@@ -2,7 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { UserErrorException } from '../common/exception/user-error.exception';
 import { StreamQueueEntity } from '../stream-queue/stream-queue.entity';
 import { StreamQueueService } from '../stream-queue/stream-queue.service';
-import { SubscriptionLevel } from '../subscription/subscription-level.enum';
+import { SubscriptionLevel } from '../subscription/subscription.interfaces';
 import { TwitchService } from '../twitch/twitch.service';
 import { UserEntity } from '../user/user.entity';
 import { NotEnoughPointsException } from '../user/user.exception';

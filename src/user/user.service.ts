@@ -8,7 +8,8 @@ import { formatDatetimeSQL } from '../common/utils/utils';
 import { DiscordBotService } from '../discord/discord-bot.service';
 import { RaffleEntity } from '../raffle/raffle.entity';
 import { ChatRank } from '../shared/types';
-import { SubscriptionLevel } from '../subscription/subscription-level.enum';
+import { SubscriptionLevel } from '../subscription/subscription.interfaces';
+import { SubscriptionService } from '../subscription/subscription.service';
 import { TwitchUser } from '../twitch/twitch.interfaces';
 import { TwitchService } from '../twitch/twitch.service';
 import { MostPlaceResult } from './most-place-result.interface';
@@ -21,7 +22,9 @@ export class UserService extends EntityService<UserEntity> {
         repo: Repository<UserEntity>,
         private readonly twitchService: TwitchService,
         @Inject(forwardRef(() => DiscordBotService))
-        private readonly discordBot: DiscordBotService
+        private readonly discordBot: DiscordBotService,
+        @Inject(forwardRef(() => SubscriptionService))
+        private readonly subscriptionService: SubscriptionService
     ) {
         super(repo);
     }

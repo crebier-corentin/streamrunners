@@ -2,12 +2,12 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { UserErrorException } from '../common/exception/user-error.exception';
 import { UserEntity } from '../user/user.entity';
 import { UserService } from '../user/user.service';
 import { CouponEntity } from './coupon.entity';
 import { CouponService } from './coupon.service';
 import MockDate = require('mockdate');
-import { UserErrorException } from '../common/exception/user-error.exception';
 
 describe('CouponService', () => {
     let service: CouponService;

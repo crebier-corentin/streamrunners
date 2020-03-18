@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/ban-ts-ignore,@typescript-eslint/camelcase */
 import { ConfigService } from '@nestjs/config';
 import { Test, TestingModule } from '@nestjs/testing';
+import { AxiosRequestConfig } from 'axios';
 import { PaypalService } from './paypal.service';
 import nock = require('nock');
-import { AxiosRequestConfig } from 'axios';
 
 describe('PaypalService', () => {
     describe('baseUrl', () => {
@@ -355,6 +355,30 @@ describe('PaypalService', () => {
                 const sub = await service.getSubscriptionDetails('I-BW452GLLEP1G');
 
                 expect(sub).toEqual(returnObject);
+            });
+        });
+
+        describe('activateSubscription', () => {
+            it('should send a request to the activate api with reason', async () => {
+                nock('https://api.sandbox.paypal.com')
+                    .post('/v1/billing/subscriptions/I-BW452GLLEP1G/activate', {
+                        reason: 'test',
+                    })
+                    .matchHeader('Content-Type', 'application/json')
+                    .matchHeader('Authorization', 'Bearer 123abc')
+                    .reply(204);
+
+                await service.activateSubscription('I-BW452GLLEP1G', 'test');
+            });
+
+            it('should send a request to the activate api with no reason', async () => {
+                nock('https://api.sandbox.paypal.com')
+                    .post('/v1/billing/subscriptions/I-BW452GLLEP1G/activate')
+                    .matchHeader('Content-Type', 'application/json')
+                    .matchHeader('Authorization', 'Bearer 123abc')
+                    .reply(204);
+
+                await service.activateSubscription('I-BW452GLLEP1G');
             });
         });
 

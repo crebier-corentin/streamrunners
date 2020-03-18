@@ -11,6 +11,9 @@ export class SubscriptionEntity {
     @PrimaryGeneratedColumn()
     public id: number;
 
+    @Column()
+    public paypalId: string;
+
     @ManyToOne(
         type => UserEntity,
         user => user.chatMessages

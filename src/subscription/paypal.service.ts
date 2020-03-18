@@ -113,6 +113,21 @@ export class PaypalService {
         return response.data;
     }
 
+    public async activateSubscription(subscriptionId: string, reason?: string): Promise<void> {
+        let data = {};
+        if (reason != undefined) {
+            data = { reason };
+        }
+
+        const request: AxiosRequestConfig = {
+            url: `${this.baseUrl}/v1/billing/subscriptions/${subscriptionId}/activate`,
+            method: 'POST',
+            data,
+        };
+
+        await this.makeRequest(request);
+    }
+
     public async cancelSubscription(subscriptionId: string, reason: string): Promise<void> {
         const request: AxiosRequestConfig = {
             url: `${this.baseUrl}/v1/billing/subscriptions/${subscriptionId}/cancel`,

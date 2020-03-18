@@ -9,7 +9,7 @@ export interface PaypalOauthTokenResponse {
 
 export interface PaypalLinkDescription {
     href: string;
-    re: string;
+    rel: string;
     method: 'GET' | 'POST' | 'PUT' | 'DELETE' | 'HEAD' | 'CONNECT' | 'OPTIONS' | 'PATCH';
 }
 
@@ -28,237 +28,235 @@ export interface PaypalApplicationContext {
     cancel_url: string;
 }
 
-export enum PaypalCurrencyCode {
-    AUD = 'AUD',
-    BRL = 'BRL',
-    CAD = 'CAD',
-    CZK = 'CZK',
-    DKK = 'DKK',
-    EUR = 'EUR',
-    HKD = 'HKD',
-    HUF = 'HUF',
-    INR = 'INR',
-    ILS = 'ILS',
-    JPY = 'JPY',
-    MYR = 'MYR',
-    MXN = 'MXN',
-    TWD = 'TWD',
-    NZD = 'NZD',
-    NOK = 'NOK',
-    PHP = 'PHP',
-    PLN = 'PLN',
-    GBP = 'GBP',
-    RUB = 'RUB',
-    SGD = 'SGD',
-    SEK = 'SEK',
-    CHF = 'CHF',
-    THB = 'THB',
-    USD = 'USD',
-}
+export type PaypalCurrencyCode =
+    | 'AUD'
+    | 'BRL'
+    | 'CAD'
+    | 'CZK'
+    | 'DKK'
+    | 'EUR'
+    | 'HKD'
+    | 'HUF'
+    | 'INR'
+    | 'ILS'
+    | 'JPY'
+    | 'MYR'
+    | 'MXN'
+    | 'TWD'
+    | 'NZD'
+    | 'NOK'
+    | 'PHP'
+    | 'PLN'
+    | 'GBP'
+    | 'RUB'
+    | 'SGD'
+    | 'SEK'
+    | 'CHF'
+    | 'THB'
+    | 'USD';
 
-export enum PaypalCountryCode {
-    AL = 'AL',
-    DZ = 'DZ',
-    AD = 'AD',
-    AO = 'AO',
-    AI = 'AI',
-    AG = 'AG',
-    AR = 'AR',
-    AM = 'AM',
-    AW = 'AW',
-    AU = 'AU',
-    AT = 'AT',
-    AZ = 'AZ',
-    BS = 'BS',
-    BH = 'BH',
-    BB = 'BB',
-    BY = 'BY',
-    BE = 'BE',
-    BZ = 'BZ',
-    BJ = 'BJ',
-    BM = 'BM',
-    BT = 'BT',
-    BO = 'BO',
-    BA = 'BA',
-    BW = 'BW',
-    BR = 'BR',
-    VG = 'VG',
-    BN = 'BN',
-    BG = 'BG',
-    BF = 'BF',
-    BI = 'BI',
-    KH = 'KH',
-    CM = 'CM',
-    CA = 'CA',
-    CV = 'CV',
-    KY = 'KY',
-    TD = 'TD',
-    CL = 'CL',
-    C2 = 'C2',
-    CO = 'CO',
-    KM = 'KM',
-    CG = 'CG',
-    CD = 'CD',
-    CK = 'CK',
-    CR = 'CR',
-    CI = 'CI',
-    HR = 'HR',
-    CY = 'CY',
-    CZ = 'CZ',
-    DK = 'DK',
-    DJ = 'DJ',
-    DM = 'DM',
-    DO = 'DO',
-    EC = 'EC',
-    EG = 'EG',
-    SV = 'SV',
-    ER = 'ER',
-    EE = 'EE',
-    ET = 'ET',
-    FK = 'FK',
-    FO = 'FO',
-    FJ = 'FJ',
-    FI = 'FI',
-    FR = 'FR',
-    GF = 'GF',
-    PF = 'PF',
-    GA = 'GA',
-    GM = 'GM',
-    GE = 'GE',
-    DE = 'DE',
-    GI = 'GI',
-    GR = 'GR',
-    GL = 'GL',
-    GD = 'GD',
-    GP = 'GP',
-    GT = 'GT',
-    GN = 'GN',
-    GW = 'GW',
-    GY = 'GY',
-    HN = 'HN',
-    HK = 'HK',
-    HU = 'HU',
-    IS = 'IS',
-    IN = 'IN',
-    ID = 'ID',
-    IE = 'IE',
-    IL = 'IL',
-    IT = 'IT',
-    JM = 'JM',
-    JP = 'JP',
-    JO = 'JO',
-    KZ = 'KZ',
-    KE = 'KE',
-    KI = 'KI',
-    KW = 'KW',
-    KG = 'KG',
-    LA = 'LA',
-    LV = 'LV',
-    LS = 'LS',
-    LI = 'LI',
-    LT = 'LT',
-    LU = 'LU',
-    MK = 'MK',
-    MG = 'MG',
-    MW = 'MW',
-    MY = 'MY',
-    MV = 'MV',
-    ML = 'ML',
-    MT = 'MT',
-    MH = 'MH',
-    MQ = 'MQ',
-    MR = 'MR',
-    MU = 'MU',
-    YT = 'YT',
-    MX = 'MX',
-    FM = 'FM',
-    MD = 'MD',
-    MC = 'MC',
-    MN = 'MN',
-    ME = 'ME',
-    MS = 'MS',
-    MA = 'MA',
-    MZ = 'MZ',
-    NA = 'NA',
-    NR = 'NR',
-    NP = 'NP',
-    NL = 'NL',
-    NC = 'NC',
-    NZ = 'NZ',
-    NI = 'NI',
-    NE = 'NE',
-    NG = 'NG',
-    NU = 'NU',
-    NF = 'NF',
-    NO = 'NO',
-    OM = 'OM',
-    PW = 'PW',
-    PA = 'PA',
-    PG = 'PG',
-    PY = 'PY',
-    PE = 'PE',
-    PH = 'PH',
-    PN = 'PN',
-    PL = 'PL',
-    PT = 'PT',
-    QA = 'QA',
-    RE = 'RE',
-    RO = 'RO',
-    RU = 'RU',
-    RW = 'RW',
-    WS = 'WS',
-    SM = 'SM',
-    ST = 'ST',
-    SA = 'SA',
-    SN = 'SN',
-    RS = 'RS',
-    SC = 'SC',
-    SL = 'SL',
-    SG = 'SG',
-    SK = 'SK',
-    SI = 'SI',
-    SB = 'SB',
-    SO = 'SO',
-    ZA = 'ZA',
-    KR = 'KR',
-    ES = 'ES',
-    LK = 'LK',
-    SH = 'SH',
-    KN = 'KN',
-    LC = 'LC',
-    PM = 'PM',
-    VC = 'VC',
-    SR = 'SR',
-    SJ = 'SJ',
-    SZ = 'SZ',
-    SE = 'SE',
-    CH = 'CH',
-    TW = 'TW',
-    TJ = 'TJ',
-    TZ = 'TZ',
-    TH = 'TH',
-    TG = 'TG',
-    TO = 'TO',
-    TT = 'TT',
-    TN = 'TN',
-    TM = 'TM',
-    TC = 'TC',
-    TV = 'TV',
-    UG = 'UG',
-    UA = 'UA',
-    AE = 'AE',
-    GB = 'GB',
-    US = 'US',
-    UY = 'UY',
-    VU = 'VU',
-    VA = 'VA',
-    VE = 'VE',
-    VN = 'VN',
-    WF = 'WF',
-    YE = 'YE',
-    ZM = 'ZM',
-    ZW = 'ZW',
-}
+export type PaypalCountryCode =
+    | 'AL'
+    | 'DZ'
+    | 'AD'
+    | 'AO'
+    | 'AI'
+    | 'AG'
+    | 'AR'
+    | 'AM'
+    | 'AW'
+    | 'AU'
+    | 'AT'
+    | 'AZ'
+    | 'BS'
+    | 'BH'
+    | 'BB'
+    | 'BY'
+    | 'BE'
+    | 'BZ'
+    | 'BJ'
+    | 'BM'
+    | 'BT'
+    | 'BO'
+    | 'BA'
+    | 'BW'
+    | 'BR'
+    | 'VG'
+    | 'BN'
+    | 'BG'
+    | 'BF'
+    | 'BI'
+    | 'KH'
+    | 'CM'
+    | 'CA'
+    | 'CV'
+    | 'KY'
+    | 'TD'
+    | 'CL'
+    | 'C2'
+    | 'CO'
+    | 'KM'
+    | 'CG'
+    | 'CD'
+    | 'CK'
+    | 'CR'
+    | 'CI'
+    | 'HR'
+    | 'CY'
+    | 'CZ'
+    | 'DK'
+    | 'DJ'
+    | 'DM'
+    | 'DO'
+    | 'EC'
+    | 'EG'
+    | 'SV'
+    | 'ER'
+    | 'EE'
+    | 'ET'
+    | 'FK'
+    | 'FO'
+    | 'FJ'
+    | 'FI'
+    | 'FR'
+    | 'GF'
+    | 'PF'
+    | 'GA'
+    | 'GM'
+    | 'GE'
+    | 'DE'
+    | 'GI'
+    | 'GR'
+    | 'GL'
+    | 'GD'
+    | 'GP'
+    | 'GT'
+    | 'GN'
+    | 'GW'
+    | 'GY'
+    | 'HN'
+    | 'HK'
+    | 'HU'
+    | 'IS'
+    | 'IN'
+    | 'ID'
+    | 'IE'
+    | 'IL'
+    | 'IT'
+    | 'JM'
+    | 'JP'
+    | 'JO'
+    | 'KZ'
+    | 'KE'
+    | 'KI'
+    | 'KW'
+    | 'KG'
+    | 'LA'
+    | 'LV'
+    | 'LS'
+    | 'LI'
+    | 'LT'
+    | 'LU'
+    | 'MK'
+    | 'MG'
+    | 'MW'
+    | 'MY'
+    | 'MV'
+    | 'ML'
+    | 'MT'
+    | 'MH'
+    | 'MQ'
+    | 'MR'
+    | 'MU'
+    | 'YT'
+    | 'MX'
+    | 'FM'
+    | 'MD'
+    | 'MC'
+    | 'MN'
+    | 'ME'
+    | 'MS'
+    | 'MA'
+    | 'MZ'
+    | 'NA'
+    | 'NR'
+    | 'NP'
+    | 'NL'
+    | 'NC'
+    | 'NZ'
+    | 'NI'
+    | 'NE'
+    | 'NG'
+    | 'NU'
+    | 'NF'
+    | 'NO'
+    | 'OM'
+    | 'PW'
+    | 'PA'
+    | 'PG'
+    | 'PY'
+    | 'PE'
+    | 'PH'
+    | 'PN'
+    | 'PL'
+    | 'PT'
+    | 'QA'
+    | 'RE'
+    | 'RO'
+    | 'RU'
+    | 'RW'
+    | 'WS'
+    | 'SM'
+    | 'ST'
+    | 'SA'
+    | 'SN'
+    | 'RS'
+    | 'SC'
+    | 'SL'
+    | 'SG'
+    | 'SK'
+    | 'SI'
+    | 'SB'
+    | 'SO'
+    | 'ZA'
+    | 'KR'
+    | 'ES'
+    | 'LK'
+    | 'SH'
+    | 'KN'
+    | 'LC'
+    | 'PM'
+    | 'VC'
+    | 'SR'
+    | 'SJ'
+    | 'SZ'
+    | 'SE'
+    | 'CH'
+    | 'TW'
+    | 'TJ'
+    | 'TZ'
+    | 'TH'
+    | 'TG'
+    | 'TO'
+    | 'TT'
+    | 'TN'
+    | 'TM'
+    | 'TC'
+    | 'TV'
+    | 'UG'
+    | 'UA'
+    | 'AE'
+    | 'GB'
+    | 'US'
+    | 'UY'
+    | 'VU'
+    | 'VA'
+    | 'VE'
+    | 'VN'
+    | 'WF'
+    | 'YE'
+    | 'ZM'
+    | 'ZW';
 
 export interface PaypalMoney {
     currency_code: PaypalCurrencyCode;
@@ -284,20 +282,25 @@ export interface PaypalAdressPortable {
     country_code: PaypalCountryCode;
 }
 
+export interface PaypalShippingDetail {
+    name: Pick<PaypalName, 'full_name'>;
+    address: PaypalAdressPortable;
+}
+
 export interface PaypalSubscriber {
     name: Pick<PaypalName, 'given_name' | 'surname'>;
     email_address: string;
     payer_id: string;
-    shipping_address: PaypalAdressPortable;
+    shipping_address: PaypalShippingDetail;
 }
 
 export interface PaypalCycleExecution {
     tenure_type: 'REGULAR' | 'TRIAL';
     sequence: number;
     cycles_completed: number;
-    cycles_remaining: number;
-    current_pricing_scheme_version: number;
-    total_cycles: number;
+    cycles_remaining?: number;
+    current_pricing_scheme_version?: number;
+    total_cycles?: number;
 }
 
 export interface PaypalLastPaymentDetails {
@@ -314,37 +317,28 @@ export interface PaypalFailedPaymentDetails {
 
 export interface PaypalBillingInfo {
     outstanding_balance: PaypalMoney;
-    cycle_executions: PaypalCycleExecution[];
-    last_payment: PaypalLastPaymentDetails;
-    next_billing_time: string;
-    final_payment_time: string;
+    cycle_executions?: PaypalCycleExecution[];
+    last_payment?: PaypalLastPaymentDetails;
+    next_billing_time?: string;
+    final_payment_time?: string;
     failed_payments_count: number;
-    last_failed_payment: PaypalFailedPaymentDetails;
-}
-
-export enum PaypalSubscriptionStatus {
-    APPROVAL_PENDING = 'APPROVAL_PENDING',
-    APPROVED = 'APPROVED',
-    ACTIVE = 'ACTIVE',
-    SUSPENDED = 'SUSPENDED',
-    CANCELLED = 'CANCELLED',
-    EXPIRED = 'EXPIRED',
+    last_failed_payment?: PaypalFailedPaymentDetails;
 }
 
 export interface PaypalSubscriptionDetails {
-    status: PaypalSubscriptionStatus;
-    status_change_note: string;
-    status_update_time: string;
-    id: string;
-    plan_id: string;
-    start_time: string;
-    quantity: string;
-    shipping_amount: PaypalMoney;
-    subscriber: PaypalSubscriber;
-    billing_info: PaypalBillingInfo;
-    create_time: string;
-    update_time: string;
-    links: PaypalLinkDescription[];
+    status?: 'APPROVAL_PENDING' | 'APPROVED' | 'ACTIVE' | 'SUSPENDED' | 'CANCELLED' | 'EXPIRED';
+    status_change_note?: string;
+    status_update_time?: string;
+    id?: string;
+    plan_id?: string;
+    start_time?: string;
+    quantity?: string;
+    shipping_amount?: PaypalMoney;
+    subscriber?: PaypalSubscriber;
+    billing_info?: PaypalBillingInfo;
+    create_time?: string;
+    update_time?: string;
+    links?: PaypalLinkDescription[];
 }
 
 export interface PaypalSubscriptionCreate {

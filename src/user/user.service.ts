@@ -60,6 +60,7 @@ export class UserService extends EntityService<UserEntity> {
         user.twitchId = data.id;
         user.username = data.login;
         user.displayName = data.display_name;
+        user.twitchDescription = data.description;
         user.avatar = data.profile_image_url;
 
         //Save

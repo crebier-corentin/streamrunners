@@ -60,7 +60,7 @@ describe('UserService', () => {
             display_name: 'hi',
             profile_image_url: 'https://site.com/image.png',
             broadcaster_type: undefined,
-            description: '',
+            description: 'desc',
             offline_image_url: '',
             type: undefined,
             view_count: 0,
@@ -74,6 +74,7 @@ describe('UserService', () => {
             expect(user.twitchId).toBe(twitchUser.id);
             expect(user.username).toBe(twitchUser.login);
             expect(user.displayName).toBe(twitchUser.display_name);
+            expect(user.twitchDescription).toBe(twitchUser.description);
             expect(user.avatar).toBe(twitchUser.profile_image_url);
 
             expect(mockedFunc).toHaveBeenCalled();
@@ -84,6 +85,7 @@ describe('UserService', () => {
             defaultUser.twitchId = '123';
             defaultUser.username = 'a';
             defaultUser.displayName = 'b';
+            defaultUser.twitchDescription = 'haha';
             defaultUser.avatar = '0';
 
             jest.spyOn(repo, 'findOne').mockResolvedValue(defaultUser);
@@ -92,6 +94,7 @@ describe('UserService', () => {
             expect(user.twitchId).toBe(twitchUser.id);
             expect(user.username).toBe(twitchUser.login);
             expect(user.displayName).toBe(twitchUser.display_name);
+            expect(user.twitchDescription).toBe(twitchUser.description);
             expect(user.avatar).toBe(twitchUser.profile_image_url);
         });
     });

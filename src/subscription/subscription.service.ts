@@ -4,8 +4,7 @@ import { EntityService } from '../common/utils/entity-service';
 import { UserEntity } from '../user/user.entity';
 import { PaypalSubscriptionDetails } from './paypal.interfaces';
 import { PaypalService } from './paypal.service';
-import { SubscriptionEntity } from './subscription.entity';
-import { SubscriptionStatus } from './subscription.interfaces';
+import { SubscriptionEntity, SubscriptionEntityAndDetails } from './subscription.entity';
 
 @Injectable()
 export class SubscriptionService extends EntityService<SubscriptionEntity> {
@@ -13,58 +12,40 @@ export class SubscriptionService extends EntityService<SubscriptionEntity> {
         super(repo);
     }
 
-    public byUserIdAndStatus(userId: number, status: SubscriptionStatus): Promise<SubscriptionEntity | undefined> {
+    public getSubscriptionDetails(subOrId: SubscriptionEntity | string): Promise<PaypalSubscriptionDetails> {
+        const id: string = subOrId instanceof SubscriptionEntity ? subOrId.paypalId : subOrId;
+
+        return this.paypal.getSubscriptionDetails(id);
+    }
+
+    public getCurrentSubscription(user: UserEntity): Promise<SubscriptionEntity | undefined> {
         return this.repo
             .createQueryBuilder('sub')
             .leftJoin('sub.user', 'user')
-            .where('user.id = :userId', { userId })
-            .andWhere('sub.status = :status', { status })
+            .where('user.id = :userId', { userId: user.id })
             .getOne();
     }
 
     /**
-     * Tries to find an Active subscription, if there is one returns it.
-     * Tries to find a CancelledActive subscription, if there is one and it's not expired returns it. If it's expired, updates it's status to Cancelled.
-     * Tries to find a Queued subscription, if there is one activates it and returns it.
+     * If the subscription is expired, set it's current value to false and returns null
      * @param user
      */
-    public async getActiveSubscription(user: UserEntity): Promise<SubscriptionEntity | null> {
-        //Active
-        const active = await this.byUserIdAndStatus(user.id, SubscriptionStatus.Active);
+    public async getCurrentSubscriptionAndDetails(user: UserEntity): Promise<SubscriptionEntityAndDetails | null> {
+        const sub = await this.getCurrentSubscription(user);
+        if (sub == undefined) return null;
 
-        if (active != undefined) return active;
+        //Load details
+        const subD = new SubscriptionEntityAndDetails();
+        subD.entity = sub;
+        subD.details = await this.getSubscriptionDetails(sub);
 
-        //CancelledActive
-        const cancelledActive = await this.byUserIdAndStatus(user.id, SubscriptionStatus.CancelledActive);
-
-        if (cancelledActive != undefined) {
-            if (!cancelledActive.expired()) return cancelledActive;
-
-            //Update status if expired
-            cancelledActive.status = SubscriptionStatus.Cancelled;
-            await this.repo.save(cancelledActive);
+        //Remove it from current if expired
+        if (subD.isExpired()) {
+            sub.current = false;
+            await this.repo.save(sub);
+            return null;
         }
 
-        //Queued
-        const queued = await this.byUserIdAndStatus(user.id, SubscriptionStatus.Queued);
-
-        if (queued != undefined) {
-            //Activate the queued sub
-            await this.paypal.activateSubscription(queued.paypalId);
-            queued.status = SubscriptionStatus.Active;
-            await this.repo.save(queued);
-        }
-
-        return null;
-    }
-
-    public getQueuedSubscription(user: UserEntity): Promise<SubscriptionEntity | undefined> {
-        return this.byUserIdAndStatus(user.id, SubscriptionStatus.Queued);
-    }
-
-    public async getSubscriptionDetails(subOrId: SubscriptionEntity | string): Promise<PaypalSubscriptionDetails> {
-        const id: string = subOrId instanceof SubscriptionEntity ? subOrId.paypalId : subOrId;
-
-        return this.paypal.getSubscriptionDetails(id);
+        return subD;
     }
 }

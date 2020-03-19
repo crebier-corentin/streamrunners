@@ -1,11 +1,11 @@
 import { MigrationInterface, QueryRunner } from 'typeorm';
 
-export class Subscription1584526469774 implements MigrationInterface {
-    public name = 'Subscription1584526469774';
+export class Subscription1584624566936 implements MigrationInterface {
+    public name = 'Subscription1584624566936';
 
     public async up(queryRunner: QueryRunner): Promise<any> {
         await queryRunner.query(
-            "CREATE TABLE `subscription` (`id` int NOT NULL AUTO_INCREMENT, `status` enum ('active', 'queued', 'cancelled_active', 'cancelled') NOT NULL, `level` enum ('none', 'vip', 'diamond') NOT NULL, `expires` datetime NULL, `createdAt` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6), `updatedAt` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6), `userId` int NULL, PRIMARY KEY (`id`)) ENGINE=InnoDB",
+            "CREATE TABLE `subscription` (`id` int NOT NULL AUTO_INCREMENT, `paypalId` varchar(255) NOT NULL, `level` enum ('none', 'vip', 'diamond') NOT NULL, `current` tinyint NOT NULL DEFAULT 0, `createdAt` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6), `updatedAt` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6), `userId` int NULL, PRIMARY KEY (`id`)) ENGINE=InnoDB",
             undefined
         );
         await queryRunner.query(

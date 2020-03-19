@@ -12,7 +12,7 @@ import { UserSubscriber } from './user.subscriber';
         TypeOrmModule.forFeature([UserEntity]),
         TwitchModule,
         forwardRef(() => DiscordModule),
-        forwardRef(() => SubscriptionModule),
+        SubscriptionModule,
     ],
     providers: [UserService, UserSubscriber],
     exports: [UserService],

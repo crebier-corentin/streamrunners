@@ -5,6 +5,7 @@ import { SubscriptionModule } from '../subscription/subscription.module';
 import { TwitchModule } from '../twitch/twitch.module';
 import { UserEntity } from './user.entity';
 import { UserService } from './user.service';
+import { UserSubscriber } from './user.subscriber';
 
 @Module({
     imports: [
@@ -13,7 +14,7 @@ import { UserService } from './user.service';
         forwardRef(() => DiscordModule),
         forwardRef(() => SubscriptionModule),
     ],
-    providers: [UserService],
+    providers: [UserService, UserSubscriber],
     exports: [UserService],
 })
 export class UserModule {}

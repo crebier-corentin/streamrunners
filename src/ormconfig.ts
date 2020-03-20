@@ -13,7 +13,7 @@ const config = {
     charset: 'utf8mb4',
     entities: [__dirname + '/**/*.entity{.ts,.js}'],
     synchronize: false,
-    migrationsRun: true,
+    migrationsRun: false,
     logging: true,
     logger: 'file',
     migrations: [__dirname + '/migrations/**/*{.ts,.js}'],

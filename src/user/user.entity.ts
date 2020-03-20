@@ -18,7 +18,7 @@ import { RaffleParticipationEntity } from '../raffle/raffle-participation.entity
 import { RaffleEntity } from '../raffle/raffle.entity';
 import { ChatRank } from '../shared/types';
 import { StreamQueueEntity } from '../stream-queue/stream-queue.entity';
-import { NotEnoughPointsException } from './user.exception';
+import { SubscriptionLevel } from '../subscription/subscription-level.enum';
 
 @Exclude()
 @Entity('user')
@@ -112,6 +112,9 @@ export class UserEntity {
     @Exclude()
     @UpdateDateColumn()
     public updatedAt: Date;
+
+    //Loaded from subscriber properties//
+    public subscriptionLevel: SubscriptionLevel;
 
     public changePoints(amount: number): void {
         if (this.points != undefined) {

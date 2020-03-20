@@ -53,10 +53,10 @@ export class WatchService {
 
             //If lastUpdate was one minutes or less ago
             if (moment(user.lastUpdate).add(5, 'seconds') >= now) {
-                const points = (now.toDate().getTime() - user.lastUpdate.getTime()) / 1000;
-                const multiplier = WatchService.pointsMultiplier(await this.userService.getSubscriptionLevel(user));
+                const seconds = now.diff(user.lastUpdate, 'seconds');
+                const multiplier = WatchService.pointsMultiplier(user.subscriptionLevel);
 
-                await user.changePoints(Math.ceil(points * multiplier));
+                await user.changePoints(Math.round(seconds * multiplier));
             }
 
             user.lastUpdate = now.toDate();
@@ -69,7 +69,7 @@ export class WatchService {
     public async addStreamToQueue(user: UserEntity): Promise<void> {
         //Check number of places
         const placesCount = await this.streamQueueService.placesCount(user);
-        const placeLimit = WatchService.placeLimit(await this.userService.getSubscriptionLevel(user));
+        const placeLimit = WatchService.placeLimit(user.subscriptionLevel);
         if (placesCount >= placeLimit) {
             const limitPlural = placeLimit > 1 ? 's' : '';
 

@@ -136,13 +136,14 @@ describe('WatchService', () => {
         ])(
             "should increase the user's points if it's been less than 5 seconds since user.lastUpdate and should update user.lastUpdate (%s)",
             async (lvl, expectedPoints) => {
+                user.subscriptionLevel = lvl;
+
                 const stream = new StreamQueueEntity();
                 stream.user = streamer;
 
                 jest.spyOn(streamQueueService, 'currentStream').mockResolvedValue(stream);
                 jest.spyOn(twitch, 'isStreamOnline').mockResolvedValue(true);
                 MockDate.set('2020-01-01T00:00:04');
-                jest.spyOn(userService, 'getSubscriptionLevel').mockResolvedValue(lvl);
 
                 await service.updatePoints(user);
 
@@ -160,8 +161,8 @@ describe('WatchService', () => {
         ])('should throw if the user has exceeded the simultaneous place limit (%s, limit: %i)', async (lvl, limit) => {
             const user = new UserEntity();
             user.points = 5000;
+            user.subscriptionLevel = lvl;
 
-            jest.spyOn(userService, 'getSubscriptionLevel').mockResolvedValue(lvl);
             jest.spyOn(streamQueueService, 'placesCount').mockResolvedValue(limit);
 
             return expect(service.addStreamToQueue(user)).rejects.toBeInstanceOf(UserErrorException);
@@ -170,8 +171,8 @@ describe('WatchService', () => {
         it("should throw if the user doesn't have enough points", async () => {
             const user = new UserEntity();
             user.points = 100;
+            user.subscriptionLevel = SubscriptionLevel.None;
 
-            jest.spyOn(userService, 'getSubscriptionLevel').mockResolvedValue(SubscriptionLevel.None);
             jest.spyOn(streamQueueService, 'placesCount').mockResolvedValue(0);
             jest.spyOn(streamQueueService, 'isEmpty').mockResolvedValue(false);
             jest.spyOn(twitch, 'isStreamOnline').mockResolvedValue(true);
@@ -189,8 +190,8 @@ describe('WatchService', () => {
         it("should throw if the user's stream is offline", () => {
             const user = new UserEntity();
             user.points = 5000;
+            user.subscriptionLevel = SubscriptionLevel.None;
 
-            jest.spyOn(userService, 'getSubscriptionLevel').mockResolvedValue(SubscriptionLevel.None);
             jest.spyOn(streamQueueService, 'placesCount').mockResolvedValue(0);
             jest.spyOn(streamQueueService, 'isEmpty').mockResolvedValue(true);
             jest.spyOn(twitch, 'isStreamOnline').mockResolvedValue(false);
@@ -201,8 +202,8 @@ describe('WatchService', () => {
         it('should cost 0 if there are no active stream', async () => {
             const user = new UserEntity();
             user.points = 100;
+            user.subscriptionLevel = SubscriptionLevel.None;
 
-            jest.spyOn(userService, 'getSubscriptionLevel').mockResolvedValue(SubscriptionLevel.None);
             jest.spyOn(streamQueueService, 'placesCount').mockResolvedValue(0);
             jest.spyOn(streamQueueService, 'isEmpty').mockResolvedValue(true);
             jest.spyOn(twitch, 'isStreamOnline').mockResolvedValue(true);
@@ -215,8 +216,8 @@ describe('WatchService', () => {
         it('should cost 2000 if there are streams in the queue', async () => {
             const user = new UserEntity();
             user.points = 2000;
+            user.subscriptionLevel = SubscriptionLevel.None;
 
-            jest.spyOn(userService, 'getSubscriptionLevel').mockResolvedValue(SubscriptionLevel.None);
             jest.spyOn(streamQueueService, 'placesCount').mockResolvedValue(0);
             jest.spyOn(streamQueueService, 'isEmpty').mockResolvedValue(false);
             jest.spyOn(twitch, 'isStreamOnline').mockResolvedValue(true);

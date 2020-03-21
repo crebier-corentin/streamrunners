@@ -2,7 +2,8 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>404</title>
+    <title>StreamRunners - 404 Page non trouvée</title>
+    <link rel="icon" href="/img/favicon.ico" />
     <style>
 
 @import url('https://fonts.googleapis.com/css?family=Dosis:300,400,500');
@@ -64,13 +65,15 @@ html, body{
     user-select: none; /* Standard syntax */
 }
 
-.bg-purple{
-    background: url(http://salehriaz.com/404Page/img/bg_purple.png);
-    background-repeat: repeat-x;
-    background-size: cover;
-    background-position: left top;
-    height: 100%;
-    overflow: hidden;
+.bg-purple {
+            background: rgb(109, 54, 110);
+            background: radial-gradient(circle, rgba(101, 60, 182, 1) 36%, rgba(31, 41, 66, 1) 100%);
+            background-repeat: repeat;
+            background-size: cover;
+            background-position: left top;
+            height: 100%;
+            overflow-y: scroll;
+            background-attachment: fixed;
 
 }
 
@@ -232,7 +235,7 @@ li a:hover {
 }
 
 .stars{
-    background: url(http://salehriaz.com/404Page/img/overlay_stars.svg);
+    background: url(img/overlay_stars.svg);
     background-repeat: repeat;
     background-size: contain;
     background-position: left top;
@@ -312,8 +315,8 @@ li a:hover {
             </div>
             <div class="central-body">
 
-                <img class="image-404" src="img/404.svg" width="300px">
-                <a href="https://streamrunners.fr/" class="btn-go-home" target="_blank">RETOUR A L'ACCUEIL</a>
+                <img class="image-404" src="img/404.png" width="300px">
+                <a href="/" class="btn-go-home" target="_blank">RETOUR A L'ACCUEIL</a>
 
             </div>
             <div class="objects">

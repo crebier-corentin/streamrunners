@@ -30,7 +30,7 @@ export class WatchService {
     private static placeLimit(lvl: SubscriptionLevel): number {
         switch (lvl) {
             case SubscriptionLevel.None:
-                return 1;
+                return 2;
             case SubscriptionLevel.VIP:
                 return 4;
             case SubscriptionLevel.Diamond:

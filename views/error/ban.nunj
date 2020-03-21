@@ -305,7 +305,7 @@ li a:hover {
         <div class="stars">
             <div class="central-body">
 
-                <img class="image-404" src="img/ban.png" width="300px">
+                <img class="image-404" src="/img/ban.png" width="300px">
 
             </div>
             <div class="objects">

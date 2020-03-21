@@ -33,6 +33,18 @@ export class AppController {
         //
     }
 
+    @Render('abonnements')
+    @Get('abonnements')
+    public abonnements(): void {
+        //
+    }
+
+    @Render('contact')
+    @Get('contact')
+    public contact(): void {
+        //
+    }
+
     @UseGuards(AuthenticatedGuard)
     @Render('inventory')
     @Get('inventory')

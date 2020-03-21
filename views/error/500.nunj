@@ -303,7 +303,7 @@ li a:hover {
 <body class="bg-purple">
             <div class="central-body">
 
-                <img class="image-404" src="img/500.png" width="300px">
+                <img class="image-404" src="/img/500.png" width="300px">
                 <p>MERCI DE CONTACTER UN ADMINISTRATEUR</p>
 
             </div>

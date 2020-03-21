@@ -1,0 +1,28 @@
+{% set title = "StreamRunners - Contact" %}
+{% extends "master.nunj" %}
+
+{% block content %}
+	<div class="container">
+		<center><h1>Nous Contacter</h1>
+		<hr>
+		<form>
+  			<div class="form-group">
+			    <label class="db" for="exampleInputEmail1">Votre Mail</label>
+			    <input type="text" class="input rounded border contact" placeholder="Votre Mail" />
+			    <small id="emailHelp" class="form-text text-muted">Nous ne le partagerons à personne.</small>
+		  	</div>
+		 	<div class="form-group">
+			    <label class="db" for="exampleInputPassword1">Objet</label>
+			    <input type="text" class="input rounded border contact" placeholder="Objet" />
+		  	</div>
+		  	<div class="form-group">
+			    <label class="db" for="exampleInputPassword1">Votre Message</label>
+			    <textarea type="text" class="input rounded border contact" placeholder="Votre Message..."></textarea>
+		  	</div>
+		  		<button class="btn btn-outline-success sub contact">Envoyer&nbsp;&nbsp;&nbsp;<i class="fas fa-paper-plane"></i></button>
+		</form>
+		<center>
+	</div>
+
+
+{% endblock %}

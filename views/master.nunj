@@ -575,6 +575,22 @@
             margin-top: 2rem;
         }
 
+        .contact{
+            width: 50%;
+        }
+
+        .text-muted{
+            color:#ffcb39!important;
+        }
+
+        .db {
+            display: block;
+        }
+
+        .bonus {
+            width: 100%;
+        }
+
     </style>
 
 </head>
@@ -711,7 +727,7 @@
 
         <hr>
     <p>© 2020 StreamRunners</p>
-    <a class="inlinelink" href="/cgu">CGU</a> - <a class="inlinelink" href="/rules">Règlement</a> - <a class="inlinelink" href="#">Contact</a> 
+    <a class="inlinelink" href="/cgu">CGU</a> - <a class="inlinelink" href="/rules">Règlement</a> - <a class="inlinelink" href="/contact">Contact</a> 
         <br>
         <a class="inline"
            href="https://www.facebook.com/StreamRunners/"

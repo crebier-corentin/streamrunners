@@ -155,7 +155,7 @@ describe('WatchService', () => {
 
     describe('addStreamToQueue', () => {
         it.each([
-            [SubscriptionLevel.None, 1],
+            [SubscriptionLevel.None, 2],
             [SubscriptionLevel.VIP, 4],
             [SubscriptionLevel.Diamond, 6],
         ])('should throw if the user has exceeded the simultaneous place limit (%s, limit: %i)', async (lvl, limit) => {

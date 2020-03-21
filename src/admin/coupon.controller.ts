@@ -1,9 +1,23 @@
-import { Body, Controller, Get, Post, Redirect, Render, Req, UsePipes, ValidationPipe } from '@nestjs/common';
+import {
+    Body,
+    Controller,
+    Get,
+    Post,
+    Redirect,
+    Render,
+    Req,
+    UseGuards,
+    UsePipes,
+    ValidationPipe,
+} from '@nestjs/common';
 import { Request } from 'express';
+import { AuthenticatedGuard } from '../common/guard/authenticated.guard';
+import { ModeratorGuard } from '../common/guard/moderator.guard';
 import { SanitizationPipe } from '../common/pipe/sanitization-pipe.service';
 import { CouponService } from '../coupon/coupon.service';
 import { AddCouponDto } from './dto/add-coupon.dto';
 
+@UseGuards(AuthenticatedGuard, ModeratorGuard)
 @Controller('admin/coupon')
 export class CouponController {
     public constructor(private readonly couponService: CouponService) {}

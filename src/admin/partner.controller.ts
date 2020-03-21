@@ -7,15 +7,19 @@ import {
     Redirect,
     Render,
     Req,
+    UseGuards,
     UsePipes,
     ValidationPipe,
 } from '@nestjs/common';
 import { Request } from 'express';
+import { AuthenticatedGuard } from '../common/guard/authenticated.guard';
+import { ModeratorGuard } from '../common/guard/moderator.guard';
 import { SanitizationPipe } from '../common/pipe/sanitization-pipe.service';
 import { PartnerEntity } from '../partner/partner.entity';
 import { PartnerService } from '../partner/partner.service';
 import { AddPartnerDto } from './dto/add-partner.dto';
 
+@UseGuards(AuthenticatedGuard, ModeratorGuard)
 @Controller('admin/partner')
 export class PartnerController {
     public constructor(private readonly partnerService: PartnerService) {}

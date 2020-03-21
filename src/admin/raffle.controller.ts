@@ -1,9 +1,23 @@
-import { Body, Controller, Get, Post, Redirect, Render, Req, UsePipes, ValidationPipe } from '@nestjs/common';
+import {
+    Body,
+    Controller,
+    Get,
+    Post,
+    Redirect,
+    Render,
+    Req,
+    UseGuards,
+    UsePipes,
+    ValidationPipe,
+} from '@nestjs/common';
 import { Request } from 'express';
+import { AuthenticatedGuard } from '../common/guard/authenticated.guard';
+import { ModeratorGuard } from '../common/guard/moderator.guard';
 import { SanitizationPipe } from '../common/pipe/sanitization-pipe.service';
 import { RaffleService } from '../raffle/raffle.service';
 import { AddRaffleDto } from './dto/add-raffle.dto';
 
+@UseGuards(AuthenticatedGuard, ModeratorGuard)
 @Controller('admin/raffle')
 export class RaffleController {
     public constructor(private readonly raffleService: RaffleService) {}

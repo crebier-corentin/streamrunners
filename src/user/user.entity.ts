@@ -120,7 +120,7 @@ export class UserEntity {
     @UpdateDateColumn()
     public updatedAt: Date;
 
-    //Loaded from subscriber properties//
+    //Loaded from subscriber
     public subscriptionLevel: SubscriptionLevel;
 
     public changePoints(amount: number): void {

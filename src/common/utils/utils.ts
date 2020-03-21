@@ -1,3 +1,4 @@
+import { AxiosError } from 'axios';
 import * as moment from 'moment';
 
 export function shuffledArray<T>(array: T[]): T[] {
@@ -14,4 +15,8 @@ export function formatDatetimeSQL(date: moment.Moment | Date): string {
     const momentDate = date instanceof Date ? moment(date) : date;
 
     return momentDate.utc().format('YYYY-MM-DD HH:mm:ss');
+}
+
+export function isAxiosError(error: unknown): error is AxiosError {
+    return (error as AxiosError).isAxiosError === true; //isAxiosError could be undefined
 }

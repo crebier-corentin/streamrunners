@@ -7,7 +7,6 @@ import { EntityService } from '../common/utils/entity-service';
 import { formatDatetimeSQL } from '../common/utils/utils';
 import { DiscordBotService } from '../discord/discord-bot.service';
 import { RaffleEntity } from '../raffle/raffle.entity';
-import { ChatRank } from '../shared/types';
 import { SubscriptionLevel } from '../subscription/subscription.interfaces';
 import { SubscriptionService } from '../subscription/subscription.service';
 import { TwitchUser } from '../twitch/twitch.interfaces';
@@ -80,22 +79,10 @@ export class UserService extends EntityService<UserEntity> {
         await this.repo.save(user);
     }
 
-    // eslint-disable-next-line @typescript-eslint/require-await
     public async getSubscriptionLevel(user: UserEntity): Promise<SubscriptionLevel> {
-        //TODO: Implement with subscriptions
+        const sub = await this.subscriptionService.getCurrentSubscription(user);
 
-        switch (user.chatRank) {
-            case ChatRank.VIP:
-                return SubscriptionLevel.VIP;
-            case ChatRank.Admin:
-            case ChatRank.Moderator:
-            case ChatRank.Partner:
-            case ChatRank.Diamond:
-                return SubscriptionLevel.Diamond;
-
-            default:
-                return SubscriptionLevel.None;
-        }
+        return sub?.isActive() ? sub.level : SubscriptionLevel.None;
     }
 
     public pickRaffleWinner(raffle: RaffleEntity): Promise<UserEntity> {

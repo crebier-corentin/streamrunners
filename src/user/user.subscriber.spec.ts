@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { Connection } from 'typeorm';
-import { SubscriptionLevel } from '../subscription/subscription-level.enum';
+import { SubscriptionLevel } from '../subscription/subscription.interfaces';
 import { UserEntity } from './user.entity';
 import { UserService } from './user.service';
 import { UserSubscriber } from './user.subscriber';

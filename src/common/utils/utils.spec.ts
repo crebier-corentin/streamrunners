@@ -1,4 +1,5 @@
-import { formatDatetimeSQL, shuffledArray } from './utils';
+import { AxiosError } from 'axios';
+import { formatDatetimeSQL, isAxiosError, shuffledArray } from './utils';
 import moment = require('moment');
 
 describe('shuffledArray', () => {
@@ -45,5 +46,28 @@ describe('formatDatetimeSQL', () => {
     it('should convert a moment Date to UTC and format it for a sql query', () => {
         const date = moment('2011-12-03T10:15:30+01:00');
         expect(formatDatetimeSQL(date)).toEqual('2011-12-03 09:15:30');
+    });
+});
+
+describe('isAxiosError', () => {
+    it('should return true if error is an AxiosError', () => {
+        const error: AxiosError = {
+            name: '',
+            message: '',
+            config: {},
+            isAxiosError: true,
+            toJSON: jest.fn(),
+        };
+
+        expect(isAxiosError(error)).toBe(true);
+    });
+
+    it('should return true if error is not an AxiosError', () => {
+        const error = {
+            name: 'unrelated',
+            message: 'test',
+        };
+
+        expect(isAxiosError(error)).toBe(false);
     });
 });

@@ -35,19 +35,16 @@ export class SubscriptionEntity {
 
     @UpdateDateColumn()
     public updatedAt: Date;
-}
 
-export class SubscriptionEntityAndDetails {
-    public entity: SubscriptionEntity;
-
-    public details: PaypalSubscriptionDetails;
+    //Loaded from subscriber
+    public details: PaypalSubscriptionDetails | null;
 
     public isActive(): boolean {
         //Active
-        if (this.details.status === 'ACTIVE') return true;
+        if (this.details?.status === 'ACTIVE') return true;
 
         //Other status (Cancelled...)
-        return this.isExpired();
+        return !this.isExpired();
     }
 
     public expiringDate(): moment.Moment | null {
@@ -61,6 +58,8 @@ export class SubscriptionEntityAndDetails {
 
     public isExpired(): boolean {
         const date = this.expiringDate();
-        return date == null || moment() >= this.expiringDate();
+
+        if (date == null) return true;
+        return moment() >= this.expiringDate();
     }
 }

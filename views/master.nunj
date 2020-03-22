@@ -703,16 +703,16 @@
                 <a href="{{ announcement.url }}" target="_blank">
                     <div style="margin-top: 2rem;"
                          class="alert alert-primary"
-                         role="alert" {# style="background-color: {{ announcement.color }}" #}>
-                         
+                         role="alert">
+                        {{ announcement.text }}
                     </div>
                 </a>
             </div>
         {% endif %}
             <div class="container">
-                    <div style="margin-top: 2rem;"
-                         class="alert ale"
-                         role="alert" {# style="background-color:none!important;" #}>
+                    <div style="background-color: transparent!important;"
+                         class="alert alert-primary"
+                         role="alert">
                     </div>
                 </a>
             </div>

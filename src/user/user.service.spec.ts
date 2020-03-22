@@ -125,6 +125,7 @@ describe('UserService', () => {
 
         beforeEach(() => {
             user = new UserEntity();
+            user.id = 1;
             sub = new SubscriptionEntity();
         });
 

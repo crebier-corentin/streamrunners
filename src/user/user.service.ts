@@ -3,6 +3,7 @@ import { Cron, CronExpression } from '@nestjs/schedule';
 import { InjectRepository } from '@nestjs/typeorm';
 import * as moment from 'moment';
 import { Repository } from 'typeorm';
+import CacheService from '../common/utils/cache-service';
 import { EntityService } from '../common/utils/entity-service';
 import { formatDatetimeSQL } from '../common/utils/utils';
 import { DiscordBotService } from '../discord/discord-bot.service';
@@ -16,6 +17,8 @@ import { UserEntity } from './user.entity';
 
 @Injectable()
 export class UserService extends EntityService<UserEntity> {
+    private readonly cache = new CacheService(60 * 60 * 24); //1 hour storage
+
     public constructor(
         @InjectRepository(UserEntity)
         repo: Repository<UserEntity>,
@@ -79,10 +82,12 @@ export class UserService extends EntityService<UserEntity> {
         await this.repo.save(user);
     }
 
-    public async getSubscriptionLevel(user: UserEntity): Promise<SubscriptionLevel> {
-        const sub = await this.subscriptionService.getCurrentSubscription(user);
+    public getSubscriptionLevel(user: UserEntity): Promise<SubscriptionLevel> {
+        return this.cache.get(user.id.toString(), async () => {
+            const sub = await this.subscriptionService.getCurrentSubscription(user);
 
-        return sub?.isActive() ? sub.level : SubscriptionLevel.None;
+            return sub?.isActive() ? sub.level : SubscriptionLevel.None;
+        });
     }
 
     public pickRaffleWinner(raffle: RaffleEntity): Promise<UserEntity> {

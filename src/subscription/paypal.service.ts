@@ -3,6 +3,7 @@ import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 import * as moment from 'moment';
+import CacheService from '../common/utils/cache-service';
 import { Semaphore } from '../common/utils/semaphore';
 import { PaypalOauthTokenResponse, PaypalSubscriptionCreate, PaypalSubscriptionDetails } from './paypal.interfaces';
 
@@ -16,6 +17,7 @@ export class PaypalService {
     private tokenExpireDate: moment.Moment = moment();
 
     private readonly lock = new Semaphore(1);
+    private readonly cache = new CacheService(60 * 60 * 24); //1 hour storage
 
     public constructor(config: ConfigService) {
         this.basicAuthToken = Buffer.from(`${config.get('PAYPAL_CLIENT_ID')}:${config.get('PAYPAL_SECRET')}`).toString(
@@ -104,19 +106,25 @@ export class PaypalService {
     //prettier-ignore
     public async getSubscriptionDetails<K extends keyof PaypalSubscriptionDetails>(subscriptionId: string, fields: K[]): Promise<Pick<PaypalSubscriptionDetails, K>>;
     //prettier-ignore
-    public async getSubscriptionDetails<K extends keyof PaypalSubscriptionDetails>(subscriptionId: string, fields?: K[]): Promise<PaypalSubscriptionDetails | Pick<PaypalSubscriptionDetails, K>> {
-        const request: AxiosRequestConfig = {
-            url: `${this.baseUrl}/v1/billing/subscriptions/${subscriptionId}`,
-            method: 'GET',
-        };
+    public getSubscriptionDetails<K extends keyof PaypalSubscriptionDetails>(subscriptionId: string, fields?: K[]): Promise<PaypalSubscriptionDetails | Pick<PaypalSubscriptionDetails, K>> {
 
-        if (fields != undefined) {
-            request.params = { fields };
-        }
+        return this.cache.get(subscriptionId, async () => {
 
-        const response = await this.makeRequest(request);
+            const request: AxiosRequestConfig = {
+                url: `${this.baseUrl}/v1/billing/subscriptions/${subscriptionId}`,
+                method: 'GET',
+            };
 
-        return response.data;
+            if (fields != undefined) {
+                request.params = { fields };
+            }
+
+            const response = await this.makeRequest(request);
+
+            return response.data;
+
+        });
+
     }
 
     public async activateSubscription(subscriptionId: string, reason?: string): Promise<void> {
@@ -132,6 +140,8 @@ export class PaypalService {
         };
 
         await this.makeRequest(request);
+
+        this.cache.del(subscriptionId);
     }
 
     public async cancelSubscription(subscriptionId: string, reason: string): Promise<void> {
@@ -142,5 +152,7 @@ export class PaypalService {
         };
 
         await this.makeRequest(request);
+
+        this.cache.del(subscriptionId);
     }
 }

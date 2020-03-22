@@ -697,23 +697,31 @@
 
     </div>
     {# Announcement #}
-    <div class="container">
     {% if req.isAuthenticated() %}
         {% if announcement != undefined %}
+            <div class="container">
                 <a href="{{ announcement.url }}" target="_blank">
                     <div style="margin-top: 2rem;"
                          class="alert alert-primary"
                          role="alert" {# style="background-color: {{ announcement.color }}" #}>
-                        {{ announcement.text }}
+                         
                     </div>
                 </a>
-            
+            </div>
         {% endif %}
+            <div class="container">
+                    <div style="margin-top: 2rem;"
+                         class="alert ale"
+                         role="alert" {# style="background-color:none!important;" #}>
+                    </div>
+                </a>
+            </div>
     {% endif %}
-    </div>
+
     {% block content %}
         This is the default content
     {% endblock %}
+
 <footer class="footer">
     <div class="container">
         <hr>

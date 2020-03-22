@@ -154,6 +154,15 @@ describe('SubscriptionSubscriber', () => {
             expect(sub.details).toEqual(details);
         });
 
+        it('should set details to null if paypalId is undefined', async () => {
+            const sub = new SubscriptionEntity();
+            sub.paypalId = undefined;
+
+            await subscriber.afterLoad(sub);
+
+            expect(sub.details).toBe(null);
+        });
+
         it('should set details to null on paypal 404 errors', async () => {
             jest.spyOn(paypal, 'getSubscriptionDetails').mockRejectedValue({
                 response: {

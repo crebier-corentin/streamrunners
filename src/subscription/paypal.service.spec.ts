@@ -78,7 +78,7 @@ describe('PaypalService', () => {
             //Bearer token nock
             nock('https://api.sandbox.paypal.com')
                 .post('/v1/oauth2/token', { grant_type: 'client_credentials' })
-                .matchHeader('Authorization', 'Basic id:secret')
+                .matchHeader('Authorization', 'Basic aWQ6c2VjcmV0')
                 .reply(200, {
                     scope: 'scope',
                     access_token: '123abc',

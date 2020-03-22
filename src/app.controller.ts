@@ -33,12 +33,6 @@ export class AppController {
         //
     }
 
-    @Render('abonnements')
-    @Get('abonnements')
-    public abonnements(): void {
-        //
-    }
-
     @Render('contact')
     @Get('contact')
     public contact(): void {

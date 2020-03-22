@@ -14,14 +14,18 @@ export class SubscriptionSubscriber implements EntitySubscriberInterface<Subscri
     }
 
     public async afterLoad(entity: SubscriptionEntity): Promise<void> {
-        try {
-            entity.details = await this.paypal.getSubscriptionDetails(entity.paypalId);
-        } catch (e) {
-            //Paypal 404 error
-            if (isAxiosError(e) && e?.response?.status === 404) {
-                entity.details = null;
-            } else {
-                throw e;
+        if (entity.paypalId == undefined) {
+            entity.details = null;
+        } else {
+            try {
+                entity.details = await this.paypal.getSubscriptionDetails(entity.paypalId);
+            } catch (e) {
+                //Paypal 404 error
+                if (isAxiosError(e) && e?.response?.status === 404) {
+                    entity.details = null;
+                } else {
+                    throw e;
+                }
             }
         }
     }

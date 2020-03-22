@@ -10,8 +10,7 @@ import { PaypalOauthTokenResponse, PaypalSubscriptionCreate, PaypalSubscriptionD
 export class PaypalService {
     private readonly baseUrl: string;
 
-    private readonly clientId: string;
-    private readonly secret: string;
+    private readonly basicAuthToken: string;
 
     private bearerToken: string;
     private tokenExpireDate: moment.Moment = moment();
@@ -19,8 +18,9 @@ export class PaypalService {
     private readonly lock = new Semaphore(1);
 
     public constructor(config: ConfigService) {
-        this.clientId = config.get('PAYPAL_CLIENT_ID');
-        this.secret = config.get('PAYPAL_SECRET');
+        this.basicAuthToken = Buffer.from(`${config.get('PAYPAL_CLIENT_ID')}:${config.get('PAYPAL_SECRET')}`).toString(
+            'base64'
+        );
 
         if (config.get('PAYPAL_LIVE') === 'true') {
             this.baseUrl = 'https://api.paypal.com';
@@ -35,8 +35,14 @@ export class PaypalService {
             { grant_type: 'client_credentials' },
             {
                 headers: {
-                    Authorization: `Basic ${this.clientId}:${this.secret}`,
+                    Authorization: `Basic ${this.basicAuthToken}`,
+                    'Content-Type': 'application/x-www-form-urlencoded',
                 },
+                //To x-www-form-urlencoded
+                transformRequest: (jsonData: { [key: string]: string }) =>
+                    Object.entries(jsonData)
+                        .map(x => `${encodeURIComponent(x[0])}=${encodeURIComponent(x[1])}`)
+                        .join('&'),
             }
         );
 

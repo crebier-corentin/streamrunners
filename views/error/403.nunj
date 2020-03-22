@@ -316,7 +316,7 @@ li a:hover {
             <div class="central-body">
 
                 <img class="image-404" src="/img/403.png" width="300px">
-                <a href="/" class="btn-go-home" target="_blank">RETOUR A L'ACCUEIL</a>
+                <a href="/" class="btn-go-home">RETOUR A L'ACCUEIL</a>
 
             </div>
             <div class="objects">

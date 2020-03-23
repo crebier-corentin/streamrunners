@@ -1,9 +1,10 @@
-import { Body, Controller, Get, Post, Query, Render, Req, Res, UseFilters, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Post, Query, Redirect, Req, Res, UseFilters, UseGuards } from '@nestjs/common';
 import { Request, Response } from 'express';
 import { User } from '../common/decorator/user.decorator';
 import { FlashAndRedirectUserErrorFilter } from '../common/filter/flash-and-redirect-user-error.filter';
 import { AuthenticatedGuard } from '../common/guard/authenticated.guard';
 import { UserEntity } from '../user/user.entity';
+import { SubscriptionLevel } from './subscription.interfaces';
 import { SubscriptionService } from './subscription.service';
 
 @UseGuards(AuthenticatedGuard)
@@ -11,12 +12,20 @@ import { SubscriptionService } from './subscription.service';
 export class SubscriptionController {
     public constructor(private readonly subscriptionService: SubscriptionService) {}
 
-    @Render('subscription/shop')
     @Get()
-    public shop(@Req() req: Request): { error: any } {
-        return {
+    public index(@Req() req: Request, @Res() res: Response, @User() user: UserEntity): void {
+        const data = {
+            success: req.flash('success'),
             error: req.flash('error'),
         };
+
+        if (user.subscriptionLevel === SubscriptionLevel.None) {
+            return res.render('subscription/shop', data);
+        }
+        //Has subscription
+        else {
+            return res.render('subscription/info', data);
+        }
     }
 
     @UseFilters(new FlashAndRedirectUserErrorFilter('/subscription'))
@@ -26,14 +35,15 @@ export class SubscriptionController {
         res.redirect(url);
     }
 
+    @Redirect('subscription/')
     @Get('paypal/return')
-    public paypalReturn(): string {
-        return 'placeholder';
+    public paypalReturn(@Req() req: Request): void {
+        req.flash('success', 'Vous êtes désormais abonnés !');
     }
 
+    @Redirect('subscription/')
     @Get('paypal/cancel')
-    public async paypalCancel(@Query('subscription_id') subId: string, @User() user: UserEntity): Promise<string> {
+    public async paypalCancel(@Query('subscription_id') subId: string, @User() user: UserEntity): Promise<void> {
         await this.subscriptionService.cancelPending(user, subId);
-        return 'placeholder';
     }
 }

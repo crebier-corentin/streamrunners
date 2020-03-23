@@ -3,10 +3,10 @@ import { ServiceUnavailableException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
 import { NestExpressApplication } from '@nestjs/platform-express';
-import flash = require('connect-flash');
 import * as cookieParser from 'cookie-parser';
 import * as cookieSession from 'cookie-session';
 import * as helmet from 'helmet';
+import * as moment from 'moment';
 import * as nunjucks from 'nunjucks';
 import * as passport from 'passport';
 import { AnnouncementService } from './announcement/announcement.service';
@@ -16,6 +16,8 @@ import { ViewFilter } from './common/filter/view.filter';
 import { BanGuard } from './common/guard/ban.guard';
 import { VIEW_DIR_PATH } from './common/utils/constants';
 import { PartnerService } from './partner/partner.service';
+import { SubscriptionLevel, SubscriptionLevelToFrench } from './subscription/subscription.interfaces';
+import flash = require('connect-flash');
 
 async function bootstrap(): Promise<void> {
     const app = await NestFactory.create<NestExpressApplication>(AppModule);
@@ -58,6 +60,8 @@ async function bootstrap(): Promise<void> {
             express: app,
         })
         .addGlobal('HOSTNAME', config.get('HOSTNAME'))
+        .addGlobal('SubscriptionLevelToFrench', SubscriptionLevelToFrench)
+        .addGlobal('SubscriptionLevel', SubscriptionLevel)
         //Await nunjucks (https://www.npmjs.com/package/nunjucks-await-filter)
         .addFilter(
             'await',
@@ -76,7 +80,12 @@ async function bootstrap(): Promise<void> {
                 }
             },
             true
-        );
+        )
+        .addFilter('date', function(date: Date | moment.Moment | string, format: string) {
+            return moment(date)
+                .locale('fr')
+                .format(format);
+        });
     app.setViewEngine('nunj');
 
     //Pass req to template engine

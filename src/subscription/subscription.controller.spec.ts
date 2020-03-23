@@ -1,6 +1,8 @@
 import { Test, TestingModule } from '@nestjs/testing';
+import { Request, Response } from 'express';
 import { UserEntity } from '../user/user.entity';
 import { SubscriptionController } from './subscription.controller';
+import { SubscriptionLevel } from './subscription.interfaces';
 import { SubscriptionService } from './subscription.service';
 
 describe('Subscription Controller', () => {
@@ -29,15 +31,54 @@ describe('Subscription Controller', () => {
         expect(controller).toBeDefined();
     });
 
-    describe('shop', () => {
-        it('should return the error flash', () => {
-            const req = {
-                flash: jest.fn().mockReturnValue(['error1', 'error2']),
-            };
+    describe('index', () => {
+        let req: Request;
+        let res: Response;
+        let user: UserEntity;
 
-            const res = controller.shop(req as any);
-            expect(res.error).toEqual(['error1', 'error2']);
+        beforeEach(() => {
+            req = {
+                flash: jest.fn((name: string) => {
+                    switch (name) {
+                        case 'success':
+                            return ['success1', 'success2'];
+                        case 'error':
+                            return ['error1', 'error2'];
+                    }
+                }),
+            } as any;
+
+            res = {
+                render: jest.fn(),
+            } as any;
+
+            user = new UserEntity();
         });
+
+        it('should render shop if the user has no active subscription', () => {
+            user.subscriptionLevel = SubscriptionLevel.None;
+
+            controller.index(req, res, user);
+
+            expect(res.render).toHaveBeenCalledWith('subscription/shop', {
+                success: ['success1', 'success2'],
+                error: ['error1', 'error2'],
+            });
+        });
+
+        it.each([SubscriptionLevel.VIP, SubscriptionLevel.Diamond])(
+            'should render shop if the user has an active subscription (%)',
+            lvl => {
+                user.subscriptionLevel = lvl;
+
+                controller.index(req, res, user);
+
+                expect(res.render).toHaveBeenCalledWith('subscription/info', {
+                    success: ['success1', 'success2'],
+                    error: ['error1', 'error2'],
+                });
+            }
+        );
     });
 
     describe('buy', () => {

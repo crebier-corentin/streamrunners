@@ -42,14 +42,7 @@
                 <div class="card-body">
                     <!--  <img style="max-width: 100%;" :src="info.icon" height="250px" alt="icon" /> -->
 
-                    <ul class="list-group">
-                        <li class="list-group-item list-group-item-warning bonus">Quatres places dans la file</li>
-                        <li class="list-group-item list-group-item-warning bonus">Mutliplicateur x1.5 des points</li>
-                        <li class="list-group-item list-group-item-danger bonus">Non prioritaire pour le bot twitch (en
-                            développement)
-                        </li>
-                        <li class="list-group-item list-group-item-success bonus">Pas de publicité sur le site</li>
-                    </ul>
+                    {% include './VIP.nunj' %}
 
                     <form action="/subscription/buy" method="post">
                         <input type="hidden" name="type" value="vip">
@@ -67,14 +60,7 @@
                 <div class="card-body">
                     <!--  <img style="max-width: 100%;" :src="info.icon" height="250px" alt="icon" /> -->
 
-                    <ul class="list-group">
-                        <li class="list-group-item list-group-item-success bonus">Six places dans la file</li>
-                        <li class="list-group-item list-group-item-success bonus">Mutliplicateur x2 des points</li>
-                        <li class="list-group-item list-group-item-success bonus">Prioritaire pour le bot twitch (en
-                            développement)
-                        </li>
-                        <li class="list-group-item list-group-item-success bonus">Pas de publicité sur le site</li>
-                    </ul>
+                    {% include './Diamond.nunj' %}
 
                     <form action="/subscription/buy" method="post">
                         <input type="hidden" name="type" value="diamond">

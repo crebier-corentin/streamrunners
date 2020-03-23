@@ -121,6 +121,8 @@ export class UserEntity {
     public updatedAt: Date;
 
     //Loaded from subscriber
+    public currentSubscription: SubscriptionEntity | undefined;
+
     public subscriptionLevel: SubscriptionLevel;
 
     public changePoints(amount: number): void {

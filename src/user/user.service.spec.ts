@@ -3,9 +3,6 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { DiscordBotService } from '../discord/discord-bot.service';
-import { SubscriptionEntity } from '../subscription/subscription.entity';
-import { SubscriptionLevel } from '../subscription/subscription.interfaces';
-import { SubscriptionService } from '../subscription/subscription.service';
 import { TwitchUser } from '../twitch/twitch.interfaces';
 import { TwitchService } from '../twitch/twitch.service';
 import { UserEntity } from './user.entity';
@@ -17,7 +14,6 @@ describe('UserService', () => {
     let repo: Repository<UserEntity>;
     let twitch: TwitchService;
     let discord: DiscordBotService;
-    let subscription: SubscriptionService;
 
     beforeEach(async () => {
         const module: TestingModule = await Test.createTestingModule({
@@ -39,12 +35,6 @@ describe('UserService', () => {
                         updateSiteUserCount: jest.fn(),
                     },
                 },
-                {
-                    provide: SubscriptionService,
-                    useValue: {
-                        getCurrentSubscription: jest.fn(),
-                    },
-                },
             ],
         }).compile();
 
@@ -52,7 +42,6 @@ describe('UserService', () => {
         repo = module.get<Repository<UserEntity>>(getRepositoryToken(UserEntity));
         twitch = module.get<TwitchService>(TwitchService);
         discord = module.get<DiscordBotService>(DiscordBotService);
-        subscription = module.get<SubscriptionService>(SubscriptionService);
         // @ts-ignore
         jest.spyOn(repo, 'save').mockImplementation(entity => entity);
 
@@ -116,97 +105,6 @@ describe('UserService', () => {
 
             await service.changePointsSave(user, 400);
             expect(user.points).toBe(1400);
-        });
-    });
-
-    describe('getSubscriptionLevel', () => {
-        let user: UserEntity;
-        let sub: SubscriptionEntity;
-
-        beforeEach(() => {
-            user = new UserEntity();
-            user.id = 1;
-            sub = new SubscriptionEntity();
-        });
-
-        it('should return SubscriptionLevel.None if there is no current subscription', () => {
-            jest.spyOn(subscription, 'getCurrentSubscription').mockResolvedValue(undefined);
-
-            return expect(service.getSubscriptionLevel(user)).resolves.toBe(SubscriptionLevel.None);
-        });
-
-        it('should return SubscriptionLevel.None if subscription.details is null', () => {
-            sub.details = null;
-            jest.spyOn(subscription, 'getCurrentSubscription').mockResolvedValue(sub);
-
-            return expect(service.getSubscriptionLevel(user)).resolves.toBe(SubscriptionLevel.None);
-        });
-
-        it.each([SubscriptionLevel.VIP, SubscriptionLevel.Diamond])(
-            'should return %s if subscription.details is ACTIVE',
-            lvl => {
-                sub.level = lvl;
-                sub.details = {
-                    status: 'ACTIVE',
-                };
-                jest.spyOn(subscription, 'getCurrentSubscription').mockResolvedValue(sub);
-
-                return expect(service.getSubscriptionLevel(user)).resolves.toBe(lvl);
-            }
-        );
-
-        it.each([SubscriptionLevel.VIP, SubscriptionLevel.Diamond])(
-            'should return %s if subscription.details is not ACTIVE and not expired',
-            lvl => {
-                sub.level = lvl;
-                sub.details = {
-                    status: 'CANCELLED',
-                    billing_info: {
-                        last_payment: {
-                            amount: {
-                                value: '10.00',
-                                currency_code: 'EUR',
-                            },
-                            time: '2020-01-01 12:00:00',
-                        },
-                        outstanding_balance: {
-                            value: '0',
-                            currency_code: 'EUR',
-                        },
-                        failed_payments_count: 0,
-                    },
-                };
-                jest.spyOn(subscription, 'getCurrentSubscription').mockResolvedValue(sub);
-
-                MockDate.set('2020-01-05 12:00:00');
-
-                return expect(service.getSubscriptionLevel(user)).resolves.toBe(lvl);
-            }
-        );
-
-        it('should return SubscriptionLevel.None if subscription.details is expired', () => {
-            sub.details = {
-                status: 'CANCELLED',
-                billing_info: {
-                    last_payment: {
-                        amount: {
-                            value: '10.00',
-                            currency_code: 'EUR',
-                        },
-                        time: '2020-01-01 12:00:00',
-                    },
-                    outstanding_balance: {
-                        value: '0',
-                        currency_code: 'EUR',
-                    },
-                    failed_payments_count: 0,
-                },
-            };
-            jest.spyOn(subscription, 'getCurrentSubscription').mockResolvedValue(sub);
-
-            MockDate.set('2020-02-02 12:00:00');
-
-            return expect(service.getSubscriptionLevel(user)).resolves.toBe(SubscriptionLevel.None);
         });
     });
 

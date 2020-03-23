@@ -7,11 +7,10 @@ import { PaypalService } from './paypal.service';
 import { SubscriptionEntity } from './subscription.entity';
 import { SubscriptionLevel } from './subscription.interfaces';
 import { SubscriptionService } from './subscription.service';
-import MockDate = require('mockdate');
-import { PaypalSubscriptionDetails } from './paypal.interfaces';
 import { ConfigService } from '@nestjs/config';
 import { UserErrorException } from '../common/exception/user-error.exception';
 import { HttpException } from '@nestjs/common';
+import MockDate = require('mockdate');
 
 describe('SubscriptionService', () => {
     let service: SubscriptionService;

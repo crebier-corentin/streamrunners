@@ -1,0 +1,6 @@
+<ul class="list-group">
+    <li class="list-group-item list-group-item-warning bonus">Quatres places dans la file</li>
+    <li class="list-group-item list-group-item-warning bonus">Mutliplicateur x1.5 des points</li>
+    <li class="list-group-item list-group-item-danger bonus">Non prioritaire pour le bot twitch (en développement)</li>
+    <li class="list-group-item list-group-item-success bonus">Pas de publicité sur le site</li>
+</ul>

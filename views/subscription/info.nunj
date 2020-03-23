@@ -1,0 +1,59 @@
+{% set title = "StreamRunners - Abonnements" %}
+{% extends "../master.nunj" %}
+
+{% block content %}
+    <div class="container">
+        <h1 class="text-center">Votre abonnement</h1>
+        <hr>
+
+        {% if success | length %}
+            <div class="alert alert-danger">
+                {{ success }}
+            </div>
+        {% endif %}
+
+        {% if error | length %}
+            <div class="alert alert-danger">
+                {{ error }}
+            </div>
+        {% endif %}
+
+        <div class="card">
+
+            <div class="card-header">
+                Abonnement {{ SubscriptionLevelToFrench(req.user.subscriptionLevel) }}
+                {# Icon #}
+                <i class="fas fa-{{ 'star' if req.user.subscriptionLevel === SubscriptionLevel.VIP else 'gem' }}"
+                   aria-hidden="true"></i>
+
+            </div>
+            <div class="card-body">
+                <div class="card-text">
+                    {# Active #}
+                    {% if req.user.currentSubscription.isActive() %}
+                        <p>Prochaine date de payment
+                            : {{ req.user.currentSubscription.details.billing_info.next_billing_time | date('LLL') }}</p>
+                        <p>Prix : {{ '4.99' if req.user.subscriptionLevel === SubscriptionLevel.VIP else '9.99' }}
+                            €/mois</p>
+
+
+
+                    {% else %}
+
+                    {% endif %}
+
+                    {# Advantages #}
+                    {% if req.user.subscriptionLevel === SubscriptionLevel.VIP %}
+                        {% include './VIP.nunj' %}
+                    {% else %}
+                        {% include './Diamond.nunj' %}
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+{% endblock %}

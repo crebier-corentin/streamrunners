@@ -30,6 +30,7 @@ describe('SubscriptionService', () => {
                     useValue: {
                         getSubscriptionDetails: jest.fn(),
                         createSubscription: jest.fn(),
+                        cancelSubscription: jest.fn(),
                     },
                 },
                 {
@@ -181,6 +182,41 @@ describe('SubscriptionService', () => {
             await service.cancelPending(user, 'SUB-TEST');
 
             expect(sub.current).toBe(false);
+        });
+    });
+
+    describe('cancelCurrent', () => {
+        let user: UserEntity;
+
+        beforeEach(() => {
+            user = new UserEntity();
+            user.id = 1;
+        });
+
+        it('should throw if the user has no current subscription', () => {
+            user.currentSubscription = undefined;
+
+            return expect(service.cancelCurrent(user)).rejects.toBeInstanceOf(UserErrorException);
+        });
+
+        it('should throw if the current subscription is not ACTIVE', () => {
+            user.currentSubscription = new SubscriptionEntity();
+            user.currentSubscription.paypalId = 'SUB-test';
+            user.currentSubscription.details = { status: 'CANCELLED' };
+
+            return expect(service.cancelCurrent(user)).rejects.toBeInstanceOf(UserErrorException);
+        });
+
+        it('should call PaypalService.cancelSubscription with the correct paypalId', async () => {
+            const mockedCancel = jest.spyOn(paypal, 'cancelSubscription');
+
+            user.currentSubscription = new SubscriptionEntity();
+            user.currentSubscription.paypalId = 'SUB-test';
+            user.currentSubscription.details = { status: 'ACTIVE' };
+
+            await service.cancelCurrent(user);
+
+            expect(mockedCancel).toHaveBeenCalledWith('SUB-test', expect.anything());
         });
     });
 });

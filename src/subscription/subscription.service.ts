@@ -116,4 +116,13 @@ export class SubscriptionService extends EntityService<SubscriptionEntity> {
         sub.current = false;
         await this.repo.save(sub);
     }
+
+    public async cancelCurrent(user: UserEntity): Promise<void> {
+        if (user.currentSubscription == undefined) throw new UserErrorException("Vous n'avez pas d'abonnement actif.");
+
+        if (user.currentSubscription.details.status !== 'ACTIVE')
+            throw new UserErrorException("Votre abonnement n'est pas actif.");
+
+        await this.paypal.cancelSubscription(user.currentSubscription.paypalId, '');
+    }
 }

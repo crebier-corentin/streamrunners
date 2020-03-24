@@ -46,6 +46,15 @@ export class SubscriptionController {
         res.redirect(url);
     }
 
+    @UseFilters(new FlashAndRedirectUserErrorFilter('/subscription'))
+    @Redirect('/subscription')
+    @Post('cancel')
+    public async cancel(@Req() req: Request, @User() user: UserEntity): Promise<void> {
+        await this.subscriptionService.cancelCurrent(user);
+
+        req.flash('success', 'Abonnement annulé.');
+    }
+
     @Redirect('subscription/')
     @Get('paypal/return')
     public paypalReturn(@Req() req: Request): void {

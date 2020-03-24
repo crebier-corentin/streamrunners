@@ -47,7 +47,7 @@ export class SubscriptionEntity {
         return !this.isExpired();
     }
 
-    public expiringDate(): moment.Moment | null {
+    public get expirationDate(): moment.Moment | null {
         const lastPayDateStr = this.details?.billing_info?.last_payment?.time;
         if (lastPayDateStr) {
             return moment(lastPayDateStr).add(1, 'month');
@@ -57,9 +57,9 @@ export class SubscriptionEntity {
     }
 
     public isExpired(): boolean {
-        const date = this.expiringDate();
+        const expirationDate = this.expirationDate;
 
-        if (date == null) return true;
-        return moment() >= this.expiringDate();
+        if (expirationDate == null) return true;
+        return moment() >= expirationDate;
     }
 }

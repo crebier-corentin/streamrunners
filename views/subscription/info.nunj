@@ -7,7 +7,7 @@
         <hr>
 
         {% if success | length %}
-            <div class="alert alert-danger">
+            <div class="alert alert-success">
                 {{ success }}
             </div>
         {% endif %}
@@ -30,16 +30,27 @@
             <div class="card-body">
                 <div class="card-text">
                     {# Active #}
-                    {% if req.user.currentSubscription.isActive() %}
+                    {% if req.user.currentSubscription.details.status === 'ACTIVE' %}
+                        <p>
+                            Statut : <b>Actif</b>
+                        </p>
                         <p>Prochaine date de payment
                             : {{ req.user.currentSubscription.details.billing_info.next_billing_time | date('LLL') }}</p>
                         <p>Prix : {{ '4.99' if req.user.subscriptionLevel === SubscriptionLevel.VIP else '9.99' }}
                             €/mois</p>
 
+                        <form action="/subscription/cancel"
+                              method="post"
+                              onsubmit="return confirm('Êtes-vous sûrs de vouloir annuler votre abonnement?\nIl expirera {{ req.user.currentSubscription.expirationDate | date('LLL') }}.');">
+                            <button type="submit" class="btn btn-danger">Annuler l'abonnement</button>
+                        </form>
 
-
+                        {# Cancelled #}
                     {% else %}
-
+                        <p>
+                            Statut : <b>Annulé</b>
+                        </p>
+                        <p>Date d'expiration : {{ req.user.currentSubscription.expirationDate | date('LLL') }}</p>
                     {% endif %}
 
                     {# Advantages #}

@@ -13,6 +13,6 @@ export function SubscriptionLevelToFrench(lvl: SubscriptionLevel): string {
         case SubscriptionLevel.VIP:
             return 'V.I.P.';
         case SubscriptionLevel.Diamond:
-            return 'Diamand';
+            return 'Diamant';
     }
 }

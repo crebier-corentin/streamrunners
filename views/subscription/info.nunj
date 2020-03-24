@@ -32,9 +32,9 @@
                     {# Active #}
                     {% if req.user.currentSubscription.details.status === 'ACTIVE' %}
                         <p>
-                            Statut : <b>Actif</b>
+                            Statut : <b class="green">Actif</b>
                         </p>
-                        <p>Prochaine date de payment
+                        <p>Prochaine date de paiement
                             : {{ req.user.currentSubscription.details.billing_info.next_billing_time | date('LLL') }}</p>
                         <p>Prix : {{ '4.99' if req.user.subscriptionLevel === SubscriptionLevel.VIP else '9.99' }}
                             €/mois</p>

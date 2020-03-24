@@ -58,7 +58,7 @@ export class SubscriptionController {
     @Redirect('/subscription')
     @Get('paypal/return')
     public paypalReturn(@Req() req: Request): void {
-        req.flash('success', 'Vous êtes désormais abonnés !');
+        req.flash('success', 'Vous êtes désormais abonné !');
     }
 
     @Redirect('/subscription')

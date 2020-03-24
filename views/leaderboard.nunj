@@ -5,39 +5,41 @@
     <div class="container">
 
 
-    	<ul class="nav nav-tabs justify-content-center">
-		  <li class="nav-item">
-		    <a class="nav-link active" href="#day">Aujourd'hui</a>
-		  </li>
-		  <li class="nav-item">
-		    <a class="nav-link" href="#week">Semaine</a>
-		  </li>
-		  <li class="nav-item">
-		    <a class="nav-link" href="#month">Mois</a>
-		  </li>
-		  <li class="nav-item">
-		    <a class="nav-link" href="#years">Année</a>
-		  </li>
-		  <li class="nav-item">
-		    <a class="nav-link" href="#life">Vie</a>
-		  </li>
-		</ul>
+        <ul class="nav nav-tabs justify-content-center">
+            <li class="nav-item">
+                <a class="nav-link active" href="#day" data-toggle="tab" data-height="true">Aujourd'hui</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#week" data-toggle="tab" data-height="true">Semaine</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#month" data-toggle="tab" data-height="true">Mois</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#years" data-toggle="tab" data-height="true">Année</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#life" data-toggle="tab" data-height="true">Vie</a>
+            </li>
+        </ul>
 
-		<div class="tab-content" id="myTabContent">
-	        <div class="tab-pane fade show active" id="day"><img src="/leaderboard/image?unitOfTime=day" alt="Aujourd'hui" class="d-block mx-auto my-2 img-fluid"></div>
-	        <div class="tab-pane fade" id="week"><img src="/leaderboard/image?unitOfTime=isoWeek" alt="Semaine" class="d-block mx-auto my-2 img-fluid"></div>
-	        <div class="tab-pane fade" id="month"><img src="/leaderboard/image?unitOfTime=month" alt="Mois" class="d-block mx-auto my-2 img-fluid"></div>
-	        <div class="tab-pane fade" id="years"><img src="/leaderboard/image?unitOfTime=year" alt="Année" class="d-block mx-auto my-2 img-fluid"></div>
-	        <div class="tab-pane fade" id="life"><img src="/leaderboard/image/" alt="Lifetime" class="d-block mx-auto my-2 img-fluid"></div>
-	    </div>
+        <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade show active" id="day"><img src="/leaderboard/image?unitOfTime=day"
+                                                                 alt="Aujourd'hui"
+                                                                 class="d-block mx-auto my-2 img-fluid"></div>
+            <div class="tab-pane fade" id="week"><img src="/leaderboard/image?unitOfTime=isoWeek"
+                                                      alt="Semaine"
+                                                      class="d-block mx-auto my-2 img-fluid"></div>
+            <div class="tab-pane fade" id="month"><img src="/leaderboard/image?unitOfTime=month"
+                                                       alt="Mois"
+                                                       class="d-block mx-auto my-2 img-fluid"></div>
+            <div class="tab-pane fade" id="years"><img src="/leaderboard/image?unitOfTime=year"
+                                                       alt="Année"
+                                                       class="d-block mx-auto my-2 img-fluid"></div>
+            <div class="tab-pane fade" id="life"><img src="/leaderboard/image/"
+                                                      alt="Lifetime"
+                                                      class="d-block mx-auto my-2 img-fluid"></div>
+        </div>
 
     </div>
 {% endblock %}
-
-
-<script>
-$('#myTab a').on('click', function (e) {
- e.preventDefault()
- $(this).tab('show')
-})
-</script>

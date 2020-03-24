@@ -82,17 +82,19 @@
 <div class="stars">
     <div class="custom-navbar">
         <div class="brand-logo">
-            <img src="/img/navbrand.png" width="160px">
+            <a href="https://streamrunners.fr"><img src="/img/navbrand.png" width="160px"></a>
         </div>
         <div class="navbar-links">
             <ul>
                 <li><a href="/"><i class="fas fa-home"></i> Accueil</a></li>
+                <li><a href="/leaderboard"><i class="fas fa-trophy"></i> Classement</a></li>
 
                 {% if req.isAuthenticated() %}
 
                     <li><a href="/coupon"><i class="fas fa-ticket-alt"></i> Coupon</a></li>
                     <li><a href="/inventory"><i class="fas fa-suitcase"></i> Inventaire</a></li>
                     <li><a href="/raffle"><i class="fas fa-boxes"></i> GiveAway</a></li>
+                    <li><a href="/subscription"><i class="fas fa-shopping-cart"></i> Abonnements</a></li>
 
                     {% if req.user.moderator %}
 

@@ -934,3 +934,17 @@ a:hover {
 .bonus {
     width: 100%;
 }
+
+.tab-content>.tab-pane {
+    display: none;
+}
+.fade:not(.show) {
+    opacity: 0;
+}
+.fade {
+    transition: opacity .15s linear;
+}
+
+.tab-content>.active {
+    display: block;
+}

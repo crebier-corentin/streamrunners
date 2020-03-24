@@ -59,7 +59,11 @@ export class SubscriptionService extends EntityService<SubscriptionEntity> {
             .getOne();
     }
 
-    public async createSubscriptionAndGetRedirectUrl(user: UserEntity, type: string): Promise<string> {
+    public async createSubscriptionAndGetRedirectUrl(
+        user: UserEntity,
+        type: string,
+        paypalRequestKey: string
+    ): Promise<string> {
         //Validate type
         if (type !== SubscriptionLevel.VIP && type !== SubscriptionLevel.Diamond)
             throw new UserErrorException("Type d'abonnement inconnu.");
@@ -70,20 +74,24 @@ export class SubscriptionService extends EntityService<SubscriptionEntity> {
             throw new UserErrorException(`Vous avez déjà un abonnement actif (${SubscriptionLevelToFrench(type)}).`);
 
         //Create paypal sub
-        const details = await this.paypal.createSubscription({
-            plan_id: this.plans.get(type),
-            application_context: {
-                brand_name: 'Streamrunners',
-                locale: 'fr-FR',
-                shipping_preference: 'NO_SHIPPING',
-                payment_method: {
-                    payee_preferred: 'IMMEDIATE_PAYMENT_REQUIRED',
-                    payer_selected: 'PAYPAL',
+        const details = await this.paypal.createSubscription(
+            {
+                plan_id: this.plans.get(type),
+                application_context: {
+                    brand_name: 'Streamrunners',
+                    locale: 'fr-FR',
+                    shipping_preference: 'NO_SHIPPING',
+                    payment_method: {
+                        payee_preferred: 'IMMEDIATE_PAYMENT_REQUIRED',
+                        payer_selected: 'PAYPAL',
+                    },
+                    return_url: this.returnUrl,
+                    cancel_url: this.cancelUrl,
                 },
-                return_url: this.returnUrl,
-                cancel_url: this.cancelUrl,
             },
-        });
+            'minimal',
+            paypalRequestKey
+        );
 
         const sub = new SubscriptionEntity();
         sub.paypalId = details.id;

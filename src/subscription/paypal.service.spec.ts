@@ -151,6 +151,48 @@ describe('PaypalService', () => {
                 expect(sub).toEqual(returnObject);
             });
 
+            it('should send a request with PayPal-Request-Id if provided', async () => {
+                const returnObject = {
+                    id: 'I-BW452GLLEP1G',
+                    status: 'APPROVAL_PENDING',
+                    links: [
+                        {
+                            href: 'https://www.paypal.com/webapps/billing/subscriptions?ba_token=BA-2M539689T3856352J',
+                            rel: 'approve',
+                            method: 'GET',
+                        },
+                        {
+                            href: 'https://api.paypal.com/v1/billing/subscriptions/I-BW452GLLEP1G',
+                            rel: 'edit',
+                            method: 'PATCH',
+                        },
+                        {
+                            href: 'https://api.paypal.com/v1/billing/subscriptions/I-BW452GLLEP1G',
+                            rel: 'self',
+                            method: 'GET',
+                        },
+                    ],
+                };
+
+                nock('https://api.sandbox.paypal.com')
+                    .post('/v1/billing/subscriptions', { plan_id: 'P-5ML4271244454362WXNWU5NQ' })
+                    .matchHeader('Content-Type', 'application/json')
+                    .matchHeader('Authorization', 'Bearer 123abc')
+                    .matchHeader('Prefer', 'return=minimal')
+                    .matchHeader('PayPal-Request-Id', 'test-key')
+                    .reply(201, returnObject);
+
+                const sub = await service.createSubscription(
+                    {
+                        plan_id: 'P-5ML4271244454362WXNWU5NQ',
+                    },
+                    'minimal',
+                    'test-key'
+                );
+
+                expect(sub).toEqual(returnObject);
+            });
+
             it('should return the full subscription object with prefer=representation', async () => {
                 const returnObject = {
                     id: 'I-BW452GLLEP1G',

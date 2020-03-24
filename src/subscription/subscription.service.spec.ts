@@ -76,9 +76,9 @@ describe('SubscriptionService', () => {
         });
 
         it('should throw if type is not VIP or Diamond', () => {
-            return expect(service.createSubscriptionAndGetRedirectUrl(user, 'none')).rejects.toBeInstanceOf(
-                UserErrorException
-            );
+            return expect(
+                service.createSubscriptionAndGetRedirectUrl(user, 'none', 'example-key')
+            ).rejects.toBeInstanceOf(UserErrorException);
         });
 
         it('should throw if the user already has an active subscription', () => {
@@ -88,7 +88,7 @@ describe('SubscriptionService', () => {
             };
             jest.spyOn(service, 'getCurrentSubscription').mockResolvedValue(sub);
 
-            return expect(service.createSubscriptionAndGetRedirectUrl(user, lvl)).rejects.toBeInstanceOf(
+            return expect(service.createSubscriptionAndGetRedirectUrl(user, lvl, 'example-key')).rejects.toBeInstanceOf(
                 UserErrorException
             );
         });
@@ -118,12 +118,14 @@ describe('SubscriptionService', () => {
             });
             const mockSave = jest.spyOn(repo, 'save');
 
-            const url = await service.createSubscriptionAndGetRedirectUrl(user, lvl);
+            const url = await service.createSubscriptionAndGetRedirectUrl(user, lvl, 'example-key');
 
             const paypalArg = mockPaypal.mock.calls[0][0];
             expect(paypalArg.plan_id).toBe(planId);
             expect(paypalArg.application_context.return_url).toBe('https://example.com/subscription/paypal/return');
             expect(paypalArg.application_context.cancel_url).toBe('https://example.com/subscription/paypal/cancel');
+
+            expect(mockPaypal.mock.calls[0][2]).toBe('example-key');
 
             const expectedSub = new SubscriptionEntity();
             expectedSub.paypalId = 'SUB-TEST';

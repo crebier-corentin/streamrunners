@@ -79,22 +79,29 @@ export class PaypalService {
     //prettier-ignore
     public async createSubscription(data: PaypalSubscriptionCreate): Promise<Pick<PaypalSubscriptionDetails, 'id' | 'status' | 'links'>>;
     //prettier-ignore
-    public async createSubscription(data: PaypalSubscriptionCreate, prefer: 'minimal'): Promise<Pick<PaypalSubscriptionDetails, 'id' | 'status' | 'links'>>;
+    public async createSubscription(data: PaypalSubscriptionCreate, prefer: 'minimal', paypalRequestId?: string): Promise<Pick<PaypalSubscriptionDetails, 'id' | 'status' | 'links'>>;
     //prettier-ignore
-    public async createSubscription(data: PaypalSubscriptionCreate, prefer: 'representation'): Promise<PaypalSubscriptionDetails>;
+    public async createSubscription(data: PaypalSubscriptionCreate, prefer: 'representation', paypalRequestId?: string): Promise<PaypalSubscriptionDetails>;
     //prettier-ignore
     public async createSubscription(
         data: PaypalSubscriptionCreate,
         prefer: 'minimal' | 'representation' = 'minimal',
+        paypalRequestId?: string,
     ): Promise<Pick<PaypalSubscriptionDetails, 'id' | 'status' | 'links'> | PaypalSubscriptionDetails> {
+
+        const headers = {
+            Prefer: `return=${prefer}`,
+        };
+
+        if (paypalRequestId != undefined) {
+            headers['PayPal-Request-Id'] = paypalRequestId;
+        }
 
         const request: AxiosRequestConfig = {
             url: `${this.baseUrl}/v1/billing/subscriptions`,
             method: 'POST',
             data,
-            headers: {
-                Prefer: `return=${prefer}`,
-            },
+            headers,
         };
 
         const response = await this.makeRequest(request);

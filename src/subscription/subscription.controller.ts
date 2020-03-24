@@ -1,10 +1,10 @@
-import { Body, Controller, Get, Post, Query, Redirect, Req, Res, UseFilters, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Post, Query, Redirect, Req, Res, Session, UseFilters, UseGuards } from '@nestjs/common';
 import { Request, Response } from 'express';
+import { v4 as uuidv4 } from 'uuid';
 import { User } from '../common/decorator/user.decorator';
 import { FlashAndRedirectUserErrorFilter } from '../common/filter/flash-and-redirect-user-error.filter';
 import { AuthenticatedGuard } from '../common/guard/authenticated.guard';
 import { UserEntity } from '../user/user.entity';
-import { SubscriptionLevel } from './subscription.interfaces';
 import { SubscriptionService } from './subscription.service';
 
 @UseGuards(AuthenticatedGuard)
@@ -13,25 +13,36 @@ export class SubscriptionController {
     public constructor(private readonly subscriptionService: SubscriptionService) {}
 
     @Get()
-    public index(@Req() req: Request, @Res() res: Response, @User() user: UserEntity): void {
+    public index(@Req() req: Request, @Res() res: Response, @Session() session, @User() user: UserEntity): void {
         const data = {
             success: req.flash('success'),
             error: req.flash('error'),
         };
 
-        if (user.subscriptionLevel === SubscriptionLevel.None) {
-            return res.render('subscription/shop', data);
-        }
         //Has subscription
-        else {
-            return res.render('subscription/info', data);
+        if (user.currentSubscription?.isActive()) {
+            res.render('subscription/info', data);
+        } else {
+            //Generate PayPal-Request-Id
+            session.createSubscriptionKey = uuidv4();
+
+            res.render('subscription/shop', data);
         }
     }
 
     @UseFilters(new FlashAndRedirectUserErrorFilter('/subscription'))
     @Post('buy')
-    public async buy(@Body('type') type: string, @User() user: UserEntity, @Res() res: Response): Promise<void> {
-        const url = await this.subscriptionService.createSubscriptionAndGetRedirectUrl(user, type);
+    public async buy(
+        @Body('type') type: string,
+        @Res() res: Response,
+        @Session() session,
+        @User() user: UserEntity
+    ): Promise<void> {
+        const url = await this.subscriptionService.createSubscriptionAndGetRedirectUrl(
+            user,
+            type,
+            session.createSubscriptionKey
+        );
         res.redirect(url);
     }
 

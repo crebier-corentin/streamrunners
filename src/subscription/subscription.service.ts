@@ -70,8 +70,9 @@ export class SubscriptionService extends EntityService<SubscriptionEntity> {
 
         //Check if the user has any active subscriptions
         const current = await this.getCurrentSubscription(user);
-        if (current?.isActive())
+        if (current?.isActive()) {
             throw new UserErrorException(`Vous avez déjà un abonnement actif (${SubscriptionLevelToFrench(type)}).`);
+        }
 
         //Create paypal sub
         const details = await this.paypal.createSubscription(
@@ -100,6 +101,12 @@ export class SubscriptionService extends EntityService<SubscriptionEntity> {
         sub.current = true;
 
         await this.save(sub);
+
+        //Disable current one
+        if (current != undefined) {
+            current.current = false;
+            await this.save(current);
+        }
 
         //Return approve redirect link
         return details.links.find(l => l.rel === 'approve').href;

@@ -55,13 +55,13 @@ export class SubscriptionController {
         req.flash('success', 'Abonnement annulé.');
     }
 
-    @Redirect('subscription/')
+    @Redirect('/subscription')
     @Get('paypal/return')
     public paypalReturn(@Req() req: Request): void {
         req.flash('success', 'Vous êtes désormais abonnés !');
     }
 
-    @Redirect('subscription/')
+    @Redirect('/subscription')
     @Get('paypal/cancel')
     public async paypalCancel(@Query('subscription_id') subId: string, @User() user: UserEntity): Promise<void> {
         await this.subscriptionService.cancelPending(user, subId);

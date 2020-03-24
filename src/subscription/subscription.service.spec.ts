@@ -94,8 +94,28 @@ describe('SubscriptionService', () => {
             );
         });
 
-        it('should create a paypal subscription with the correct plan, save it to the database and the return the approve url', async () => {
-            jest.spyOn(service, 'getCurrentSubscription').mockResolvedValue(undefined);
+        it("should create a paypal subscription with the correct plan, save it to the database, set the current subscription's current to false and the return the approve url", async () => {
+            const current = new SubscriptionEntity();
+            current.current = true;
+            current.details = {
+                status: 'CANCELLED',
+                billing_info: {
+                    last_payment: {
+                        amount: {
+                            value: '10.00',
+                            currency_code: 'EUR',
+                        },
+                        time: '2019-01-01T01:00:00',
+                    },
+                    failed_payments_count: 0,
+                    outstanding_balance: {
+                        value: '0',
+                        currency_code: 'EUR',
+                    },
+                },
+            };
+            jest.spyOn(service, 'getCurrentSubscription').mockResolvedValue(current);
+
             const mockPaypal = jest.spyOn(paypal, 'createSubscription').mockResolvedValue({
                 id: 'SUB-TEST',
                 status: 'APPROVAL_PENDING',
@@ -134,6 +154,8 @@ describe('SubscriptionService', () => {
             expectedSub.level = lvl;
             expectedSub.current = true;
             expect(mockSave).toHaveBeenCalledWith(expectedSub);
+
+            expect(current.current).toBe(false);
 
             expect(url).toBe('https://www.paypal.com/webapps/billing/subscriptions?ba_token=BA-TEST');
         });

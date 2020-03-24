@@ -20,12 +20,16 @@ describe('ModeratorGuard', () => {
         expect(new ModeratorGuard()).toBeDefined();
     });
 
-    it('should block if the user is not moderator', () => {
-        expect(new ModeratorGuard().canActivate(getMockedContext({ moderator: false }))).toBe(false);
+    it('should block if the user is not a moderator or an admin', () => {
+        expect(new ModeratorGuard().canActivate(getMockedContext({ admin: false, moderator: false }))).toBe(false);
     });
 
-    it('should authorize if the user is moderator', () => {
-        expect(new ModeratorGuard().canActivate(getMockedContext({ moderator: true }))).toBe(true);
+    it('should authorize if the user is a moderator', () => {
+        expect(new ModeratorGuard().canActivate(getMockedContext({ admin: false, moderator: true }))).toBe(true);
+    });
+
+    it('should authorize if the user is an admin', () => {
+        expect(new ModeratorGuard().canActivate(getMockedContext({ admin: true, moderator: false }))).toBe(true);
     });
 
     it('should block if the user is not logged in', () => {

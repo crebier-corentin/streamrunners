@@ -2,6 +2,10 @@
 @import "variables";
 @import "bootstrap/scss/bootstrap";
 
+//After Boostrap variables
+$vip-color: $yellow;
+$diamond-color: $blue;
+
 //Libraries
 @import url("https://use.fontawesome.com/releases/v5.2.0/css/all.css");
 @import "libraries/cookieconsent.min";
@@ -947,4 +951,12 @@ a:hover {
 
 .tab-content>.active {
     display: block;
+}
+
+.text-vip {
+  color: $vip-color
+}
+
+.text-diamond {
+  color: $diamond-color;
 }

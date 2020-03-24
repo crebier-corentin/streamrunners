@@ -101,7 +101,6 @@ export class UserService extends EntityService<UserEntity> {
             .where('user.lastOnWatchPage > :datetime', {
                 datetime: formatDatetimeSQL(moment().subtract(30, 'seconds')),
             })
-            .orderBy('user.chatRank', 'DESC')
             .getMany();
     }
 

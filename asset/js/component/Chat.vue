@@ -8,13 +8,14 @@
 
                     <img class="avatar" :src="msg.author.avatar" :alt="msg.author.displayName">
 
-                    <ChatUsername class="username" :name="msg.author.displayName" :rank="msg.author.chatRank"/>
+                    <ChatUsername class="username" :name="msg.author.displayName" :rank="msg.author.chatRank" />
 
                     <small class="timestamp">{{msg.createdAt}} </small>
 
                     <span class="message" :class="{'font-italic': msg.deleted, 'text-danger': msg.deleted}">{{msg.message}}
-                        <button class="text-danger" :style="{opacity: showDelete ? 1 : 0}"
-                                @click="deleteMessage(msg.id)"><i class="fas fa-times"/></button>
+                        <button class="text-danger"
+                                :style="{opacity: showDelete ? 1 : 0}"
+                                @click="deleteMessage(msg.id)"><i class="fas fa-times" /></button>
                     </span>
 
 
@@ -26,8 +27,10 @@
         <!-- Active users -->
         <div id="style-1" class="users rounded chat-container d-flex flex-column scrollbar">
             <div class="d-flex flex-column p-0 m-0 force-overflow">
-            <ChatUsername :name="user.displayName" :rank="user.chatRank" v-for="user in cActiveUsers"
-                          :key="user.displayName"/>
+                <ChatUsername :name="user.displayName"
+                              :rank="user.chatRank"
+                              v-for="user in cActiveUsers"
+                              :key="user.displayName" />
             </div>
         </div>
 
@@ -38,45 +41,45 @@
                type="text"
                placeholder=" Votre message..."
                v-model="message"
-               @keyup.enter="sendMessage"/>
-        <button class="btn btn-outline-success sub"
-                @click="sendMessage">
-            Envoyer&nbsp;&nbsp;&nbsp;<i class="fas fa-paper-plane"/></button>
+               @keyup.enter="sendMessage" />
+        <button class="btn btn-outline-success sub" @click="sendMessage">
+            Envoyer&nbsp;&nbsp;&nbsp;<i class="fas fa-paper-plane" /></button>
 
     </section>
 
 </template>
 
 <script lang="ts">
-    import axios from "axios";
-    import ChatUsername from "./ChatUsername.vue";
+    import axios from 'axios';
+    import ChatUsername from './ChatUsername.vue';
+    import { UserEntity } from '../../../src/user/user.entity';
 
     export default {
-        name: "Chat",
-        components: {ChatUsername},
+        name: 'Chat',
+        components: { ChatUsername },
         props: {
             messages: {
                 type: Array,
-                required: true
+                required: true,
             },
             activeUsers: {
                 type: Array,
-                required: true
+                required: true,
             },
             showDelete: {
                 type: Boolean,
-                default: false
-            }
+                default: false,
+            },
         },
 
         data() {
             return {
-                message: "",
+                message: '',
 
-                chatAddUrl: "/chat/add",
-                chatDeleteUrl: "/chat/delete",
-                sending: false
-            }
+                chatAddUrl: '/chat/add',
+                chatDeleteUrl: '/chat/delete',
+                sending: false,
+            };
         },
 
         computed: {
@@ -85,7 +88,7 @@
             },
 
             cActiveUsers() {
-                return this.activeUsers;
+                return this.activeUsers.sort((a: UserEntity, b: UserEntity) => b.chatRank - a.chatRank);
             },
 
             trimmedMessage(): string {
@@ -95,7 +98,7 @@
             messageValid(): boolean {
                 const length = this.trimmedMessage.length;
                 return length > 0 && length < 200;
-            }
+            },
         },
 
         watch: {
@@ -109,13 +112,13 @@
                         this.scrollToBottom();
                     });
                 }
-            }
+            },
         },
 
         methods: {
             scrollToBottom() {
                 const chat = this.$refs.chat;
-                chat.scrollTo({top: chat.scrollHeight, behavior: "smooth"});
+                chat.scrollTo({ top: chat.scrollHeight, behavior: 'smooth' });
             },
 
             sendMessage() {
@@ -124,12 +127,12 @@
 
                 this.sending = true;
 
-                axios.post(this.chatAddUrl, {message: this.message})
+                axios.post(this.chatAddUrl, { message: this.message })
                     .then(() => {
                         this.sending = false;
 
                         //Clear message
-                        this.message = "";
+                        this.message = '';
                     })
                     .catch(reason => {
                         this.sending = false;
@@ -142,13 +145,13 @@
             deleteMessage(messageId: number) {
                 if (!this.showDelete) return;
 
-                axios.post(this.chatDeleteUrl, {messageId});
+                axios.post(this.chatDeleteUrl, { messageId });
             },
         },
 
         mounted() {
             this.scrollToBottom();
-        }
+        },
     };
 </script>
 

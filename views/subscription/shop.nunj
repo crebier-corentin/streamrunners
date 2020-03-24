@@ -36,7 +36,7 @@
             </div>
             <div class="card mb-4 shadow-sm">
                 <div class="card-header">
-                    <h4 class="my-0 font-weight-normal chat-name-vip"><i class="fas fa-star" aria-hidden="true"></i> V.I.P.
+                    <h4 class="my-0 font-weight-normal text-vip"><i class="fas fa-star" aria-hidden="true"></i> V.I.P.
                     </h4>
                 </div>
                 <div class="card-body">
@@ -54,7 +54,7 @@
             </div>
             <div class="card mb-4 shadow-sm">
                 <div class="card-header">
-                    <h4 class="my-0 font-weight-normal chat-name-diamond bonus"><i class="fas fa-gem"
+                    <h4 class="my-0 font-weight-normal text-diamond bonus"><i class="fas fa-gem"
                                                                                    aria-hidden="true"></i> Diamant</h4>
                 </div>
                 <div class="card-body">

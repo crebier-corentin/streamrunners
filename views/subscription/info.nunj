@@ -21,10 +21,11 @@
         <div class="card">
 
             <div class="card-header">
-                Abonnement {{ SubscriptionLevelToFrench(req.user.subscriptionLevel) }}
-                {# Icon #}
+                Abonnement
+                <span class="text-{{ 'vip' if req.user.subscriptionLevel === SubscriptionLevel.VIP else 'diamond' }}">{{ SubscriptionLevelToFrench(req.user.subscriptionLevel) }}
+                    {# Icon #}
                 <i class="fas fa-{{ 'star' if req.user.subscriptionLevel === SubscriptionLevel.VIP else 'gem' }}"
-                   aria-hidden="true"></i>
+                   aria-hidden="true"></i></span>
 
             </div>
             <div class="card-body">
@@ -48,7 +49,7 @@
                         {# Cancelled #}
                     {% else %}
                         <p>
-                            Statut : <b>Annulé</b>
+                            Statut : <b class="text-danger">Annulé</b>
                         </p>
                         <p>Date d'expiration : {{ req.user.currentSubscription.expirationDate | date('LLL') }}</p>
                     {% endif %}

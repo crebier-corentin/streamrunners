@@ -48,6 +48,9 @@ export class UserEntity {
     public points: number;
 
     @Column({ default: false })
+    public admin: boolean;
+
+    @Column({ default: false })
     public moderator: boolean;
 
     @Column('datetime', { default: () => 'CURRENT_TIMESTAMP' })
@@ -57,8 +60,19 @@ export class UserEntity {
     public lastOnWatchPage: Date;
 
     @Expose()
-    @Column({ default: ChatRank.Member })
-    public chatRank: ChatRank;
+    public get chatRank(): ChatRank {
+        if (this.admin) return ChatRank.Admin;
+        if (this.moderator) return ChatRank.Moderator;
+
+        switch (this.subscriptionLevel) {
+            case SubscriptionLevel.None:
+                return ChatRank.Member;
+            case SubscriptionLevel.VIP:
+                return ChatRank.VIP;
+            case SubscriptionLevel.Diamond:
+                return ChatRank.Diamond;
+        }
+    }
 
     @Column({ default: false })
     public partner: boolean;

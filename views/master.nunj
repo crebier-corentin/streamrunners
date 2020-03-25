@@ -33,6 +33,7 @@
     <link rel="icon" href="/img/favicon.ico" />
     <link rel="stylesheet" href="/css/style.css">
     <script src="https://kit.fontawesome.com/9e4cbfb17e.js" crossorigin="anonymous"></script>
+    <script data-ad-client="ca-pub-7690571679670706" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
     {% block css %}
 
     {% endblock %}

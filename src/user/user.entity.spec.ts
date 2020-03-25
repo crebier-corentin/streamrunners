@@ -13,6 +13,7 @@ describe('UserEntity', () => {
         beforeEach(() => {
             user.admin = false;
             user.moderator = false;
+            user.partner = false;
             user.subscriptionLevel = SubscriptionLevel.None;
         });
 
@@ -26,6 +27,12 @@ describe('UserEntity', () => {
             user.moderator = true;
 
             expect(user.chatRank).toBe(ChatRank.Moderator);
+        });
+
+        it('should return ChatRank.Partner if the user is a partner', () => {
+            user.partner = true;
+
+            expect(user.chatRank).toBe(ChatRank.Partner);
         });
 
         it.each([

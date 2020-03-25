@@ -58,7 +58,16 @@ describe('UserSubscriber', () => {
         beforeEach(() => {
             user = new UserEntity();
             user.id = 1;
+            user.partner = false;
             sub = new SubscriptionEntity();
+        });
+
+        it('should return SubscriptionLevel.Diamond if the user is a partner', async () => {
+            jest.spyOn(subService, 'getCurrentSubscription').mockResolvedValue(undefined);
+            user.partner = true;
+            await subscriber.afterLoad(user);
+
+            expect(user.subscriptionLevel).toBe(SubscriptionLevel.Diamond);
         });
 
         it('should return SubscriptionLevel.None if there is no current subscription', async () => {

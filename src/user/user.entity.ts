@@ -63,6 +63,7 @@ export class UserEntity {
     public get chatRank(): ChatRank {
         if (this.admin) return ChatRank.Admin;
         if (this.moderator) return ChatRank.Moderator;
+        if (this.partner) return ChatRank.Partner;
 
         switch (this.subscriptionLevel) {
             case SubscriptionLevel.None:

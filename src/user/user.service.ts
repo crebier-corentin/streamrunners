@@ -3,6 +3,7 @@ import { Cron, CronExpression } from '@nestjs/schedule';
 import { InjectRepository } from '@nestjs/typeorm';
 import * as moment from 'moment';
 import { Repository } from 'typeorm';
+import CacheService from '../common/utils/cache-service';
 import { EntityService } from '../common/utils/entity-service';
 import { formatDatetimeSQL } from '../common/utils/utils';
 import { DiscordBotService } from '../discord/discord-bot.service';
@@ -14,6 +15,8 @@ import { UserEntity } from './user.entity';
 
 @Injectable()
 export class UserService extends EntityService<UserEntity> {
+    private cache = new CacheService(120); //2 minute cache
+
     public constructor(
         @InjectRepository(UserEntity)
         repo: Repository<UserEntity>,
@@ -96,12 +99,14 @@ export class UserService extends EntityService<UserEntity> {
     }
 
     public viewers(): Promise<UserEntity[]> {
-        return this.repo
-            .createQueryBuilder('user')
-            .where('user.lastOnWatchPage > :datetime', {
-                datetime: formatDatetimeSQL(moment().subtract(30, 'seconds')),
-            })
-            .getMany();
+        return this.cache.get('viewers', () =>
+            this.repo
+                .createQueryBuilder('user')
+                .where('user.lastOnWatchPage > :datetime', {
+                    datetime: formatDatetimeSQL(moment().subtract(30, 'seconds')),
+                })
+                .getMany()
+        );
     }
 
     public partners(): Promise<Pick<UserEntity, 'username' | 'displayName' | 'avatar' | 'twitchDescription'>[]> {

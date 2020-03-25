@@ -78,7 +78,7 @@ describe('Subscription Controller', () => {
 
         it('should render shop if the user has an active subscription', () => {
             user.currentSubscription = new SubscriptionEntity();
-            user.currentSubscription.isActive = jest.fn().mockReturnValue(true);
+            user.currentSubscription.isActive = true;
 
             controller.index(req, res, session, user);
 

@@ -87,6 +87,7 @@ describe('SubscriptionService', () => {
             sub.details = {
                 status: 'ACTIVE',
             };
+            sub.isActive = true;
             jest.spyOn(service, 'getCurrentSubscription').mockResolvedValue(sub);
 
             return expect(service.createSubscriptionAndGetRedirectUrl(user, lvl, 'example-key')).rejects.toBeInstanceOf(
@@ -114,6 +115,7 @@ describe('SubscriptionService', () => {
                     },
                 },
             };
+            current.isActive = false;
             jest.spyOn(service, 'getCurrentSubscription').mockResolvedValue(current);
 
             const mockPaypal = jest.spyOn(paypal, 'createSubscription').mockResolvedValue({
@@ -153,7 +155,7 @@ describe('SubscriptionService', () => {
             expectedSub.user = user;
             expectedSub.level = lvl;
             expectedSub.current = true;
-            expect(mockSave).toHaveBeenCalledWith(expectedSub);
+            expect(mockSave).toHaveBeenCalledWith(expectedSub, expect.anything());
 
             expect(current.current).toBe(false);
 

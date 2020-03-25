@@ -22,7 +22,7 @@ export class ChatService extends EntityService<ChatMessageEntity> {
         return this.repo.save(chatMessage);
     }
 
-    public async softDelete(messageId: number, deletedBy: UserEntity): Promise<ChatMessageEntity> {
+    public async softDeleteChat(messageId: number, deletedBy: UserEntity): Promise<ChatMessageEntity> {
         this.cache.del('messages');
 
         const message = await this.byIdOrFail(messageId);

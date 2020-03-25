@@ -27,6 +27,6 @@ export class UserSubscriber implements EntitySubscriberInterface<UserEntity> {
         //Diamond for partners
         if (user.partner) return SubscriptionLevel.Diamond;
 
-        return user.currentSubscription?.isActive() ? user.currentSubscription.level : SubscriptionLevel.None;
+        return user.currentSubscription?.isActive ? user.currentSubscription.level : SubscriptionLevel.None;
     }
 }

@@ -44,7 +44,7 @@ describe('ChatService', () => {
         });
     });
 
-    describe('softDelete', () => {
+    describe('softDeleteChat', () => {
         let chatMessage: ChatMessageEntity;
         let mod: UserEntity;
         let user: UserEntity;
@@ -68,12 +68,12 @@ describe('ChatService', () => {
         });
 
         it('should soft delete', async () => {
-            const message = await service.softDelete(1, mod);
+            const message = await service.softDeleteChat(1, mod);
             expect(message.deletedBy.id).toBe(40);
         });
 
         it("should throw when message doesn't exists", () => {
-            return expect(service.softDelete(2, mod)).rejects.toBeInstanceOf(InternalServerErrorException);
+            return expect(service.softDeleteChat(2, mod)).rejects.toBeInstanceOf(InternalServerErrorException);
         });
     });
 });

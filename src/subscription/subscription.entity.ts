@@ -39,13 +39,7 @@ export class SubscriptionEntity {
     //Loaded from subscriber
     public details: PaypalSubscriptionDetails | null;
 
-    public isActive(): boolean {
-        //Active
-        if (this.details?.status === 'ACTIVE') return true;
-
-        //Other status (Cancelled...)
-        return !this.isExpired();
-    }
+    public isActive = false;
 
     public get expirationDate(): moment.Moment | null {
         const lastPayDateStr = this.details?.billing_info?.last_payment?.time;

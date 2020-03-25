@@ -65,12 +65,13 @@ export class SubscriptionService extends EntityService<SubscriptionEntity> {
         paypalRequestKey: string
     ): Promise<string> {
         //Validate type
-        if (type !== SubscriptionLevel.VIP && type !== SubscriptionLevel.Diamond)
+        if (type !== SubscriptionLevel.VIP && type !== SubscriptionLevel.Diamond) {
             throw new UserErrorException("Type d'abonnement inconnu.");
+        }
 
         //Check if the user has any active subscriptions
         const current = await this.getCurrentSubscription(user);
-        if (current?.isActive()) {
+        if (current?.isActive) {
             throw new UserErrorException(`Vous avez déjà un abonnement actif (${SubscriptionLevelToFrench(type)}).`);
         }
 
@@ -100,7 +101,7 @@ export class SubscriptionService extends EntityService<SubscriptionEntity> {
         sub.level = type;
         sub.current = true;
 
-        await this.save(sub);
+        await this.save(sub, { listeners: false, reload: false });
 
         //Disable current one
         if (current != undefined) {
@@ -131,5 +132,14 @@ export class SubscriptionService extends EntityService<SubscriptionEntity> {
             throw new UserErrorException("Votre abonnement n'est pas actif.");
 
         await this.paypal.cancelSubscription(user.currentSubscription.paypalId, '');
+    }
+
+    public async disableCurrent(sub: SubscriptionEntity): Promise<void> {
+        await this.repo
+            .createQueryBuilder()
+            .update()
+            .set({ current: false })
+            .where('id = :id', { id: sub.id })
+            .execute();
     }
 }

@@ -1,6 +1,8 @@
 import { InternalServerErrorException } from '@nestjs/common';
 import { HttpException } from '@nestjs/common/exceptions/http.exception';
-import { Repository } from 'typeorm';
+import { Repository, UpdateResult } from 'typeorm';
+import { RemoveOptions } from 'typeorm/repository/RemoveOptions';
+import { SaveOptions } from 'typeorm/repository/SaveOptions';
 
 export abstract class EntityService<T> {
     public constructor(protected readonly repo: Repository<T>) {}
@@ -20,12 +22,12 @@ export abstract class EntityService<T> {
         return entity;
     }
 
-    public save(entity: T): Promise<T> {
-        return this.repo.save(entity);
+    public save(entity: T, options?: SaveOptions): Promise<T> {
+        return this.repo.save(entity, options);
     }
 
-    public remove(entity: T): Promise<T> {
-        return this.repo.remove(entity);
+    public remove(entity: T, options?: RemoveOptions): Promise<T> {
+        return this.repo.remove(entity, options);
     }
 
     public count(): Promise<number> {

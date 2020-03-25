@@ -24,6 +24,6 @@ export class ChatController {
         @Body('messageId', ParseIntPipe) id: number,
         @User() user: UserEntity
     ): Promise<void> {
-        await this.chatService.softDelete(id, user);
+        await this.chatService.softDeleteChat(id, user);
     }
 }

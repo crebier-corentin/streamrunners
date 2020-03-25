@@ -20,7 +20,7 @@ export class SubscriptionController {
         };
 
         //Has subscription
-        if (user.currentSubscription?.isActive()) {
+        if (user.currentSubscription?.isActive) {
             res.render('subscription/info', data);
         } else {
             //Generate PayPal-Request-Id

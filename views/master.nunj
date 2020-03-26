@@ -9,10 +9,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 
     <meta property="og:type" content="website" />
-    <meta property="og:image" content="/img/brand.png" />
-    <meta property="og:title" content="Gagne des viewers ou des cadeaux ?!" />
-    <meta property="og:description"
-          content="Gagne rapidement, et gratuitement des viewers Twitch et des tonnes de cadeaux !" />
+    
+    {% block meta %}
+        <meta property="og:image" content="/img/brand.png" />
+        <meta property="og:title" content="Gagne des viewers ou des cadeaux ?!" />
+        <meta property="og:description"
+              content="Gagne rapidement, et gratuitement des viewers Twitch et des tonnes de cadeaux !" />
+    {% endblock %}
+
     <meta property="og:url" content="{{ HOSTNAME }}" />
     <meta property="og:site_name" content="StreamRunners" />
     <link rel="canonical" href="http://www.streamrunners." />
@@ -32,7 +36,9 @@
     <link rel="icon" href="/img/favicon.ico" />
     <link rel="stylesheet" href="/css/style.css">
     <script src="https://kit.fontawesome.com/9e4cbfb17e.js" crossorigin="anonymous"></script>
-    <script data-ad-client="ca-pub-7690571679670706" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script data-ad-client="ca-pub-7690571679670706"
+            async
+            src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
     {% block css %}
 
     {% endblock %}
@@ -144,54 +150,55 @@
         {% if announcement != undefined %}
             <div class="container">
                 <a href="{{ announcement.url }}" target="_blank">
-                    <div style="margin-top: 2rem;"
-                         class="alert alert-primary"
-                         role="alert">
+                    <div style="margin-top: 2rem;" class="alert alert-primary" role="alert">
                         {{ announcement.text }}
                     </div>
                 </a>
             </div>
         {% endif %}
-            <div class="container">
-                    <div style="background-color: transparent!important;"
-                         class="alert alert-primary"
-                         role="alert">
-                    </div>
-                </a>
-            </div>
+        <div class="container">
+            <div style="background-color: transparent!important;" class="alert alert-primary" role="alert"></div>
+            </a>
+        </div>
     {% endif %}
 
     {% block content %}
         This is the default content
     {% endblock %}
 
-<footer class="footer">
-    <div class="container">
-        <hr>
+    <footer class="footer">
+        <div class="container">
+            <hr>
 
-        <h3 class="text-center">Ils nous font confiance :</h3><br>
+            <h3 class="text-center">Ils nous font confiance :</h3><br>
 
-        {% for partner in partners %}
-            <a class="partlink" href="{{ partner.url }}" target="_blank"><img class="partimg" width="10%" src="{{ partner.image }}" /></a>
-        {% endfor %}
+            {% for partner in partners %}
+                <a class="partlink" href="{{ partner.url }}" target="_blank"><img class="partimg"
+                                                                                  width="10%"
+                                                                                  src="{{ partner.image }}" /></a>
+            {% endfor %}
 
-        <hr>
-    <p>© 2020 StreamRunners</p>
-    <a class="inlinelink" href="/cgu">CGU</a> - <a class="inlinelink" href="/rules">Règlement</a> - <a class="inlinelink" href="/contact">Contact</a> 
-        <br>
-        <a class="inline"
-           href="https://www.facebook.com/StreamRunners/"
-           aria-label="Facebook StreamRunners" target="_blank"><i style="color:blue" class="fab fa-facebook margright"></i></a>
-        <a class="inline"
-           href="https://twitter.com/StreamRunners"
-           aria-label="Twitter StreamRunners" target="_blank"><i style="color:deepskyblue" class="fab fa-twitter-square margright"></i></a>
-        <a class="inline"
-           href="https://www.instagram.com/twitchrunners/"
-           aria-label="Instagram StreamRunners" target="_blank"><i style="color:pink" class="fab fa-instagram margright"></i></a>
-        <a class="inline"
-           href="https://discord.gg/PjQFW8z"
-           aria-label="Discord StreamRunners" target="_blank"><i style="color:lightgrey" class="fab fa-discord margright"></i></a>
-    </div>
+            <hr>
+            <p>© 2020 StreamRunners</p>
+            <a class="inlinelink" href="/cgu">CGU</a> - <a class="inlinelink" href="/rules">Règlement</a> -
+            <a class="inlinelink" href="/contact">Contact</a>
+            <br>
+            <a class="inline"
+               href="https://www.facebook.com/StreamRunners/"
+               aria-label="Facebook StreamRunners"
+               target="_blank"><i style="color:blue" class="fab fa-facebook margright"></i></a>
+            <a class="inline"
+               href="https://twitter.com/StreamRunners"
+               aria-label="Twitter StreamRunners"
+               target="_blank"><i style="color:deepskyblue" class="fab fa-twitter-square margright"></i></a>
+            <a class="inline"
+               href="https://www.instagram.com/twitchrunners/"
+               aria-label="Instagram StreamRunners"
+               target="_blank"><i style="color:pink" class="fab fa-instagram margright"></i></a>
+            <a class="inline" href="https://discord.gg/PjQFW8z" aria-label="Discord StreamRunners" target="_blank"><i
+                        style="color:lightgrey"
+                        class="fab fa-discord margright"></i></a>
+        </div>
 </div>
 </footer>
 

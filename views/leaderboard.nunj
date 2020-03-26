@@ -1,6 +1,13 @@
 {% set title = "StreamRunners - Leaderboard" %}
-<meta name="description" content="Quels sont les plus actif Streamers du site ?" />
 {% extends "master.nunj" %}
+
+{% block meta %}
+    <meta name="description" content="Quels sont les plus actif Streamers du site ?" />
+    <meta property="og:image" content="/img/brand.png" />
+    <meta property="og:title" content="Gagne des viewers ou des cadeaux ?!" />
+    <meta property="og:description" content="Gagne rapidement, et gratuitement des viewers Twitch et des tonnes de cadeaux !" />
+{% endblock %}
+
 {% block content %}
     <div class="container">
 

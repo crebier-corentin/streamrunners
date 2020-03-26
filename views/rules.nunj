@@ -4,8 +4,8 @@
 {% block meta %}
 	<meta name="description" content="Règlement du site" />
 	<meta property="og:image" content="/img/brand.png" />
-	<meta property="og:title" content="Gagne des viewers ou des cadeaux ?!" />
-	<meta property="og:description" content="Gagne rapidement, et gratuitement des viewers Twitch et des tonnes de cadeaux !" />
+	<meta property="og:title" content="StreamRunners - Règlement" />
+	<meta property="og:description" content="Règlement du site" />
 {% endblock %}
 
 {% block content %}

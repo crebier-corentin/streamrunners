@@ -6,6 +6,7 @@
     <meta property="og:image" content="/img/brand.png" />
     <meta property="og:title" content="StreamRunners - Accueil" />
     <meta property="og:description" content="Gagne des cadeaux tout les jours en participant à des tombolas gratuite juste en regardant des Streamers Twitch !" />
+    <link rel="canonical" href="https://www.streamrunners.fr/" />
 {% endblock %}
 
 {% block content %}

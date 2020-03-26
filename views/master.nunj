@@ -83,7 +83,7 @@
 <div class="stars">
     <div class="custom-navbar">
         <div class="brand-logo">
-            <a href="https://streamrunners.fr"><img alt="StreamRunners" src="/img/navbrand.png" width="160px"></a>
+            <a href="https://streamrunners.fr"><img alt="Logo StreamRunners" title="Logo StreamRunners" src="/img/navbrand.png" width="160px"></a>
         </div>
         <div class="navbar-links">
             <ul>
@@ -168,7 +168,7 @@
             <h3 class="text-center">Ils nous font confiance :</h3><br>
 
             {% for partner in partners %}
-                <a class="partlink" href="{{ partner.url }}" target="_blank"><img class="partimg"
+                <a class="partlink" href="{{ partner.url }}" target="_blank"><img alt="Logo Partenaire" title="Logo Partenaire" class="partimg"
                                                                                   width="10%"
                                                                                   src="{{ partner.image }}" /></a>
             {% endfor %}
@@ -187,7 +187,7 @@
                aria-label="Twitter StreamRunners"
                target="_blank"><i style="color:deepskyblue" class="fab fa-twitter-square margright"></i></a>
             <a class="inline"
-               href="https://www.instagram.com/twitchrunners/"
+               href="https://instagram.com/twitchrunners/"
                aria-label="Instagram StreamRunners"
                target="_blank"><i style="color:pink" class="fab fa-instagram margright"></i></a>
             <a class="inline" href="https://discord.gg/PjQFW8z" aria-label="Discord StreamRunners" target="_blank"><i

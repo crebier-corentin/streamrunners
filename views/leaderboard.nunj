@@ -6,7 +6,7 @@
     <meta property="og:image" content="/img/brand.png" />
     <meta property="og:title" content="StreamRunners - Classement" />
     <meta property="og:description" content="Quels sont les Streamers les plus actif du site ?" />
-    <link rel="canonical" href="https://www.streamrunners.fr" />
+    <link rel="canonical" href="https://www.streamrunners.fr/leaderboard" />
 {% endblock %}
 
 {% block content %}

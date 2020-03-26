@@ -188,6 +188,7 @@ describe('UserService', () => {
                 // @ts-ignore
                 set: mockedSet,
                 where: jest.fn().mockReturnThis(),
+                callListeners: jest.fn().mockReturnThis(),
                 execute: jest.fn().mockReturnThis(),
             });
 

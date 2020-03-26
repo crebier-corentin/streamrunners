@@ -127,20 +127,19 @@ export class UserService extends EntityService<UserEntity> {
         const twitchUsers = await this.twitchService.getUsers(ids);
 
         //Save displayName and avatar to db
-        await Promise.all(
-            twitchUsers.data.data.map(user =>
-                this.repo
-                    .createQueryBuilder('user')
-                    .update()
-                    .set({
-                        displayName: user.display_name,
-                        avatar: user.profile_image_url,
-                        twitchDescription: user.description,
-                    })
-                    .where('user.twitchId = :twitchId', { twitchId: user.id })
-                    .execute()
-            )
-        );
+        for (const user of twitchUsers.data.data) {
+            await this.repo
+                .createQueryBuilder()
+                .update()
+                .set({
+                    displayName: user.display_name,
+                    avatar: user.profile_image_url,
+                    twitchDescription: user.description,
+                })
+                .where('twitchId = :twitchId', { twitchId: user.id })
+                .callListeners(false)
+                .execute();
+        }
     }
 
     /**

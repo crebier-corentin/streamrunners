@@ -6,7 +6,7 @@
 	<meta property="og:image" content="/img/brand.png" />
 	<meta property="og:title" content="StreamRunners - Règlement" />
 	<meta property="og:description" content="Règlement du site" />
-	<link rel="canonical" href="https://www.streamrunners.fr/rules" />
+	<link rel="canonical" href="https://streamrunners.fr/rules" />
 {% endblock %}
 
 {% block content %}

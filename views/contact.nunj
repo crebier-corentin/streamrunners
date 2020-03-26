@@ -6,7 +6,7 @@
 	<meta property="og:image" content="/img/brand.png" />
 	<meta property="og:title" content="StreamRunners - Contact" />
 	<meta property="og:description" content="Nous contacter" />
-	<link rel="canonical" href="https://www.streamrunners.fr/contact" />
+	<link rel="canonical" href="https://streamrunners.fr/contact" />
 {% endblock %}
 
 {% block content %}

@@ -1,4 +1,5 @@
 {% set title = "StreamRunners - Règlement" %}
+<meta name="description" content="Règlement du site" />
 {% extends "master.nunj" %}
 
 {% block content %}

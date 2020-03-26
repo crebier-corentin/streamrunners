@@ -1,4 +1,5 @@
 {% set title = "StreamRunners - CGU" %}
+<meta name="description" content="Nos conditions générales d'utilisation" />
 {% extends "master.nunj" %}
 
 {% block content %}

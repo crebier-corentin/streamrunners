@@ -1,9 +1,10 @@
 {% set title = "StreamRunners - Leaderboard" %}
+<meta name="description" content="Quels sont les plus actif Streamers du site ?" />
 {% extends "master.nunj" %}
-
 {% block content %}
     <div class="container">
 
+    	<h1>Classement</h1>
 
         <ul class="nav nav-tabs justify-content-center">
             <li class="nav-item">

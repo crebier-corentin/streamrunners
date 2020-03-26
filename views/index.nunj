@@ -1,4 +1,5 @@
 {% set title = 'StreamRunners - Accueil' %}
+<meta name="description" content="Gagne des cadeaux tout les jours !" />
 {% extends "master.nunj" %}
 
 {% block content %}

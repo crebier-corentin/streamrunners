@@ -15,14 +15,13 @@
           content="Gagne rapidement, et gratuitement des viewers Twitch et des tonnes de cadeaux !" />
     <meta property="og:url" content="{{ HOSTNAME }}" />
     <meta property="og:site_name" content="StreamRunners" />
+    <link rel="canonical" href="http://www.streamrunners." />
 
     <meta name="twitter:card" content="" />
     <meta name="twitter-title" content="StreamRunners - Gagne des Cadeaux" />
     <meta name="twitter-creator" content="@StreamRunners" />
     <meta name="twitter-image:src" content="" />
 
-    <meta name="description"
-          content="Gagne rapidement, et gratuitement des viewers Twitch et des tonnes de cadeaux !" />
     <meta name="owner" content="Kévin Comte" />
     <meta name="copyright" content="StreamRunners" />
 
@@ -83,7 +82,7 @@
 <div class="stars">
     <div class="custom-navbar">
         <div class="brand-logo">
-            <a href="https://streamrunners.fr"><img src="/img/navbrand.png" width="160px"></a>
+            <a href="https://streamrunners.fr"><img alt="StreamRunners" src="/img/navbrand.png" width="160px"></a>
         </div>
         <div class="navbar-links">
             <ul>

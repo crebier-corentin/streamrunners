@@ -15,7 +15,6 @@
 
     <meta property="og:url" content="{{ HOSTNAME }}" />
     <meta property="og:site_name" content="StreamRunners" />
-    <link rel="canonical" href="https://www.streamrunners.fr" />
 
     <meta name="twitter:card" content="" />
     <meta name="twitter-title" content="StreamRunners - Gagne des Cadeaux" />

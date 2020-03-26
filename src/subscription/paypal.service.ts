@@ -162,4 +162,8 @@ export class PaypalService {
 
         this.cache.del(subscriptionId);
     }
+
+    public clearCache(subscriptionId: string): void {
+        this.cache.del(subscriptionId);
+    }
 }

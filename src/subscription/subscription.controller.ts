@@ -57,7 +57,12 @@ export class SubscriptionController {
 
     @Redirect('/subscription')
     @Get('paypal/return')
-    public paypalReturn(@Req() req: Request): void {
+    public async paypalReturn(
+        @Query('subscription_id') subId: string,
+        @Req() req: Request,
+        @User() user: UserEntity
+    ): Promise<void> {
+        await this.subscriptionService.isActiveOrFail(user, subId);
         req.flash('success', 'Vous êtes désormais abonné !');
     }
 

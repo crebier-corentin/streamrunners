@@ -26,7 +26,7 @@ export class SubscriptionSubscriber implements EntitySubscriberInterface<Subscri
             entity.isActive = SubscriptionSubscriber.isActive(entity);
 
             //Disable if not active
-            if (entity.current && !entity.isActive) {
+            if (entity.current && !entity.isActive && entity.details.status !== 'APPROVAL_PENDING') {
                 entity.current = false;
                 await manager
                     .getRepository(SubscriptionEntity)
@@ -58,7 +58,7 @@ export class SubscriptionSubscriber implements EntitySubscriberInterface<Subscri
 
     private static isActive(entity: SubscriptionEntity): boolean {
         //Active
-        if (entity.details?.status === 'ACTIVE') return true;
+        if (entity.details?.status === 'ACTIVE' || entity.details?.status === 'APPROVED') return true;
 
         //Other status (Cancelled...)
         return !entity.isExpired();

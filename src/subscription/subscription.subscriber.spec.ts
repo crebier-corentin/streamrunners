@@ -203,7 +203,7 @@ describe('SubscriptionSubscriber', () => {
             expect(deleteFunc).toHaveBeenCalled();
         });
 
-        it('should set current to false and update if the subscription is not active', async () => {
+        it('should set current to false and update if the subscription is not active or APPROVAL_PENDING', async () => {
             jest.spyOn(paypal, 'getSubscriptionDetails').mockResolvedValue({
                 id: 'I-BW452GLLEP1G',
                 plan_id: 'P-5ML4271244454362WXNWU5NQ',
@@ -339,6 +339,15 @@ describe('SubscriptionSubscriber', () => {
         it('should return true if the status is ACTIVE', () => {
             sub.details = {
                 status: 'ACTIVE',
+            };
+
+            // @ts-ignore
+            expect(SubscriptionSubscriber.isActive(sub)).toBe(true);
+        });
+
+        it('should return true if the status is APPROVED', () => {
+            sub.details = {
+                status: 'APPROVED',
             };
 
             // @ts-ignore

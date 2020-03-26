@@ -31,6 +31,7 @@ describe('SubscriptionService', () => {
                         getSubscriptionDetails: jest.fn(),
                         createSubscription: jest.fn(),
                         cancelSubscription: jest.fn(),
+                        clearCache: jest.fn(),
                     },
                 },
                 {
@@ -206,6 +207,57 @@ describe('SubscriptionService', () => {
             await service.cancelPending(user, 'SUB-TEST');
 
             expect(sub.current).toBe(false);
+        });
+    });
+
+    describe('isActiveOrFail', () => {
+        let user: UserEntity;
+        let mockClearCache;
+
+        beforeEach(() => {
+            user = new UserEntity();
+            user.id = 1;
+
+            mockClearCache = jest.spyOn(paypal, 'clearCache').mockImplementation();
+        });
+
+        afterEach(() => {
+            expect(mockClearCache).toHaveBeenCalled();
+        });
+
+        it("should throw if the subscription doesn't exist", () => {
+            jest.spyOn(repo, 'findOne').mockResolvedValue(undefined);
+
+            return expect(service.isActiveOrFail(user, '404')).rejects.toBeInstanceOf(HttpException);
+        });
+
+        it("should throw if the subscription doesn't belong to the user", () => {
+            const sub = new SubscriptionEntity();
+            sub.user = new UserEntity();
+            sub.user.id = 2;
+            jest.spyOn(repo, 'findOne').mockResolvedValue(sub);
+
+            return expect(service.isActiveOrFail(user, 'SUB-TEST')).rejects.toBeInstanceOf(HttpException);
+        });
+
+        it('should throw if the subscription is not ACTIVE or APPROVED', () => {
+            const sub = new SubscriptionEntity();
+            sub.user = new UserEntity();
+            sub.user.id = 1;
+            sub.details = { status: 'CANCELLED' };
+            jest.spyOn(repo, 'findOne').mockResolvedValue(sub);
+
+            return expect(service.isActiveOrFail(user, 'SUB-TEST')).rejects.toBeInstanceOf(HttpException);
+        });
+
+        it.each(['ACTIVE', 'APPROVED'])('should not throw if the subscription is %s', (status: any) => {
+            const sub = new SubscriptionEntity();
+            sub.user = new UserEntity();
+            sub.user.id = 1;
+            sub.details = { status };
+            jest.spyOn(repo, 'findOne').mockResolvedValue(sub);
+
+            return expect(service.isActiveOrFail(user, 'SUB-TEST')).resolves.toBeUndefined();
         });
     });
 

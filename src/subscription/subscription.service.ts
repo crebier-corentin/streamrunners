@@ -142,4 +142,13 @@ export class SubscriptionService extends EntityService<SubscriptionEntity> {
             .where('id = :id', { id: sub.id })
             .execute();
     }
+
+    public async isActiveOrFail(user: UserEntity, paypalId: string): Promise<void> {
+        this.paypal.clearCache(paypalId);
+        const sub = await this.byPaypalIdOrFail(paypalId, ['user'], new BadRequestException());
+
+        if (sub.user.id !== user.id) throw new BadRequestException();
+
+        if (sub.details.status !== 'APPROVED' && sub.details.status !== 'ACTIVE') throw new BadRequestException();
+    }
 }

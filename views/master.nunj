@@ -186,10 +186,10 @@
                href="https://twitter.com/StreamRunners"
                aria-label="Twitter StreamRunners"
                target="_blank"><i style="color:deepskyblue" class="fab fa-twitter-square margright"></i></a>
-            <a class="inline"
-               href="https://instagram.com/twitchrunners/"
+            <!-- <a class="inline"
+               href="www.instagram.com/twitchrunners/"
                aria-label="Instagram StreamRunners"
-               target="_blank"><i style="color:pink" class="fab fa-instagram margright"></i></a>
+               target="_blank"><i style="color:pink" class="fab fa-instagram margright"></i></a> -->
             <a class="inline" href="https://discord.gg/PjQFW8z" aria-label="Discord StreamRunners" target="_blank"><i
                         style="color:lightgrey"
                         class="fab fa-discord margright"></i></a>

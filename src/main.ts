@@ -100,3 +100,12 @@ async function bootstrap(): Promise<void> {
 }
 
 bootstrap();
+
+process.on('uncaughtException', function(e) {
+    console.log(`An error has occured. error is: ${e} and stack trace is: ${e.stack}`);
+    process.exit(1);
+});
+process.on('unhandledRejection', function(e) {
+    console.log(`An error has occured. error is: ${e}`);
+    process.exit(1);
+});

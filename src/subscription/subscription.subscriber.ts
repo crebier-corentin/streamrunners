@@ -15,7 +15,6 @@ export class SubscriptionSubscriber implements EntitySubscriberInterface<Subscri
     }
 
     public async afterLoad(entity: SubscriptionEntity, { manager }: LoadEvent<SubscriptionEntity>): Promise<void> {
-        console.log(entity.id);
         if (entity.paypalId == undefined) {
             entity.details = null;
             return;
@@ -51,7 +50,7 @@ export class SubscriptionSubscriber implements EntitySubscriberInterface<Subscri
                     .callListeners(false)
                     .execute();
             } else {
-                throw e;
+                console.error(e);
             }
         }
     }

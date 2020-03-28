@@ -57,6 +57,8 @@ describe('SubscriptionSubscriber', () => {
         const update = jest.fn().mockReturnThis();
         const deleteFunc = jest.fn().mockReturnThis();
 
+        const originalConsoleError = console.error;
+
         beforeEach(() => {
             manager = {
                 createQueryBuilder: jest.fn().mockReturnThis(),
@@ -68,6 +70,12 @@ describe('SubscriptionSubscriber', () => {
                 update,
                 delete: deleteFunc,
             } as any;
+
+            console.error = jest.fn();
+        });
+
+        afterEach(() => {
+            console.error = originalConsoleError;
         });
 
         it('should load details and isActive', async () => {
@@ -310,7 +318,7 @@ describe('SubscriptionSubscriber', () => {
             expect(update).toHaveBeenCalled();
         });
 
-        it("should rethrow an exception if it's not paypal 404", () => {
+        it("should log an exception if it's not paypal 404", async () => {
             const error = new Error('test');
 
             jest.spyOn(paypal, 'getSubscriptionDetails').mockRejectedValue(error);
@@ -318,7 +326,8 @@ describe('SubscriptionSubscriber', () => {
             const sub = new SubscriptionEntity();
             sub.paypalId = 'test';
 
-            return expect(subscriber.afterLoad(sub, { manager } as any)).rejects.toEqual(error);
+            await subscriber.afterLoad(sub, { manager } as any);
+            expect(jest.spyOn(console, 'error')).toHaveBeenCalledWith(error);
         });
     });
 

@@ -2,6 +2,7 @@ import { forwardRef, HttpException, Inject, Injectable, InternalServerErrorExcep
 import { Cron, CronExpression } from '@nestjs/schedule';
 import { InjectRepository } from '@nestjs/typeorm';
 import * as moment from 'moment';
+import { from, Observable } from 'rxjs';
 import { Repository } from 'typeorm';
 import CacheService from '../common/utils/cache-service';
 import { EntityService } from '../common/utils/entity-service';
@@ -119,26 +120,28 @@ export class UserService extends EntityService<UserEntity> {
     }
 
     //Twitch sync//
+    private async *allTwitchIdChunk(size: number): AsyncGenerator<string[]> {
+        let users: { twitchId: string }[];
+        let offset = 0;
 
-    private async syncFromTwitchProcess(ids: string[]): Promise<void> {
-        //Do nothing if ids is empty
-        if (ids.length === 0) return;
+        //Process 100 users at a time
+        while (true) {
+            users = await this.repo
+                .createQueryBuilder('user')
+                .select('user.twitchId', 'twitchId')
+                .offset(offset)
+                .limit(offset + size)
+                .getRawMany();
 
-        const twitchUsers = await this.twitchService.getUsers(ids);
+            //No more data
+            if (users.length === 0) break;
 
-        //Save displayName and avatar to db
-        for (const user of twitchUsers.data.data) {
-            await this.repo
-                .createQueryBuilder()
-                .update()
-                .set({
-                    displayName: user.display_name,
-                    avatar: user.profile_image_url,
-                    twitchDescription: user.description,
-                })
-                .where('twitchId = :twitchId', { twitchId: user.id })
-                .callListeners(false)
-                .execute();
+            offset += size;
+
+            yield users.map(u => u.twitchId);
+
+            //End of data
+            if (users.length < size) break;
         }
     }
 
@@ -147,23 +150,29 @@ export class UserService extends EntityService<UserEntity> {
      * 100 users at a time
      */
     @Cron(CronExpression.EVERY_HOUR)
-    public async syncFromTwitch(): Promise<void> {
-        let users: { twitchId: string }[];
-        let offset = 0;
+    public async syncWithTwitch(): Promise<void> {
+        for await (const ids of this.allTwitchIdChunk(100)) {
+            try {
+                const twitchUsers = await this.twitchService.getUsers(ids);
 
-        //Process 100 users at a time
-        do {
-            users = await this.repo
-                .createQueryBuilder('user')
-                .select('user.twitchId', 'twitchId')
-                .offset(offset)
-                .limit(offset + 100)
-                .getRawMany();
-
-            offset += 100;
-
-            await this.syncFromTwitchProcess(users.map(u => u.twitchId));
-        } while (users.length > 0);
+                //Save displayName and avatar to db
+                for (const user of twitchUsers.data.data) {
+                    await this.repo
+                        .createQueryBuilder()
+                        .update()
+                        .set({
+                            displayName: user.display_name,
+                            avatar: user.profile_image_url,
+                            twitchDescription: user.description,
+                        })
+                        .where('twitchId = :twitchId', { twitchId: user.id })
+                        .callListeners(false)
+                        .execute();
+                }
+            } catch (e) {
+                console.error(e);
+            }
+        }
     }
 
     //Leaderboards//

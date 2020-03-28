@@ -108,19 +108,16 @@ describe('UserService', () => {
         });
     });
 
-    describe('syncFromTwitch', () => {
-        it('should call syncFromTwitchProcess with ids', async () => {
-            // @ts-ignore
-            const mockedFunc = jest.spyOn(service, 'syncFromTwitchProcess').mockResolvedValue();
-
+    describe('allTwitchIdChunk', () => {
+        it.each([10, 25, 100])('should return ids %i at a time', async size => {
             //Generate mock ids
             const userIds1 = [];
-            for (let i = 1; i <= 100; i++) {
+            for (let i = 1; i <= size; i++) {
                 userIds1.push({ twitchId: i });
             }
 
             const userIds2 = [];
-            for (let i = 100; i <= 14; i++) {
+            for (let i = size; i <= size + 5; i++) {
                 userIds2.push({ twitchId: i });
             }
 
@@ -135,20 +132,29 @@ describe('UserService', () => {
                     .mockResolvedValueOnce(userIds2),
             });
 
-            await service.syncFromTwitch();
-            expect(mockedFunc).toHaveBeenNthCalledWith(
-                1,
-                userIds1.map(u => u.twitchId)
-            );
-            expect(mockedFunc).toHaveBeenNthCalledWith(
-                2,
-                userIds2.map(u => u.twitchId)
-            );
+            // @ts-ignore
+            const gen = service.allTwitchIdChunk(size);
+
+            const next1 = await gen.next();
+            expect(next1.done).toBe(false);
+            expect(next1.value).toEqual(userIds1.map(u => u.twitchId));
+
+            const next2 = await gen.next();
+            expect(next2.done).toBe(false);
+            expect(next2.value).toEqual(userIds2.map(u => u.twitchId));
+
+            expect((await gen.next()).done).toBe(true);
         });
     });
 
-    describe('syncFromTwitchProcess', () => {
+    describe('syncWithTwitch', () => {
         it('should save displayName and avatar from twitch', async () => {
+            // @ts-ignore
+            // eslint-disable-next-line @typescript-eslint/require-await
+            jest.spyOn(service, 'allTwitchIdChunk').mockImplementation(async function*() {
+                yield ['123', '456'];
+            });
+
             const replyData = {
                 data: [
                     {
@@ -192,8 +198,7 @@ describe('UserService', () => {
                 execute: jest.fn().mockReturnThis(),
             });
 
-            // @ts-ignore
-            await service.syncFromTwitchProcess(['123', '456']);
+            await service.syncWithTwitch();
             expect(mockedSet).toHaveBeenCalledWith({ displayName: 'a', avatar: 'avatar-a', twitchDescription: 'abc' });
             expect(mockedSet).toHaveBeenCalledWith({ displayName: 'b', avatar: 'avatar-b', twitchDescription: 'def' });
         });

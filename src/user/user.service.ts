@@ -130,7 +130,7 @@ export class UserService extends EntityService<UserEntity> {
                 .createQueryBuilder('user')
                 .select('user.twitchId', 'twitchId')
                 .offset(offset)
-                .limit(offset + size)
+                .limit(size)
                 .getRawMany();
 
             //No more data

@@ -4,7 +4,6 @@ import { ConfigService } from '@nestjs/config';
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 import * as moment from 'moment';
 import CacheService from '../common/utils/cache-service';
-import { Semaphore } from '../common/utils/semaphore';
 import { PaypalOauthTokenResponse, PaypalSubscriptionCreate, PaypalSubscriptionDetails } from './paypal.interfaces';
 
 @Injectable()
@@ -16,7 +15,6 @@ export class PaypalService {
     private bearerToken: string;
     private tokenExpireDate: moment.Moment = moment();
 
-    private readonly lock = new Semaphore(1);
     private readonly cache = new CacheService(60 * 60 * 24); //1 hour storage
 
     public constructor(config: ConfigService) {
@@ -53,27 +51,21 @@ export class PaypalService {
     }
 
     private async makeRequest<T = any>(request: AxiosRequestConfig): Promise<AxiosResponse<T>> {
-        await this.lock.acquire();
-
-        try {
-            //Check token expiration
-            if (moment() >= this.tokenExpireDate) {
-                await this.refreshToken();
-            }
-
-            //Add Authorization and Content-Type
-            request.headers = {
-                ...request.headers,
-                ...{
-                    Authorization: `Bearer ${this.bearerToken}`,
-                    'Content-Type': 'application/json',
-                },
-            };
-
-            return await axios.request(request);
-        } finally {
-            this.lock.release();
+        //Check token expiration
+        if (moment() >= this.tokenExpireDate) {
+            await this.refreshToken();
         }
+
+        //Add Authorization and Content-Type
+        request.headers = {
+            ...request.headers,
+            ...{
+                Authorization: `Bearer ${this.bearerToken}`,
+                'Content-Type': 'application/json',
+            },
+        };
+
+        return axios.request(request);
     }
 
     //prettier-ignore

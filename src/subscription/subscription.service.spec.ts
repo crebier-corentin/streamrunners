@@ -238,6 +238,8 @@ describe('SubscriptionService', () => {
             sub.user = new UserEntity();
             sub.user.id = 1;
             sub.details = { status: 'CANCELLED' };
+            jest.spyOn(paypal, 'getSubscriptionDetails').mockResolvedValue(sub.details);
+
             jest.spyOn(repo, 'findOne').mockResolvedValue(sub);
 
             return expect(service.isActiveOrFail(user, 'SUB-TEST')).rejects.toBeInstanceOf(HttpException);
@@ -248,6 +250,8 @@ describe('SubscriptionService', () => {
             sub.user = new UserEntity();
             sub.user.id = 1;
             sub.details = { status };
+            jest.spyOn(paypal, 'getSubscriptionDetails').mockResolvedValue(sub.details);
+
             jest.spyOn(repo, 'findOne').mockResolvedValue(sub);
 
             return expect(service.isActiveOrFail(user, 'SUB-TEST')).resolves.toBeUndefined();

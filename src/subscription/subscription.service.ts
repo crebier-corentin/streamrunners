@@ -136,6 +136,10 @@ export class SubscriptionService extends EntityService<SubscriptionEntity> {
 
         if (sub.user.id !== user.id) throw new BadRequestException();
 
+        sub.details = await this.paypal.getSubscriptionDetails(sub.paypalId);
+        sub.lastDetailsUpdate = new Date();
+        await this.save(sub);
+
         if (sub.details.status !== 'APPROVED' && sub.details.status !== 'ACTIVE') throw new BadRequestException();
     }
 }

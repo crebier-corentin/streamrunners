@@ -86,7 +86,7 @@ describe('Subscription Controller', () => {
                 success: ['success1', 'success2'],
                 error: ['error1', 'error2'],
             });
-            expect(session.createSubscriptionKey).toBe(undefined);
+            expect(session.createSubscriptionKey).toBeUndefined();
         });
     });
 

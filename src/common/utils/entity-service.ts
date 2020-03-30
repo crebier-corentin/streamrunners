@@ -7,13 +7,13 @@ import { SaveOptions } from 'typeorm/repository/SaveOptions';
 export abstract class EntityService<T> {
     public constructor(protected readonly repo: Repository<T>) {}
 
-    public byId(id: number, relations: string[] = []): Promise<T | undefined> {
-        return this.repo.findOne(id, { relations });
+    public byId(id: number, relations: (keyof T)[] = []): Promise<T | undefined> {
+        return this.repo.findOne(id, { relations: relations as string[] });
     }
 
     public async byIdOrFail(
         id: number,
-        relations: string[] = [],
+        relations: (keyof T)[] = [],
         exception: HttpException = new InternalServerErrorException()
     ): Promise<T> {
         const entity = await this.byId(id, relations);

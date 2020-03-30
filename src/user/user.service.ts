@@ -103,6 +103,7 @@ export class UserService extends EntityService<UserEntity> {
         return this.cache.get('viewers', () =>
             this.repo
                 .createQueryBuilder('user')
+                .leftJoinAndSelect('user.currentSubscription', 'sub')
                 .where('user.lastOnWatchPage > :datetime', {
                     datetime: formatDatetimeSQL(moment().subtract(30, 'seconds')),
                 })

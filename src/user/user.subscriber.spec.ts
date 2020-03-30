@@ -10,7 +10,6 @@ import { SubscriptionEntity } from '../subscription/subscription.entity';
 describe('UserSubscriber', () => {
     let subscriber: UserSubscriber;
     let connection: Connection;
-    let subService: SubscriptionService;
 
     beforeEach(async () => {
         const module: TestingModule = await Test.createTestingModule({
@@ -20,18 +19,11 @@ describe('UserSubscriber', () => {
                     provide: Connection,
                     useValue: { subscribers: [] },
                 },
-                {
-                    provide: SubscriptionService,
-                    useValue: {
-                        getCurrentSubscription: jest.fn(),
-                    },
-                },
             ],
         }).compile();
 
         subscriber = module.get<UserSubscriber>(UserSubscriber);
         connection = module.get<Connection>(Connection);
-        subService = module.get<SubscriptionService>(SubscriptionService);
     });
 
     it('should be defined', () => {
@@ -60,7 +52,7 @@ describe('UserSubscriber', () => {
         });
 
         it('should return SubscriptionLevel.Diamond if the user is a partner', async () => {
-            jest.spyOn(subService, 'getCurrentSubscription').mockResolvedValue(undefined);
+            user.currentSubscription = undefined;
             user.partner = true;
             await subscriber.afterLoad(user);
 
@@ -68,7 +60,7 @@ describe('UserSubscriber', () => {
         });
 
         it('should return SubscriptionLevel.None if there is no current subscription', async () => {
-            jest.spyOn(subService, 'getCurrentSubscription').mockResolvedValue(undefined);
+            user.currentSubscription = undefined;
 
             await subscriber.afterLoad(user);
             expect(user.currentSubscription).toEqual(undefined);
@@ -80,7 +72,7 @@ describe('UserSubscriber', () => {
             async lvl => {
                 sub.level = lvl;
                 sub.isActive = true;
-                jest.spyOn(subService, 'getCurrentSubscription').mockResolvedValue(sub);
+                user.currentSubscription = sub;
 
                 await subscriber.afterLoad(user);
                 expect(user.currentSubscription).toEqual(sub);
@@ -88,9 +80,9 @@ describe('UserSubscriber', () => {
             }
         );
 
-        it('should set subscriptionLevel to SubscriptionLevel.None if the subscription is ,ot active', async () => {
+        it('should set subscriptionLevel to SubscriptionLevel.None if the subscription is not active', async () => {
             sub.isActive = false;
-            jest.spyOn(subService, 'getCurrentSubscription').mockResolvedValue(sub);
+            user.currentSubscription = sub;
 
             await subscriber.afterLoad(user);
             expect(user.currentSubscription).toEqual(sub);

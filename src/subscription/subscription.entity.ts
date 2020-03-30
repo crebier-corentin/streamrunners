@@ -1,6 +1,15 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { Expose } from 'class-transformer';
-import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
+import {
+    Column,
+    CreateDateColumn,
+    Entity,
+    JoinColumn,
+    ManyToOne,
+    OneToOne,
+    PrimaryGeneratedColumn,
+    UpdateDateColumn,
+} from 'typeorm';
 import { UserEntity } from '../user/user.entity';
 import { PaypalSubscriptionDetails } from './paypal.interfaces';
 import { SubscriptionLevel } from './subscription.interfaces';
@@ -12,8 +21,14 @@ export class SubscriptionEntity {
     @PrimaryGeneratedColumn()
     public id: number;
 
-    @Column()
+    @Column({ unique: true })
     public paypalId: string;
+
+    @Column('json')
+    public details: PaypalSubscriptionDetails | null;
+
+    @Column({ default: '1970-01-01 00:00:00' })
+    public lastDetailsUpdate: Date;
 
     @ManyToOne(
         type => UserEntity,
@@ -27,8 +42,13 @@ export class SubscriptionEntity {
     })
     public level: SubscriptionLevel;
 
-    @Column({ default: false })
-    public current: boolean;
+    @JoinColumn()
+    @OneToOne(
+        type => UserEntity,
+        user => user.currentSubscription,
+        { nullable: true, cascade: true }
+    )
+    public currentUser: UserEntity | null;
 
     @CreateDateColumn()
     public createdAt: Date;
@@ -37,8 +57,6 @@ export class SubscriptionEntity {
     public updatedAt: Date;
 
     //Loaded from subscriber
-    public details: PaypalSubscriptionDetails | null;
-
     public isActive = false;
 
     public get expirationDate(): moment.Moment | null {

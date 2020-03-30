@@ -15,8 +15,6 @@ export class PaypalService {
     private bearerToken: string;
     private tokenExpireDate: moment.Moment = moment();
 
-    private readonly cache = new CacheService(60 * 60 * 24); //1 hour storage
-
     public constructor(config: ConfigService) {
         this.basicAuthToken = Buffer.from(`${config.get('PAYPAL_CLIENT_ID')}:${config.get('PAYPAL_SECRET')}`).toString(
             'base64'
@@ -105,24 +103,22 @@ export class PaypalService {
     //prettier-ignore
     public async getSubscriptionDetails<K extends keyof PaypalSubscriptionDetails>(subscriptionId: string, fields: K[]): Promise<Pick<PaypalSubscriptionDetails, K>>;
     //prettier-ignore
-    public getSubscriptionDetails<K extends keyof PaypalSubscriptionDetails>(subscriptionId: string, fields?: K[]): Promise<PaypalSubscriptionDetails | Pick<PaypalSubscriptionDetails, K>> {
+    public async getSubscriptionDetails<K extends keyof PaypalSubscriptionDetails>(subscriptionId: string, fields?: K[]): Promise<PaypalSubscriptionDetails | Pick<PaypalSubscriptionDetails, K>> {
 
-        return this.cache.get(subscriptionId, async () => {
 
-            const request: AxiosRequestConfig = {
-                url: `${this.baseUrl}/v1/billing/subscriptions/${subscriptionId}`,
-                method: 'GET',
-            };
+        const request: AxiosRequestConfig = {
+            url: `${this.baseUrl}/v1/billing/subscriptions/${subscriptionId}`,
+            method: 'GET',
+        };
 
-            if (fields != undefined) {
-                request.params = { fields };
-            }
+        if (fields != undefined) {
+            request.params = { fields };
+        }
 
-            const response = await this.makeRequest(request);
+        const response = await this.makeRequest(request);
 
-            return response.data;
+        return response.data;
 
-        });
 
     }
 
@@ -139,8 +135,6 @@ export class PaypalService {
         };
 
         await this.makeRequest(request);
-
-        this.cache.del(subscriptionId);
     }
 
     public async cancelSubscription(subscriptionId: string, reason: string): Promise<void> {
@@ -151,11 +145,5 @@ export class PaypalService {
         };
 
         await this.makeRequest(request);
-
-        this.cache.del(subscriptionId);
-    }
-
-    public clearCache(subscriptionId: string): void {
-        this.cache.del(subscriptionId);
     }
 }

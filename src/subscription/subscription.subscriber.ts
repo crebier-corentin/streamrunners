@@ -3,6 +3,7 @@ import { LoadEvent } from 'typeorm/subscriber/event/LoadEvent';
 import { isAxiosError } from '../common/utils/utils';
 import { PaypalService } from './paypal.service';
 import { SubscriptionEntity } from './subscription.entity';
+import moment = require('moment');
 
 @EventSubscriber()
 export class SubscriptionSubscriber implements EntitySubscriberInterface<SubscriptionEntity> {
@@ -15,43 +16,54 @@ export class SubscriptionSubscriber implements EntitySubscriberInterface<Subscri
     }
 
     public async afterLoad(entity: SubscriptionEntity, { manager }: LoadEvent<SubscriptionEntity>): Promise<void> {
-        if (entity.paypalId == undefined) {
-            entity.details = null;
-            return;
-        }
+        if (entity.paypalId == undefined) return;
 
-        try {
-            entity.details = await this.paypal.getSubscriptionDetails(entity.paypalId);
-            entity.isActive = SubscriptionSubscriber.isActive(entity);
+        //Update details every hour
+        if (moment(entity.lastDetailsUpdate).add(1, 'hour') < moment()) {
+            try {
+                entity.details = await this.paypal.getSubscriptionDetails(entity.paypalId);
+                entity.lastDetailsUpdate = new Date();
 
-            //Disable if not active
-            if (entity.current && !entity.isActive && entity.details.status !== 'APPROVAL_PENDING') {
-                entity.current = false;
                 await manager
                     .getRepository(SubscriptionEntity)
                     .createQueryBuilder()
                     .update()
+                    .set({ details: entity.details, lastDetailsUpdate: entity.lastDetailsUpdate })
                     .where('id = :id', { id: entity.id })
-                    .set({ current: false })
                     .callListeners(false)
                     .execute();
-            }
-        } catch (e) {
-            //Paypal 404 error
-            if (isAxiosError(e) && e?.response?.status === 404) {
-                entity.details = null;
-                entity.isActive = false;
+            } catch (e) {
+                //Paypal 404 error
+                if (isAxiosError(e) && e?.response?.status === 404) {
+                    entity.details = null;
+                    entity.isActive = false;
 
-                await manager
-                    .getRepository(SubscriptionEntity)
-                    .createQueryBuilder()
-                    .delete()
-                    .where('id = :id', { id: entity.id })
-                    .callListeners(false)
-                    .execute();
-            } else {
-                console.error(e);
+                    await manager
+                        .getRepository(SubscriptionEntity)
+                        .createQueryBuilder()
+                        .delete()
+                        .where('id = :id', { id: entity.id })
+                        .callListeners(false)
+                        .execute();
+                } else {
+                    console.error(e);
+                }
+
+                return;
             }
+        }
+
+        entity.isActive = SubscriptionSubscriber.isActive(entity);
+
+        //Disable if not active
+        if (!entity.isActive && entity.details.status !== 'APPROVAL_PENDING') {
+            await manager
+                .getRepository(SubscriptionEntity)
+                .createQueryBuilder()
+                .relation('currentUser')
+                .callListeners(false)
+                .of(entity)
+                .set(null);
         }
     }
 

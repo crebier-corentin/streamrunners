@@ -50,15 +50,6 @@ export class SubscriptionService extends EntityService<SubscriptionEntity> {
         return entity;
     }
 
-    public getCurrentSubscription(user: UserEntity): Promise<SubscriptionEntity | undefined> {
-        return this.repo
-            .createQueryBuilder('sub')
-            .leftJoin('sub.user', 'user')
-            .where('user.id = :userId', { userId: user.id })
-            .andWhere('sub.current = true')
-            .getOne();
-    }
-
     public async createSubscriptionAndGetRedirectUrl(
         user: UserEntity,
         type: string,
@@ -70,7 +61,7 @@ export class SubscriptionService extends EntityService<SubscriptionEntity> {
         }
 
         //Check if the user has any active subscriptions
-        const current = await this.getCurrentSubscription(user);
+        const current = user.currentSubscription;
         if (current?.isActive) {
             throw new UserErrorException(`Vous avez déjà un abonnement actif (${SubscriptionLevelToFrench(type)}).`);
         }
@@ -97,17 +88,12 @@ export class SubscriptionService extends EntityService<SubscriptionEntity> {
 
         const sub = new SubscriptionEntity();
         sub.paypalId = details.id;
+        sub.details = details;
         sub.user = user;
         sub.level = type;
-        sub.current = true;
+        sub.currentUser = user;
 
         await this.save(sub, { listeners: false, reload: false });
-
-        //Disable current one
-        if (current != undefined) {
-            current.current = false;
-            await this.save(current);
-        }
 
         //Return approve redirect link
         return details.links.find(l => l.rel === 'approve').href;
@@ -121,7 +107,7 @@ export class SubscriptionService extends EntityService<SubscriptionEntity> {
         //Can't disable active sub
         if (sub.details?.status !== 'APPROVAL_PENDING') throw new BadRequestException();
 
-        sub.current = false;
+        sub.currentUser = null;
         await this.repo.save(sub);
     }
 
@@ -132,19 +118,20 @@ export class SubscriptionService extends EntityService<SubscriptionEntity> {
             throw new UserErrorException("Votre abonnement n'est pas actif.");
 
         await this.paypal.cancelSubscription(user.currentSubscription.paypalId, '');
+
+        user.currentSubscription.details = await this.paypal.getSubscriptionDetails(user.currentSubscription.paypalId);
+        await this.save(user.currentSubscription);
     }
 
     public async disableCurrent(sub: SubscriptionEntity): Promise<void> {
         await this.repo
             .createQueryBuilder()
-            .update()
-            .set({ current: false })
-            .where('id = :id', { id: sub.id })
-            .execute();
+            .relation('currentUser')
+            .of(sub)
+            .set(null);
     }
 
     public async isActiveOrFail(user: UserEntity, paypalId: string): Promise<void> {
-        this.paypal.clearCache(paypalId);
         const sub = await this.byPaypalIdOrFail(paypalId, ['user'], new BadRequestException());
 
         if (sub.user.id !== user.id) throw new BadRequestException();

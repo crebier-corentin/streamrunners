@@ -11,6 +11,7 @@ import { ConfigService } from '@nestjs/config';
 import { UserErrorException } from '../common/exception/user-error.exception';
 import { HttpException } from '@nestjs/common';
 import MockDate = require('mockdate');
+import { PaypalSubscriptionDetails } from './paypal.interfaces';
 
 describe('SubscriptionService', () => {
     let service: SubscriptionService;
@@ -31,7 +32,6 @@ describe('SubscriptionService', () => {
                         getSubscriptionDetails: jest.fn(),
                         createSubscription: jest.fn(),
                         cancelSubscription: jest.fn(),
-                        clearCache: jest.fn(),
                     },
                 },
                 {
@@ -89,16 +89,16 @@ describe('SubscriptionService', () => {
                 status: 'ACTIVE',
             };
             sub.isActive = true;
-            jest.spyOn(service, 'getCurrentSubscription').mockResolvedValue(sub);
+            user.currentSubscription = sub;
 
             return expect(service.createSubscriptionAndGetRedirectUrl(user, lvl, 'example-key')).rejects.toBeInstanceOf(
                 UserErrorException
             );
         });
 
-        it("should create a paypal subscription with the correct plan, save it to the database, set the current subscription's current to false and the return the approve url", async () => {
+        it('should create a paypal subscription with the correct plan, save it to the database and the return the approve url', async () => {
             const current = new SubscriptionEntity();
-            current.current = true;
+            current.currentUser = user;
             current.details = {
                 status: 'CANCELLED',
                 billing_info: {
@@ -117,9 +117,9 @@ describe('SubscriptionService', () => {
                 },
             };
             current.isActive = false;
-            jest.spyOn(service, 'getCurrentSubscription').mockResolvedValue(current);
+            user.currentSubscription = current;
 
-            const mockPaypal = jest.spyOn(paypal, 'createSubscription').mockResolvedValue({
+            const details: PaypalSubscriptionDetails = {
                 id: 'SUB-TEST',
                 status: 'APPROVAL_PENDING',
                 links: [
@@ -139,7 +139,8 @@ describe('SubscriptionService', () => {
                         method: 'GET',
                     },
                 ],
-            });
+            };
+            const mockPaypal = jest.spyOn(paypal, 'createSubscription').mockResolvedValue(details as any);
             const mockSave = jest.spyOn(repo, 'save');
 
             const url = await service.createSubscriptionAndGetRedirectUrl(user, lvl, 'example-key');
@@ -153,12 +154,11 @@ describe('SubscriptionService', () => {
 
             const expectedSub = new SubscriptionEntity();
             expectedSub.paypalId = 'SUB-TEST';
+            expectedSub.details = details;
             expectedSub.user = user;
             expectedSub.level = lvl;
-            expectedSub.current = true;
+            expectedSub.currentUser = user;
             expect(mockSave).toHaveBeenCalledWith(expectedSub, expect.anything());
-
-            expect(current.current).toBe(false);
 
             expect(url).toBe('https://www.paypal.com/webapps/billing/subscriptions?ba_token=BA-TEST');
         });
@@ -206,23 +206,16 @@ describe('SubscriptionService', () => {
 
             await service.cancelPending(user, 'SUB-TEST');
 
-            expect(sub.current).toBe(false);
+            expect(sub.currentUser).toBeNull();
         });
     });
 
     describe('isActiveOrFail', () => {
         let user: UserEntity;
-        let mockClearCache;
 
         beforeEach(() => {
             user = new UserEntity();
             user.id = 1;
-
-            mockClearCache = jest.spyOn(paypal, 'clearCache').mockImplementation();
-        });
-
-        afterEach(() => {
-            expect(mockClearCache).toHaveBeenCalled();
         });
 
         it("should throw if the subscription doesn't exist", () => {

@@ -9,6 +9,7 @@ import {
     ManyToMany,
     ManyToOne,
     OneToMany,
+    OneToOne,
     PrimaryGeneratedColumn,
     UpdateDateColumn,
 } from 'typeorm';
@@ -127,6 +128,13 @@ export class UserEntity {
     )
     public subscriptions: SubscriptionEntity[];
 
+    @OneToOne(
+        type => SubscriptionEntity,
+        sub => sub.currentUser,
+        { nullable: true }
+    )
+    public currentSubscription: SubscriptionEntity | null;
+
     @Exclude()
     @CreateDateColumn()
     public createdAt: Date;
@@ -136,8 +144,6 @@ export class UserEntity {
     public updatedAt: Date;
 
     //Loaded from subscriber
-    public currentSubscription: SubscriptionEntity | undefined;
-
     public subscriptionLevel: SubscriptionLevel;
 
     public changePoints(amount: number): void {

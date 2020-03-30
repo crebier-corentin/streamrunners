@@ -36,6 +36,7 @@ export class ChatService extends EntityService<ChatMessageEntity> {
                 .createQueryBuilder('chat')
                 .leftJoinAndSelect('chat.author', 'author')
                 .leftJoinAndSelect('chat.deletedBy', 'deletedBy')
+                .leftJoinAndSelect('author.currentSubscription', 'sub')
                 .take(50)
                 .orderBy('chat.createdAt', 'DESC')
                 .getMany()

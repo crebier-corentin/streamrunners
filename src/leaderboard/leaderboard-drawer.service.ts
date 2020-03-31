@@ -37,7 +37,7 @@ export class LeaderboardDrawerService implements OnApplicationBootstrap {
             this.secondTrophyImage,
             this.thirdTrophyImage,
         ] = await Promise.all([
-            loadImage(fs.readFileSync(path.join(PUBLIC_DIR_PATH, 'img/logorond.png'))), //footerLogoImage
+            loadImage(fs.readFileSync(path.join(PUBLIC_DIR_PATH, 'img/earth.svg'))), //footerLogoImage
             loadImage(fs.readFileSync(path.join(PUBLIC_DIR_PATH, 'img/leaderboard/background.png'))), //backgroundImage
             loadImage(fs.readFileSync(path.join(PUBLIC_DIR_PATH, 'img/leaderboard/Coupe_or.svg'))), //firstTrophyImage
             loadImage(fs.readFileSync(path.join(PUBLIC_DIR_PATH, 'img/leaderboard/Coupe_argent.svg'))), //secondTrophyImage

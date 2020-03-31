@@ -168,6 +168,22 @@ hr {
   height: 100%;
 }
 
+.dl {
+  color: #fff;
+  background-color: #28a745;
+  border-color: #28a745 !important;
+  margin-bottom: 1rem;
+}
+
+
+.dl:hover {
+  color: #28a745;
+  background-color: #fff;
+  border-color: #28a745 !important;
+  margin-bottom: 1rem;
+}
+
+
 .skip {
   color: #fff;
   background-color: $blue;
@@ -224,6 +240,20 @@ hr {
   color: #8c6dc5;
   background-color: #fff;
   border-color: #8c6dc5 !important;
+  margin-bottom: 5px;
+}
+
+.discord {
+  color: #fff;
+  background-color: #7289DA;
+  border-color: #7289DA !important;
+  margin-bottom: 5px;
+}
+
+.discord:hover {
+  color: #fff;
+  background-color: #7289DA;
+  border-color: #ffcb39 !important;
   margin-bottom: 5px;
 }
 
@@ -607,8 +637,6 @@ html, body {
 }
 
 .bg-purple {
-    background: rgb(109, 54, 110);
-    background: radial-gradient(circle, rgba(101, 60, 182, 1) 36%, rgba(31, 41, 66, 1) 100%);
     background-repeat: repeat;
     background-size: cover;
     background-position: left top;
@@ -798,7 +826,7 @@ a:hover {
 }
 
 .stars {
-    background: url(/img/overlay_stars.svg);
+    background-image: url(/img/overlay_stars.svg), radial-gradient(circle, #653cb6 36%, #1f2942 100%);
     background-repeat: repeat;
     background-size: contain;
     background-position: left top;
@@ -886,6 +914,7 @@ a:hover {
 
 .inlinelink{
     display: inline-block;
+    font-size: 16px;
 }
 
 #style-1::-webkit-scrollbar-track {
@@ -959,4 +988,39 @@ a:hover {
 
 .text-diamond {
   color: $diamond-color;
+}
+
+.dropdown-menu{
+    background-color: rgba(0, 0, 0, 0.4);
+    background: rgba(0, 0, 0, 0.4);
+    border-color: #f6c23c;
+    margin-left: 2rem;
+}
+
+.dropdown-divider{
+    border-color: rgba(246, 194, 60, 0.4);
+}
+
+.boy{
+  margin-top: 3rem;
+}
+
+.glow {
+  color: #fff;
+  text-align: center;
+  -webkit-animation: glow 1s ease-in-out infinite alternate;
+  -moz-animation: glow 1s ease-in-out infinite alternate;
+  animation: glow 1s ease-in-out infinite alternate;
+  margin-bottom: 0rem;
+  margin-top: 0;
+}
+
+@-webkit-keyframes glow {
+  from {
+    text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #f6c23c, 0 0 40px #f6c23c, 0 0 50px #f6c23c, 0 0 60px #f6c23c, 0 0 70px #f6c23c;
+  }
+  
+  to {
+    text-shadow: 0 0 20px #fff, 0 0 30px #FF0000, 0 0 40px #FF0000, 0 0 50px #FF0000, 0 0 60px #FF0000, 0 0 70px #FF0000, 0 0 80px #FF0000;
+  }
 }

@@ -1,0 +1,111 @@
+{% set title = "StreamRunners - Contact" %}
+{% extends "master.nunj" %}
+
+{% block content %}
+	<div class="container">
+		<center><h1>PLUS DE POINTS</h1></center>
+		<hr>
+		<br>
+		<div class="row">
+    		<div class="col-md boy">
+    			<h4>BetOnYou</h4>
+    			<br>
+				<p>Grâce à notre partenaire BetOnYou tu as la possibilité de gagner des points en jouant à des jeux !</p>
+				<p>Le principe est simple, télécharge leurs application en cliquant sur le bouton ci-dessous :</p>
+				<a href="https://discordapp.com/channels/609311986488180757/609796001972224031/694523841803845703" class="btn btn-outline-success dl"><i class="fas fa-download" aria-hidden="true"></i> Télécharger</a>
+				<br>
+				<p>C'est fait ? Génial, maintenant connecte toi et crée ton profil, tu recevras en plus gratuitement 200 BoyCoins et 50 Gemmes ! 💰</p>
+				<p>Tu pourras miser des BoyCoins en duel contre des gens, puis les échanger dans leur boutique contre des StreamCoins !</p>
+				<br>
+				<p>Tu as des questions ? Rejoins les sur Discord !</p>
+				<a href="https://discord.gg/sb9t5Dg" class="btn btn-outline-success discord"><i class="fab fa-discord" aria-hidden="true"></i> BetOnYou</a>
+			</div>
+			<div class="col-sm">
+		<div data-is-absolute-layout="false" style="pointer-events:none;top:;bottom:;left:;right:;position:" class="s_BIwzIGroupSkin" id="comp-k6uj4804"><div style="pointer-events:none" class="s_BIwzIGroupSkininlineContent" id="comp-k6uj4804inlineContent"><style id="comp-k6uj4804-mesh-styles">
+    
+#comp-k6uj4804inlineContent {
+    height: auto;
+    width: 467px;
+    position: relative;
+}
+
+#comp-k6uj4804inlineContent-gridWrapper {
+    pointer-events: none;
+}
+
+#comp-k6uj4804inlineContent-gridContainer {
+    position: static;
+    display: grid;
+    height: auto;
+    width: 100%;
+    min-height: auto;
+    grid-template-rows: 1fr;
+    grid-template-columns: 100%;
+}
+
+#comp-k6uip7fb {
+    position: relative;
+    left: 40px;
+    top: 21px;
+}
+
+#comp-k6uip7fb-rotated-wrapper {
+    position: static;
+    height: 411px;
+    width: 0;
+    margin: 138px 0px 0px 0;
+    grid-area: 1 / 1 / 2 / 2;
+    justify-self: start;
+    align-self: start;
+}
+
+#comp-k269zib4 {
+    position: relative;
+    margin: 0px 0px 19px 0;
+    left: 179px;
+    grid-area: 1 / 1 / 2 / 2;
+    justify-self: start;
+    align-self: start;
+}
+
+#comp-k6uj4804centeredContent {
+    position: relative;
+}
+
+#comp-k6uj4804inlineContent-gridContainer > * {
+    pointer-events: auto;
+}
+
+#comp-k6uj4804inlineContent-gridContainer > [id$="-rotated-wrapper"] {
+    pointer-events: none;
+}
+
+#comp-k6uj4804inlineContent-gridContainer > [id$="-rotated-wrapper"] > * {
+    pointer-events: auto;
+}</style><div id="comp-k6uj4804inlineContent-gridWrapper" data-mesh-internal="true"><div id="comp-k6uj4804inlineContent-gridContainer" data-mesh-internal="true"><div id="comp-k6uip7fb-rotated-wrapper" data-mesh-internal="true"><div style="transform: rotate(346.652deg); width: 220px; height: 370px;" title="" data-is-responsive="false" data-display-mode="fill" data-content-padding-horizontal="0" data-content-padding-vertical="0" data-exact-height="370" data-angle="346.65240177911846" class="ca1" id="comp-k6uip7fb"><div style="width: 220px; height: 370px;" id="comp-k6uip7fblink" class="ca1link"><wix-image style="width:220px;height:370px;top:0;left:0" data-has-bg-scroll-effect="" data-image-info="{&quot;imageData&quot;:{&quot;type&quot;:&quot;Image&quot;,&quot;id&quot;:&quot;dataItem-k6uip7ll&quot;,&quot;metaData&quot;:{&quot;pageId&quot;:&quot;c1dmp&quot;,&quot;isPreset&quot;:false,&quot;schemaVersion&quot;:&quot;2.0&quot;,&quot;isHidden&quot;:false},&quot;title&quot;:&quot;&quot;,&quot;uri&quot;:&quot;4793ec_bc3237a85b464cb4abd9e583353ecf17~mv2.png&quot;,&quot;description&quot;:&quot;&quot;,&quot;width&quot;:5000,&quot;height&quot;:3750,&quot;alt&quot;:&quot;1.png&quot;,&quot;crop&quot;:{&quot;x&quot;:1725,&quot;y&quot;:583,&quot;width&quot;:1558,&quot;height&quot;:2642,&quot;svgId&quot;:&quot;909695c1e003409ba70b5561666c7c4d.svg&quot;},&quot;name&quot;:&quot;1.png&quot;,&quot;displayMode&quot;:&quot;fill&quot;},&quot;containerId&quot;:&quot;comp-k6uip7fb&quot;,&quot;displayMode&quot;:&quot;fill&quot;}" data-has-ssr-src="" data-is-svg="true" data-is-svg-mask="true" id="comp-k6uip7fbimg" class="ca1img" data-src="https://static.wixstatic.com/media/4793ec_bc3237a85b464cb4abd9e583353ecf17~mv2.png/v1/crop/x_1725,y_583,w_1558,h_2642/fill/w_220,h_370,al_c,q_85,usm_0.66_1.00_0.01/1.webp"><svg id="svgcomp-k6uip7fbimg" version="1.1" role="img" aria-label="1.png" width="220" height="370" viewBox="0 0 220 370"><defs><style>#mask-comp-k6uip7fbimg-svg * {fill: #fff; stroke: #fff; stroke-width: 0;}</style>
+<mask id="mask-comp-k6uip7fbimg">
+    <use id="mask-comp-k6uip7fbimg-svg-use" xlink:href="#mask-comp-k6uip7fbimg-svg" width="100%" height="100%" x="0" y="0"></use>
+</mask>
+<svg id="mask-comp-k6uip7fbimg-svg" preserveAspectRatio="none" data-bbox="20 20 160 160" viewBox="20 20 160 160" height="200" width="200" xmlns="http://www.w3.org/2000/svg" data-type="shape" role="img">
+    <g>
+        <path d="M180 20v160H20V20h160z"></path>
+    </g>
+</svg>
+
+</defs><image width="220" height="370" x="0" y="0" transform="" preserveAspectRatio="xMidYMid slice" id="comp-k6uip7fbimgimage" data-type="image" xlink:href="https://static.wixstatic.com/media/4793ec_bc3237a85b464cb4abd9e583353ecf17~mv2.png/v1/crop/x_1725,y_583,w_1558,h_2642/fill/w_220,h_370,al_c,q_85,usm_0.66_1.00_0.01/1.webp" mask="url(#mask-comp-k6uip7fbimg)" data-svg-mask="mask-comp-k6uip7fbimg-svg" style="width: 220px; height: 370px; object-fit: cover;"></image></svg></wix-image></div></div></div><div style="width: 289px; height: 530px;" title="" data-is-responsive="false" data-display-mode="fill" data-content-padding-horizontal="0" data-content-padding-vertical="0" data-exact-height="530" class="ca1" id="comp-k269zib4"><div style="width: 289px; height: 530px;" id="comp-k269zib4link" class="ca1link"><wix-image style="width:289px;height:530px;top:0;left:0" data-has-bg-scroll-effect="" data-image-info="{&quot;imageData&quot;:{&quot;type&quot;:&quot;Image&quot;,&quot;id&quot;:&quot;dataItem-k269zihx&quot;,&quot;metaData&quot;:{&quot;pageId&quot;:&quot;c1dmp&quot;,&quot;isPreset&quot;:false,&quot;schemaVersion&quot;:&quot;2.0&quot;,&quot;isHidden&quot;:false},&quot;title&quot;:&quot;&quot;,&quot;uri&quot;:&quot;4793ec_4f5451f650ea4b3c95c5a716cb95ef72~mv2.png&quot;,&quot;description&quot;:&quot;&quot;,&quot;width&quot;:891,&quot;height&quot;:1574,&quot;alt&quot;:&quot;inscription2 compressed_edited.png&quot;,&quot;crop&quot;:{&quot;x&quot;:19,&quot;y&quot;:0,&quot;width&quot;:853,&quot;height&quot;:1574,&quot;svgId&quot;:&quot;909695c1e003409ba70b5561666c7c4d.svg&quot;},&quot;name&quot;:&quot;inscription2 compressed_edited.png&quot;,&quot;displayMode&quot;:&quot;fill&quot;},&quot;containerId&quot;:&quot;comp-k269zib4&quot;,&quot;displayMode&quot;:&quot;fill&quot;}" data-has-ssr-src="" data-is-svg="true" data-is-svg-mask="true" id="comp-k269zib4img" class="ca1img" data-src="https://static.wixstatic.com/media/4793ec_4f5451f650ea4b3c95c5a716cb95ef72~mv2.png/v1/crop/x_19,y_0,w_853,h_1574/fill/w_289,h_530,al_c,q_85,usm_0.66_1.00_0.01/inscription2%20compressed_edited.webp"><svg id="svgcomp-k269zib4img" version="1.1" role="img" aria-label="inscription2 compressed_edited.png" width="289" height="530" viewBox="0 0 289 530"><defs><style>#mask-comp-k269zib4img-svg * {fill: #fff; stroke: #fff; stroke-width: 0;}</style>
+<mask id="mask-comp-k269zib4img">
+    <use id="mask-comp-k269zib4img-svg-use" xlink:href="#mask-comp-k269zib4img-svg" width="100%" height="100%" x="0" y="0"></use>
+</mask>
+<svg id="mask-comp-k269zib4img-svg" preserveAspectRatio="none" data-bbox="20 20 160 160" viewBox="20 20 160 160" height="200" width="200" xmlns="http://www.w3.org/2000/svg" data-type="shape" role="img">
+    <g>
+        <path d="M180 20v160H20V20h160z"></path>
+    </g>
+</svg>
+
+</defs><image width="289" height="530" x="0" y="0" transform="" preserveAspectRatio="xMidYMid slice" id="comp-k269zib4imgimage" data-type="image" xlink:href="https://static.wixstatic.com/media/4793ec_4f5451f650ea4b3c95c5a716cb95ef72~mv2.png/v1/crop/x_19,y_0,w_853,h_1574/fill/w_289,h_530,al_c,q_85,usm_0.66_1.00_0.01/inscription2%20compressed_edited.webp" mask="url(#mask-comp-k269zib4img)" data-svg-mask="mask-comp-k269zib4img-svg" style="width: 289px; height: 530px; object-fit: cover;"></image></svg></wix-image></div></div></div></div></div></div>
+	</div>
+</div>
+</div>
+
+
+{% endblock %}

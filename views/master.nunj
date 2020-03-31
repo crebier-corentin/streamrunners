@@ -78,9 +78,9 @@
     </script>
 </head>
 
-<body class="bg-purple">
+<body class="bg-purple stars">
 {# Navbar #}
-<div class="stars">
+<div class="">
     <div class="custom-navbar">
         <div class="brand-logo">
             <a href="https://streamrunners.fr"><img alt="Logo StreamRunners" title="Logo StreamRunners" src="/img/navbrand.png" width="160px"></a>
@@ -93,9 +93,7 @@
                 {% if req.isAuthenticated() %}
 
                     <li><a href="/coupon"><i class="fas fa-ticket-alt"></i> Coupon</a></li>
-                    <li><a href="/inventory"><i class="fas fa-suitcase"></i> Inventaire</a></li>
                     <li><a href="/raffle"><i class="fas fa-boxes"></i> GiveAway</a></li>
-                    <li><a href="/subscription"><i class="fas fa-shopping-cart"></i> Abonnements</a></li>
 
                     {% if req.user.moderator %}
 
@@ -105,22 +103,26 @@
                 {% endif %}
 
                 {% if req.isAuthenticated() %}
-                    <li class="nav-item">
+                    <li class="nav-item dropdown">
                         <img src="{{ req.user.avatar }}" alt="avatar" class="loggedImage">
-                        <a class="nav-link d-inline-block" href="#">
+                        <a class="nav-link d-inline-block dropdown-toggle" id="navbarDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#">
                             <div class="loggedPseudo">{{ req.user.displayName }}</div>
                             <div>
                                 <span id="points-counter" class="text-small text-white">{{ req.user.points }}</span>
                                 <img src="/img/po.png" alt="points" width="16px" height="16px" />
                             </div>
-
                         </a>
-                    </li>
-
-
-
-                    <li class="nav-item">
-                        <a class="nav-link" href="/auth/logout"><i class="fas fa-sign-out-alt"></i> Se déconnecter</a>
+                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                             <a href="/inventory"><i class="fas fa-suitcase"></i> Inventaire</a>
+                             <div class="dropdown-divider"></div>
+                             <a href="/subscription"><i class="fas fa-shopping-cart"></i> Abonnements</a>
+                             <div class="dropdown-divider"></div>
+                             <a href="/morepoints"><i class="fas fa-plus"></i> Plus de points</a>
+                             <div class="dropdown-divider"></div>
+                             <a href="/option"><i class="fas fa-cogs"></i> Paramètres</a>
+                             <div class="dropdown-divider"></div>
+                             <a class="nav-link" href="/auth/logout"><i class="fas fa-sign-out-alt"></i> Se déconnecter</a>
+                        </div>
                     </li>
                 {% else %}
 

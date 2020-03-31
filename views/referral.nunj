@@ -1,0 +1,20 @@
+{% set title = "StreamRunners - Parrainage" %}
+{% extends "master.nunj" %}
+
+{% block meta %}
+	<meta name="description" content="Page de parrainage" />
+	<meta property="og:image" content="/img/brand.png" />
+	<meta property="og:title" content="StreamRunners - Parrainage" />
+	<meta property="og:description" content="Page de parrainage" />
+	<link rel="canonical" href="https://streamrunners.fr/referral" />
+{% endblock %}
+
+{% block content %}
+	<div class="container">
+		<center><h1>Parrainage</h1></center>
+		<hr>
+
+	</div>
+
+
+{% endblock %}

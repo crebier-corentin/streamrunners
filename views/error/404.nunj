@@ -309,7 +309,7 @@ li a:hover {
                 </div>
                 <div class="navbar-links">
                     <ul>
-                      <li><a href="/" class="btn-request" target="_blank">Accueil</a></li>
+                      <li><a href="/" class="btn-request" target="">Accueil</a></li>
                     </ul>
                 </div>
             </div>

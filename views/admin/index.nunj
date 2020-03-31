@@ -12,7 +12,7 @@
                      alt="...">
                 <div class="card-body">
                     <h5 class="card-title">Tombola</h5>
-                    <p class="card-text">Créer ou modifie des tombolas.</p>
+                    <p class="card-text">Créer ou modifier des tombolas.</p>
                     <a href="/admin/raffle" class="btn btn-outline-success blue">GO</a>
                 </div>
             </div>

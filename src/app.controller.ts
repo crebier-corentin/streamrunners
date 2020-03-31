@@ -45,4 +45,18 @@ export class AppController {
     public async inventory(): Promise<void> {
         //
     }
+
+    @UseGuards(AuthenticatedGuard)
+    @Render('option')
+    @Get('option')
+    public async option(): Promise<void> {
+        //
+    }
+
+    @UseGuards(AuthenticatedGuard)
+    @Render('morepoints')
+    @Get('morepoints')
+    public async morepoints(): Promise<void> {
+        //
+    }
 }

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/camelcase */
 import { Injectable, Scope } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
@@ -5,20 +6,43 @@ import * as moment from 'moment';
 import CacheService from '../common/utils/cache-service';
 import { Semaphore } from '../common/utils/semaphore';
 import { sleep } from '../shared/shared-utils';
+import { PaypalOauthTokenResponse } from '../subscription/paypal.interfaces';
 import { TwitchResponse, TwitchUser } from './twitch.interfaces';
 
 @Injectable({ scope: Scope.DEFAULT })
 export class TwitchService {
-    private readonly clientId: string = process.env.TWITCH_CLIENT_ID;
+    private readonly clientId: string;
+    private readonly clientSecret: string;
 
     private remaining = 30;
     private reset: moment.Moment = moment().add(1, 'minute');
-    private readonly lock = new Semaphore(1);
 
+    private bearerToken: string;
+    private tokenExpireDate: moment.Moment = moment();
+
+    private readonly lock = new Semaphore(1);
     private readonly cache = new CacheService(120);
 
     public constructor(config: ConfigService) {
         this.clientId = config.get('TWITCH_CLIENT_ID');
+        this.clientSecret = config.get('TWITCH_CLIENT_SECRET');
+    }
+
+    private async refreshToken(): Promise<void> {
+        const response = await axios.post<PaypalOauthTokenResponse>(
+            'https://id.twitch.tv/oauth2/token',
+            { client_id: this.clientId, client_secret: this.clientSecret, grant_type: 'client_credentials' },
+            {
+                //To x-www-form-urlencoded
+                transformRequest: (jsonData: { [key: string]: string }) =>
+                    Object.entries(jsonData)
+                        .map(x => `${encodeURIComponent(x[0])}=${encodeURIComponent(x[1])}`)
+                        .join('&'),
+            }
+        );
+
+        this.bearerToken = response.data.access_token;
+        this.tokenExpireDate = moment().add(response.data.expires_in - 5, 'seconds'); //5 seconds leeway
     }
 
     private async makeRequest<T = any>(request: AxiosRequestConfig): Promise<AxiosResponse<TwitchResponse<T>>> {
@@ -32,8 +56,13 @@ export class TwitchService {
                 await sleep(Math.max(timeToReset, 0));
             }
 
+            //Check token expiration
+            if (moment() >= this.tokenExpireDate) {
+                await this.refreshToken();
+            }
+
             //Add client Id
-            request.headers = { ...request.headers, ...{ 'Client-ID': this.clientId } };
+            request.headers = { ...request.headers, ...{ Authorization: `Bearer ${this.bearerToken}` } };
 
             const res = await axios.request(request);
 

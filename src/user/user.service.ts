@@ -99,8 +99,7 @@ export class UserService extends EntityService<UserEntity> {
         return this.repo
             .createQueryBuilder('user')
             .select(['user.displayName', 'user.avatar', 'user.moderator', 'user.admin', 'user.partner'])
-            .leftJoin('user.currentSubscription', 'sub')
-            .addSelect(['sub.paypalId', 'sub.details', 'sub.lastDetailsUpdate'])
+            .leftJoinAndSelect('user.currentSubscription', 'sub')
             .where('user.lastOnWatchPage > NOW() - INTERVAL 30 SECOND')
             .getMany();
     }

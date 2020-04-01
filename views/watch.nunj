@@ -71,6 +71,8 @@
                 <button class="btn btn-outline-success skip" @click="makeRequestSkip"><i class="fas fa-forward"></i>&nbsp;&nbsp;&nbsp;Passer
                 </button>
             {% endif %}
+                <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank" class="btn golden-btn"><i class="fas fa-coins"></i>&nbsp;&nbsp;&nbsp;Points Illimités
+                </a>
 
             <twitch-viewer :channel="channel" @playing="isPaused = false" @paused="isPaused = true"></twitch-viewer>
             <div class="alert alert-danger" v-if="isPaused">Le stream est en pause. Vous ne gagnerez pas de points.</div>

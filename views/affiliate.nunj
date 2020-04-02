@@ -11,7 +11,7 @@
             <h2 class="display-4" style="margin-bottom: 5rem;">Affiliation</h2>
             <br>
             <div class="row">
-    		<div class="col-md boy">
+    		<div class="col-md" style="font-size: 23px;">
 				<p>Partage ton lien avec t'es amis pour gagner une superbe caisse remplis de StreamCoins !</p>
 				<br>
 				<p>Comment ça fonctionne ?</p>

@@ -1,0 +1,76 @@
+{% set title = "StreamRunners - Affiliation" %}
+{% extends "master.nunj" %}
+
+{% block meta %}
+{% endblock %}
+
+{% block content %}
+	<div class="container">
+		<div class="jumbotron text-center">
+
+            <h2 class="display-4">Affiliation</h2>
+            <br>
+            <div class="row">
+    		<div class="col-md boy">
+				<p>Partage ton lien avec t'es amis pour gagner une superbe caisse remplis de StreamCoins !</p>
+				<br>
+				<p>Comment ça fonctionne ?</p>
+			<ol>
+			  <li>Clique sur le bouton copier pour récupérer ton lien</li>
+			  <li>Envoie le à tes amis pour qu'ils rejoignent le site</li>
+			  <li>Dès qu'il a atteint ses 2 000 StreamCoins il gagne une caisse et toi aussi</li>
+			  <li>Reviens sur cette page ouvrir la caisse et frimer avec tout tes StreamCoins</li>
+			</ol>
+			</div>
+			<div class="col-sm">
+				<img class="caisseaffiliate boucle" src="/img/boucle.gif">
+				<img class="caisseaffiliate" src="/img/case/Affiliate/ferme.png">
+			</div>
+		</div>
+            <hr>
+            <form>
+            	<center>
+				<div class="input-group mb-3" style="width:80%;">
+				  <input type="text" class="form-control" placeholder="https://streamrunners.fr/affiliate/StreamRunners" aria-label="https://streamrunners.fr/affiliate/StreamRunners" aria-describedby="button-addon2" disabled >
+				  <div class="input-group-append">
+				    <button class="btn btn-outline-success affiliate" type="button" id="button-addon2">Copier</button>
+				  </div>
+				</div>
+				</center>
+            </form>
+        </div>
+        <h3 class="text-center">AFFILIÉS :</h3>
+        <div style="float:right; display:flex;">
+        	<p>15/19  </p><i class="fas fa-question-circle"></i>
+   		</div>
+   		<br>
+   		<br>
+        <ul class="giveaway-winner-list">
+        	               	<li class="giveaway-winner">
+               		<small class="date">03 Avril</small>
+                    <img src="https://static-cdn.jtvnw.net/jtv_user_pictures/7cbb135c-b1aa-4645-98ba-13ec68d63698-profile_image-300x300.png" alt="avatar" class="avatar" />
+                    <p class="username">Sacha</p>
+                    <div>              	
+                    	<figure>
+						<img class="caisseaffiliate" src="/img/case/Affiliate/ferme.png">
+						    <figcaption><button class="btn btn-outline-success cratebutton" style="margin-left: 5%;" type="button" id="button-addon2">Ouvrir</button></figcaption>
+						</figure>
+               		</div>
+                </li>
+                <li class="giveaway-winner">
+                    <small class="date">03 Avril</small>
+                    <img src="https://static-cdn.jtvnw.net/jtv_user_pictures/7cbb135c-b1aa-4645-98ba-13ec68d63698-profile_image-300x300.png" alt="avatar" class="avatar" />
+                    <p class="username">Sacha</p>
+                    <div>              	
+                    	<figure>
+						<img class="caisseaffiliate" src="/img/case/Affiliate/ouverte.png">
+						    <figcaption><span class="texte">333 <img src="/img/po.png" alt="points" width="16px" height="16px"></span></figcaption>
+						</figure>
+               		</div>
+               	</li>
+        </ul>
+    </div>
+	</div>
+
+
+{% endblock %}

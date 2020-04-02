@@ -59,4 +59,11 @@ export class AppController {
     public async morepoints(): Promise<void> {
         //
     }
+
+    @UseGuards(AuthenticatedGuard)
+    @Render('affiliate')
+    @Get('affiliate')
+    public async affiliate(): Promise<void> {
+        //
+    }
 }

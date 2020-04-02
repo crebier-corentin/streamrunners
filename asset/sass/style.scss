@@ -168,6 +168,46 @@ hr {
   height: 100%;
 }
 
+.affiliate {
+  color: #fff;
+  background-color: #28a745;
+  border-color: #28a745 !important;
+  margin-bottom: 5px;
+  height: 100%;
+  line-height: 30px;
+}
+
+
+.affiliate:hover {
+  color: #28a745;
+  background-color: #fff;
+  border-color: #28a745 !important;
+  margin-bottom: 5px;
+  height: 100%;
+  line-height: 30px;
+}
+
+.cratebutton {
+  color: #fff;
+  background-color: #28a745;
+  border-color: #28a745 !important;
+  margin-bottom: 5px;
+  height: 100%;
+  line-height: 30px;
+  margin-left: 5%;
+}
+
+
+.cratebutton:hover {
+  color: #28a745;
+  background-color: #fff;
+  border-color: #28a745 !important;
+  margin-bottom: 5px;
+  height: 100%;
+  line-height: 30px;
+  margin-left: 5%;
+}
+
 .dl {
   color: #fff;
   background-color: #28a745;
@@ -1068,4 +1108,26 @@ a:hover {
   to {
     text-shadow: 0 0 20px #fff, 0 0 30px #FF0000, 0 0 40px #FF0000, 0 0 50px #FF0000, 0 0 60px #FF0000, 0 0 70px #FF0000, 0 0 80px #FF0000;
   }
+}
+
+.caisseaffiliate{
+  width:80%;
+  z-index:1;
+}
+
+.texte {
+z-index:10;
+background:transparent;
+margin-left: 25%;
+}
+
+figcaption{
+    top:40%;}
+     
+figure{
+margin-left: 80%;
+position:relative;}
+
+.boucle {
+  margin-bottom: -3rem;
 }

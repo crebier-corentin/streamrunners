@@ -8,7 +8,7 @@
 	<div class="container">
 		<div class="jumbotron text-center">
 
-            <h2 class="display-4">Affiliation</h2>
+            <h2 class="display-4" style="margin-bottom: 5rem;">Affiliation</h2>
             <br>
             <div class="row">
     		<div class="col-md boy">

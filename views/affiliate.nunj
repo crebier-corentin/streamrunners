@@ -31,7 +31,7 @@
             <form>
             	<center>
 				<div class="input-group mb-3" style="width:80%;">
-				  <input type="text" class="form-control" placeholder="https://streamrunners.fr/affiliate/StreamRunners" aria-label="https://streamrunners.fr/affiliate/StreamRunners" aria-describedby="button-addon2" disabled >
+				  <input type="text" class="form-control" placeholder="https://streamrunners.fr/affiliate/{{ req.user.displayName }}" aria-label="https://streamrunners.fr/affiliate/StreamRunners" aria-describedby="button-addon2" disabled >
 				  <div class="input-group-append">
 				    <button class="btn btn-outline-success affiliate" type="button" id="button-addon2">Copier</button>
 				  </div>

@@ -33,6 +33,7 @@ mix.ts('asset/js/index.ts', 'public/js/');
 mix.ts('asset/js/watch.ts', 'public/js/');
 mix.ts('asset/js/coupon.ts', 'public/js/');
 mix.ts('asset/js/raffle.ts', 'public/js/');
+mix.ts('asset/js/case.ts', 'public/js/');
 
 const postCss = [];
 if (process.env.NODE_ENV === 'production') {

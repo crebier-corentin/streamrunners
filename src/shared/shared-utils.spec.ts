@@ -1,5 +1,5 @@
 import * as moment from 'moment';
-import { duplicatedArray, formatDuration, mod, sleep } from './shared-utils';
+import { duplicatedArray, formatDuration, mod, randomIntFromInterval, sleep } from './shared-utils';
 
 describe('formatDuration', () => {
     it.each([
@@ -74,5 +74,20 @@ describe('duplicatedArray', () => {
         [10, [1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2]],
     ])("should duplicate the array's content %i times", (amount: number, expected) => {
         expect(duplicatedArray([1, 2], amount)).toEqual(expected);
+    });
+});
+
+describe('randomIntFromInterval', () => {
+    it.each([
+        [0, 100],
+        [51, 8794],
+        [-10, 10],
+    ])('should return a number between %f and %f (test repeated 100 times)', (min: number, max) => {
+        //Repeat to test randomness
+        for (let i = 0; i < 100; i++) {
+            const result = randomIntFromInterval(min, max);
+            expect(result).toBeGreaterThanOrEqual(min);
+            expect(result).toBeLessThanOrEqual(max);
+        }
     });
 });

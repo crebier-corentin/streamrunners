@@ -13,6 +13,7 @@ import {
     PrimaryGeneratedColumn,
     UpdateDateColumn,
 } from 'typeorm';
+import { CaseEntity } from '../case/case.entity';
 import { ChatMessageEntity } from '../chat/chat-message.entity';
 import { CouponEntity } from '../coupon/coupon.entity';
 import { RaffleParticipationEntity } from '../raffle/raffle-participation.entity';
@@ -131,6 +132,12 @@ export class UserEntity {
         { nullable: true }
     )
     public currentSubscription: SubscriptionEntity | null;
+
+    @OneToMany(
+        type => CaseEntity,
+        c => c.user
+    )
+    public cases: CaseEntity[];
 
     @Exclude()
     @CreateDateColumn()

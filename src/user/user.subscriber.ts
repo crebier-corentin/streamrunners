@@ -17,8 +17,8 @@ export class UserSubscriber implements EntitySubscriberInterface<UserEntity> {
     }
 
     private static getSubscriptionLevel(user: UserEntity): SubscriptionLevel {
-        //Diamond for partners
-        if (user.partner) return SubscriptionLevel.Diamond;
+        //Diamond for partners, moderators and admins
+        if (user.partner || user.moderator || user.admin) return SubscriptionLevel.Diamond;
 
         return user.currentSubscription?.isActive ? user.currentSubscription.level : SubscriptionLevel.None;
     }

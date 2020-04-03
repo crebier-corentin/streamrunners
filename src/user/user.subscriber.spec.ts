@@ -59,6 +59,22 @@ describe('UserSubscriber', () => {
             expect(user.subscriptionLevel).toBe(SubscriptionLevel.Diamond);
         });
 
+        it('should return SubscriptionLevel.Diamond if the user is a moderator', async () => {
+            user.currentSubscription = undefined;
+            user.moderator = true;
+            await subscriber.afterLoad(user);
+
+            expect(user.subscriptionLevel).toBe(SubscriptionLevel.Diamond);
+        });
+
+        it('should return SubscriptionLevel.Diamond if the user is an admin', async () => {
+            user.currentSubscription = undefined;
+            user.admin = true;
+            await subscriber.afterLoad(user);
+
+            expect(user.subscriptionLevel).toBe(SubscriptionLevel.Diamond);
+        });
+
         it('should return SubscriptionLevel.None if there is no current subscription', async () => {
             user.currentSubscription = undefined;
 

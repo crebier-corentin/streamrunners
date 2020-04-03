@@ -1131,3 +1131,24 @@ position:relative;}
 .boucle {
   margin-bottom: -3rem;
 }
+
+.btnadmin {
+    margin-right: -594%;
+    width: 93%;
+}
+
+.page-item{
+  padding: 0px 0px;
+}
+
+.page-link{
+  background-color: #007bff;
+  border-color: #5838a0;
+  color: #fff;
+}
+
+.page-item.disabled .page-link {
+  background-color: #ffcb39;
+  border-color: #5838a0;
+  color: #fff;
+}

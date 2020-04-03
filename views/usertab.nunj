@@ -1,0 +1,113 @@
+{% set title = "StreamRunners - Gestion des Utilisateurs" %}
+{% extends "master.nunj" %}
+
+{% block content %}
+    <div class="container">
+        <div class="jumbotron text-center">
+
+            <h2 class="display-4">Gestion des Utilisateurs</h2>
+            <hr>
+            <form class="form-inline my-2 my-lg-0">
+            	<div style="width:100%">
+	              <input style="width: 70%;" class="form-control mr-sm-2" type="search" placeholder="Pseudo de l'utilisateur" aria-label="rechercher">
+	              <button style="margin-bottom: 1rem; line-height: 2.39;" class="btn btn-success" type="submit">Rechercher</button>
+          		</div>
+            </form>
+            <hr>
+            <br>
+            <ul class="giveaway-winner-list">
+                <li class="giveaway-winner">
+                	<div>
+                    <img src="https://static-cdn.jtvnw.net/jtv_user_pictures/312a7fda-6fc2-49a1-a12d-7995e83949e4-profile_image-300x300.png" alt="avatar" class="avatar">
+                    </div>
+                    <div> 
+                    <p style="font-weight: 900;" class="chat-name-moderator"><i class="fas fa-user-shield" aria-hidden="true"></i> Maxime_49</p>
+                    <span id="points-counter" class="text-small text-white">1000148332</span>
+                    <img src="/img/po.png" alt="points" width="16px" height="16px">
+                	</div>
+                	<div class="btnadmin">
+                		<button type="button" class="btn btn-primary" style="background-color: #007bff;" data-toggle="popover" data-trigger="hover" data-content="Changer le pseudo de l'utilisateur"><i class="fas fa-pen"></i></button>
+                    	<button type="button" class="btn btn-warning"  data-toggle="popover" data-trigger="hover" data-content="Modifier le solde de pièces"><i class="fas fa-coins" aria-hidden="true"></i></button>
+                    	<button type="button" class="btn btn-primary" data-toggle="popover" data-trigger="hover" data-content="Rendre Partenaire"><i class="fas fa-handshake"></i></button>
+                    	<button type="button" class="btn btn-danger" data-toggle="popover" data-trigger="hover" data-content="Bannir la chaine"><i class="fas fa-skull-crossbones"></i></button>
+                    	<button type="button" class="btn btn-success"  data-toggle="popover" data-trigger="hover" data-content="Passer Modérateur"><i class="fas fa-shield-alt"></i></button>
+
+                	</div>
+                </li>
+                <li class="giveaway-winner">
+                                    	<div>
+                    <img src="https://static-cdn.jtvnw.net/jtv_user_pictures/312a7fda-6fc2-49a1-a12d-7995e83949e4-profile_image-300x300.png" alt="avatar" class="avatar">
+                    </div>
+                    <div> 
+                    <p style="font-weight: 900;" class="chat-name-moderator"><i class="fas fa-user-shield" aria-hidden="true"></i> Maxime_49</p>
+                    <span id="points-counter" class="text-small text-white">1000148332</span>
+                    <img src="/img/po.png" alt="points" width="16px" height="16px">
+                	</div>
+                	<div class="btnadmin">
+                		<button type="button" class="btn btn-primary" style="background-color: #007bff;" data-toggle="popover" data-trigger="hover" data-content="Changer le pseudo de l'utilisateur"><i class="fas fa-pen"></i></button>
+                    	<button type="button" class="btn btn-warning"  data-toggle="popover" data-trigger="hover" data-content="Modifier le solde de pièces"><i class="fas fa-coins" aria-hidden="true"></i></button>
+                    	<button type="button" class="btn btn-primary" data-toggle="popover" data-trigger="hover" data-content="Rendre Partenaire"><i class="fas fa-handshake"></i></button>
+                    	<button type="button" class="btn btn-danger" data-toggle="popover" data-trigger="hover" data-content="Bannir la chaine"><i class="fas fa-skull-crossbones"></i></button>
+                    	<button type="button" class="btn btn-success"  data-toggle="popover" data-trigger="hover" data-content="Passer Modérateur"><i class="fas fa-shield-alt"></i></button>
+
+                	</div>
+                </li>
+                <li class="giveaway-winner">
+                                    	<div>
+                    <img src="https://static-cdn.jtvnw.net/jtv_user_pictures/312a7fda-6fc2-49a1-a12d-7995e83949e4-profile_image-300x300.png" alt="avatar" class="avatar">
+                    </div>
+                    <div> 
+                    <p style="font-weight: 900;" class="chat-name-moderator"><i class="fas fa-user-shield" aria-hidden="true"></i> Maxime_49</p>
+                    <span id="points-counter" class="text-small text-white">1000148332</span>
+                    <img src="/img/po.png" alt="points" width="16px" height="16px">
+                	</div>
+                	<div class="btnadmin">
+                		<button type="button" class="btn btn-primary" style="background-color: #007bff;" data-toggle="popover" data-trigger="hover" data-content="Changer le pseudo de l'utilisateur"><i class="fas fa-pen"></i></button>
+                    	<button type="button" class="btn btn-warning"  data-toggle="popover" data-trigger="hover" data-content="Modifier le solde de pièces"><i class="fas fa-coins" aria-hidden="true"></i></button>
+                    	<button type="button" class="btn btn-primary" data-toggle="popover" data-trigger="hover" data-content="Rendre Partenaire"><i class="fas fa-handshake"></i></button>
+                    	<button type="button" class="btn btn-danger" data-toggle="popover" data-trigger="hover" data-content="Bannir la chaine"><i class="fas fa-skull-crossbones"></i></button>
+                    	<button type="button" class="btn btn-success"  data-toggle="popover" data-trigger="hover" data-content="Passer Modérateur"><i class="fas fa-shield-alt"></i></button>
+
+                	</div>
+                <li class="giveaway-winner">
+                                    	<div>
+                    <img src="https://static-cdn.jtvnw.net/jtv_user_pictures/312a7fda-6fc2-49a1-a12d-7995e83949e4-profile_image-300x300.png" alt="avatar" class="avatar">
+                    </div>
+                    <div> 
+                    <p style="font-weight: 900;" class="chat-name-moderator"><i class="fas fa-user-shield" aria-hidden="true"></i> Maxime_49</p>
+                    <span id="points-counter" class="text-small text-white">1000148332</span>
+                    <img src="/img/po.png" alt="points" width="16px" height="16px">
+                	</div>
+                	<div class="btnadmin">
+                		<button type="button" class="btn btn-primary" style="background-color: #007bff;" data-toggle="popover" data-trigger="hover" data-content="Changer le pseudo de l'utilisateur"><i class="fas fa-pen"></i></button>
+                    	<button type="button" class="btn btn-warning"  data-toggle="popover" data-trigger="hover" data-content="Modifier le solde de pièces"><i class="fas fa-coins" aria-hidden="true"></i></button>
+                    	<button type="button" class="btn btn-primary" data-toggle="popover" data-trigger="hover" data-content="Rendre Partenaire"><i class="fas fa-handshake"></i></button>
+                    	<button type="button" class="btn btn-danger" data-toggle="popover" data-trigger="hover" data-content="Bannir la chaine"><i class="fas fa-skull-crossbones"></i></button>
+                    	<button type="button" class="btn btn-success"  data-toggle="popover" data-trigger="hover" data-content="Passer Modérateur"><i class="fas fa-shield-alt"></i></button>
+
+                	</div>
+                </li>
+            </ul>
+            <hr>
+            <br>
+	            <nav aria-label="Page navigation example">
+				  <ul class="pagination justify-content-center">
+				    <li class="page-item">
+				      <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Précédent</a>
+				    </li>
+				    <li class="page-item disabled"><a class="page-link" href="#">1</a></li>
+				    <li class="page-item"><a class="page-link" href="#">2</a></li>
+				    <li class="page-item"><a class="page-link" href="#">3</a></li>
+				    <li class="page-item">
+				      <a class="page-link" href="#">Suivant</a>
+				    </li>
+				  </ul>
+			</nav>
+        </div>
+
+    </div>
+
+{% endblock %}
+
+{% block script %}
+{% endblock %}

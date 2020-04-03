@@ -235,7 +235,7 @@ li a:hover {
 }
 
 .stars{
-    background: url(img/overlay_stars.svg);
+    background: url(/img/overlay_stars.svg);
     background-repeat: repeat;
     background-size: contain;
     background-position: left top;
@@ -309,13 +309,13 @@ li a:hover {
 
             </div>
             <div class="objects">
-                <img class="object_rocket" src="img/rocket.svg" width="100px">
+                <img class="object_rocket" src="/img/rocket.svg" width="100px">
                 <div class="earth-moon">
-                    <img class="object_earth" src="img/earth.svg" width="100px">
-                    <img class="object_moon" src="img/moon.svg" width="80px">
+                    <img class="object_earth" src="/img/earth.svg" width="100px">
+                    <img class="object_moon" src="/img/moon.svg" width="80px">
                 </div>
                 <div class="box_astronaut">
-                    <img class="object_astronaut" src="img/astronaute.svg" width="140px">
+                    <img class="object_astronaut" src="/img/astronaute.svg" width="140px">
                 </div>
             </div>
             <div class="glowing_stars">

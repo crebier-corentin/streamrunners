@@ -230,4 +230,24 @@ describe('UserService', () => {
             expect(spySave).toHaveBeenCalledWith(expected);
         });
     });
+
+    describe('togglePartner', () => {
+        it('should set user.partner to true if user.partner is false', async () => {
+            const user = new UserEntity();
+            user.partner = false;
+
+            await service.togglePartner(user);
+
+            expect(user.partner).toBe(true);
+        });
+
+        it('should set user.partner to false if user.partner is true', async () => {
+            const user = new UserEntity();
+            user.partner = true;
+
+            await service.togglePartner(user);
+
+            expect(user.partner).toBe(false);
+        });
+    });
 });

@@ -236,4 +236,9 @@ export class UserService extends EntityService<UserEntity> {
 
         await this.repo.save(userToBeBanned);
     }
+
+    public async togglePartner(user: UserEntity): Promise<void> {
+        user.partner = !user.partner;
+        await this.repo.save(user);
+    }
 }

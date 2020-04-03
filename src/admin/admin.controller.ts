@@ -1,6 +1,7 @@
 import { Body, Controller, Get, Post, Redirect, Render, Req, UseFilters, UseGuards } from '@nestjs/common';
 import { Request } from 'express';
 import { User } from '../common/decorator/user.decorator';
+import { UserErrorException } from '../common/exception/user-error.exception';
 import { FlashAndRedirectUserErrorFilter } from '../common/filter/flash-and-redirect-user-error.filter';
 import { AuthenticatedGuard } from '../common/guard/authenticated.guard';
 import { ModeratorGuard } from '../common/guard/moderator.guard';
@@ -33,5 +34,22 @@ export class AdminController {
         await this.adminService.ban(username, user);
 
         req.flash('success', 'Utilisateur banni avec succès.');
+    }
+
+    @UseFilters(new FlashAndRedirectUserErrorFilter('/admin'))
+    @Post('partner')
+    @Redirect('/admin')
+    public async partner(@Body('username') username: string, @Req() req: Request): Promise<void> {
+        const user = await this.userService.byUsernameOrFail(
+            username,
+            [],
+            new UserErrorException(`Impossible de trouver l'utilisateur "${username}".`)
+        );
+        await this.userService.togglePartner(user);
+
+        req.flash(
+            'success',
+            `Utilisateur ${user.partner ? 'ajouté dans' : 'enlevé de'} la liste des partneraires avec succès.`
+        );
     }
 }

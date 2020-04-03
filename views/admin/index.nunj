@@ -64,11 +64,20 @@
             </div>
         {% endif %}
 
-
+        {# Ban #}
         <form action="/admin/ban" method="post">
             <input name="username" type="text" placeholder="Chaine a Bannir (Nom d'utilisateur)" />
             <button type="submit" class="btn btn-danger">Bannir</button>
         </form>
+
+        {# Partner #}
+        <form action="/admin/partner" method="post">
+            <input name="username"
+                   type="text"
+                   placeholder="Chaine a ajouté/enlevé des partenaires (Nom d'utilisateur)" />
+            <button type="submit" class="btn btn-primary">Ajouté/Enlevé des partenaires</button>
+        </form>
+
         <h3>Stats</h3>
 
         <table class="table table-striped table-bordered table-hover">

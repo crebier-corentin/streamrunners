@@ -8,6 +8,7 @@ import { AnnouncementModule } from './announcement/announcement.module';
 import { AppController } from './app.controller';
 import { AuthModule } from './auth/auth.module';
 import { BannerModule } from './banner/banner.module';
+import { CaseModule } from './case/case.module';
 import { ChatModule } from './chat/chat.module';
 import { CouponModule } from './coupon/coupon.module';
 import { DiscordModule } from './discord/discord.module';
@@ -47,6 +48,7 @@ import ormconfig = require('./ormconfig');
         LeaderboardModule,
         PartnerModule,
         SubscriptionModule,
+        CaseModule,
     ],
     controllers: [AppController],
 })

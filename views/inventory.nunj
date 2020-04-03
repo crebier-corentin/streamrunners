@@ -10,6 +10,41 @@
 
     <h1 class="text-center">Inventaire</h1>
     <hr>
+    {# Cases #}
+    <section class="row">
+
+        {% for case in req.user.cases %}
+            <div class="col-sm-3">
+                <div class="card" style="width: 14rem;">
+                    {# Image #}
+                    {% if case.isOpened() %}
+                        <img src="{{ case.type.openImage }}" class="card-img-top" alt="Caisse ouverte">
+                    {% else %}
+                        <img src="{{ case.type.closeImage }}" class="card-img-top" alt="Caisse fermé">
+                    {% endif %}
+                    <div class="card-body">
+                        {# Name #}
+                        <h5 class="card-title">{{ case.type.name }}</h5>
+                        {# Content #}
+                        {% if case.isOpened() %}
+                            <p class="card-text"><b>{{ case.content.name }}</b></p>
+                        {% else %}
+
+                            <div class="col-2">
+                                <form action="/case/show" method="post">
+                                    <input type="hidden" name="caseId" value="{{ case.id }}">
+                                    <button class="btn btn-primary">Ouvrir</button>
+                                </form>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+
+    </section>
+
+
     {# Raffle #}
     <section class="row">
         {% for raffle in req.user.rafflesWon %}

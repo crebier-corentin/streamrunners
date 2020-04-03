@@ -1,6 +1,7 @@
 {
     "/public/js/bundle.js": "/public/js/bundle.js",
     "/public/css/style.css": "/public/css/style.css",
+    "/public/js/case.js": "/public/js/case.js",
     "/public/js/coupon.js": "/public/js/coupon.js",
     "/public/js/index.js": "/public/js/index.js",
     "/public/js/points-counter.js": "/public/js/points-counter.js",

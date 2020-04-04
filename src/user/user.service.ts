@@ -95,12 +95,21 @@ export class UserService extends EntityService<UserEntity> {
             .getMany();
     }
 
-    public viewers(): Promise<UserEntity[]> {
+    public viewers(intervalInSeconds: number, excludeId = -1): Promise<UserEntity[]> {
         return this.repo
             .createQueryBuilder('user')
-            .select(['user.displayName', 'user.avatar', 'user.moderator', 'user.admin', 'user.partner'])
+            .select([
+                'user.id',
+                'user.points',
+                'user.displayName',
+                'user.avatar',
+                'user.moderator',
+                'user.admin',
+                'user.partner',
+            ])
             .leftJoinAndSelect('user.currentSubscription', 'sub')
-            .where('user.lastOnWatchPage > NOW() - INTERVAL 30 SECOND')
+            .where(`user.lastOnWatchPage > NOW() - INTERVAL ${intervalInSeconds} SECOND`)
+            .andWhere('user.id != :excludeId', { excludeId })
             .getMany();
     }
 

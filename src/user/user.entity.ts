@@ -55,9 +55,6 @@ export class UserEntity {
     public moderator: boolean;
 
     @Column('datetime', { default: () => 'CURRENT_TIMESTAMP' })
-    public lastUpdate: Date;
-
-    @Column('datetime', { default: () => 'CURRENT_TIMESTAMP' })
     public lastOnWatchPage: Date;
 
     @Expose()

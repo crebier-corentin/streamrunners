@@ -13,7 +13,7 @@ export class AppController {
             res.render('./watch');
         } else {
             res.render('./index', {
-                viewers: (await this.userService.viewers()).length,
+                viewers: (await this.userService.viewers(30)).length,
                 totalUsers: await this.userService.count(),
                 raffleTotalValue: await this.raffleService.totalValue(),
                 streamerPartners: JSON.stringify(await this.userService.partners()),

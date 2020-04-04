@@ -27,12 +27,11 @@ export class WatchController {
     ): Promise<{ viewers: any; auth: boolean; messages: any; queue: StreamQueueEntity[]; points: number }> {
         //Update lastOnWatchPage
         user.lastOnWatchPage = new Date();
-
-        await this.watchService.updatePoints(user);
+        await this.userService.save(user);
 
         const [queue, viewers, messages] = await Promise.all([
             this.streamQueueService.currentAndNextStreams(), //queue
-            this.userService.viewers(), //viewers
+            this.userService.viewers(30), //viewers
             this.chatService.getLastMessages(), //messages
         ]);
 

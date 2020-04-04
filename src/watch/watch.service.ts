@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { Cron, CronExpression } from '@nestjs/schedule';
 import * as moment from 'moment';
 import { UserErrorException } from '../common/exception/user-error.exception';
 import { StreamQueueService } from '../stream-queue/stream-queue.service';
@@ -38,37 +39,21 @@ export class WatchService {
         }
     }
 
-    public async updatePoints(user: UserEntity): Promise<void> {
-        try {
-            //Check if stream is online
-            const current = await this.streamQueueService.currentStream();
+    @Cron(CronExpression.EVERY_SECOND)
+    public async updatePoints(): Promise<void> {
+        //Check if stream is online
+        const current = await this.streamQueueService.currentStream();
+        if (current == undefined) return;
 
-            //Check if stream and is not self stream
-            if (current == undefined || current.user.id === user.id) return;
+        //Check if stream is online
+        if (!(await this.twitch.isStreamOnline(current.user.twitchId))) return;
 
-            //Check if stream is online
-            if (!(await this.twitch.isStreamOnline(current.user.twitchId))) return;
+        //Exclude the stream's owner
+        const users = await this.userService.viewers(5, current.user.id);
 
-            const now = moment();
-
-            //If lastUpdate was one minutes or less ago
-            if (moment(user.lastUpdate).add(5, 'seconds') >= now) {
-                const seconds = now.diff(user.lastUpdate, 'seconds');
-
-                /*If seconds is 0, time since last request is too short (< a second)
-                Don't update lastUpdate so that the user still gains point for next request*/
-                if (seconds > 0) {
-                    const multiplier = WatchService.pointsMultiplier(user.subscriptionLevel);
-                    await user.changePoints(Math.round(seconds * multiplier));
-
-                    user.lastUpdate = now.toDate();
-                }
-            } else {
-                user.lastUpdate = now.toDate();
-            }
-        } finally {
-            //Always save user even if early return
-            await this.userService.save(user);
+        for (const user of users) {
+            const multiplier = WatchService.pointsMultiplier(user.subscriptionLevel);
+            await this.userService.changePointsSave(user, Math.round(multiplier));
         }
     }
 

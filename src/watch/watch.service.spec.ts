@@ -8,7 +8,6 @@ import { UserEntity } from '../user/user.entity';
 import { NotEnoughPointsException } from '../user/user.exception';
 import { UserService } from '../user/user.service';
 import { WatchService } from './watch.service';
-import MockDate = require('mockdate');
 
 describe('WatchService', () => {
     let service: WatchService;
@@ -38,7 +37,7 @@ describe('WatchService', () => {
                         changePointsSave: jest.fn().mockImplementation((user, cost) => {
                             user.points += cost;
                         }),
-                        getSubscriptionLevel: jest.fn(),
+                        viewers: jest.fn(),
                     },
                 },
                 {
@@ -54,8 +53,6 @@ describe('WatchService', () => {
         streamQueueService = module.get<StreamQueueService>(StreamQueueService);
         userService = module.get<UserService>(UserService);
         twitch = module.get<TwitchService>(TwitchService);
-
-        MockDate.reset();
     });
 
     it('should be defined', () => {
@@ -72,7 +69,6 @@ describe('WatchService', () => {
             user.twitchId = '123';
             user.username = 'user';
             user.displayName = 'User';
-            user.lastUpdate = new Date('2020-01-01T00:00:00');
             user.points = 100;
 
             streamer = new UserEntity();
@@ -80,91 +76,46 @@ describe('WatchService', () => {
             streamer.twitchId = '456';
             streamer.username = 'streamer';
             streamer.displayName = 'streamer';
-            streamer.lastUpdate = new Date('2020-01-01T00:00:00');
             streamer.points = 0;
         });
 
-        it("should not increase the user's points if there is no stream active", async () => {
+        it("should not increase the viewers' points if there is no stream active", async () => {
             jest.spyOn(streamQueueService, 'currentStream').mockResolvedValue(undefined);
 
-            await service.updatePoints(user);
+            await service.updatePoints();
 
             expect(user.points).toBe(100);
         });
 
-        it("should not increase the user's points if the current stream is made by user", async () => {
-            const stream = new StreamQueueEntity();
-            stream.user = user;
-
-            jest.spyOn(streamQueueService, 'currentStream').mockResolvedValue(stream);
-
-            await service.updatePoints(user);
-
-            expect(user.points).toBe(100);
-        });
-
-        it("should not increase the user's points if the current stream is offline", async () => {
+        it("should not increase the viewers' points if the current stream is offline", async () => {
             const stream = new StreamQueueEntity();
             stream.user = streamer;
 
             jest.spyOn(streamQueueService, 'currentStream').mockResolvedValue(stream);
             jest.spyOn(twitch, 'isStreamOnline').mockResolvedValue(false);
 
-            await service.updatePoints(user);
+            await service.updatePoints();
 
             expect(user.points).toBe(100);
         });
-
-        it("should not increase the user's points if it's been more than 5 seconds since user.lastUpdate and should update user.lastUpdate", async () => {
-            const stream = new StreamQueueEntity();
-            stream.user = streamer;
-
-            jest.spyOn(streamQueueService, 'currentStream').mockResolvedValue(stream);
-            jest.spyOn(twitch, 'isStreamOnline').mockResolvedValue(true);
-            MockDate.set('2020-01-01T00:00:10');
-
-            await service.updatePoints(user);
-
-            expect(user.points).toBe(100);
-            expect(user.lastUpdate).toStrictEqual(new Date('2020-01-01T00:00:10'));
-        });
-
-        it("should not increase the user's points if it's been less than 1 seconds since user.lastUpdate and should not update user.lastUpdate", async () => {
-            const stream = new StreamQueueEntity();
-            stream.user = streamer;
-
-            jest.spyOn(streamQueueService, 'currentStream').mockResolvedValue(stream);
-            jest.spyOn(twitch, 'isStreamOnline').mockResolvedValue(true);
-            MockDate.set('2020-01-01T00:00:00.200');
-
-            await service.updatePoints(user);
-
-            expect(user.points).toBe(100);
-            expect(user.lastUpdate).toStrictEqual(new Date('2020-01-01T00:00:00'));
-        });
-
         it.each([
-            [SubscriptionLevel.None, 104],
-            [SubscriptionLevel.VIP, 106],
-            [SubscriptionLevel.Diamond, 108],
-        ])(
-            "should increase the user's points if it's been less than 5 seconds since user.lastUpdate and should update user.lastUpdate (%s)",
-            async (lvl, expectedPoints) => {
-                user.subscriptionLevel = lvl;
+            [SubscriptionLevel.None, 101],
+            [SubscriptionLevel.VIP, 102],
+            [SubscriptionLevel.Diamond, 102],
+        ])("should increase the viewers' points (%s)", async (lvl, expectedPoints) => {
+            user.subscriptionLevel = lvl;
 
-                const stream = new StreamQueueEntity();
-                stream.user = streamer;
+            const stream = new StreamQueueEntity();
+            stream.user = streamer;
 
-                jest.spyOn(streamQueueService, 'currentStream').mockResolvedValue(stream);
-                jest.spyOn(twitch, 'isStreamOnline').mockResolvedValue(true);
-                MockDate.set('2020-01-01T00:00:04');
+            jest.spyOn(streamQueueService, 'currentStream').mockResolvedValue(stream);
+            jest.spyOn(twitch, 'isStreamOnline').mockResolvedValue(true);
+            jest.spyOn(userService, 'viewers').mockResolvedValue([user]);
 
-                await service.updatePoints(user);
+            await service.updatePoints();
 
-                expect(user.points).toBe(expectedPoints);
-                expect(user.lastUpdate).toStrictEqual(new Date('2020-01-01T00:00:04'));
-            }
-        );
+            expect(user.points).toBe(expectedPoints);
+        });
     });
 
     describe('addStreamToQueue', () => {

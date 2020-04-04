@@ -3,11 +3,11 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { AxiosError } from 'axios';
 import { Connection, EntityManager } from 'typeorm';
 import { UserEntity } from '../user/user.entity';
+import { PaypalSubscriptionDetails } from './paypal.interfaces';
 import { PaypalService } from './paypal.service';
 import { SubscriptionEntity } from './subscription.entity';
 import { SubscriptionSubscriber } from './subscription.subscriber';
 import MockDate = require('mockdate');
-import { PaypalSubscriptionDetails } from './paypal.interfaces';
 
 describe('SubscriptionSubscriber', () => {
     let subscriber: SubscriptionSubscriber;

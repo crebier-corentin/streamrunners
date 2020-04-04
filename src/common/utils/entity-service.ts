@@ -1,6 +1,6 @@
 import { InternalServerErrorException } from '@nestjs/common';
 import { HttpException } from '@nestjs/common/exceptions/http.exception';
-import { Repository, UpdateResult } from 'typeorm';
+import { Repository } from 'typeorm';
 import { RemoveOptions } from 'typeorm/repository/RemoveOptions';
 import { SaveOptions } from 'typeorm/repository/SaveOptions';
 

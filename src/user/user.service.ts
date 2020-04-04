@@ -196,7 +196,7 @@ export class UserService extends EntityService<UserEntity> {
             .leftJoin('user.streamsQueued', 'queue')
             .select('user.username', 'username')
             .addSelect('user.displayName', 'displayName')
-            .addSelect('SUM(queue.current)', 'time')
+            .addSelect('SUM(LEAST(queue.time, queue.current))', 'time') //queue.current can be bigger than queue.time if the stream ends during a maintenance
             .orderBy('time', 'DESC')
             .groupBy('user.id')
             .limit(10);

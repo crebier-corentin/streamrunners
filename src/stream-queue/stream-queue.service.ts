@@ -7,6 +7,7 @@ import { EntityService } from '../common/utils/entity-service';
 import { DiscordBotService } from '../discord/discord-bot.service';
 import { UserEntity } from '../user/user.entity';
 import { StreamQueueEntity } from './stream-queue.entity';
+import moment = require('moment');
 
 @Injectable()
 export class StreamQueueService extends EntityService<StreamQueueEntity> {
@@ -109,8 +110,8 @@ export class StreamQueueService extends EntityService<StreamQueueEntity> {
         }
         //Update current
         else {
-            const startTime = Math.round(currentStream.start.getTime() / 1000);
-            currentStream.current = Math.round(new Date().getTime() / 1000) - startTime;
+            const seconds = moment().diff(currentStream.start, 'seconds');
+            currentStream.current = Math.min(seconds, currentStream.time); //current can be bigger than time if the stream ends during a maintenance
         }
 
         await this.repo.save(currentStream);

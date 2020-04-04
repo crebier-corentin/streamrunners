@@ -140,10 +140,11 @@ describe('StreamQueueService', () => {
             expect(mockedSave).toHaveBeenCalledWith(expectedStream);
         });
 
-        it("should update the stream's time if it hasn't already", async () => {
+        it('should update the stream.current', async () => {
             const stream = new StreamQueueEntity();
             stream.start = new Date('2020-01-01T12:00:00.000Z');
             stream.current = 0;
+            stream.time = 600;
 
             // @ts-ignore
             const mockedSave = jest.spyOn(repo, 'save').mockImplementation(entity => entity);
@@ -153,6 +154,28 @@ describe('StreamQueueService', () => {
             const expectedStream = new StreamQueueEntity();
             expectedStream.start = new Date('2020-01-01T12:00:00.000Z');
             expectedStream.current = 240;
+            expectedStream.time = 600;
+
+            // @ts-ignore
+            await service.updateQueue();
+            expect(mockedSave).toHaveBeenCalledWith(expectedStream);
+        });
+
+        it('should cap the stream.current at stream.time', async () => {
+            const stream = new StreamQueueEntity();
+            stream.start = new Date('2020-01-01T12:00:00.000Z');
+            stream.current = 0;
+            stream.time = 600;
+
+            // @ts-ignore
+            const mockedSave = jest.spyOn(repo, 'save').mockImplementation(entity => entity);
+            mockCurrentStream(stream);
+            MockDate.set('2020-01-01T20:00:00.000Z');
+
+            const expectedStream = new StreamQueueEntity();
+            expectedStream.start = new Date('2020-01-01T12:00:00.000Z');
+            expectedStream.current = 600;
+            expectedStream.time = 600;
 
             // @ts-ignore
             await service.updateQueue();

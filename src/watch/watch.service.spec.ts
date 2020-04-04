@@ -129,6 +129,20 @@ describe('WatchService', () => {
             expect(user.lastUpdate).toStrictEqual(new Date('2020-01-01T00:00:10'));
         });
 
+        it("should not increase the user's points if it's been less than 1 seconds since user.lastUpdate and should not update user.lastUpdate", async () => {
+            const stream = new StreamQueueEntity();
+            stream.user = streamer;
+
+            jest.spyOn(streamQueueService, 'currentStream').mockResolvedValue(stream);
+            jest.spyOn(twitch, 'isStreamOnline').mockResolvedValue(true);
+            MockDate.set('2020-01-01T00:00:00.200');
+
+            await service.updatePoints(user);
+
+            expect(user.points).toBe(100);
+            expect(user.lastUpdate).toStrictEqual(new Date('2020-01-01T00:00:00'));
+        });
+
         it.each([
             [SubscriptionLevel.None, 104],
             [SubscriptionLevel.VIP, 106],

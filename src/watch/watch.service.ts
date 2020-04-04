@@ -54,12 +54,18 @@ export class WatchService {
             //If lastUpdate was one minutes or less ago
             if (moment(user.lastUpdate).add(5, 'seconds') >= now) {
                 const seconds = now.diff(user.lastUpdate, 'seconds');
-                const multiplier = WatchService.pointsMultiplier(user.subscriptionLevel);
 
-                await user.changePoints(Math.round(seconds * multiplier));
+                /*If seconds is 0, time since last request is too short (< a second)
+                Don't update lastUpdate so that the user still gains point for next request*/
+                if (seconds > 0) {
+                    const multiplier = WatchService.pointsMultiplier(user.subscriptionLevel);
+                    await user.changePoints(Math.round(seconds * multiplier));
+
+                    user.lastUpdate = now.toDate();
+                }
+            } else {
+                user.lastUpdate = now.toDate();
             }
-
-            user.lastUpdate = now.toDate();
         } finally {
             //Always save user even if early return
             await this.userService.save(user);

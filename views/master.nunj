@@ -124,10 +124,6 @@
                              <a class="nav-link" href="/auth/logout"><i class="fas fa-sign-out-alt"></i> Se déconnecter</a>
                         </div>
                     </li>
-                {% else %}
-
-                    <a class="btn btn-primary" href="/auth/twitch">Se connecter avec Twitch.Tv
-                        <i class="fab fa-twitch"></i></a>
                 {% endif %}
 
             </ul>
@@ -192,7 +188,7 @@
                href="www.instagram.com/twitchrunners/"
                aria-label="Instagram StreamRunners"
                target="_blank"><i style="color:pink" class="fab fa-instagram margright"></i></a> -->
-            <a class="inline" href="https://discord.gg/PjQFW8z" aria-label="Discord StreamRunners" target="_blank"><i
+            <a class="inline" href="https://discord.gg/rA8Hbec" aria-label="Discord StreamRunners" target="_blank"><i
                         style="color:lightgrey"
                         class="fab fa-discord margright"></i></a>
         </div>

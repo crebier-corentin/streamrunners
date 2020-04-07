@@ -39,12 +39,6 @@ export class AppController {
         //
     }
 
-    @Render('profil')
-    @Get('profil')
-    public profil(): void {
-        //
-    }
-
     @UseGuards(AuthenticatedGuard)
     @Render('inventory')
     @Get('inventory')

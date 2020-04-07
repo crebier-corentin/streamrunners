@@ -106,8 +106,10 @@ export class UserService extends EntityService<UserEntity> {
                 'user.moderator',
                 'user.admin',
                 'user.partner',
+                'user.gotAffiliateCase',
             ])
             .leftJoinAndSelect('user.currentSubscription', 'sub')
+            .leftJoinAndSelect('user.affiliatedTo', 'a')
             .where(`user.lastOnWatchPage > NOW() - INTERVAL ${intervalInSeconds} SECOND`)
             .andWhere('user.id != :excludeId', { excludeId })
             .getMany();

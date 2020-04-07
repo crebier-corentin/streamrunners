@@ -1,5 +1,6 @@
 import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import * as ExpressRateLimit from 'express-rate-limit';
+import { CaseModule } from '../case/case.module';
 import { ChatModule } from '../chat/chat.module';
 import { StreamQueueModule } from '../stream-queue/stream-queue.module';
 import { TwitchModule } from '../twitch/twitch.module';
@@ -8,7 +9,7 @@ import { WatchController } from './watch.controller';
 import { WatchService } from './watch.service';
 
 @Module({
-    imports: [StreamQueueModule, UserModule, ChatModule, TwitchModule],
+    imports: [StreamQueueModule, UserModule, ChatModule, TwitchModule, CaseModule],
     controllers: [WatchController],
     providers: [WatchService],
 })

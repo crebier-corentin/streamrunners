@@ -1,4 +1,9 @@
+/* eslint-disable @typescript-eslint/ban-ts-ignore */
+import { ConfigService } from '@nestjs/config';
 import { Test, TestingModule } from '@nestjs/testing';
+import { CaseTypeEntity } from '../case/case-type.entity';
+import { CaseTypeService } from '../case/case-type.service';
+import { CaseService } from '../case/case.service';
 import { UserErrorException } from '../common/exception/user-error.exception';
 import { StreamQueueEntity } from '../stream-queue/stream-queue.entity';
 import { StreamQueueService } from '../stream-queue/stream-queue.service';
@@ -14,6 +19,8 @@ describe('WatchService', () => {
     let streamQueueService: StreamQueueService;
     let userService: UserService;
     let twitch: TwitchService;
+    let caseService: CaseService;
+    let caseTypeService: CaseTypeService;
 
     beforeEach(async () => {
         const module: TestingModule = await Test.createTestingModule({
@@ -46,6 +53,24 @@ describe('WatchService', () => {
                         isStreamOnline: jest.fn(),
                     },
                 },
+                {
+                    provide: CaseService,
+                    useValue: {
+                        giveCase: jest.fn(),
+                    },
+                },
+                {
+                    provide: CaseTypeService,
+                    useValue: {
+                        byIdOrFail: jest.fn(),
+                    },
+                },
+                {
+                    provide: ConfigService,
+                    useValue: {
+                        get: jest.fn().mockReturnValue(1),
+                    },
+                },
             ],
         }).compile();
 
@@ -53,23 +78,44 @@ describe('WatchService', () => {
         streamQueueService = module.get<StreamQueueService>(StreamQueueService);
         userService = module.get<UserService>(UserService);
         twitch = module.get<TwitchService>(TwitchService);
+        caseService = module.get<CaseService>(CaseService);
+        caseTypeService = module.get<CaseTypeService>(CaseTypeService);
     });
 
     it('should be defined', () => {
         expect(service).toBeDefined();
     });
 
+    describe('onApplicationBootstrap', () => {
+        it('should load affiliateCaseType', async () => {
+            const type = new CaseTypeEntity();
+            type.name = 'type';
+            type.openImage = 'type/open.png';
+            type.closeImage = 'type/close.png';
+
+            jest.spyOn(caseTypeService, 'byIdOrFail').mockResolvedValue(type);
+
+            await service.onApplicationBootstrap();
+
+            // @ts-ignore
+            expect(service.affiliateCaseType).toEqual(type);
+        });
+    });
+
     describe('updatePoints', () => {
         let user: UserEntity;
         let streamer: UserEntity;
+        let type: CaseTypeEntity;
+        let giveCaseMocked;
 
-        beforeEach(() => {
+        beforeEach(async () => {
             user = new UserEntity();
             user.id = 1;
             user.twitchId = '123';
             user.username = 'user';
             user.displayName = 'User';
             user.points = 100;
+            user.gotAffiliateCase = false;
 
             streamer = new UserEntity();
             streamer.id = 2;
@@ -77,6 +123,17 @@ describe('WatchService', () => {
             streamer.username = 'streamer';
             streamer.displayName = 'streamer';
             streamer.points = 0;
+
+            type = new CaseTypeEntity();
+            type.name = 'type';
+            type.openImage = 'type/open.png';
+            type.closeImage = 'type/close.png';
+
+            jest.spyOn(caseTypeService, 'byIdOrFail').mockResolvedValue(type);
+
+            await service.onApplicationBootstrap();
+
+            giveCaseMocked = jest.spyOn(caseService, 'giveCase');
         });
 
         it("should not increase the viewers' points if there is no stream active", async () => {
@@ -115,6 +172,61 @@ describe('WatchService', () => {
             await service.updatePoints();
 
             expect(user.points).toBe(expectedPoints);
+        });
+
+        it('should not give affiliate cases if the user already received one', async () => {
+            user.subscriptionLevel = SubscriptionLevel.None;
+            user.gotAffiliateCase = true;
+
+            const stream = new StreamQueueEntity();
+            stream.user = streamer;
+
+            jest.spyOn(streamQueueService, 'currentStream').mockResolvedValue(stream);
+            jest.spyOn(twitch, 'isStreamOnline').mockResolvedValue(true);
+            jest.spyOn(userService, 'viewers').mockResolvedValue([user]);
+
+            await service.updatePoints();
+
+            expect(giveCaseMocked).not.toHaveBeenCalled();
+        });
+
+        it('should not give affiliate cases if the user has less than 2000 points', async () => {
+            user.subscriptionLevel = SubscriptionLevel.None;
+            user.points = 1990;
+
+            const stream = new StreamQueueEntity();
+            stream.user = streamer;
+
+            jest.spyOn(streamQueueService, 'currentStream').mockResolvedValue(stream);
+            jest.spyOn(twitch, 'isStreamOnline').mockResolvedValue(true);
+            jest.spyOn(userService, 'viewers').mockResolvedValue([user]);
+
+            await service.updatePoints();
+
+            expect(giveCaseMocked).not.toHaveBeenCalled();
+        });
+
+        it("should give affiliate cases if the user has 2000 points or more and hasn't received them yet", async () => {
+            const affiliate = new UserEntity();
+            affiliate.id = 10;
+
+            user.subscriptionLevel = SubscriptionLevel.None;
+            user.points = 2000;
+            user.affiliatedTo = affiliate;
+
+            const stream = new StreamQueueEntity();
+            stream.user = streamer;
+
+            jest.spyOn(streamQueueService, 'currentStream').mockResolvedValue(stream);
+            jest.spyOn(twitch, 'isStreamOnline').mockResolvedValue(true);
+            jest.spyOn(userService, 'viewers').mockResolvedValue([user]);
+
+            await service.updatePoints();
+
+            expect(giveCaseMocked).toHaveBeenNthCalledWith(1, type, user);
+            expect(giveCaseMocked).toHaveBeenNthCalledWith(2, type, affiliate);
+
+            expect(user.gotAffiliateCase).toBe(true);
         });
     });
 

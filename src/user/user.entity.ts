@@ -139,6 +139,21 @@ export class UserEntity {
     )
     public cases: CaseEntity[];
 
+    @OneToMany(
+        type => UserEntity,
+        u => u.affiliatedTo
+    )
+    public affiliates: UserEntity[];
+
+    @ManyToOne(
+        type => UserEntity,
+        u => u.affiliates
+    )
+    public affiliatedTo: UserEntity;
+
+    @Column({ default: false })
+    public gotAffiliateCase: boolean;
+
     @Exclude()
     @CreateDateColumn()
     public createdAt: Date;

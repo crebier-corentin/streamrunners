@@ -5,72 +5,70 @@
 {% endblock %}
 
 {% block content %}
-	<div class="container">
-		<div class="jumbotron text-center">
+    <div class="container">
+        <div class="jumbotron text-center">
 
-            <h2 class="display-4" style="margin-bottom: 5rem;">Affiliation</h2>
-            <br>
+            <h2 class="display-4" style="margin-bottom: 5rem;">Affiliation</h2><br>
             <div class="row">
-    		<div class="col-md" style="font-size: 23px;">
-				<p>Partage ton lien avec t'es amis pour gagner une superbe caisse remplis de StreamCoins !</p>
-				<br>
-				<p>Comment ça fonctionne ?</p>
-			<ol>
-			  <li>Clique sur le bouton copier pour récupérer ton lien</li>
-			  <li>Envoie le à tes amis pour qu'ils rejoignent le site</li>
-			  <li>Dès qu'il a atteint ses 2 000 StreamCoins il gagne une caisse et toi aussi</li>
-			  <li>Reviens sur cette page ouvrir la caisse et frimer avec tout tes StreamCoins</li>
-			</ol>
-			</div>
-			<div class="col-sm">
-				<img class="caisseaffiliate boucle" src="/img/boucle.gif">
-				<img class="caisseaffiliate" src="/img/case/Affiliate/ferme.png">
-			</div>
-		</div>
+                <div class="col-md" style="font-size: 23px;">
+                    <p>Partage ton lien avec t'es amis pour gagner une superbe caisse remplis de StreamCoins !</p><br>
+                    <p>Comment ça fonctionne ?</p>
+                    <ol>
+                        <li>Clique sur le bouton copier pour récupérer ton lien</li>
+                        <li>Envoie le à tes amis pour qu'ils rejoignent le site</li>
+                        <li>Dès qu'il a atteint ses 2 000 StreamCoins il gagne une caisse et toi aussi</li>
+                        <li>Reviens sur cette page ouvrir la caisse et frimer avec tout tes StreamCoins</li>
+                    </ol>
+                </div>
+                <div class="col-sm">
+                    <img class="caisseaffiliate boucle" src="/img/boucle.gif">
+                    <img class="caisseaffiliate" src="/img/case/affiliate/close.png">
+                </div>
+            </div>
             <hr>
-            <form>
-            	<center>
-				<div class="input-group mb-3" style="width:80%;">
-				  <input type="text" class="form-control" placeholder="https://streamrunners.fr/affiliate/{{ req.user.displayName }}" aria-label="https://streamrunners.fr/affiliate/StreamRunners" aria-describedby="button-addon2" disabled >
-				  <div class="input-group-append">
-				    <button class="btn btn-outline-success affiliate" type="button" id="button-addon2">Copier</button>
-				  </div>
-				</div>
-				</center>
+            <form class="text-center">
+
+                <div class="input-group mb-3" style="width:80%;">
+                    <input type="text"
+                           class="form-control"
+                           placeholder="https://streamrunners.fr/affiliate/{{ req.user.displayName }}"
+                           aria-label="https://streamrunners.fr/affiliate/StreamRunners"
+                           aria-describedby="button-addon2"
+                           disabled>
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-success affiliate" type="button" id="button-addon2">Copier
+                        </button>
+                    </div>
+                </div>
+
             </form>
         </div>
         <h3 class="text-center">AFFILIÉS :</h3>
         <div style="float:right; display:flex;">
-        	<p>15/19  </p><i class="fas fa-question-circle"></i>
-   		</div>
-   		<br>
-   		<br>
+            <p>15/19  </p><i class="fas fa-question-circle"></i>
+        </div>
+        <br>
+        <br>
         <ul class="giveaway-winner-list">
-        	               	<li class="giveaway-winner">
-               		<small class="date">03 Avril</small>
-                    <img src="https://static-cdn.jtvnw.net/jtv_user_pictures/7cbb135c-b1aa-4645-98ba-13ec68d63698-profile_image-300x300.png" alt="avatar" class="avatar" />
-                    <p class="username">Sacha</p>
-                    <div>              	
-                    	<figure>
-						<img class="caisseaffiliate" src="/img/case/Affiliate/ferme.png">
-						    <figcaption><button class="btn btn-outline-success cratebutton" style="margin-left: 5%;" type="button" id="button-addon2">Ouvrir</button></figcaption>
-						</figure>
-               		</div>
-                </li>
+            {% for affiliate in req.user.affiliates %}
                 <li class="giveaway-winner">
-                    <small class="date">03 Avril</small>
-                    <img src="https://static-cdn.jtvnw.net/jtv_user_pictures/7cbb135c-b1aa-4645-98ba-13ec68d63698-profile_image-300x300.png" alt="avatar" class="avatar" />
-                    <p class="username">Sacha</p>
-                    <div>              	
-                    	<figure>
-						<img class="caisseaffiliate" src="/img/case/Affiliate/ouverte.png">
-						    <figcaption><span class="texte">333 <img src="/img/po.png" alt="points" width="16px" height="16px"></span></figcaption>
-						</figure>
-               		</div>
-               	</li>
+                    <small class="date">{{ affiliate.createdAt | date('LL') }}</small>
+                    <img src="{{ affiliate.avatar }}" alt="avatar" class="avatar" />
+                    <p class="username">{{ affiliate.displayName }}</p>
+                    <div>
+                        <figure>
+                            <img class="caisseaffiliate" src="/img/case/affiliate/close.png">
+                            <figcaption>
+                                {% if affiliate.gotAffiliateCase %}
+                                    La caisse est disponible dans votre inventaire.
+                                {% else %}
+                                    {{ affiliate.displayName }} doit obtenir 2 000 steamscoins pour obtenir la caisse.
+                                {% endif %}
+                            </figcaption>
+                        </figure>
+                    </div>
+                </li>
+            {% endfor %}
         </ul>
     </div>
-	</div>
-
-
 {% endblock %}

@@ -1,6 +1,9 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, OnApplicationBootstrap } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import { Cron, CronExpression } from '@nestjs/schedule';
-import * as moment from 'moment';
+import { CaseTypeEntity } from '../case/case-type.entity';
+import { CaseTypeService } from '../case/case-type.service';
+import { CaseService } from '../case/case.service';
 import { UserErrorException } from '../common/exception/user-error.exception';
 import { StreamQueueService } from '../stream-queue/stream-queue.service';
 import { SubscriptionLevel } from '../subscription/subscription.interfaces';
@@ -10,12 +13,24 @@ import { NotEnoughPointsException } from '../user/user.exception';
 import { UserService } from '../user/user.service';
 
 @Injectable()
-export class WatchService {
+export class WatchService implements OnApplicationBootstrap {
+    //Stores the id first, and then loads the entity in onApplicationBootstrap()
+    private affiliateCaseType: number | CaseTypeEntity;
+
     public constructor(
         private readonly streamQueueService: StreamQueueService,
         private readonly userService: UserService,
-        private readonly twitch: TwitchService
-    ) {}
+        private readonly twitch: TwitchService,
+        private readonly caseService: CaseService,
+        private readonly caseTypeService: CaseTypeService,
+        config: ConfigService
+    ) {
+        this.affiliateCaseType = Number(config.get('AFFILIATE_CASE_ID'));
+    }
+
+    public async onApplicationBootstrap(): Promise<void> {
+        this.affiliateCaseType = await this.caseTypeService.byIdOrFail(this.affiliateCaseType as number);
+    }
 
     private static pointsMultiplier(lvl: SubscriptionLevel): number {
         switch (lvl) {
@@ -54,6 +69,15 @@ export class WatchService {
         for (const user of users) {
             const multiplier = WatchService.pointsMultiplier(user.subscriptionLevel);
             await this.userService.changePointsSave(user, Math.round(multiplier));
+
+            //Handle affiliate case
+            if (!user.gotAffiliateCase && user.points >= 2000) {
+                await this.caseService.giveCase(this.affiliateCaseType as CaseTypeEntity, user);
+                await this.caseService.giveCase(this.affiliateCaseType as CaseTypeEntity, user.affiliatedTo);
+
+                user.gotAffiliateCase = true;
+                await this.userService.save(user);
+            }
         }
     }
 

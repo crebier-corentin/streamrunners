@@ -4,6 +4,7 @@ import { ScheduleModule } from '@nestjs/schedule';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { OgmaModule } from 'nestjs-ogma';
 import { AdminModule } from './admin/admin.module';
+import { AffiliateModule } from './affiliate/affiliate.module';
 import { AnnouncementModule } from './announcement/announcement.module';
 import { AppController } from './app.controller';
 import { AuthModule } from './auth/auth.module';
@@ -49,6 +50,7 @@ import ormconfig = require('./ormconfig');
         PartnerModule,
         SubscriptionModule,
         CaseModule,
+        AffiliateModule,
     ],
     controllers: [AppController],
 })

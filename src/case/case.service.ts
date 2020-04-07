@@ -5,6 +5,7 @@ import { EntityService } from '../common/utils/entity-service';
 import { UserEntity } from '../user/user.entity';
 import { UserService } from '../user/user.service';
 import { CaseContentEntity } from './case-content.entity';
+import { CaseTypeEntity } from './case-type.entity';
 import { CaseEntity } from './case.entity';
 
 @Injectable()
@@ -93,5 +94,13 @@ export class CaseService extends EntityService<CaseEntity> {
         await this.userService.changePointsSave(user, winning.amount);
 
         return { spin, winning: { name: winning.name, color: winning.color, image: winning.image } };
+    }
+
+    public async giveCase(type: CaseTypeEntity, user: UserEntity): Promise<void> {
+        const _case = new CaseEntity();
+        _case.type = type;
+        _case.user = user;
+
+        await this.repo.save(_case);
     }
 }

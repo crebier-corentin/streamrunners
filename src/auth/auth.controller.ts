@@ -1,9 +1,14 @@
-import { Controller, Get, Redirect, Req, UseGuards } from '@nestjs/common';
+import { Controller, Get, Redirect, Req, Session, UseGuards } from '@nestjs/common';
+import { User } from '../common/decorator/user.decorator';
 import { AuthenticatedGuard } from '../common/guard/authenticated.guard';
 import { LoginGuard } from '../common/guard/login.guard';
+import { UserEntity } from '../user/user.entity';
+import { UserService } from '../user/user.service';
 
 @Controller('auth')
 export class AuthController {
+    public constructor(private readonly userService: UserService) {}
+
     @UseGuards(LoginGuard)
     @Get('/twitch')
     public loginRedirect(): void {
@@ -13,8 +18,18 @@ export class AuthController {
     @UseGuards(LoginGuard)
     @Redirect('/')
     @Get('/twitch/callback')
-    public loginCallback(): void {
-        //
+    public async loginCallback(@User() rawUser: UserEntity, @Session() session): Promise<void> {
+        //Handle affiliate
+        //Ignore trying to affiliate themselves
+        if (session.affiliateUserId != undefined && session.affiliateUserId !== rawUser.id) {
+            //Load affiliatedTo relation
+            const user = await this.userService.byId(rawUser.id, ['affiliatedTo']);
+            //Ignore if user is already affiliated
+            if (user.affiliatedTo == null) {
+                user.affiliatedTo = await this.userService.byIdOrFail(session.affiliateUserId);
+                await this.userService.save(user);
+            }
+        }
     }
 
     @UseGuards(AuthenticatedGuard)

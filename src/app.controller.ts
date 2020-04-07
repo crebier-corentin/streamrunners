@@ -61,13 +61,6 @@ export class AppController {
     }
 
     @UseGuards(AuthenticatedGuard)
-    @Render('affiliate')
-    @Get('affiliate')
-    public async affiliate(): Promise<void> {
-        //
-    }
-
-    @UseGuards(AuthenticatedGuard)
     @Render('usertab')
     @Get('usertab')
     public async usertab(): Promise<void> {

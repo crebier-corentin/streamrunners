@@ -1,0 +1,28 @@
+{% set title = "StreamRunners - Profil de Pseudo" %}
+{% extends "master.nunj" %}
+
+{% block content %}
+    <div class="container">
+        <div class="jumbotron text-center">
+            <img src="https://static-cdn.jtvnw.net/jtv_user_pictures/79c549fa-cd9c-401e-bf14-c13b7395a0cb-profile_image-300x300.png" alt="LaTacheGaming" width="90" height="90" class="perso profilavatar" />
+            <h2 class="display-4 h2profil">Omnes</h2>
+            <p class="level">Niveau : 23</p>
+            <div class="progress levelprogressdiv">
+                <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 26%; background-color: #007bff;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">2650 / 1000</div>
+            </div>
+            <hr>
+            <h4 style="float: left;">Badges :</h4>
+            <span>
+                <img src="https://image.noelshack.com/fichiers/2020/14/7/1586091629-bug-hunter-badge.png" class="badgep">
+                <img src="https://image.noelshack.com/fichiers/2020/14/7/1586091629-bug-hunter-badge.png" class="badgep">
+                <img src="https://image.noelshack.com/fichiers/2020/14/7/1586091629-bug-hunter-badge.png" class="badgep">
+            </span>
+            <br>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block script %}
+    <script src="js/coupon.js"></script>
+{% endblock %}

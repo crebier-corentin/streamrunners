@@ -2,6 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { UserEntity } from '../user/user.entity';
 import { UserService } from '../user/user.service';
 import { AuthController } from './auth.controller';
+import MockDate = require('mockdate');
 
 describe('AuthController', () => {
     let controller: AuthController;
@@ -24,6 +25,8 @@ describe('AuthController', () => {
 
         controller = module.get<AuthController>(AuthController);
         userService = module.get<UserService>(UserService);
+
+        MockDate.reset();
     });
 
     describe('loginCallback', () => {
@@ -47,6 +50,19 @@ describe('AuthController', () => {
             expect(user.affiliatedTo).toBeNull();
         });
 
+        it('should not update user.affiliatedTo if the account was created more than one hour ago', async () => {
+            const user = new UserEntity();
+            user.id = 1;
+            user.affiliatedTo = null;
+            user.createdAt = new Date('2020-01-01 12:00:00');
+
+            MockDate.set('2020-01-01 13:00:00');
+
+            await controller.loginCallback(user, { affiliateUserId: 2 });
+
+            expect(user.affiliatedTo).toBeNull();
+        });
+
         it('should not update user.affiliatedTo if user.affiliateUserId is not null', async () => {
             const affiliate = new UserEntity();
             affiliate.id = 3;
@@ -54,6 +70,9 @@ describe('AuthController', () => {
             const user = new UserEntity();
             user.id = 1;
             user.affiliatedTo = affiliate;
+            user.createdAt = new Date('2020-01-01 12:00:00');
+
+            MockDate.set('2020-01-01 12:00:01');
 
             jest.spyOn(userService, 'byId').mockResolvedValue(user);
 
@@ -69,6 +88,9 @@ describe('AuthController', () => {
             const user = new UserEntity();
             user.id = 1;
             user.affiliatedTo = null;
+            user.createdAt = new Date('2020-01-01 12:00:00');
+
+            MockDate.set('2020-01-01 12:00:01');
 
             jest.spyOn(userService, 'byId').mockResolvedValue(user);
             jest.spyOn(userService, 'byIdOrFail').mockResolvedValue(affiliate);

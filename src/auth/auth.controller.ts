@@ -1,4 +1,5 @@
 import { Controller, Get, Redirect, Req, Session, UseGuards } from '@nestjs/common';
+import * as moment from 'moment';
 import { User } from '../common/decorator/user.decorator';
 import { AuthenticatedGuard } from '../common/guard/authenticated.guard';
 import { LoginGuard } from '../common/guard/login.guard';
@@ -20,8 +21,12 @@ export class AuthController {
     @Get('/twitch/callback')
     public async loginCallback(@User() rawUser: UserEntity, @Session() session): Promise<void> {
         //Handle affiliate
-        //Ignore trying to affiliate themselves
-        if (session.affiliateUserId != undefined && session.affiliateUserId !== rawUser.id) {
+        //Ignore trying to affiliate themselves and account created more than oen hour ago
+        if (
+            session.affiliateUserId != undefined &&
+            session.affiliateUserId !== rawUser.id &&
+            moment() < moment(rawUser.createdAt).add(1, 'hour')
+        ) {
             //Load affiliatedTo relation
             const user = await this.userService.byId(rawUser.id, ['affiliatedTo']);
             //Ignore if user is already affiliated

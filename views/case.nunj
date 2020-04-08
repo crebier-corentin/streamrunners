@@ -15,7 +15,7 @@
                     <img class="card-img-top" src="{{ content.image }}" alt="{{ content.name }}">
                     <div class="card-body">
                         <h6 class="card-title">{{ content.name }}</h6>
-                        <p class="card-text">{{ content.chance }}‰ ({{ content.chance / 10 }}%)</p>
+                        <p class="card-text">{{ content.chance / 10 }}%</p>
                     </div>
                 </div>
             {% endfor %}

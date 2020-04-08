@@ -17,6 +17,7 @@ import { BanGuard } from './common/guard/ban.guard';
 import { VIEW_DIR_PATH } from './common/utils/constants';
 import { PartnerService } from './partner/partner.service';
 import { SubscriptionLevel, SubscriptionLevelToFrench } from './subscription/subscription.interfaces';
+import { UserService } from './user/user.service';
 import flash = require('connect-flash');
 
 async function bootstrap(): Promise<void> {
@@ -24,6 +25,7 @@ async function bootstrap(): Promise<void> {
     const config = app.get(ConfigService);
     const isDev = config.get('ENV') === 'development';
 
+    const userService = app.get(UserService);
     const announcementService = app.get(AnnouncementService);
     const partnerService = app.get(PartnerService);
 
@@ -93,6 +95,12 @@ async function bootstrap(): Promise<void> {
         res.locals.req = req;
         res.locals.announcement = await announcementService.current();
         res.locals.partners = await partnerService.all();
+
+        //Load affiliate displayName
+        if (req.session.affiliateUserId != undefined) {
+            res.locals.affiliateDisplayName = (await userService.byId(req.session.affiliateUserId)).displayName;
+        }
+
         next();
     });
 

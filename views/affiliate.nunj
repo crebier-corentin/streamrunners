@@ -29,14 +29,15 @@
             <form class="text-center">
 
                 <div class="input-group mb-3" style="width:80%;">
-                    <input type="text"
+                    <input id="affiliate-link"
+                           type="text"
                            class="form-control"
-                           placeholder="https://streamrunners.fr/affiliate/{{ req.user.displayName }}"
-                           aria-label="https://streamrunners.fr/affiliate/StreamRunners"
-                           aria-describedby="button-addon2"
+                           value="{{ req.user.displayName }}/affiliate/{{ req.user.displayName }}"
+                           aria-label="{{ req.user.displayName }}/affiliate/{{ req.user.displayName }}"
+                           aria-describedby="copy-btn"
                            disabled>
                     <div class="input-group-append">
-                        <button class="btn btn-outline-success affiliate" type="button" id="button-addon2">Copier
+                        <button class="btn btn-outline-success affiliate" type="button" id="copy-btn">Copier
                         </button>
                     </div>
                 </div>
@@ -45,7 +46,7 @@
         </div>
         <h3 class="text-center">AFFILIÉS :</h3>
         <div style="float:right; display:flex;">
-            <p>15/19  </p><i class="fas fa-question-circle"></i>
+            <p>{{ affiliatesValidated }}/{{ affiliatesTotal }}  </p><i class="fas fa-question-circle"></i>
         </div>
         <br>
         <br>
@@ -57,7 +58,7 @@
                     <p class="username">{{ affiliate.displayName }}</p>
                     <div>
                         <figure>
-                            <img class="caisseaffiliate" src="/img/case/affiliate/close.png">
+                            <img class="caisseaffiliate" src="/img/case/affiliate/close.png" alt="Caisse">
                             <figcaption>
                                 {% if affiliate.gotAffiliateCase %}
                                     La caisse est disponible dans votre inventaire.
@@ -71,4 +72,22 @@
             {% endfor %}
         </ul>
     </div>
+{% endblock %}
+
+{% block script %}
+
+    {# Copy link script #}
+    <script>
+        const copyButton = document.getElementById('copy-btn');
+        const linkEl = document.getElementById('affiliate-link');
+
+        copyButton.addEventListener('click', () => {
+            copyText.select();
+            copyText.setSelectionRange(0, 99999); //For mobile devices
+
+            document.execCommand('copy');
+        });
+
+    </script>
+
 {% endblock %}

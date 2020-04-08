@@ -1,6 +1,8 @@
 import { Controller, Get, NotFoundException, Param, Redirect, Render, Session, UseGuards } from '@nestjs/common';
+import { User } from '../common/decorator/user.decorator';
 import { AuthenticatedGuard } from '../common/guard/authenticated.guard';
 import { UnauthenticatedGuard } from '../common/guard/unauthenticated.guard';
+import { UserEntity } from '../user/user.entity';
 import { UserService } from '../user/user.service';
 
 @Controller('affiliate')
@@ -10,8 +12,11 @@ export class AffiliateController {
     @UseGuards(AuthenticatedGuard)
     @Render('affiliate')
     @Get()
-    public async index(): Promise<void> {
-        //
+    public index(@User() user: UserEntity): { affiliatesTotal: number; affiliatesValidated: number } {
+        return {
+            affiliatesTotal: user.affiliates.length,
+            affiliatesValidated: user.affiliates.filter(u => u.gotAffiliateCase).length,
+        };
     }
 
     @UseGuards(UnauthenticatedGuard)

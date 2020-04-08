@@ -81,9 +81,7 @@ function launchAnimation(spin: Spin[], winning: Spin) {
     }
 
     //The animation stops on spin[51], so put the won content there
-    spin[51].name = winning.name;
-    spin[51].color = winning.color;
-    spin[51].image = winning.image;
+    spin[51] = winning;
 
     let container = new Container();
 

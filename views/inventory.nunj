@@ -27,7 +27,11 @@
                         <h5 class="card-title">{{ case.type.name }}</h5>
                         {# Content #}
                         {% if case.isOpened() %}
-                            <p class="card-text"><b>{{ case.content.name }}</b></p>
+                            <p class="card-text"><b>{{ case.content.name }}</b>
+                                <img style="height: 2em; width: auto;"
+                                     src="{{ case.content.image }}"
+                                     alt="{{ case.content.name }}">
+                            </p>
                         {% else %}
 
                             <div class="col-2">

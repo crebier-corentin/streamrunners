@@ -2,10 +2,12 @@
 {% extends "master.nunj" %}
 
 {% block meta %}
-    <meta name="description" content="Gagne des cadeaux tout les jours en participant à des tombolas gratuite juste en regardant des Streamers Twitch !" />
+    <meta name="description"
+          content="Gagne des cadeaux tout les jours en participant à des tombolas gratuite juste en regardant des Streamers Twitch !" />
     <meta property="og:image" content="/img/brand.png" />
     <meta property="og:title" content="StreamRunners - Accueil" />
-    <meta property="og:description" content="Gagne des cadeaux tout les jours en participant à des tombolas gratuite juste en regardant des Streamers Twitch !" />
+    <meta property="og:description"
+          content="Gagne des cadeaux tout les jours en participant à des tombolas gratuite juste en regardant des Streamers Twitch !" />
     <link rel="canonical" href="https://streamrunners.fr/" />
 {% endblock %}
 
@@ -30,6 +32,16 @@
         </div>
         <div class="clear"></div>
     </div>
+
+    {# Affiliate #}
+    {% if affiliateDisplayName %}
+        <div class="container">
+            <div style="margin-top: 2rem;" class="alert alert-primary" role="alert">
+                Vous êtes invité par {{ affiliateDisplayName }}.
+            </div>
+        </div>
+    {% endif %}
+
     <div class="container">
         <span class="online"><i class="fas fa-circle"></i> {{ viewers }} En ligne</span>
         <span class="register"><i class="fas fa-users"></i> <span id="users-count">0</span> Inscrits</span>

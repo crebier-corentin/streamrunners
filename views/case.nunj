@@ -3,12 +3,8 @@
 
 {% block content %}
     <div class="container d-flex justify-content-center flex-column align-items-center">
-        <div style="-webkit-box-shadow: inset 0px 0px 5px 5px rgba(255,255,255,1);
--moz-box-shadow: inset 0px 0px 5px 5px rgba(255,255,255,1);
-box-shadow: inset 0px 0px 5px 5px rgba(255,255,255,1);">
-        <canvas id="canvas" width="800" height="180" style="margin-top: 0.5rem !important;
-    margin-right: 0.5rem !important;
-    margin-left: 0.5rem !important;"></canvas>
+        <div class="white-glow">
+        <canvas id="canvas" width="800" height="180" class="mt-1 my-1"></canvas>
         </div>
 
         <button id="open" class="btn btn-primary">Ouvrir</button>
@@ -16,7 +12,7 @@ box-shadow: inset 0px 0px 5px 5px rgba(255,255,255,1);">
         <ul class="list-unstyled row">
 
             {% for content in caseContents %}
-                <div class="card m-1 col-md-2 col-sm-6 col-12">
+                <div class="card m-1 col-md-2 col-sm-6 col-12" style="min-height: 14em;">
                     <img class="card-img-top" src="{{ content.image }}" alt="{{ content.name }}">
                     <div class="card-body">
                         <h6 class="card-title">{{ content.name }}</h6>

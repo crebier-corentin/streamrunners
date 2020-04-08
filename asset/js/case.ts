@@ -11,7 +11,7 @@ interface Spin {
 
 //Constants
 Ticker.framerate = 60;
-const shapeWidth = 180;
+const shapeWidth = 160;
 
 //Stage
 let stage = new Stage('canvas');
@@ -104,6 +104,7 @@ function launchAnimation(spin: Spin[], winning: Spin) {
 
         shape.x = -shapeWidth * i;
         image.x = -shapeWidth * i;
+        image.y = (180 - image.image.height) / 2; //Vertical center
         text.x = -shapeWidth * i + (shapeWidth - text.getMeasuredWidth()) / 2;
         text.y = 10;
 

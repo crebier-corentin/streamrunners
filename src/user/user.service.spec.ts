@@ -108,6 +108,16 @@ describe('UserService', () => {
         });
     });
 
+    describe('changeMeteoresSave', () => {
+        it("should change the user's meteores", async () => {
+            const user = new UserEntity();
+            user.meteores = 1000;
+
+            await service.changeMeteoresSave(user, 400);
+            expect(user.meteores).toBe(1400);
+        });
+    });
+
     describe('allTwitchIdChunk', () => {
         it.each([10, 25, 100])('should return ids %i at a time', async size => {
             //Generate mock ids

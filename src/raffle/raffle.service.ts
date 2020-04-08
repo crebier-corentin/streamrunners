@@ -108,7 +108,8 @@ export class RaffleService extends EntityService<RaffleEntity> {
         const raffle = await this.byIdOrFail(raffleId);
         //Assure that is active and can afford
         if (!raffle.isActive()) throw new InternalServerErrorException();
-        if (!user.canAfford(raffle.price * amount)) throw new NotEnoughPointsException(user, raffle.price, 'Le ticket');
+        if (!user.canAffordPoints(raffle.price * amount))
+            throw new NotEnoughPointsException(user, raffle.price, 'Le ticket');
 
         const rp = await this.rpService.findOrCreate(user, raffle);
         //Assure that user has less than max tickets

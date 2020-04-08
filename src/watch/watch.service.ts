@@ -97,7 +97,7 @@ export class WatchService implements OnApplicationBootstrap {
         //Check if queue is empty
         const cost = (await this.streamQueueService.isEmpty()) ? 0 : 2000;
 
-        if (!user.canAfford(cost)) throw new NotEnoughPointsException(user, cost, 'La place');
+        if (!user.canAffordPoints(cost)) throw new NotEnoughPointsException(user, cost, 'La place');
 
         //Check if stream is online
         if (!(await this.twitch.isStreamOnline(user.twitchId)))

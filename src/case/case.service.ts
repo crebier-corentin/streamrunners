@@ -91,7 +91,8 @@ export class CaseService extends EntityService<CaseEntity> {
         await this.save(_case);
 
         //Give prize
-        await this.userService.changePointsSave(user, winning.amount);
+        await this.userService.changePointsSave(user, winning.amountPoints);
+        await this.userService.changeMeteoresSave(user, winning.amountMeteores);
 
         return { spin, winning: { name: winning.name, color: winning.color, image: winning.image } };
     }

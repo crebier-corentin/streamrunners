@@ -49,6 +49,9 @@ export class UserEntity {
     @Column({ default: 0 })
     public points: number;
 
+    @Column({ default: 0 })
+    public meteores: number;
+
     @Column({ default: false })
     public admin: boolean;
 
@@ -173,7 +176,19 @@ export class UserEntity {
         }
     }
 
-    public canAfford(cost: number): boolean {
+    public changeMeteores(amount: number): void {
+        if (this.meteores != undefined) {
+            this.meteores = Math.round(this.meteores + amount);
+        } else {
+            this.meteores = Math.round(amount);
+        }
+    }
+
+    public canAffordPoints(cost: number): boolean {
         return this.points >= cost;
+    }
+
+    public canAffordMeteores(cost: number): boolean {
+        return this.meteores >= cost;
     }
 }

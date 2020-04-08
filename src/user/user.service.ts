@@ -75,6 +75,11 @@ export class UserService extends EntityService<UserEntity> {
         await this.repo.save(user);
     }
 
+    public async changeMeteoresSave(user: UserEntity, amount: number): Promise<void> {
+        user.changeMeteores(amount);
+        await this.repo.save(user);
+    }
+
     public pickRaffleWinner(raffle: RaffleEntity): Promise<UserEntity> {
         return this.repo
             .createQueryBuilder('user')

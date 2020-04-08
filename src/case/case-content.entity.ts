@@ -16,8 +16,11 @@ export class CaseContentEntity {
     @Column()
     public chance: number; //In per-mille 0-1000
 
-    @Column({ nullable: true })
-    public amount: number;
+    @Column({ default: 0 })
+    public amountPoints: number;
+
+    @Column({ default: 0 })
+    public amountMeteores: number;
 
     @ManyToOne(
         type => CaseTypeEntity,

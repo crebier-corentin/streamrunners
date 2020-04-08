@@ -26,6 +26,7 @@ describe('CaseService', () => {
                     provide: UserService,
                     useValue: {
                         changePointsSave: jest.fn((user, amount) => (user.points += amount)),
+                        changeMeteoresSave: jest.fn((user, amount) => (user.meteores += amount)),
                     },
                 },
             ],
@@ -108,7 +109,8 @@ describe('CaseService', () => {
             winningMock.name = 'win';
             winningMock.chance = 500;
             winningMock.image = 'win.png';
-            winningMock.amount = 100;
+            winningMock.amountPoints = 100;
+            winningMock.amountMeteores = 500;
 
             mockedGetRandomContent.mockReturnValueOnce(winningMock);
 
@@ -119,12 +121,14 @@ describe('CaseService', () => {
 
             const user = new UserEntity();
             user.points = 100;
+            user.meteores = 0;
 
             const { spin, winning } = await service.openCase(_case, user);
 
             expect(spin).toEqual(spinMock);
             expect(winning).toEqual({ name: winning.name, color: winning.color, image: winning.image });
             expect(user.points).toBe(200);
+            expect(user.meteores).toBe(500);
         });
     });
 });

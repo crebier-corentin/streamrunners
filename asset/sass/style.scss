@@ -1104,7 +1104,7 @@ a:hover {
   from {
     text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #f6c23c, 0 0 40px #f6c23c, 0 0 50px #f6c23c, 0 0 60px #f6c23c, 0 0 70px #f6c23c;
   }
-  
+
   to {
     text-shadow: 0 0 20px #fff, 0 0 30px #FF0000, 0 0 40px #FF0000, 0 0 50px #FF0000, 0 0 60px #FF0000, 0 0 70px #FF0000, 0 0 80px #FF0000;
   }
@@ -1123,7 +1123,7 @@ margin-left: 25%;
 
 figcaption{
     top:40%;}
-     
+
 figure{
 margin-left: 80%;
 position:relative;}
@@ -1151,4 +1151,8 @@ position:relative;}
   background-color: #ffcb39;
   border-color: #5838a0;
   color: #fff;
+}
+
+.white-glow {
+  box-shadow: inset 0px 0px 5px 5px rgba(255, 255, 255, 1);
 }

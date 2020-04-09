@@ -25,7 +25,25 @@
         </div>
 
         <!-- Active users -->
-        <div id="style-1" class="users rounded chat-container d-flex flex-column scrollbar">
+        <div id="style-1" class="users rounded chat-container d-flex flex-column scrollbar" style="position:relative;">
+            <i class="fas fa-question-circle whoishelp" aria-hidden="true" data-placement="right" data-html="true" data-toggle="popover" data-title="Les rôles" data-content='
+
+
+
+        <div class="d-flex flex-column p-0 m-0">
+            <span class="text-align chat-username chat-name-admin"><i class="fas fa-user-secret" aria-hidden="true"></i> Administrateurs</span>
+            <span class="text-align chat-username chat-name-moderator"><i class="fas fa-user-shield" aria-hidden="true"></i> Modérateurs</span>
+            <span class="text-align chat-username chat-name-partner"><i class="fas fa-handshake" aria-hidden="true"></i> Partenaires</span>
+            <span class="text-align chat-username chat-name-diamond"><i class="fas fa-gem" aria-hidden="true"></i> Diamants</span>
+            <span class="text-align chat-username chat-name-vip"><i class="fas fa-star" aria-hidden="true"></i> VIPs</span>
+            <span class="text-align chat-username chat-name-member"><i class="fas fa-user" aria-hidden="true"></i> Membres</span>
+        </div>
+
+
+
+
+
+            '></i>
             <div class="d-flex flex-column p-0 m-0 force-overflow">
                 <ChatUsername :name="user.displayName"
                               :rank="user.chatRank"
@@ -53,6 +71,8 @@
     import axios from 'axios';
     import ChatUsername from './ChatUsername.vue';
     import { UserEntity } from '../../../src/user/user.entity';
+
+    const BSN = window['BSN'];
 
     export default {
         name: 'Chat',
@@ -151,7 +171,9 @@
 
         mounted() {
             this.scrollToBottom();
+            BSN.initCallback(this.$el);
         },
+
     };
 </script>
 

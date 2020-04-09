@@ -79,6 +79,7 @@
 </head>
 
 <body class="bg-purple stars">
+    <img src="img/meteores.gif" class="meteore" />
 {# Navbar #}
 <div class="">
     <div class="custom-navbar">
@@ -111,10 +112,10 @@
                                 <span id="points-counter" class="text-small text-white">{{ req.user.points }}</span>
                                 <img src="/img/po.png" alt="points" width="16px" height="16px" />
                             </div>
-                            <div>
+                           <!-- <div>
                                 <span class="text-small text-white">{{ req.user.meteores }}</span>
-                                <img src="/img/po.png" alt="points" width="16px" height="16px" />
-                            </div>
+                                <img src="/img/mt.png" alt="points" width="16px" height="16px" />
+                            </div> -->
                         </a>
                          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                              <a href="/inventory"><i class="fas fa-suitcase"></i> Inventaire</a>
@@ -202,6 +203,7 @@
 </body>
 
 <script src="/js/bundle.js"></script>
+<script src="/js/bootstrap.bundle.min.js"></script>
 
 {% if req.isAuthenticated() %}
     <script src="/js/points-counter.js"></script>

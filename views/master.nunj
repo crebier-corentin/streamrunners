@@ -79,7 +79,7 @@
 </head>
 
 <body class="bg-purple stars">
-    <img src="img/meteores.gif" class="meteore" />
+    <img src="/img/meteores.gif" class="meteore" />
 {# Navbar #}
 <div class="">
     <div class="custom-navbar">

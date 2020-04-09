@@ -104,5 +104,23 @@
     background: rgba(0, 0, 0, 0.4);
     color: rgba(255, 255, 255, 1);
     margin-top: 0.5rem;
-};
+}
 
+.whoishelp{
+    position: absolute;
+    margin-right: 0.25rem;
+    right: 0;
+  }
+
+.popover{
+  background-color: rgba(0, 0, 0, 0.4);
+  background: rgba(0, 0, 0, 0.4);
+  color: white;
+  border:none;
+}
+
+.popover-header{
+    border-bottom: 1px solid #f6c23c;
+    background-color: rgba(0,0,0,.8);
+    background: rgba(0,0,0,.8);
+}

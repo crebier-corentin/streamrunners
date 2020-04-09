@@ -1152,3 +1152,28 @@ position:relative;}
   border-color: #5838a0;
   color: #fff;
 }
+
+.white-glow {
+  box-shadow: inset 0px 0px 5px 5px rgba(255, 255, 255, 1);
+}
+
+.copybutton {
+  width:80%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.meteore {
+    width: 5%;
+    position: fixed;
+    animation-name: meteores;
+    animation-duration: 120s;
+    animation-iteration-count: infinite;
+    z-index: -10;
+}
+
+@keyframes meteores {
+0%{ transform: translatex(-100vh) translatey(-100vh) }
+
+100%{ transform: translatex(300vh) translatey(300vh) }
+}

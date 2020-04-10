@@ -92,7 +92,7 @@ function launchAnimation(spin: Spin[], winning: Spin) {
         //Color
 
         let shape = new Shape();
-        shape.graphics.beginFill(spin[i].color).drawRect(0, 0, shapeWidth, 180).beginStroke('black').drawRect(0, 0, shapeWidth, 180);
+        shape.graphics.beginLinearGradientFill(['#00000000' /* transparent */, spin[i].color], [0, 1], 0, 0, 0, 180).drawRect(0, 0, shapeWidth, 180).beginStroke('black').drawRect(0, 0, shapeWidth, 180);
 
         let image = new Bitmap(spin[i].image);
 

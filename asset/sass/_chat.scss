@@ -39,6 +39,8 @@
 
   .message {
     grid-area: message;
+
+    overflow-wrap: break-word;
   }
 }
 
@@ -100,27 +102,44 @@
 }
 
 .chat-container {
-    background-color: rgba(0, 0, 0, 0.4);
-    background: rgba(0, 0, 0, 0.4);
-    color: rgba(255, 255, 255, 1);
-    margin-top: 0.5rem;
+  background-color: rgba(0, 0, 0, 0.4);
+  background: rgba(0, 0, 0, 0.4);
+  color: rgba(255, 255, 255, 1);
+  margin-top: 0.5rem;
 }
 
-.whoishelp{
-    position: absolute;
-    margin-right: 0.25rem;
-    right: 0;
-  }
+.whoishelp {
+  position: absolute;
+  margin-right: 0.25rem;
+  right: 0;
+}
 
-.popover{
+.popover {
   background-color: rgba(0, 0, 0, 0.4);
   background: rgba(0, 0, 0, 0.4);
   color: white;
-  border:none;
+  border: none;
 }
 
-.popover-header{
-    border-bottom: 1px solid #f6c23c;
-    background-color: rgba(0,0,0,.8);
-    background: rgba(0,0,0,.8);
+.popover-header {
+  border-bottom: 1px solid #f6c23c;
+  background-color: rgba(0, 0, 0, .8);
+  background: rgba(0, 0, 0, .8);
+}
+
+.chat-scrollbar::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+}
+
+.chat-scrollbar::-webkit-scrollbar {
+  width: 12px;
+  background-color: rgba(255, 255, 255, 0.4);
+  background: rgba(255, 255, 255, 0.4);
+}
+
+.chat-scrollbar::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  background-color: #fff;
 }

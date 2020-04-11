@@ -4,7 +4,7 @@ import { IsNotEmpty, IsString, MaxLength } from 'class-validator';
 export class AddChatMessageDto {
     @IsNotEmpty()
     @IsString()
-    @MaxLength(200)
+    @MaxLength(700)
     @Trim()
     public message: string;
 }

@@ -2,7 +2,7 @@
 
     <section class="chat-grid">
         <!-- Messages -->
-        <div id="style-1" class="messages rounded chat-container scrollbar" ref="chat">
+        <div class="messages rounded chat-container scrollbar chat-scrollbar" ref="chat">
             <div class="d-flex flex-column p-0 m-0 force-overflow">
                 <div class="chat-message" v-for="msg in cMessages">
 
@@ -25,8 +25,15 @@
         </div>
 
         <!-- Active users -->
-        <div id="style-1" class="users rounded chat-container d-flex flex-column scrollbar" style="position:relative;">
-            <i class="fas fa-question-circle whoishelp" aria-hidden="true" data-placement="right" data-html="true" data-toggle="popover" data-title="Les rôles" data-content='
+        <div class="users rounded chat-container d-flex flex-column scrollbar chat-scrollbar"
+             style="position:relative;">
+            <i class="fas fa-question-circle whoishelp"
+               aria-hidden="true"
+               data-placement="right"
+               data-html="true"
+               data-toggle="popover"
+               data-title="Les rôles"
+               data-content='
 
 
 
@@ -117,7 +124,7 @@
 
             messageValid(): boolean {
                 const length = this.trimmedMessage.length;
-                return length > 0 && length < 200;
+                return length > 0 && length < 700;
             },
         },
 

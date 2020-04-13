@@ -120,7 +120,7 @@
                                 <span id="points-counter" class="text-small text-white">{{ req.user.points }}</span>
                                 <img src="/img/po.png" alt="points" width="16px" height="16px" />
                             </div>
-                           <div>
+                            <div>
                                 <span class="text-small text-white">{{ req.user.meteores }}</span>
                                 <img src="/img/mt.png" alt="points" width="16px" height="16px" />
                             </div>
@@ -149,26 +149,23 @@
         <div class="star"></div>
         <div class="star"></div>
         <div class="star"></div> -->
-
-
-    </div>
-    {# Announcement #}
-    {% if req.isAuthenticated() %}
-        {% if announcement != undefined %}
-            <div class="container">
-                <a href="{{ announcement.url }}" target="_blank">
-                    <div style="margin-top: 2rem;" class="alert alert-primary" role="alert">
-                        {{ announcement.text }}
-                    </div>
-                </a>
-            </div>
-        {% endif %}
+</div>
+{# Announcement #}
+{% if req.isAuthenticated() %}
+    {% if announcement != undefined %}
         <div class="container">
-            <div style="background-color: transparent!important;" class="alert alert-primary" role="alert"></div>
-            <a href="#"></a>
+            <a href="{{ announcement.url }}" target="_blank">
+                <div style="margin-top: 2rem;" class="alert alert-primary" role="alert">
+                    {{ announcement.text }}
+                </div>
+            </a>
         </div>
     {% endif %}
-</div>
+    <div class="container">
+        <div style="background-color: transparent!important;" class="alert alert-primary" role="alert"></div>
+        <a href="#"></a>
+    </div>
+{% endif %}
 
 {% block content %}
     This is the default content

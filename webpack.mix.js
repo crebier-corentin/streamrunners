@@ -48,5 +48,5 @@ mix.sass('asset/sass/style.scss', 'public/css/')
         enabled: process.env.NODE_ENV === 'production',
         folders: ['views', 'asset'],
         extensions: ['html', 'js', 'php', 'vue', 'nunj'],
-        whitelistPatterns: [/-active$/, /-enter$/, /-leave-to$/, /^left-/, /^center$/, /^right-/],
+        whitelistPatterns: [/-active$/, /-enter$/, /-leave-to$/, /^left-/, /^center$/, /^right-/, /popover.*/],
     });

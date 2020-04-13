@@ -14,21 +14,20 @@
                     <p>Partage ton lien avec t'es amis pour gagner une superbe caisse remplis de StreamCoins !</p><br>
                     <p>Comment ça fonctionne ?</p>
                     <ol>
-                        <li>Clique sur le bouton copier pour récupérer ton lien</li>
-                        <li>Envoie le à tes amis pour qu'ils rejoignent le site</li>
-                        <li>Dès qu'il a atteint ses 2 000 StreamCoins il gagne une caisse et toi aussi</li>
-                        <li>Reviens sur cette page ouvrir la caisse et frimer avec tout tes StreamCoins</li>
+                        <li style="margin-top:1.25rem;">Clique sur le bouton copier pour récupérer ton lien</li>
+                        <li style="margin-top:1.25rem;">Envoie le à tes amis pour qu'ils rejoignent le site</li>
+                        <li style="margin-top:1.25rem;">Dès qu'il a atteint ses 2 000 StreamCoins il gagne une caisse et toi aussi</li>
                     </ol>
                 </div>
                 <div class="col-sm">
                     <img class="caisseaffiliate boucle" src="/img/boucle.gif">
-                    <img class="caisseaffiliate" src="/img/case/affiliate/close.png">
+                    <img class="caisseaffiliate" src="/img/case/affiliate/open.png">
                 </div>
             </div>
             <hr>
             <form class="text-center">
 
-                <div class="input-group mb-3" style="width:80%;">
+                <div class="input-group mb-3" style="width:80%;margin-left: auto; margin-right: auto;">
                     <input
                            type="text"
                            class="form-control"
@@ -46,7 +45,7 @@
         </div>
         <h3 class="text-center">AFFILIÉS :</h3>
         <div style="float:right; display:flex;">
-            <p>{{ affiliatesValidated }}/{{ affiliatesTotal }}  </p><i class="fas fa-question-circle"></i>
+            <p>{{ affiliatesValidated }}/{{ affiliatesTotal }}  </p>
         </div>
         <br>
         <br>

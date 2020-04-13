@@ -20,7 +20,7 @@ export class ChatMessageEntity {
     @Transform((value, obj: ChatMessageEntity) =>
         obj.deleted ? `Message supprimé par ${obj.deletedBy.displayName}` : value
     ) //Deleted by message
-    @Column()
+    @Column('text')
     public message: string;
 
     @Exclude()

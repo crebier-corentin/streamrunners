@@ -4,19 +4,19 @@
 {% block content %}
     <div class="container d-flex justify-content-center flex-column align-items-center">
         <div class="white-glow">
-        <canvas id="canvas" width="800" height="180" class="mt-1 my-1"></canvas>
+        <canvas id="canvas" width="800" height="180" style="margin-left:0.25rem; margin-right: 0.25rem; margin-top: 0.25rem;"></canvas>
         </div>
 
-        <button id="open" class="btn btn-primary">Ouvrir</button>
+        <button id="open" class="btn btn-primary blue" style="margin-top:0.50rem;">Ouvrir</button>
 
-        <ul class="list-unstyled row">
+        <ul class="list-unstyled row" style="margin-top:1rem;">
 
             {% for content in caseContents %}
-                <div class="card m-1 col-md-2 col-sm-6 col-12" style="min-height: 14em;">
-                    <img class="card-img-top" src="{{ content.image }}" alt="{{ content.name }}">
+                <div class="card m-1 col-md-2 col-sm-6 col-12">
+                    <img class="card-img-top" style="height: 105px;" src="{{ content.image }}" alt="{{ content.name }}">
                     <div class="card-body">
                         <h6 class="card-title">{{ content.name }}</h6>
-                        <p class="card-text">{{ content.chance / 10 }}%</p>
+                        <p class="card-text">{{ content.chance / 10 }} %</p>
                     </div>
                 </div>
             {% endfor %}

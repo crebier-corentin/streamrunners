@@ -53,10 +53,10 @@ export class CaseContentEntity {
 
         //Blue 15% - 25%
         if (this.chance > 15 * 10 && this.chance <= 25 * 10) {
-            return '#0f056b';
+            return '#33cc33';
         }
 
         //Gray
-        return '#808080';
+        return '#0066ff';
     }
 }

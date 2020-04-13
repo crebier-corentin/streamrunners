@@ -1002,23 +1002,6 @@ a:hover {
     font-size: 16px;
 }
 
-#style-1::-webkit-scrollbar-track {
-    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-    border-radius: 10px;
-}
-
-#style-1::-webkit-scrollbar {
-    width: 12px;
-    background-color: rgba(255, 255, 255, 0.4);
-    background: rgba(255, 255, 255, 0.4);
-}
-
-#style-1::-webkit-scrollbar-thumb {
-    border-radius: 10px;
-    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-    background-color: #fff;
-}
-
 .partlink{
     display: contents;
 }
@@ -1130,6 +1113,7 @@ position:relative;}
 
 .boucle {
   margin-bottom: -3rem;
+  border-radius: 0.25rem;
 }
 
 .btnadmin {
@@ -1155,6 +1139,7 @@ position:relative;}
 
 .white-glow {
   box-shadow: inset 0px 0px 5px 5px rgba(255, 255, 255, 1);
+  border-radius: 0.5rem;
 }
 
 .copybutton {
@@ -1177,3 +1162,4 @@ position:relative;}
 
 100%{ transform: translatex(300vh) translatey(300vh) }
 }
+

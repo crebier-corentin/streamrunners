@@ -55,16 +55,15 @@ async function spin() {
             icon: 'error',
             title: 'Un erreur c\'est produite',
             timer: 5000,
-        }).then(() => {
-            document.location.href = '/inventory';
         });
 
+        document.location.href = '/inventory';
     }
 
 }
 
 //Animation function
-function launchAnimation(spin: Spin[], winning: Spin) {
+async function launchAnimation(spin: Spin[], winning: Spin) {
 
     //Show result modal
     async function showResult() {
@@ -89,10 +88,10 @@ function launchAnimation(spin: Spin[], winning: Spin) {
 
     //Create shapes
     for (let i = 0; i < spin.length; i++) {
-        //Color
 
+        //Color
         let shape = new Shape();
-        shape.graphics.beginFill(spin[i].color).drawRect(0, 0, shapeWidth, 180).beginStroke('black').drawRect(0, 0, shapeWidth, 180);
+        shape.graphics.beginLinearGradientFill(['#00000000' /* transparent */, spin[i].color], [0, 1], 0, 0, 0, 180).drawRect(0, 0, shapeWidth, 180).beginStroke('black').drawRect(0, 0, shapeWidth, 180);
 
         let image = new Bitmap(spin[i].image);
 
@@ -118,10 +117,12 @@ function launchAnimation(spin: Spin[], winning: Spin) {
     const totalDistance = stage.canvas['width'] / 2 + shapeWidth * 50 + randomIntFromInterval(5, shapeWidth - 5);
     Tween.get(container).to({ x: totalDistance }, 5000, Ease.quadInOut).call(showResult);
 
-    //Middle
-    let middle = new Shape();
-    middle.graphics.beginFill('#000000').drawRect(stage.canvas['width'] / 2, 0, 5, stage.canvas['height']);
-    stage.addChild(middle);
+    //Ticker
+    let ticker = new Bitmap('/img/case/ticker.png');
+    await (new Promise(resolve => ticker.image.addEventListener('load', resolve))); //Wait for ticker.png to load
+    ticker.x = stage.canvas['width'] / 2 - ticker.image.width / 2;
+    ticker.y = 0;
+    stage.addChild(ticker);
 
     //Start animation
     Ticker.addEventListener('tick', event => {

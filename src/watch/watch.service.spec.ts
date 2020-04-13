@@ -174,9 +174,30 @@ describe('WatchService', () => {
             expect(user.points).toBe(expectedPoints);
         });
 
-        it('should not give affiliate cases if the user already received one', async () => {
+        it('should not give affiliate cases if the user is unaffiliated', async () => {
             user.subscriptionLevel = SubscriptionLevel.None;
             user.gotAffiliateCase = true;
+            user.affiliatedTo = null;
+
+            const stream = new StreamQueueEntity();
+            stream.user = streamer;
+
+            jest.spyOn(streamQueueService, 'currentStream').mockResolvedValue(stream);
+            jest.spyOn(twitch, 'isStreamOnline').mockResolvedValue(true);
+            jest.spyOn(userService, 'viewers').mockResolvedValue([user]);
+
+            await service.updatePoints();
+
+            expect(giveCaseMocked).not.toHaveBeenCalled();
+        });
+
+        it('should not give affiliate cases if the user already received one', async () => {
+            const affiliate = new UserEntity();
+            affiliate.id = 10;
+
+            user.subscriptionLevel = SubscriptionLevel.None;
+            user.gotAffiliateCase = true;
+            user.affiliatedTo = affiliate;
 
             const stream = new StreamQueueEntity();
             stream.user = streamer;
@@ -191,8 +212,12 @@ describe('WatchService', () => {
         });
 
         it('should not give affiliate cases if the user has less than 2000 points', async () => {
+            const affiliate = new UserEntity();
+            affiliate.id = 10;
+
             user.subscriptionLevel = SubscriptionLevel.None;
             user.points = 1990;
+            user.affiliatedTo = affiliate;
 
             const stream = new StreamQueueEntity();
             stream.user = streamer;

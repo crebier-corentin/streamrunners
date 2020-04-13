@@ -71,7 +71,7 @@ export class WatchService implements OnApplicationBootstrap {
             await this.userService.changePointsSave(user, Math.round(multiplier));
 
             //Handle affiliate case
-            if (!user.gotAffiliateCase && user.points >= 2000) {
+            if (user.affiliatedTo != null && !user.gotAffiliateCase && user.points >= 2000) {
                 await this.caseService.giveCase(this.affiliateCaseType as CaseTypeEntity, user);
                 await this.caseService.giveCase(this.affiliateCaseType as CaseTypeEntity, user.affiliatedTo);
 

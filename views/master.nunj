@@ -120,10 +120,10 @@
                                 <span id="points-counter" class="text-small text-white">{{ req.user.points }}</span>
                                 <img src="/img/po.png" alt="points" width="16px" height="16px" />
                             </div>
-                           <!-- <div>
+                           <div>
                                 <span class="text-small text-white">{{ req.user.meteores }}</span>
                                 <img src="/img/mt.png" alt="points" width="16px" height="16px" />
-                            </div> -->
+                            </div>
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <a href="/inventory"><i class="fas fa-suitcase"></i> Inventaire</a>

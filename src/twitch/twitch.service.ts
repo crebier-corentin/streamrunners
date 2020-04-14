@@ -21,7 +21,7 @@ export class TwitchService {
     private tokenExpireDate: moment.Moment = moment();
 
     private readonly lock = new Semaphore(1);
-    private readonly cache = new CacheService(120);
+    private readonly cache = new CacheService(15); //15 seconds cache
 
     public constructor(config: ConfigService) {
         this.clientId = config.get('TWITCH_CLIENT_ID');

@@ -144,17 +144,6 @@ describe('WatchService', () => {
             expect(user.points).toBe(100);
         });
 
-        it("should not increase the viewers' points if the current stream is offline", async () => {
-            const stream = new StreamQueueEntity();
-            stream.user = streamer;
-
-            jest.spyOn(streamQueueService, 'currentStream').mockResolvedValue(stream);
-            jest.spyOn(twitch, 'isStreamOnline').mockResolvedValue(false);
-
-            await service.updatePoints();
-
-            expect(user.points).toBe(100);
-        });
         it.each([
             [SubscriptionLevel.None, 101],
             [SubscriptionLevel.VIP, 102],
@@ -166,7 +155,6 @@ describe('WatchService', () => {
             stream.user = streamer;
 
             jest.spyOn(streamQueueService, 'currentStream').mockResolvedValue(stream);
-            jest.spyOn(twitch, 'isStreamOnline').mockResolvedValue(true);
             jest.spyOn(userService, 'viewers').mockResolvedValue([user]);
 
             await service.updatePoints();
@@ -183,7 +171,6 @@ describe('WatchService', () => {
             stream.user = streamer;
 
             jest.spyOn(streamQueueService, 'currentStream').mockResolvedValue(stream);
-            jest.spyOn(twitch, 'isStreamOnline').mockResolvedValue(true);
             jest.spyOn(userService, 'viewers').mockResolvedValue([user]);
 
             await service.updatePoints();
@@ -203,7 +190,6 @@ describe('WatchService', () => {
             stream.user = streamer;
 
             jest.spyOn(streamQueueService, 'currentStream').mockResolvedValue(stream);
-            jest.spyOn(twitch, 'isStreamOnline').mockResolvedValue(true);
             jest.spyOn(userService, 'viewers').mockResolvedValue([user]);
 
             await service.updatePoints();
@@ -223,7 +209,6 @@ describe('WatchService', () => {
             stream.user = streamer;
 
             jest.spyOn(streamQueueService, 'currentStream').mockResolvedValue(stream);
-            jest.spyOn(twitch, 'isStreamOnline').mockResolvedValue(true);
             jest.spyOn(userService, 'viewers').mockResolvedValue([user]);
 
             await service.updatePoints();
@@ -243,7 +228,6 @@ describe('WatchService', () => {
             stream.user = streamer;
 
             jest.spyOn(streamQueueService, 'currentStream').mockResolvedValue(stream);
-            jest.spyOn(twitch, 'isStreamOnline').mockResolvedValue(true);
             jest.spyOn(userService, 'viewers').mockResolvedValue([user]);
 
             await service.updatePoints();

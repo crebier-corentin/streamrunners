@@ -60,9 +60,6 @@ export class WatchService implements OnApplicationBootstrap {
         const current = await this.streamQueueService.currentStream();
         if (current == undefined) return;
 
-        //Check if stream is online
-        if (!(await this.twitch.isStreamOnline(current.user.twitchId))) return;
-
         //Exclude the stream's owner
         const users = await this.userService.viewers(5, current.user.id);
 

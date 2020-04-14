@@ -3,6 +3,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { DiscordBotService } from '../discord/discord-bot.service';
+import { TwitchService } from '../twitch/twitch.service';
 import { UserEntity } from '../user/user.entity';
 import { StreamQueueEntity } from './stream-queue.entity';
 import { StreamQueueService } from './stream-queue.service';
@@ -12,6 +13,7 @@ describe('StreamQueueService', () => {
     let service: StreamQueueService;
     let repo: Repository<StreamQueueEntity>;
     let discord: DiscordBotService;
+    let twitch: TwitchService;
 
     beforeEach(async () => {
         const module: TestingModule = await Test.createTestingModule({
@@ -25,12 +27,19 @@ describe('StreamQueueService', () => {
                     provide: DiscordBotService,
                     useValue: { sendStreamNotificationMessage: jest.fn() },
                 },
+                {
+                    provide: TwitchService,
+                    useValue: {
+                        isStreamOnline: jest.fn(),
+                    },
+                },
             ],
         }).compile();
 
         service = module.get<StreamQueueService>(StreamQueueService);
         repo = module.get<Repository<StreamQueueEntity>>(getRepositoryToken(StreamQueueEntity));
         discord = module.get<DiscordBotService>(DiscordBotService);
+        twitch = module.get<TwitchService>(TwitchService);
 
         MockDate.reset();
     });
@@ -123,17 +132,50 @@ describe('StreamQueueService', () => {
             expect(mockedSave).not.toHaveBeenCalled();
         });
 
-        it("should start the stream if it hasn't already", async () => {
+        it('should skip if the stream is offline', async () => {
             const stream = new StreamQueueEntity();
             stream.start = null;
+            stream.current = 100;
+            stream.time = 600;
+            stream.user = new UserEntity();
+            stream.user.twitchId = '123';
 
             // @ts-ignore
             const mockedSave = jest.spyOn(repo, 'save').mockImplementation(entity => entity);
             mockCurrentStream(stream);
             MockDate.set('2020-01-01T12:00:00.000Z');
 
+            jest.spyOn(twitch, 'isStreamOnline').mockResolvedValue(false);
+
+            const expectedStream = new StreamQueueEntity();
+            expectedStream.start = null;
+            expectedStream.current = 600;
+            expectedStream.time = 600;
+            expectedStream.user = new UserEntity();
+            expectedStream.user.twitchId = '123';
+
+            // @ts-ignore
+            await service.updateQueue();
+            expect(mockedSave).toHaveBeenCalledWith(expectedStream);
+        });
+
+        it("should start the stream if it hasn't already", async () => {
+            const stream = new StreamQueueEntity();
+            stream.start = null;
+            stream.user = new UserEntity();
+            stream.user.twitchId = '123';
+
+            // @ts-ignore
+            const mockedSave = jest.spyOn(repo, 'save').mockImplementation(entity => entity);
+            mockCurrentStream(stream);
+            MockDate.set('2020-01-01T12:00:00.000Z');
+
+            jest.spyOn(twitch, 'isStreamOnline').mockResolvedValue(true);
+
             const expectedStream = new StreamQueueEntity();
             expectedStream.start = new Date('2020-01-01T12:00:00.000Z');
+            expectedStream.user = new UserEntity();
+            expectedStream.user.twitchId = '123';
 
             // @ts-ignore
             await service.updateQueue();
@@ -145,16 +187,22 @@ describe('StreamQueueService', () => {
             stream.start = new Date('2020-01-01T12:00:00.000Z');
             stream.current = 0;
             stream.time = 600;
+            stream.user = new UserEntity();
+            stream.user.twitchId = '123';
 
             // @ts-ignore
             const mockedSave = jest.spyOn(repo, 'save').mockImplementation(entity => entity);
             mockCurrentStream(stream);
             MockDate.set('2020-01-01T12:04:00.000Z');
 
+            jest.spyOn(twitch, 'isStreamOnline').mockResolvedValue(true);
+
             const expectedStream = new StreamQueueEntity();
             expectedStream.start = new Date('2020-01-01T12:00:00.000Z');
             expectedStream.current = 240;
             expectedStream.time = 600;
+            expectedStream.user = new UserEntity();
+            expectedStream.user.twitchId = '123';
 
             // @ts-ignore
             await service.updateQueue();
@@ -166,16 +214,22 @@ describe('StreamQueueService', () => {
             stream.start = new Date('2020-01-01T12:00:00.000Z');
             stream.current = 0;
             stream.time = 600;
+            stream.user = new UserEntity();
+            stream.user.twitchId = '123';
 
             // @ts-ignore
             const mockedSave = jest.spyOn(repo, 'save').mockImplementation(entity => entity);
             mockCurrentStream(stream);
             MockDate.set('2020-01-01T20:00:00.000Z');
 
+            jest.spyOn(twitch, 'isStreamOnline').mockResolvedValue(true);
+
             const expectedStream = new StreamQueueEntity();
             expectedStream.start = new Date('2020-01-01T12:00:00.000Z');
             expectedStream.current = 600;
             expectedStream.time = 600;
+            expectedStream.user = new UserEntity();
+            expectedStream.user.twitchId = '123';
 
             // @ts-ignore
             await service.updateQueue();

@@ -5,6 +5,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { EntityService } from '../common/utils/entity-service';
 import { DiscordBotService } from '../discord/discord-bot.service';
+import { TwitchService } from '../twitch/twitch.service';
 import { UserEntity } from '../user/user.entity';
 import { StreamQueueEntity } from './stream-queue.entity';
 import moment = require('moment');
@@ -13,7 +14,8 @@ import moment = require('moment');
 export class StreamQueueService extends EntityService<StreamQueueEntity> {
     public constructor(
         @InjectRepository(StreamQueueEntity) repo: Repository<StreamQueueEntity>,
-        private readonly discordBot: DiscordBotService
+        private readonly discordBot: DiscordBotService,
+        private readonly twitch: TwitchService
     ) {
         super(repo);
     }
@@ -103,6 +105,14 @@ export class StreamQueueService extends EntityService<StreamQueueEntity> {
 
         //If queue is empty do nothing
         if (currentStream == undefined) return;
+
+        //Skip if stream is offline
+        if (!(await this.twitch.isStreamOnline(currentStream.user.twitchId))) {
+            currentStream.current = currentStream.time;
+            await this.repo.save(currentStream);
+
+            return;
+        }
 
         //Start if null
         if (currentStream.start == null) {

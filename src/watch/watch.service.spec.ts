@@ -145,22 +145,29 @@ describe('WatchService', () => {
         });
 
         it.each([
-            [SubscriptionLevel.None, 101],
-            [SubscriptionLevel.VIP, 102],
-            [SubscriptionLevel.Diamond, 102],
-        ])("should increase the viewers' points (%s)", async (lvl, expectedPoints) => {
-            user.subscriptionLevel = lvl;
+            [SubscriptionLevel.None, 101, 102],
+            [SubscriptionLevel.VIP, 101, 103],
+            [SubscriptionLevel.Diamond, 102, 104],
+        ])(
+            "should increase the viewers' points and handle 1.5x (%s)",
+            async (lvl, expectedPoints1, expectedPoints2) => {
+                user.subscriptionLevel = lvl;
 
-            const stream = new StreamQueueEntity();
-            stream.user = streamer;
+                const stream = new StreamQueueEntity();
+                stream.user = streamer;
 
-            jest.spyOn(streamQueueService, 'currentStream').mockResolvedValue(stream);
-            jest.spyOn(userService, 'viewers').mockResolvedValue([user]);
+                jest.spyOn(streamQueueService, 'currentStream').mockResolvedValue(stream);
+                jest.spyOn(userService, 'viewers').mockResolvedValue([user]);
 
-            await service.updatePoints();
+                await service.updatePoints();
 
-            expect(user.points).toBe(expectedPoints);
-        });
+                expect(user.points).toBe(expectedPoints1);
+
+                await service.updatePoints();
+
+                expect(user.points).toBe(expectedPoints2);
+            }
+        );
 
         it('should not give affiliate cases if the user is unaffiliated', async () => {
             user.subscriptionLevel = SubscriptionLevel.None;

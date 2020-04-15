@@ -23,11 +23,14 @@ export class WatchController {
 
     @Post('update')
     public async update(
-        @User() user: UserEntity
+        @User() user: UserEntity,
+        @Body('active') active: boolean
     ): Promise<{ viewers: any; auth: boolean; messages: any; queue: StreamQueueEntity[]; points: number }> {
-        //Update lastOnWatchPage
-        user.lastOnWatchPage = new Date();
-        await this.userService.save(user);
+        //Only updates lastOnWatchPage if the user has not paused the video
+        if (active) {
+            user.lastOnWatchPage = new Date();
+            await this.userService.save(user);
+        }
 
         const [queue, viewers, messages] = await Promise.all([
             this.streamQueueService.currentAndNextStreams(), //queue

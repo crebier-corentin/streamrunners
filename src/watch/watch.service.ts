@@ -54,6 +54,9 @@ export class WatchService implements OnApplicationBootstrap {
         }
     }
 
+    //Workaround for 1.5x points
+    private shouldUseCeil = false;
+
     @Cron(CronExpression.EVERY_SECOND)
     public async updatePoints(): Promise<void> {
         //Check if stream is online
@@ -65,7 +68,12 @@ export class WatchService implements OnApplicationBootstrap {
 
         for (const user of users) {
             const multiplier = WatchService.pointsMultiplier(user.subscriptionLevel);
-            await this.userService.changePointsSave(user, Math.round(multiplier));
+
+            //To deal with 1.5x points, switch between floor and ceil each call
+            const points = this.shouldUseCeil ? Math.ceil(multiplier) : Math.floor(multiplier);
+            this.shouldUseCeil = !this.shouldUseCeil;
+
+            await this.userService.changePointsSave(user, points);
 
             //Handle affiliate case
             if (user.affiliatedTo != null && !user.gotAffiliateCase && user.points >= 2000) {

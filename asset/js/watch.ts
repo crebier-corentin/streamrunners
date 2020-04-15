@@ -2,7 +2,7 @@ import Vue from 'vue/dist/vue.esm.js';
 import TwitchViewer from './component/TwitchViewer.vue';
 import Chat from './component/Chat.vue';
 
-import axios, { AxiosError } from 'axios';
+import axios from 'axios';
 import swal from 'sweetalert2';
 import { sleep } from '../../src/shared/shared-utils';
 import { updatePoints } from './points';
@@ -119,10 +119,8 @@ window['vm'] = new Vue({
         },
 
         async makeRequestUpdate() {
-            //Assure that player is not paused when there's a stream
-            if (this.currentStream != null && this.isPaused) return;
-
-            const result = await axios.post(this.updateUrl);
+            //Active only if the player is not paused
+            const result = await axios.post(this.updateUrl, { active: !this.isPaused });
             this.updateData(result.data);
         },
 

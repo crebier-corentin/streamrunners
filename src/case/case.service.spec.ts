@@ -4,15 +4,17 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { UserEntity } from '../user/user.entity';
-import { UserService } from '../user/user.service';
-import { CaseContentEntity } from './case-content.entity';
+import { CaseContentEntity, CaseContentType } from './case-content.entity';
+import { CaseContentService } from './case-content.service';
 import { CaseEntity } from './case.entity';
 import { CaseService } from './case.service';
+import { SteamKeyService } from './steam-key.service';
 
 describe('CaseService', () => {
     let service: CaseService;
     let repo: Repository<CaseEntity>;
-    let userService: UserService;
+    let caseContentService: CaseContentService;
+    let steamKeyService: SteamKeyService;
 
     beforeEach(async () => {
         const module: TestingModule = await Test.createTestingModule({
@@ -23,10 +25,15 @@ describe('CaseService', () => {
                     useClass: Repository,
                 },
                 {
-                    provide: UserService,
+                    provide: CaseContentService,
                     useValue: {
-                        changePointsSave: jest.fn((user, amount) => (user.points += amount)),
-                        changeMeteoresSave: jest.fn((user, amount) => (user.meteores += amount)),
+                        applyContent: jest.fn(),
+                    },
+                },
+                {
+                    provide: SteamKeyService,
+                    useValue: {
+                        hasAvailableKey: jest.fn(),
                     },
                 },
             ],
@@ -34,7 +41,8 @@ describe('CaseService', () => {
 
         service = module.get<CaseService>(CaseService);
         repo = module.get<Repository<CaseEntity>>(getRepositoryToken(CaseEntity));
-        userService = module.get<UserService>(UserService);
+        caseContentService = module.get<CaseContentService>(CaseContentService);
+        steamKeyService = module.get<SteamKeyService>(SteamKeyService);
 
         jest.spyOn(repo, 'save').mockImplementation(entity => Promise.resolve(entity) as any);
     });
@@ -80,18 +88,15 @@ describe('CaseService', () => {
     });
 
     describe('openCase', () => {
-        it('should throw if the case is already open', () => {
-            const _case = new CaseEntity();
-            _case.content = new CaseContentEntity();
+        let mockedGetRandomContent;
+        let spinMock;
 
-            return expect(service.openCase(_case, new UserEntity())).rejects.toBeInstanceOf(HttpException);
-        });
+        beforeEach(() => {
+            //@ts-ignore
+            mockedGetRandomContent = jest.spyOn(service, 'getRandomContent');
 
-        it('should generate a random spin, a random winning content and give the won points to the user', async () => {
-            // @ts-ignore
-            const mockedGetRandomContent = jest.spyOn(service, 'getRandomContent');
-
-            const spinMock = [];
+            //Mock spin
+            spinMock = [];
 
             for (let i = 0; i < 56; i++) {
                 const content = new CaseContentEntity();
@@ -104,20 +109,30 @@ describe('CaseService', () => {
 
                 mockedGetRandomContent.mockReturnValueOnce(content);
             }
+        });
 
+        it('should throw if the case is already open', () => {
+            const _case = new CaseEntity();
+            _case.content = new CaseContentEntity();
+
+            return expect(service.openCase(_case, new UserEntity())).rejects.toBeInstanceOf(HttpException);
+        });
+
+        it('should generate a random spin, a random winning content and give the prize to the user', async () => {
             const winningMock = new CaseContentEntity();
             winningMock.name = 'win';
             winningMock.chance = 500;
             winningMock.image = 'win.png';
             winningMock.amountPoints = 100;
             winningMock.amountMeteores = 500;
+            winningMock.contentType = CaseContentType.PointsAndMeteores;
 
             mockedGetRandomContent.mockReturnValueOnce(winningMock);
 
             const _case = new CaseEntity();
             _case.content = null;
             _case.type = {} as any;
-            _case.type.contents = []; //Mocked above
+            _case.type.contents = []; //Mocked in beforeEach
 
             const user = new UserEntity();
             user.points = 100;
@@ -127,8 +142,48 @@ describe('CaseService', () => {
 
             expect(spin).toEqual(spinMock);
             expect(winning).toEqual({ name: winning.name, color: winning.color, image: winning.image });
-            expect(user.points).toBe(200);
-            expect(user.meteores).toBe(500);
+
+            const expectedCase = JSON.parse(JSON.stringify(_case)); //Clone _case
+            expectedCase.content = winningMock;
+
+            expect(jest.spyOn(caseContentService, 'applyContent')).toHaveBeenCalledWith(expectedCase, user);
+        });
+
+        it("should generate a random spin, an reload winning content if it's a key and none are available and give the prize to the user", async () => {
+            const winningMock1 = new CaseContentEntity();
+            winningMock1.name = 'win';
+            winningMock1.chance = 500;
+            winningMock1.image = 'win.png';
+            winningMock1.contentType = CaseContentType.SteamKey;
+
+            mockedGetRandomContent.mockReturnValueOnce(winningMock1);
+
+            const winningMock2 = new CaseContentEntity();
+            winningMock2.name = 'win';
+            winningMock2.chance = 500;
+            winningMock2.image = 'win.png';
+            winningMock2.contentType = CaseContentType.PointsAndMeteores;
+
+            mockedGetRandomContent.mockReturnValueOnce(winningMock2);
+
+            const _case = new CaseEntity();
+            _case.content = null;
+            _case.type = {} as any;
+            _case.type.contents = []; //Mocked in beforeEach
+
+            const user = new UserEntity();
+
+            jest.spyOn(steamKeyService, 'hasAvailableKey').mockResolvedValue(false);
+
+            const { spin, winning } = await service.openCase(_case, user);
+
+            expect(spin).toEqual(spinMock);
+            expect(winning).toEqual({ name: winning.name, color: winning.color, image: winning.image });
+
+            const expectedCase = JSON.parse(JSON.stringify(_case)); //Clone _case
+            expectedCase.content = winningMock2;
+
+            expect(jest.spyOn(caseContentService, 'applyContent')).toHaveBeenCalledWith(expectedCase, user);
         });
     });
 });

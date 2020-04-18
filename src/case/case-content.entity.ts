@@ -2,6 +2,11 @@
 import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
 import { CaseTypeEntity } from './case-type.entity';
 
+export enum CaseContentType {
+    PointsAndMeteores = 'points_and_meteores',
+    SteamKey = 'steam_key',
+}
+
 @Entity('case_content')
 export class CaseContentEntity {
     @PrimaryGeneratedColumn()
@@ -15,6 +20,9 @@ export class CaseContentEntity {
 
     @Column()
     public chance: number; //In per-mille 0-1000
+
+    @Column('enum', { enum: CaseContentType, default: CaseContentType.PointsAndMeteores })
+    public contentType: CaseContentType;
 
     @Column({ default: 0 })
     public amountPoints: number;

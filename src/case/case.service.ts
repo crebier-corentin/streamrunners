@@ -3,14 +3,19 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { UserErrorException } from '../common/exception/user-error.exception';
 import { EntityService } from '../common/utils/entity-service';
 import { UserEntity } from '../user/user.entity';
-import { UserService } from '../user/user.service';
-import { CaseContentEntity } from './case-content.entity';
+import { CaseContentEntity, CaseContentType } from './case-content.entity';
+import { CaseContentService } from './case-content.service';
 import { CaseTypeEntity } from './case-type.entity';
 import { CaseEntity } from './case.entity';
+import { SteamKeyService } from './steam-key.service';
 
 @Injectable()
 export class CaseService extends EntityService<CaseEntity> {
-    public constructor(@InjectRepository(CaseEntity) repo, private readonly userService: UserService) {
+    public constructor(
+        @InjectRepository(CaseEntity) repo,
+        private readonly caseContentService: CaseContentService,
+        private readonly steamKeyService: SteamKeyService
+    ) {
         super(repo);
     }
 
@@ -85,14 +90,19 @@ export class CaseService extends EntityService<CaseEntity> {
             spin.push({ name: content.name, color: content.color, image: content.image });
         }
 
-        const winning = await this.getRandomContent(_case.type.contents);
+        //Reload if no steam keys are available
+        const steamKeyAvailable = await this.steamKeyService.hasAvailableKey();
+        let winning: CaseContentEntity;
+        do {
+            winning = await this.getRandomContent(_case.type.contents);
+        } while (!steamKeyAvailable && winning.contentType === CaseContentType.SteamKey);
 
         _case.content = winning;
-        await this.save(_case);
 
         //Give prize
-        await this.userService.changePointsSave(user, winning.amountPoints);
-        await this.userService.changeMeteoresSave(user, winning.amountMeteores);
+        await this.caseContentService.applyContent(_case, user);
+
+        await this.save(_case);
 
         return { spin, winning: { name: winning.name, color: winning.color, image: winning.image } };
     }

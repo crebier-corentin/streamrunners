@@ -211,8 +211,8 @@
 
 </body>
 
+{# Bootstrap native is already included in bundle.js #}
 <script src="/js/bundle.js"></script>
-<script src="/js/bootstrap.bundle.min.js"></script>
 
 {% if req.isAuthenticated() %}
     <script src="/js/points-counter.js"></script>

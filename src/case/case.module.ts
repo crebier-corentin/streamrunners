@@ -15,6 +15,6 @@ import { SteamKeyService } from './steam-key.service';
     imports: [TypeOrmModule.forFeature([CaseEntity, CaseTypeEntity, CaseContentEntity, SteamKeyEntity]), UserModule],
     providers: [CaseService, CaseTypeService, CaseContentService, SteamKeyService],
     controllers: [CaseController],
-    exports: [CaseService, CaseTypeService],
+    exports: [CaseService, CaseTypeService, SteamKeyService],
 })
 export class CaseModule {}

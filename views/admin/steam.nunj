@@ -1,0 +1,53 @@
+{% set title = "StreamRunners - Administration Tombolas" %}
+{% extends "../master.nunj" %}
+{% block content %}
+    <div class="container-fluid d-flex justify-content-center flex-column align-items-center">
+
+        {# New raffle form #}
+        <form method="post" action="/admin/steam/add">
+            {# name #}
+            <div class="form-group row">
+                <label class="col-4 col-form-label" for="name">Nom</label>
+                <div class="col-8">
+                    <input id="name" name="name" type="text" required="required" class="form-control">
+                </div>
+            </div>
+            {# Code #}
+            <div class="form-group row">
+                <label class="col-4 col-form-label" for="code">Code</label>
+                <div class="col-8">
+                    <input id="code" name="code" type="text" required="required" class="form-control">
+                </div>
+            </div>
+
+            {# submit #}
+            <div class="form-group row">
+                <button type="submit" class="btn btn-primary">Ajouter une nouvelle clé steam</button>
+            </div>
+        </form>
+
+        {% if success | length %}
+            <div class="alert alert-success">
+                {{ success }}
+            </div>
+        {% endif %}
+
+
+        <h3>Clés</h3>
+        <table>
+            <tr>
+                <td>Clés gagnées :</td>
+                <td>{{ totalKeys - availableKeys }}</td>
+            </tr>
+            <tr>
+                <td>Clés disponible :</td>
+                <td>{{ availableKeys }}</td>
+            </tr>
+            <tr>
+                <td>Clés au total :</td>
+                <td>{{ totalKeys }}</td>
+            </tr>
+        </table>
+
+    </div>
+{% endblock %}

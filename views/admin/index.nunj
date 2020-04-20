@@ -49,6 +49,17 @@
                     <a href="/admin/partner" class="btn btn-outline-success blue">GO</a>
                 </div>
             </div>
+            <div class="card col-sm-3" style="width: 18rem; margin-right: 0.50rem;">
+                <img style="height: 184px; width: 184px;"
+                     src="https://image.flaticon.com/icons/svg/2111/2111630.svg"
+                     class="card-img-top marged"
+                     alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">Clé steam</h5>
+                    <p class="card-text">Ajouter une clé steam.</p>
+                    <a href="/admin/steam" class="btn btn-outline-success blue">GO</a>
+                </div>
+            </div>
         </section>
         <hr>
 

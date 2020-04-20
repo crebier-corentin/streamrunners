@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common';
 import { AnnouncementModule } from '../announcement/announcement.module';
+import { CaseModule } from '../case/case.module';
 import { CouponModule } from '../coupon/coupon.module';
 import { PartnerModule } from '../partner/partner.module';
 import { RaffleModule } from '../raffle/raffle.module';
@@ -10,10 +11,18 @@ import { AnnouncementController } from './announcement.controller';
 import { CouponController } from './coupon.controller';
 import { PartnerController } from './partner.controller';
 import { RaffleController } from './raffle.controller';
+import { SteamKeyController } from './steam-key.controller';
 
 @Module({
-    imports: [AnnouncementModule, PartnerModule, RaffleModule, CouponModule, UserModule],
-    controllers: [AdminController, CouponController, RaffleController, AnnouncementController, PartnerController],
+    imports: [AnnouncementModule, PartnerModule, RaffleModule, CouponModule, UserModule, CaseModule],
+    controllers: [
+        AdminController,
+        CouponController,
+        RaffleController,
+        AnnouncementController,
+        PartnerController,
+        SteamKeyController,
+    ],
     providers: [AdminService],
 })
 export class AdminModule {}

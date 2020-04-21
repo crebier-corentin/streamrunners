@@ -2,6 +2,7 @@ import { Controller, Get, Render, Req, Res, UseGuards } from '@nestjs/common';
 import { AuthenticatedGuard } from './common/guard/authenticated.guard';
 import { RaffleService } from './raffle/raffle.service';
 import { UserService } from './user/user.service';
+import Request = Express.Request;
 
 @Controller()
 export class AppController {
@@ -42,8 +43,10 @@ export class AppController {
     @UseGuards(AuthenticatedGuard)
     @Render('inventory')
     @Get('inventory')
-    public async inventory(): Promise<void> {
-        //
+    public inventory(@Req() req: Request): { success: any } {
+        return {
+            success: req.flash('success'),
+        };
     }
 
     @UseGuards(AuthenticatedGuard)

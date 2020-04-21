@@ -1,14 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import {
-    Column,
-    CreateDateColumn,
-    Entity,
-    ManyToOne,
-    OneToMany,
-    PrimaryGeneratedColumn,
-    UpdateDateColumn,
-} from 'typeorm';
-import { UserEntity } from '../user/user.entity';
+import { Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
 import { CaseContentEntity } from './case-content.entity';
 
 @Entity('case_type')
@@ -30,6 +21,12 @@ export class CaseTypeEntity {
         c => c.caseType
     )
     public contents: CaseContentEntity[];
+
+    @Column({ default: false })
+    public buyable: boolean;
+
+    @Column({ default: 0, unsigned: true })
+    public price: number;
 
     @CreateDateColumn()
     public createdAt: Date;

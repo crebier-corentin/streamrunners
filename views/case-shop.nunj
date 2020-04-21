@@ -1,0 +1,39 @@
+{% set title = "StreamRunners - Boutique de caisses" %}
+{% extends "master.nunj" %}
+
+{% block content %}
+    <div class="container">
+
+        {% if error | length %}
+            <div class="alert alert-danger">
+                {{ error }}
+            </div>
+        {% endif %}
+
+        <section class="row">
+            {% for type in caseTypes %}
+                <div class="col-sm-3">
+
+                    <div class="card" style="width: 14rem;">
+                        <img class="card-img-top" src="{{ type.closeImage }}" alt="{{ type.name }}">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ type.name }}</h5>
+                            <p class="card-text">Prix : {{ type.price }} points</p>
+                            {% if req.user.points < type.price %}
+                                <span class="text-danger small">Vous n'avez pas assez de points.</span>
+                            {% endif %}
+                            <form action="/case/buy" method="post">
+                                <input type="hidden" name="caseTypeId" value="{{ type.id }}">
+                                <button class="btn btn-primary" {{ 'disabled' if req.user.points < type.price }}>
+                                    Acheter
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+            {% endfor %}
+        </section>
+    </div>
+
+{% endblock %}

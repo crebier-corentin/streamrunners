@@ -112,6 +112,8 @@ export class CaseService extends EntityService<CaseEntity> {
         _case.type = type;
         _case.user = user;
 
+        if (user.cases != undefined) user.cases.push(_case); //Otherwise _case will be deleted if user is saved
+
         await this.repo.save(_case);
     }
 }

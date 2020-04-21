@@ -1,15 +1,35 @@
-import { Body, Controller, ParseIntPipe, Post, Render, UnprocessableEntityException, UseGuards } from '@nestjs/common';
+import {
+    Body,
+    Controller,
+    Get,
+    ParseIntPipe,
+    Post,
+    Redirect,
+    Render,
+    Req,
+    UnprocessableEntityException,
+    UseFilters,
+    UseGuards,
+} from '@nestjs/common';
 import { User } from '../common/decorator/user.decorator';
+import { FlashAndRedirectUserErrorFilter } from '../common/filter/flash-and-redirect-user-error.filter';
 import { AuthenticatedGuard } from '../common/guard/authenticated.guard';
 import { UserEntity } from '../user/user.entity';
 import { CaseContentEntity } from './case-content.entity';
+import { CaseTypeEntity } from './case-type.entity';
+import { CaseTypeService } from './case-type.service';
 import { CaseService } from './case.service';
 import { SteamKeyService } from './steam-key.service';
+import Request = Express.Request;
 
 @UseGuards(AuthenticatedGuard)
 @Controller('case')
 export class CaseController {
-    public constructor(private readonly caseService: CaseService, private readonly steamKeyService: SteamKeyService) {}
+    public constructor(
+        private readonly caseService: CaseService,
+        private readonly caseTypeService: CaseTypeService,
+        private readonly steamKeyService: SteamKeyService
+    ) {}
 
     @Render('case')
     @Post('show')
@@ -49,5 +69,27 @@ export class CaseController {
         );
 
         return this.caseService.openCase(_case, user);
+    }
+
+    @Render('case-shop')
+    @Get('shop')
+    public async shop(@Req() req: Request): Promise<{ error: any; caseTypes: CaseTypeEntity[] }> {
+        return {
+            error: req.flash('error'),
+            caseTypes: await this.caseTypeService.getBuyableCaseTypes(),
+        };
+    }
+
+    @Redirect('/inventory')
+    @UseFilters(new FlashAndRedirectUserErrorFilter('/case/shop'))
+    @Post('buy')
+    public async buy(
+        @Body('caseTypeId', ParseIntPipe) caseTypeId: number,
+        @User() user: UserEntity,
+        @Req() req: Request
+    ): Promise<void> {
+        await this.caseTypeService.buyCase(caseTypeId, user);
+
+        req.flash('success', 'Caisse achetée !');
     }
 }

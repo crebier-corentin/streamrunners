@@ -41,9 +41,42 @@
                                 </form>
                             </div>
                         {% endif %}
+
+                        {# Key #}
+                        {% if case.key != null %}
+                            <div>{{ case.key.name }}</div>
+                            <div class="small">
+                                <button type="button"
+                                        class="btn btn-primary"
+                                        data-toggle="modal"
+                                        data-target="#modal-case-{{ case.id }}">
+                                    Voir le code
+                                </button>
+                            </div>
+                        {% endif %}
+
                     </div>
                 </div>
             </div>
+
+            {# Modal #}
+            {% if case.content.contentType == CaseContentType.SteamKey %}
+                <div id="modal-case-{{ case.id }}" class="modal" tabindex="-1" role="dialog">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Code</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <p>{{ case.key.code }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
         {% endfor %}
 
     </section>
@@ -62,7 +95,7 @@
                             <button type="button"
                                     class="btn btn-primary"
                                     data-toggle="modal"
-                                    data-target="#modal-{{ raffle.id }}">
+                                    data-target="#modal-raffle-{{ raffle.id }}">
                                 Voir le code
                             </button>
                         {% endif %}
@@ -74,7 +107,7 @@
 
             {# Modal #}
             {% if raffle.code %}
-                <div id="modal-{{ raffle.id }}" class="modal" tabindex="-1" role="dialog">
+                <div id="modal-raffle-{{ raffle.id }}" class="modal" tabindex="-1" role="dialog">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">

@@ -15,7 +15,9 @@
                 <div class="col-sm-3">
 
                     <div class="card" style="width: 14rem;">
-                        <img class="card-img-top" src="{{ type.closeImage }}" alt="{{ type.name }}">
+                        <div class="resizeimg">
+                            <img class="card-img-top" src="{{ type.closeImage }}" alt="{{ type.name }}">
+                        </div>
                         <div class="card-body">
                             <h5 class="card-title">{{ type.name }}</h5>
                             {% if req.user.points < type.price %}

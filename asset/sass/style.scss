@@ -572,15 +572,17 @@ a:hover {
     background-color: rgba(0, 0, 0, 0.4);
     background: rgba(0, 0, 0, 0.4);
     border-bottom: 1px solid rgb(246, 194, 60);
-};
+}
 
-.card-img-top{
+.image-top{
     margin: auto;
-};
+    border-top-left-radius: calc(0.25rem - 1px);
+    border-top-right-radius: calc(0.25rem - 1px);
+}
 
 .marged {
   margin-top: 2rem;
-};
+}
 
 .col-sm-3 {
   margin-bottom: 1.25rem;
@@ -1163,3 +1165,8 @@ position:relative;}
 100%{ transform: translatex(300vh) translatey(300vh) }
 }
 
+.resizeimg {
+  display:flex;
+  width: 100%;
+  height: 200px;
+}

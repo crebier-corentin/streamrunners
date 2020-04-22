@@ -18,12 +18,14 @@
             {% for case in req.user.cases %}
                 <div class="col-sm-3">
                     <div class="card" style="width: 14rem;">
+                        <div class="resizeimg">
                         {# Image #}
                         {% if case.isOpened() %}
                             <img src="{{ case.type.openImage }}" class="card-img-top" alt="Caisse ouverte">
                         {% else %}
                             <img src="{{ case.type.closeImage }}" class="card-img-top" alt="Caisse fermé">
                         {% endif %}
+                        </div>
                         <div class="card-body">
                             {# Name #}
                             <h5 class="card-title">{{ case.type.name }}</h5>

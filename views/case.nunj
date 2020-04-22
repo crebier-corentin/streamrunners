@@ -17,20 +17,23 @@
                 Il y a plus de clé steam disponible. Vous ne pourrez pas en reçevoir une.
             </div>
         {% endif %}
+        <div class="container">
+	        <ul class="list-unstyled row" style="margin-top:1rem;">
 
-        <ul class="list-unstyled row" style="margin-top:1rem;">
+	            {% for content in caseContents %}
+	                <div class="card m-1 col-md-3 col-sm-3 col-12">
+	                	<div class="resizeimg">
+	                    	<img class="image-top" src="{{ content.image }}" alt="{{ content.name }}">
+	                	</div>
+	                    <div class="card-body">
+	                        <h6 class="card-title">{{ content.name }}</h6>
+	                        <p class="card-text">{{ content.chance / 10 }} %</p>
+	                    </div>
+	                </div>
+	            {% endfor %}
 
-            {% for content in caseContents %}
-                <div class="card m-1 col-md-2 col-sm-6 col-12">
-                    <img class="card-img-top" style="height: 105px;" src="{{ content.image }}" alt="{{ content.name }}">
-                    <div class="card-body">
-                        <h6 class="card-title">{{ content.name }}</h6>
-                        <p class="card-text">{{ content.chance / 10 }} %</p>
-                    </div>
-                </div>
-            {% endfor %}
-
-        </ul>
+	        </ul>
+   		</div>
 
     </div>
 {% endblock %}

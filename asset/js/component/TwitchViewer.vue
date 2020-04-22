@@ -24,7 +24,7 @@
 
         computed: {
             chatUrl() {
-                return 'https://www.twitch.tv/embed/' + this.channel;
+                return 'https://www.twitch.tv/embed/' + this.channel + '/chat';
             },
         },
 

@@ -18,14 +18,13 @@
                         <img class="card-img-top" src="{{ type.closeImage }}" alt="{{ type.name }}">
                         <div class="card-body">
                             <h5 class="card-title">{{ type.name }}</h5>
-                            <p class="card-text">Prix : {{ type.price }} points</p>
                             {% if req.user.points < type.price %}
                                 <span class="text-danger small">Vous n'avez pas assez de points.</span>
                             {% endif %}
                             <form action="/case/buy" method="post">
                                 <input type="hidden" name="caseTypeId" value="{{ type.id }}">
                                 <button class="btn btn-primary" {{ 'disabled' if req.user.points < type.price }}>
-                                    Acheter
+                                    {{ type.price }} <img src="/img/po.png" alt="points" width="32px" height="32px" />
                                 </button>
                             </form>
                         </div>

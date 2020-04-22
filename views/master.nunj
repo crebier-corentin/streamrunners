@@ -96,6 +96,7 @@
 
                 {% if req.isAuthenticated() %}
 
+                	<li><a href="/case/shop"><i class="fas fa-shopping-cart"></i> Boutique</a></li></li>
                     <li><a href="/coupon"><i class="fas fa-ticket-alt"></i> Coupon</a></li>
                     <li><a href="/raffle"><i class="fas fa-boxes"></i> GiveAway</a></li>
 
@@ -128,7 +129,7 @@
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <a href="/inventory"><i class="fas fa-suitcase"></i> Inventaire</a>
                             <div class="dropdown-divider"></div>
-                            <a href="/subscription"><i class="fas fa-shopping-cart"></i> Abonnements</a>
+                            <a href="/subscription"><i class="fas fa-star"></i> Abonnements</a>
                             <div class="dropdown-divider"></div>
                             <a href="/affiliate"><i class="fas fa-plus"></i> Affiliation</a>
                             <div class="dropdown-divider"></div>

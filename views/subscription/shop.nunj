@@ -21,7 +21,7 @@
                     <!--  <img style="max-width: 100%;" :src="info.icon" height="250px" alt="icon" /> -->
 
                     <ul class="list-group">
-                        <li class="list-group-item list-group-item-danger bonus">Deux places dans la file</li>
+                        <li class="list-group-item list-group-item-danger bonus">1 places dans la file</li>
                         <li class="list-group-item list-group-item-danger bonus">Pas de multiplicateur de points</li>
                         <li class="list-group-item list-group-item-danger bonus">Non prioritaire pour le bot twitch (en
                             développement)

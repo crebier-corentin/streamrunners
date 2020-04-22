@@ -12,7 +12,7 @@ export class CaseContentEntity {
     @PrimaryGeneratedColumn()
     public id: number;
 
-    @Column({ unique: true })
+    @Column()
     public name: string;
 
     @Column({ nullable: true })

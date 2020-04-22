@@ -1,4 +1,4 @@
-import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
+import { Column, CreateDateColumn, Entity, Index, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
 import { UserEntity } from '../user/user.entity';
 
 @Entity('stream_queue')
@@ -11,9 +11,11 @@ export class StreamQueueEntity {
     public amount: number;
 
     //Time in seconds
+    @Index()
     @Column({ default: 60 })
     public time: number;
 
+    @Index()
     @Column({ default: 0 })
     public current: number;
 
@@ -28,6 +30,7 @@ export class StreamQueueEntity {
     )
     public user: UserEntity;
 
+    @Index()
     @CreateDateColumn()
     public createdAt: Date;
 

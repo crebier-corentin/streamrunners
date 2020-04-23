@@ -30,7 +30,7 @@
     <title>{{ title | default("Titre") }}</title>
     <link rel="icon" href="/img/favicon.ico" />
     <link rel="stylesheet" href="/css/style.css">
-    <script src="https://kit.fontawesome.com/9e4cbfb17e.js" crossorigin="anonymous"></script>
+    <link rel="preconnect" href="https://static-cdn.jtvnw.net">
     <script data-ad-client="ca-pub-7690571679670706"
             async
             src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
@@ -79,7 +79,10 @@
 </head>
 
 <body class="bg-purple stars">
-<img src="/img/meteores.gif" class="meteore" />
+
+<video autoplay loop muted playsinline class="meteore" src="/img/meteores.webm">
+</video>
+
 {# Navbar #}
 <div class="">
     <div class="custom-navbar">
@@ -96,7 +99,7 @@
 
                 {% if req.isAuthenticated() %}
 
-                	<li><a href="/case/shop"><i class="fas fa-shopping-cart"></i> Boutique</a></li></li>
+                    <li><a href="/case/shop"><i class="fas fa-shopping-cart"></i> Boutique</a></li>
                     <li><a href="/coupon"><i class="fas fa-ticket-alt"></i> Coupon</a></li>
                     <li><a href="/raffle"><i class="fas fa-boxes"></i> GiveAway</a></li>
 
@@ -155,7 +158,7 @@
 {% if req.isAuthenticated() %}
     {% if announcement != undefined %}
         <div class="container">
-            <a href="{{ announcement.url }}" target="_blank">
+            <a href="{{ announcement.url }}" target="_blank" rel="noopener">
                 <div style="margin-top: 2rem;" class="alert alert-primary" role="alert">
                     {{ announcement.text }}
                 </div>
@@ -179,11 +182,11 @@
         <h3 class="text-center">Ils nous font confiance :</h3><br>
 
         {% for partner in partners %}
-            <a class="partlink" href="{{ partner.url }}" target="_blank"><img alt="Logo Partenaire"
-                                                                              title="Logo Partenaire"
-                                                                              class="partimg"
-                                                                              width="10%"
-                                                                              src="{{ partner.image }}" /></a>
+            <a class="partlink" href="{{ partner.url }}" target="_blank" rel="noopener"><img alt="Logo Partenaire"
+                                                                                             title="Logo Partenaire"
+                                                                                             class="partimg"
+                                                                                             width="10%"
+                                                                                             src="{{ partner.image }}" /></a>
         {% endfor %}
 
         <hr>
@@ -194,18 +197,22 @@
         <a class="inline"
            href="https://www.facebook.com/StreamRunners/"
            aria-label="Facebook StreamRunners"
-           target="_blank"><i style="color:blue" class="fab fa-facebook margright"></i></a>
-        <a class="inline" href="https://twitter.com/StreamRunners" aria-label="Twitter StreamRunners" target="_blank"><i
-                    style="color:deepskyblue"
-                    class="fab fa-twitter-square margright"></i></a>
-        <!-- <a class="inline"
+           target="_blank"
+           rel="noopener"><i style="color:blue" class="fab fa-facebook margright"></i></a>
+        <a class="inline"
+           href="https://twitter.com/StreamRunners"
+           aria-label="Twitter StreamRunners"
+           target="_blank"
+           rel="noopener"><i style="color:deepskyblue" class="fab fa-twitter-square margright"></i></a>
+        {# <a class="inline"
            href="www.instagram.com/twitchrunners/"
            aria-label="Instagram StreamRunners"
-           target="_blank"><i style="color:pink" class="fab fa-instagram margright"></i></a> -->
+           target="_blank"><i style="color:pink" class="fab fa-instagram margright"></i></a> #}
         <a class="inline"
            href="https://discord.gg/rA8Hbec"
            aria-label="Discord StreamRunners"
-           target="_blank"><i style="color:lightgrey" class="fab fa-discord margright"></i></a>
+           target="_blank"
+           rel="noopener"><i style="color:lightgrey" class="fab fa-discord margright"></i></a>
     </div>
 
 </footer>

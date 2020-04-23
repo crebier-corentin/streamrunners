@@ -35,7 +35,12 @@
                  @click="currentIndex = i">
                 <div class="roleGroupChild">
                     <div class="role villagers">
-                        <img :src="streamer.avatar">
+                        <!-- Safari doesn't support webp, so fallback to png-->
+                        <picture>
+                            <source :srcset="proxiedUrl(streamer.avatar)" type="image/webp" />
+                            <source :srcset="streamer.avatar" type="image/png" />
+                            <img :src="streamer.avatar" loading="lazy" alt="avatar">
+                        </picture>
                     </div>
                     <p class="name">{{streamer.displayName}}</p>
                 </div>
@@ -132,6 +137,10 @@
                 else {
                     this.currentIndex++;
                 }
+            },
+
+            proxiedUrl(url: string): string {
+                return `//images.weserv.nl/?url=${url}&output=webp`;
             },
         },
     };

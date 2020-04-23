@@ -21,7 +21,9 @@
                     <!--  <img style="max-width: 100%;" :src="info.icon" height="250px" alt="icon" /> -->
 
                     <ul class="list-group">
-                        <li class="list-group-item list-group-item-danger bonus">1 places dans la file</li>
+                        <li class="list-group-item list-group-item-danger bonus">{{ placeLimitNone }} places dans la
+                            file
+                        </li>
                         <li class="list-group-item list-group-item-danger bonus">Pas de multiplicateur de points</li>
                         <li class="list-group-item list-group-item-danger bonus">Non prioritaire pour le bot twitch (en
                             développement)
@@ -54,8 +56,8 @@
             </div>
             <div class="card mb-4 shadow-sm">
                 <div class="card-header">
-                    <h4 class="my-0 font-weight-normal text-diamond bonus"><i class="fas fa-gem"
-                                                                                   aria-hidden="true"></i> Diamant</h4>
+                    <h4 class="my-0 font-weight-normal text-diamond bonus"><i class="fas fa-gem" aria-hidden="true"></i> Diamant
+                    </h4>
                 </div>
                 <div class="card-body">
                     <!--  <img style="max-width: 100%;" :src="info.icon" height="250px" alt="icon" /> -->

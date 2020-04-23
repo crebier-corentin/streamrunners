@@ -5,18 +5,27 @@ import { User } from '../common/decorator/user.decorator';
 import { FlashAndRedirectUserErrorFilter } from '../common/filter/flash-and-redirect-user-error.filter';
 import { AuthenticatedGuard } from '../common/guard/authenticated.guard';
 import { UserEntity } from '../user/user.entity';
+import { SubscriptionLevelInfoService } from './subscription-level-info.service';
+import { SubscriptionLevel } from './subscription.interfaces';
 import { SubscriptionService } from './subscription.service';
 
 @UseGuards(AuthenticatedGuard)
 @Controller('subscription')
 export class SubscriptionController {
-    public constructor(private readonly subscriptionService: SubscriptionService) {}
+    public constructor(
+        private readonly subscriptionService: SubscriptionService,
+        private readonly subLevelInfoService: SubscriptionLevelInfoService
+    ) {}
 
     @Get()
     public index(@Req() req: Request, @Res() res: Response, @Session() session, @User() user: UserEntity): void {
         const data = {
             success: req.flash('success'),
             error: req.flash('error'),
+
+            placeLimitNone: this.subLevelInfoService.getPlaceLimit(SubscriptionLevel.None),
+            placeLimitVIP: this.subLevelInfoService.getPlaceLimit(SubscriptionLevel.VIP),
+            placeLimitDiamond: this.subLevelInfoService.getPlaceLimit(SubscriptionLevel.Diamond),
         };
 
         //Has subscription

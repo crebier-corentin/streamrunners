@@ -7,6 +7,7 @@ import { CaseService } from '../case/case.service';
 import { UserErrorException } from '../common/exception/user-error.exception';
 import { StreamQueueEntity } from '../stream-queue/stream-queue.entity';
 import { StreamQueueService } from '../stream-queue/stream-queue.service';
+import { SubscriptionLevelInfoService } from '../subscription/subscription-level-info.service';
 import { SubscriptionLevel } from '../subscription/subscription.interfaces';
 import { TwitchService } from '../twitch/twitch.service';
 import { UserEntity } from '../user/user.entity';
@@ -21,6 +22,7 @@ describe('WatchService', () => {
     let twitch: TwitchService;
     let caseService: CaseService;
     let caseTypeService: CaseTypeService;
+    let subLevelInfoService: SubscriptionLevelInfoService;
 
     beforeEach(async () => {
         const module: TestingModule = await Test.createTestingModule({
@@ -66,6 +68,12 @@ describe('WatchService', () => {
                     },
                 },
                 {
+                    provide: SubscriptionLevelInfoService,
+                    useValue: {
+                        getPlaceLimit: jest.fn(),
+                    },
+                },
+                {
                     provide: ConfigService,
                     useValue: {
                         get: jest.fn().mockReturnValue(1),
@@ -80,6 +88,7 @@ describe('WatchService', () => {
         twitch = module.get<TwitchService>(TwitchService);
         caseService = module.get<CaseService>(CaseService);
         caseTypeService = module.get<CaseTypeService>(CaseTypeService);
+        subLevelInfoService = module.get<SubscriptionLevelInfoService>(SubscriptionLevelInfoService);
     });
 
     it('should be defined', () => {
@@ -256,6 +265,7 @@ describe('WatchService', () => {
             user.points = 5000;
             user.subscriptionLevel = lvl;
 
+            jest.spyOn(subLevelInfoService, 'getPlaceLimit').mockReturnValue(limit);
             jest.spyOn(streamQueueService, 'placesCount').mockResolvedValue(limit);
 
             return expect(service.addStreamToQueue(user)).rejects.toBeInstanceOf(UserErrorException);
@@ -266,6 +276,7 @@ describe('WatchService', () => {
             user.points = 100;
             user.subscriptionLevel = SubscriptionLevel.None;
 
+            jest.spyOn(subLevelInfoService, 'getPlaceLimit').mockReturnValue(10);
             jest.spyOn(streamQueueService, 'placesCount').mockResolvedValue(0);
             jest.spyOn(streamQueueService, 'isEmpty').mockResolvedValue(false);
             jest.spyOn(twitch, 'isStreamOnline').mockResolvedValue(true);
@@ -285,6 +296,7 @@ describe('WatchService', () => {
             user.points = 5000;
             user.subscriptionLevel = SubscriptionLevel.None;
 
+            jest.spyOn(subLevelInfoService, 'getPlaceLimit').mockReturnValue(10);
             jest.spyOn(streamQueueService, 'placesCount').mockResolvedValue(0);
             jest.spyOn(streamQueueService, 'isEmpty').mockResolvedValue(true);
             jest.spyOn(twitch, 'isStreamOnline').mockResolvedValue(false);
@@ -297,6 +309,7 @@ describe('WatchService', () => {
             user.points = 100;
             user.subscriptionLevel = SubscriptionLevel.None;
 
+            jest.spyOn(subLevelInfoService, 'getPlaceLimit').mockReturnValue(10);
             jest.spyOn(streamQueueService, 'placesCount').mockResolvedValue(0);
             jest.spyOn(streamQueueService, 'isEmpty').mockResolvedValue(true);
             jest.spyOn(twitch, 'isStreamOnline').mockResolvedValue(true);
@@ -311,6 +324,7 @@ describe('WatchService', () => {
             user.points = 2000;
             user.subscriptionLevel = SubscriptionLevel.None;
 
+            jest.spyOn(subLevelInfoService, 'getPlaceLimit').mockReturnValue(10);
             jest.spyOn(streamQueueService, 'placesCount').mockResolvedValue(0);
             jest.spyOn(streamQueueService, 'isEmpty').mockResolvedValue(false);
             jest.spyOn(twitch, 'isStreamOnline').mockResolvedValue(true);

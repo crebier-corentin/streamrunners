@@ -11,11 +11,9 @@ export class StreamQueueEntity {
     public amount: number;
 
     //Time in seconds
-    @Index()
     @Column({ default: 60 })
     public time: number;
 
-    @Index()
     @Column({ default: 0 })
     public current: number;
 

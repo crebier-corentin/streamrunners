@@ -2,8 +2,10 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { Request, Response } from 'express';
 import { v4 as uuidv4 } from 'uuid';
 import { UserEntity } from '../user/user.entity';
+import { SubscriptionLevelInfoService } from './subscription-level-info.service';
 import { SubscriptionController } from './subscription.controller';
 import { SubscriptionEntity } from './subscription.entity';
+import { SubscriptionLevel } from './subscription.interfaces';
 import { SubscriptionService } from './subscription.service';
 
 jest.mock('uuid');
@@ -11,6 +13,7 @@ jest.mock('uuid');
 describe('Subscription Controller', () => {
     let controller: SubscriptionController;
     let subService: SubscriptionService;
+    let subLevelInfoService: SubscriptionLevelInfoService;
 
     beforeEach(async () => {
         const module: TestingModule = await Test.createTestingModule({
@@ -22,12 +25,19 @@ describe('Subscription Controller', () => {
                         cancelPending: jest.fn(),
                     },
                 },
+                {
+                    provide: SubscriptionLevelInfoService,
+                    useValue: {
+                        getPlaceLimit: jest.fn(),
+                    },
+                },
             ],
             controllers: [SubscriptionController],
         }).compile();
 
         controller = module.get<SubscriptionController>(SubscriptionController);
         subService = module.get<SubscriptionService>(SubscriptionService);
+        subLevelInfoService = module.get<SubscriptionLevelInfoService>(SubscriptionLevelInfoService);
     });
 
     it('should be defined', () => {
@@ -62,6 +72,18 @@ describe('Subscription Controller', () => {
 
             //Mock uuid
             uuidv4.mockReturnValue('test-uuid');
+
+            //Mock place limits
+            jest.spyOn(subLevelInfoService, 'getPlaceLimit').mockImplementation(lvl => {
+                switch (lvl) {
+                    case SubscriptionLevel.None:
+                        return 2;
+                    case SubscriptionLevel.VIP:
+                        return 4;
+                    case SubscriptionLevel.Diamond:
+                        return 6;
+                }
+            });
         });
 
         it('should set session.createSubscriptionKey and render shop if the user has no active subscription', () => {
@@ -72,6 +94,9 @@ describe('Subscription Controller', () => {
             expect(res.render).toHaveBeenCalledWith('subscription/shop', {
                 success: ['success1', 'success2'],
                 error: ['error1', 'error2'],
+                placeLimitNone: 2,
+                placeLimitVIP: 4,
+                placeLimitDiamond: 6,
             });
             expect(session.createSubscriptionKey).toBe('test-uuid');
         });
@@ -85,6 +110,9 @@ describe('Subscription Controller', () => {
             expect(res.render).toHaveBeenCalledWith('subscription/info', {
                 success: ['success1', 'success2'],
                 error: ['error1', 'error2'],
+                placeLimitNone: 2,
+                placeLimitVIP: 4,
+                placeLimitDiamond: 6,
             });
             expect(session.createSubscriptionKey).toBeUndefined();
         });

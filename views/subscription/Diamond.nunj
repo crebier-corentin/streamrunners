@@ -1,5 +1,5 @@
 <ul class="list-group">
-    <li class="list-group-item list-group-item-success bonus">4 places dans la file</li>
+    <li class="list-group-item list-group-item-success bonus">{{ placeLimitDiamond }} places dans la file</li>
     <li class="list-group-item list-group-item-success bonus">Mutliplicateur x2 des points</li>
     <li class="list-group-item list-group-item-success bonus">Prioritaire pour le bot twitch (en
         développement)

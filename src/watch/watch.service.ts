@@ -6,6 +6,7 @@ import { CaseTypeService } from '../case/case-type.service';
 import { CaseService } from '../case/case.service';
 import { UserErrorException } from '../common/exception/user-error.exception';
 import { StreamQueueService } from '../stream-queue/stream-queue.service';
+import { SubscriptionLevelInfoService } from '../subscription/subscription-level-info.service';
 import { SubscriptionLevel } from '../subscription/subscription.interfaces';
 import { TwitchService } from '../twitch/twitch.service';
 import { UserEntity } from '../user/user.entity';
@@ -23,6 +24,7 @@ export class WatchService implements OnApplicationBootstrap {
         private readonly twitch: TwitchService,
         private readonly caseService: CaseService,
         private readonly caseTypeService: CaseTypeService,
+        private readonly subLevelInfoService: SubscriptionLevelInfoService,
         config: ConfigService
     ) {
         this.affiliateCaseType = Number(config.get('AFFILIATE_CASE_ID'));
@@ -40,17 +42,6 @@ export class WatchService implements OnApplicationBootstrap {
                 return 1.5;
             case SubscriptionLevel.Diamond:
                 return 2;
-        }
-    }
-
-    private static placeLimit(lvl: SubscriptionLevel): number {
-        switch (lvl) {
-            case SubscriptionLevel.None:
-                return 2;
-            case SubscriptionLevel.VIP:
-                return 4;
-            case SubscriptionLevel.Diamond:
-                return 6;
         }
     }
 
@@ -89,7 +80,7 @@ export class WatchService implements OnApplicationBootstrap {
     public async addStreamToQueue(user: UserEntity): Promise<void> {
         //Check number of places
         const placesCount = await this.streamQueueService.placesCount(user);
-        const placeLimit = WatchService.placeLimit(user.subscriptionLevel);
+        const placeLimit = this.subLevelInfoService.getPlaceLimit(user.subscriptionLevel);
         if (placesCount >= placeLimit) {
             const limitPlural = placeLimit > 1 ? 's' : '';
 

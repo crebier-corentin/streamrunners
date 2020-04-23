@@ -27,6 +27,7 @@ export class CaseService extends EntityService<CaseEntity> {
         const query = this.repo
             .createQueryBuilder('case')
             .leftJoin('case.user', 'user')
+            .leftJoinAndSelect('case.content', 'content')
             .where('case.id = :id', { id })
             .andWhere('user.id = :userId', { userId });
 

@@ -4,6 +4,7 @@ import { CaseModule } from '../case/case.module';
 import { CouponModule } from '../coupon/coupon.module';
 import { PartnerModule } from '../partner/partner.module';
 import { RaffleModule } from '../raffle/raffle.module';
+import { SubscriptionModule } from '../subscription/subscription.module';
 import { UserModule } from '../user/user.module';
 import { AdminController } from './admin.controller';
 import { AdminService } from './admin.service';
@@ -14,7 +15,15 @@ import { RaffleController } from './raffle.controller';
 import { SteamKeyController } from './steam-key.controller';
 
 @Module({
-    imports: [AnnouncementModule, PartnerModule, RaffleModule, CouponModule, UserModule, CaseModule],
+    imports: [
+        AnnouncementModule,
+        PartnerModule,
+        RaffleModule,
+        CouponModule,
+        UserModule,
+        CaseModule,
+        SubscriptionModule,
+    ],
     controllers: [
         AdminController,
         CouponController,

@@ -89,6 +89,24 @@
             <button type="submit" class="btn btn-primary">Ajouté/Enlevé des partenaires</button>
         </form>
 
+        <hr>
+        {# Place Limits #}
+        {% macro placeLimit(level, limit) %}
+            <form class="form-inline" action="/admin/place-limit" method="post">
+
+                <input type="hidden" name="level" value="{{ level }}">
+
+                <label for="limit-{{ level }}">Limite de place {{ SubscriptionLevelToFrench(level) }}</label>
+                <input id="limit-{{ level }}" name="limit" type="number" min="1" value="{{ limit }}" />
+
+                <button type="submit" class="btn btn-primary">Modifier la limite</button>
+            </form>
+        {% endmacro %}
+
+        {{ placeLimit(SubscriptionLevel.None, placeLimitNone) }}
+        {{ placeLimit(SubscriptionLevel.VIP, placeLimitVIP) }}
+        {{ placeLimit(SubscriptionLevel.Diamond, placeLimitDiamond) }}
+
         <h3>Stats</h3>
 
         <table class="table table-striped table-bordered table-hover">

@@ -8,7 +8,10 @@
 
                     <img class="avatar" :src="msg.author.avatar" :alt="msg.author.displayName">
 
-                    <ChatUsername class="username" :name="msg.author.displayName" :rank="msg.author.chatRank" />
+                    <ChatUsername class="username"
+                                  :name="msg.author.displayName"
+                                  :rank="msg.author.chatRank"
+                                  :sparkle="msg.author.sparkle" />
 
                     <small class="timestamp">{{msg.createdAt}} </small>
 
@@ -55,6 +58,7 @@
             <div class="d-flex flex-column p-0 m-0 force-overflow">
                 <ChatUsername :name="user.displayName"
                               :rank="user.chatRank"
+                              :sparkle="user.sparkle"
                               v-for="user in cActiveUsers"
                               :key="user.displayName" />
             </div>

@@ -101,6 +101,33 @@
   color: $red;
 }
 
+//Sparkle backgrounds
+.chat-sparkle {
+  .chat-name-member & {
+    background-image: url('/img/sparkle/member.gif');
+  }
+
+  .chat-name-vip & {
+    background-image: url('/img/sparkle/vip.gif');
+  }
+
+  .chat-name-diamond & {
+    background-image: url('/img/sparkle/diamond.gif');
+  }
+
+  .chat-name-partner & {
+    background-image: url('/img/sparkle/partner.gif');
+  }
+
+  .chat-name-moderator & {
+    background-image: url('/img/sparkle/moderator.gif');
+  }
+
+  .chat-name-admin & {
+    background-image: url('/img/sparkle/admin.gif');
+  }
+}
+
 .chat-container {
 
   background-color: rgba(0, 0, 0, 0.4);

@@ -25,7 +25,7 @@ export class CaseTypeEntity {
     @Column({ default: false })
     public buyable: boolean;
 
-    @Column({ default: 0, unsigned: true })
+    @Column({ default: 0, unsigned: true, width: 10 })
     public price: number;
 
     @CreateDateColumn()

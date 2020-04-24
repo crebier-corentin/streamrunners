@@ -1,21 +1,27 @@
 <template>
-    <span class="text-align chat-username" :class="rankClass"><i class="fas" :class="pawn" /> {{name}}</span>
+    <span class="text-align chat-username" :class="rankClass">
+        <span :class="{'chat-sparkle' : rankClass}"><i class="fas" :class="pawn" /> {{name}}</span>
+    </span>
 </template>
 
 <script lang="ts">
-    import {ChatRank} from "../../../src/shared/types";
+    import { ChatRank } from '../../../src/shared/types';
 
     export default {
-        name: "ChatUsername",
+        name: 'ChatUsername',
 
         props: {
             name: {
                 type: String,
-                required: true
+                required: true,
             },
             rank: {
                 type: Number,
-                required: true
+                required: true,
+            },
+            sparkle: {
+                type: Boolean,
+                required: true,
             },
         },
 
@@ -23,40 +29,40 @@
             rankClass(): string {
                 switch (this.rank as ChatRank) {
                     case ChatRank.Member:
-                        return "chat-name-member";
+                        return 'chat-name-member';
                     case ChatRank.VIP:
-                        return "chat-name-vip";
+                        return 'chat-name-vip';
                     case ChatRank.Diamond:
-                        return "chat-name-diamond";
+                        return 'chat-name-diamond';
                     case ChatRank.Partner:
-                        return "chat-name-partner";
+                        return 'chat-name-partner';
                     case ChatRank.Moderator:
-                        return "chat-name-moderator";
+                        return 'chat-name-moderator';
                     case ChatRank.Admin:
-                        return "chat-name-admin";
+                        return 'chat-name-admin';
 
                 }
             },
             pawn(): string {
                 switch (this.rank as ChatRank) {
                     case ChatRank.Member:
-                        return "fa-user";
+                        return 'fa-user';
                     case ChatRank.VIP:
-                        return "fa-star";
+                        return 'fa-star';
                     case ChatRank.Diamond:
-                        return "fa-gem";
+                        return 'fa-gem';
                     case ChatRank.Partner:
-                        return "fa-handshake";
+                        return 'fa-handshake';
                     case ChatRank.Moderator:
-                        return "fa-user-shield";
+                        return 'fa-user-shield';
                     case ChatRank.Admin:
-                        return "fa-user-secret";
+                        return 'fa-user-secret';
 
                 }
 
-            }
+            },
         },
-    }
+    };
 </script>
 
 <style scoped>

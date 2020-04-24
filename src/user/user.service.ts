@@ -111,6 +111,7 @@ export class UserService extends EntityService<UserEntity> {
                 'user.moderator',
                 'user.admin',
                 'user.partner',
+                'user.sparkle',
                 'user.gotAffiliateCase',
             ])
             .leftJoinAndSelect('user.currentSubscription', 'sub')

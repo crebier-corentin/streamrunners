@@ -15,7 +15,7 @@ export class SubscriptionLevelInfoEntity {
     })
     public level: SubscriptionLevel;
 
-    @Column('int', { unsigned: true })
+    @Column('int', { unsigned: true, width: 10 })
     public maxPlaces: number;
 
     @CreateDateColumn()

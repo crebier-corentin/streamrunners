@@ -58,6 +58,10 @@ export class UserEntity {
     @Column({ default: false })
     public moderator: boolean;
 
+    @Expose()
+    @Column({ default: false })
+    public sparkle: boolean;
+
     @Column('datetime', { default: () => 'CURRENT_TIMESTAMP' })
     public lastOnWatchPage: Date;
 

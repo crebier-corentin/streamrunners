@@ -80,8 +80,7 @@
 
 <body class="bg-purple stars">
 
-<video autoplay loop muted playsinline class="meteore" src="/img/meteores.webm">
-</video>
+<img src="/img/meteores.gif" alt="meteore" class="meteore">
 
 {# Navbar #}
 <div class="">

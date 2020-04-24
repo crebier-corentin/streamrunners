@@ -1,6 +1,6 @@
 <template>
     <span class="text-align chat-username" :class="rankClass">
-        <span :class="{'chat-sparkle' : rankClass}"><i class="fas" :class="pawn" /> {{name}}</span>
+        <span :class="{'chat-sparkle' : sparkle}"><i class="fas" :class="pawn" /> {{name}}</span>
     </span>
 </template>
 

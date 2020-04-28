@@ -18,6 +18,7 @@ import { BanGuard } from './common/guard/ban.guard';
 import { VIEW_DIR_PATH } from './common/utils/constants';
 import { PartnerService } from './partner/partner.service';
 import { SubscriptionLevel, SubscriptionLevelToFrench } from './subscription/subscription.interfaces';
+import { UserEntity } from './user/user.entity';
 import { UserService } from './user/user.service';
 import flash = require('connect-flash');
 
@@ -102,6 +103,10 @@ async function bootstrap(): Promise<void> {
         if (req.session.affiliateUserId != undefined) {
             res.locals.affiliateDisplayName = (await userService.byId(req.session.affiliateUserId)).displayName;
         }
+
+        //Shows add only to non subscribed users
+        req.locals.showAds =
+            req.user == undefined || (req.user as UserEntity).subscriptionLevel === SubscriptionLevel.None;
 
         next();
     });

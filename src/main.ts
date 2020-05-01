@@ -105,7 +105,7 @@ async function bootstrap(): Promise<void> {
         }
 
         //Shows add only to non subscribed users
-        req.locals.showAds =
+        res.locals.showAds =
             req.user == undefined || (req.user as UserEntity).subscriptionLevel === SubscriptionLevel.None;
 
         next();

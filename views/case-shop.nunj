@@ -17,6 +17,18 @@
                     <div class="card" style="width: 14rem;">
                         <div class="resizeimg">
                             <img class="card-img-top" src="{{ type.closeImage }}" alt="{{ type.name }}">
+                            <i class="fas fa-question-circle whoishelp mt-1"
+                               aria-hidden="true"
+                               data-placement="right"
+                               data-html="true"
+                               data-toggle="popover"
+                               data-title="Contenu"
+                               data-content='<div class="d-flex flex-column p-0 m-0 text-white">
+    {% for content in type.contents %}
+    <span><img src="{{ content.image }}" alt="{{content.name}}" width="16px" height="16px"><strong> {{content.name}}</strong> : {{ content.chance / 10 }} %</span>
+    {% endfor %}
+</div>
+'></i>
                         </div>
                         <div class="card-body">
                             <h5 class="card-title">{{ type.name }}</h5>

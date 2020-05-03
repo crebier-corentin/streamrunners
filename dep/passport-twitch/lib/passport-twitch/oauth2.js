@@ -81,8 +81,11 @@ Strategy.prototype.userProfile = function(accessToken, done) {
             var profile = { provider: "twitch" };
             profile.id = json.data[0].id;
             profile.userName = json.data[0].login;
+            profile.login = json.data[0].login;
             profile.displayName = json.data[0].display_name;
+            profile.display_name = json.data[0].display_name;
             profile.profileImageUrl = json.data[0].profile_image_url;
+            profile.profile_image_url = json.data[0].profile_image_url;
             profile.viewCount = json.data[0].view_count;
 
             profile._raw = body;

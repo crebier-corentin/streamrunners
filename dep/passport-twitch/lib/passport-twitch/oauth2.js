@@ -87,6 +87,8 @@ Strategy.prototype.userProfile = function(accessToken, done) {
             profile.profileImageUrl = json.data[0].profile_image_url;
             profile.profile_image_url = json.data[0].profile_image_url;
             profile.viewCount = json.data[0].view_count;
+            profile.view_count = json.data[0].view_count;
+            profile.description = json.data[0].description;
 
             profile._raw = body;
             profile._json = json;

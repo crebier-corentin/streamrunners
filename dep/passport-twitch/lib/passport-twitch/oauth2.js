@@ -49,7 +49,7 @@ function Strategy(options, verify) {
     this.name = "twitch";
 
     this._oauth2.setAuthMethod("Bearer");
-    this._oauth2.useAuthorizationHeaderforGET(true);
+    this._oauth2.useAuthorizationHeaderAndClientIdForGET(true);
 }
 
 /**

@@ -62,7 +62,10 @@ export class TwitchService {
             }
 
             //Add client Id
-            request.headers = { ...request.headers, ...{ Authorization: `Bearer ${this.bearerToken}` } };
+            request.headers = {
+                ...request.headers,
+                ...{ Authorization: `Bearer ${this.bearerToken}`, 'Client-ID': this.clientId },
+            };
 
             const res = await axios.request(request);
 

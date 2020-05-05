@@ -59,19 +59,17 @@
                 Pourquoi ne pas prendre une place ? C'est <strong>gratuit</strong> si la file est vide !
             </div>
             {% if showAds %}
-            <div class="jumbotron text-center">
-                <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-                <!-- Container Ads -->
-                <ins class="adsbygoogle"
-                     style="display:block"
-                     data-ad-client="ca-pub-7690571679670706"
-                     data-ad-slot="5055754781"
-                     data-ad-format="auto"
-                     data-full-width-responsive="true"></ins>
-                <script>
-                     (adsbygoogle = window.adsbygoogle || []).push({});
-                </script>
-            </div>
+            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+            <!-- dup container -->
+            <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-client="ca-pub-7690571679670706"
+             data-ad-slot="6828001459"
+             data-ad-format="auto"
+             data-full-width-responsive="true"></ins>
+            <script>
+             (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
         {% endif %}
         </template>
 

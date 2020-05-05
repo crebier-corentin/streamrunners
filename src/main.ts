@@ -18,6 +18,7 @@ import { BanGuard } from './common/guard/ban.guard';
 import { VIEW_DIR_PATH } from './common/utils/constants';
 import { PartnerService } from './partner/partner.service';
 import { SubscriptionLevel, SubscriptionLevelToFrench } from './subscription/subscription.interfaces';
+import { UserEntity } from './user/user.entity';
 import { UserService } from './user/user.service';
 import flash = require('connect-flash');
 
@@ -103,6 +104,10 @@ async function bootstrap(): Promise<void> {
             res.locals.affiliateDisplayName = (await userService.byId(req.session.affiliateUserId)).displayName;
         }
 
+        //Shows add only to non subscribed users
+        res.locals.showAds =
+            req.user == undefined || (req.user as UserEntity).subscriptionLevel === SubscriptionLevel.None;
+
         next();
     });
 
@@ -112,10 +117,10 @@ async function bootstrap(): Promise<void> {
 bootstrap();
 
 process.on('uncaughtException', function(e) {
-    console.log(`An error has occured. error is: ${e} and stack trace is: ${e.stack}`);
+    console.error(`An error has occured. error is: ${e} and stack trace is: ${e.stack}`);
     process.exit(1);
 });
 process.on('unhandledRejection', function(e) {
-    console.log(`An error has occured. error is: ${e}`);
+    console.error(`An error has occured. error is: ${e}`);
     process.exit(1);
 });

@@ -52,6 +52,20 @@
                                                       alt="Lifetime"
                                                       class="d-block mx-auto my-2 img-fluid"></div>
         </div>
-
+        {% if showAds %}
+            <div class="jumbotron text-center">
+                <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                <!-- Container Ads -->
+                <ins class="adsbygoogle"
+                     style="display:block"
+                     data-ad-client="ca-pub-7690571679670706"
+                     data-ad-slot="5055754781"
+                     data-ad-format="auto"
+                     data-full-width-responsive="true"></ins>
+                <script>
+                     (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            </div>
+        {% endif %}
     </div>
 {% endblock %}

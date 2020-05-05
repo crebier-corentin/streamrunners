@@ -41,6 +41,10 @@
     grid-area: message;
 
     overflow-wrap: break-word;
+
+    &.chat-mentioned {
+      background-color: lighten($primary, 10);
+    }
   }
 }
 

@@ -1,12 +1,13 @@
 import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import * as ExpressRateLimit from 'express-rate-limit';
+import { UserModule } from '../user/user.module';
 import { ChatMessageEntity } from './chat-message.entity';
 import { ChatController } from './chat.controller';
 import { ChatService } from './chat.service';
 
 @Module({
-    imports: [TypeOrmModule.forFeature([ChatMessageEntity])],
+    imports: [TypeOrmModule.forFeature([ChatMessageEntity]), UserModule],
     controllers: [ChatController],
     providers: [ChatService],
     exports: [ChatService],

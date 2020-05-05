@@ -4,7 +4,7 @@
         <!-- Messages -->
         <div class="messages rounded chat-container scrollbar chat-scrollbar" ref="chat">
             <div class="d-flex flex-column p-0 m-0 force-overflow">
-                <div class="chat-message" v-for="msg in cMessages">
+                <div class="chat-message" v-for="msg in cMessages" :key="msg.id">
 
                     <img class="avatar" :src="msg.author.avatar" :alt="msg.author.displayName">
 
@@ -15,7 +15,8 @@
 
                     <small class="timestamp">{{msg.createdAt}} </small>
 
-                    <span class="message" :class="{'font-italic': msg.deleted, 'text-danger': msg.deleted}">{{msg.message}}
+                    <span class="message"
+                          :class="{'font-italic': msg.deleted, 'text-danger': msg.deleted, 'chat-mentioned': mentioned(msg.mentions)}">{{msg.message}}
                         <button class="text-danger"
                                 :style="{opacity: showDelete ? 1 : 0}"
                                 @click="deleteMessage(msg.id)"><i class="fas fa-times" /></button>
@@ -151,6 +152,10 @@
             scrollToBottom() {
                 const chat = this.$refs.chat;
                 chat.scrollTo({ top: chat.scrollHeight, behavior: 'smooth' });
+            },
+
+            mentioned(mentions: any[]): boolean {
+                return mentions.includes(window['id']);
             },
 
             sendMessage() {

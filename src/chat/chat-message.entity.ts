@@ -1,6 +1,15 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { Exclude, Expose, Transform, Type } from 'class-transformer';
-import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
+import {
+    Column,
+    CreateDateColumn,
+    Entity,
+    JoinTable,
+    ManyToMany,
+    ManyToOne,
+    PrimaryGeneratedColumn,
+    UpdateDateColumn,
+} from 'typeorm';
 import { UserEntity } from '../user/user.entity';
 import moment = require('moment');
 
@@ -22,6 +31,11 @@ export class ChatMessageEntity {
     ) //Deleted by message
     @Column('text')
     public message: string;
+
+    @Transform(value => value.map(u => u.id))
+    @JoinTable({ name: 'chat_mentions' })
+    @ManyToMany(type => UserEntity)
+    public mentions: UserEntity[];
 
     @Exclude()
     @ManyToOne(type => UserEntity, { nullable: true })

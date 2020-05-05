@@ -86,11 +86,12 @@
                 <button class="btn btn-outline-success skip" @click="makeRequestSkip"><i class="fas fa-forward"></i>&nbsp;&nbsp;&nbsp;Passer
                 </button>
             {% endif %}
-                <!-- <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank" class="btn golden-btn"><i class="fas fa-coins"></i>&nbsp;&nbsp;&nbsp;Points Illimités
-                </a> -->
+            <!-- <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank" class="btn golden-btn"><i class="fas fa-coins"></i>&nbsp;&nbsp;&nbsp;Points Illimités
+            </a> -->
 
             <twitch-viewer :channel="channel" @playing="isPaused = false" @paused="isPaused = true"></twitch-viewer>
-            <div class="alert alert-danger" v-if="isPaused">Le stream est en pause. Vous ne gagnerez pas de points.</div>
+            <div class="alert alert-danger" v-if="isPaused">Le stream est en pause. Vous ne gagnerez pas de points.
+            </div>
             <hr>
             <div class="d-flex justify-content-center">
                 <span class="badge badge-secondary">{% raw %}{{ timeLeft }}{% endraw %}s <i class="fas fa-clock"
@@ -99,12 +100,12 @@
                 <span class="badge badge-secondary">{% raw %}{{ points }}{% endraw %} <img src="/img/po.png"
                                                                                            width="16px"
                                                                                            height="16px" /></span>
-                <span class="badge badge-secondary"> 
+                <span class="badge badge-secondary">
                 {% if req.user.subscriptionLevel === SubscriptionLevel.VIP %}<p class="glow">x1.5</p>
-                {% elif req.user.subscriptionLevel === SubscriptionLevel.Diamond %}<p class="glow">x2</p>
+                    {% elif req.user.subscriptionLevel === SubscriptionLevel.Diamond %}<p class="glow">x2</p>
                 {% else %} x1
                 {% endif %}
-                </span>       
+                </span>
 
                 <span class="badge badge-secondary">{% raw %}{{ viewers.length }}{% endraw %} <i class="fas fa-eye"
                                                                                                  width="16px"
@@ -133,7 +134,8 @@
 {% endblock %}
 
 {% block script %}
-    <script src= "https://player.twitch.tv/js/embed/v1.js"></script>
-    <script>window['username'] = '{{ req.user.username }}';</script>
+    <script src="https://player.twitch.tv/js/embed/v1.js"></script>
+    <script>window['username'] = '{{ req.user.username }}';
+        window['id'] = {{ req.user.id }};</script>
     <script src="/js/watch.js"></script>
 {% endblock %}

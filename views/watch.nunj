@@ -59,6 +59,7 @@
                 Pourquoi ne pas prendre une place ? C'est <strong>gratuit</strong> si la file est vide !
             </div>
             {% if showAds %}
+            <div class="jumbotron text-center">
             <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
             <!-- dup container -->
             <ins class="adsbygoogle"
@@ -70,6 +71,7 @@
             <script>
              (adsbygoogle = window.adsbygoogle || []).push({});
             </script>
+            </div>
         {% endif %}
         </template>
 

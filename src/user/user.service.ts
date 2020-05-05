@@ -39,15 +39,6 @@ export class UserService extends EntityService<UserEntity> {
         return user;
     }
 
-    public getIdsByUsernames(usernames: string[]): Promise<Pick<UserEntity, 'id'>[]> {
-        return this.repo
-            .createQueryBuilder('user')
-            .select('user.id')
-            .where('user.username IN (:usernames)', { usernames })
-            .callListeners(false)
-            .getMany();
-    }
-
     /**
      * Creates or update an user from twitch authentication
      * Updates the discord site user count in case of new user
@@ -115,6 +106,7 @@ export class UserService extends EntityService<UserEntity> {
             .select([
                 'user.id',
                 'user.points',
+                'user.username',
                 'user.displayName',
                 'user.avatar',
                 'user.moderator',

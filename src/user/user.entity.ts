@@ -32,6 +32,7 @@ export class UserEntity {
     @Column()
     public twitchId: string;
 
+    @Expose()
     @Column()
     public username: string;
 

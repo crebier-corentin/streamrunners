@@ -5,6 +5,7 @@ import { getRepositoryToken } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { UserEntity } from '../user/user.entity';
 import { UserService } from '../user/user.service';
+import { ChatMentionEntity } from './chat-mention.entity';
 import { ChatMessageEntity } from './chat-message.entity';
 import { ChatService } from './chat.service';
 
@@ -25,7 +26,7 @@ describe('ChatService', () => {
                 {
                     provide: UserService,
                     useValue: {
-                        getIdsByUsernames: jest.fn(),
+                        byUsername: jest.fn(),
                     },
                 },
             ],
@@ -44,56 +45,85 @@ describe('ChatService', () => {
     });
 
     describe('addMessage', () => {
+        let user1: UserEntity;
+        let user2: UserEntity;
+
         beforeEach(() => {
-            const mockedUsers = {
-                user1: 1,
-                user2: 2,
-            };
-            jest.spyOn(userService, 'getIdsByUsernames').mockImplementation(
-                usernames => usernames.map(u => mockedUsers[u]).filter(u => u != undefined) as any
-            );
+            user1 = new UserEntity();
+            user1.id = 1;
+
+            user2 = new UserEntity();
+            user2.id = 2;
+
+            const mockedUsers = { user1, user2 };
+            jest.spyOn(userService, 'byUsername').mockImplementation(username => mockedUsers[username]);
         });
 
         it('should insert a new message and return it', async () => {
-            const user = new UserEntity();
-            user.id = 50;
-
-            const message = await service.addMessage('123', user);
+            const message = await service.addMessage('123', user1);
             expect(message.mentions).toEqual([]);
             expect(message.message).toBe('123');
-            expect(message.author.id).toBe(50);
+            expect(message.author.id).toBe(1);
         });
 
         it('should detect a mention at the start', async () => {
-            const user = new UserEntity();
-            user.id = 50;
+            const message = await service.addMessage('@user1 haha', user1);
 
-            const message = await service.addMessage('@user1 haha', user);
-            expect(message.mentions).toEqual([1]);
+            const expectedMention = new ChatMentionEntity();
+            expectedMention.user = user1;
+            expectedMention.start = 0;
+            expectedMention.end = 6;
+
+            expect(message.mentions).toEqual([expectedMention]);
         });
 
         it('should detect a mention at the end', async () => {
-            const user = new UserEntity();
-            user.id = 50;
+            const message = await service.addMessage('haha @user1', user1);
 
-            const message = await service.addMessage('haha @user1', user);
-            expect(message.mentions).toEqual([1]);
+            const expectedMention = new ChatMentionEntity();
+            expectedMention.user = user1;
+            expectedMention.start = 5;
+            expectedMention.end = 11;
+
+            expect(message.mentions).toEqual([expectedMention]);
         });
 
         it('should detect a mention in the middle', async () => {
-            const user = new UserEntity();
-            user.id = 50;
+            const message = await service.addMessage('haha @user1 haha', user1);
 
-            const message = await service.addMessage('haha @user1 haha', user);
-            expect(message.mentions).toEqual([1]);
+            const expectedMention = new ChatMentionEntity();
+            expectedMention.user = user1;
+            expectedMention.start = 5;
+            expectedMention.end = 11;
+
+            expect(message.mentions).toEqual([expectedMention]);
         });
 
         it('should detect multiple mentions', async () => {
-            const user = new UserEntity();
-            user.id = 50;
+            const message = await service.addMessage('@user1 @user2', user1);
 
-            const message = await service.addMessage('@user1 @user2', user);
-            expect(message.mentions).toEqual([1, 2]);
+            const expectedMention1 = new ChatMentionEntity();
+            expectedMention1.user = user1;
+            expectedMention1.start = 0;
+            expectedMention1.end = 6;
+
+            const expectedMention2 = new ChatMentionEntity();
+            expectedMention2.user = user2;
+            expectedMention2.start = 7;
+            expectedMention2.end = 13;
+
+            expect(message.mentions).toEqual([expectedMention1, expectedMention2]);
+        });
+
+        it('should ignore mentions to inexistant users', async () => {
+            const message = await service.addMessage('@user1 @user404 test', user1);
+
+            const expectedMention1 = new ChatMentionEntity();
+            expectedMention1.user = user1;
+            expectedMention1.start = 0;
+            expectedMention1.end = 6;
+
+            expect(message.mentions).toEqual([expectedMention1]);
         });
     });
 

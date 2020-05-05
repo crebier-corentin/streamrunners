@@ -4,6 +4,7 @@ import CacheService from '../common/utils/cache-service';
 import { EntityService } from '../common/utils/entity-service';
 import { UserEntity } from '../user/user.entity';
 import { UserService } from '../user/user.service';
+import { ChatMentionEntity } from './chat-mention.entity';
 import { ChatMessageEntity } from './chat-message.entity';
 
 @Injectable()
@@ -14,42 +15,53 @@ export class ChatService extends EntityService<ChatMessageEntity> {
         super(repo);
     }
 
-    private mentionRegex = /(?:^|\s)@([a-zA-Z0-9][\w]+)/g;
+    private mentionRegex = /@([a-zA-Z0-9][\w]+)/g;
 
-    private async parseMentions(message: string): Promise<Pick<UserEntity, 'id'>[]> {
+    private async parseMentions(message: string): Promise<ChatMentionEntity[]> {
         //Reset lastIndex to match from the start
         this.mentionRegex.lastIndex = 0;
 
-        const usernamesSet = new Set<string>();
+        const mentions: ChatMentionEntity[] = [];
 
         let match: RegExpExecArray | null;
         do {
             match = this.mentionRegex.exec(message);
             if (match) {
-                usernamesSet.add(match[1]);
+                const user = await this.userService.byUsername(match[1]);
+                if (user != undefined) {
+                    const mention = new ChatMentionEntity();
+                    mention.user = user;
+                    mention.start = match.index;
+                    mention.end = match.index + match[0].length;
+
+                    mentions.push(mention);
+                }
             }
         } while (match != null);
 
-        //Get user ids
-        return usernamesSet.size > 0 ? this.userService.getIdsByUsernames(Array.from(usernamesSet)) : [];
+        return mentions;
     }
 
     public async addMessage(message: string, user: UserEntity): Promise<ChatMessageEntity> {
-        this.cache.del('messages');
-
         const chatMessage = new ChatMessageEntity();
         chatMessage.author = user;
         chatMessage.message = message;
-        chatMessage.mentions = (await this.parseMentions(message)) as UserEntity[];
-        return this.repo.save(chatMessage);
+        chatMessage.mentions = await this.parseMentions(message);
+        const tmp = this.repo.save(chatMessage);
+
+        this.cache.del('messages');
+
+        return tmp;
     }
 
     public async softDeleteChat(messageId: number, deletedBy: UserEntity): Promise<ChatMessageEntity> {
-        this.cache.del('messages');
-
         const message = await this.byIdOrFail(messageId);
         message.deletedBy = deletedBy;
-        return this.repo.save(message);
+        const tmp = this.repo.save(message);
+
+        this.cache.del('messages');
+
+        return tmp;
     }
 
     public getLastMessages(): Promise<ChatMessageEntity[]> {

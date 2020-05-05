@@ -11,12 +11,12 @@
                     <ChatUsername class="username"
                                   :name="msg.author.displayName"
                                   :rank="msg.author.chatRank"
-                                  :sparkle="msg.author.sparkle" />
+                                  :sparkle="msg.author.sparkle"
+                                  @click.native="addMention(msg.author.username)" />
 
                     <small class="timestamp">{{msg.createdAt}} </small>
 
-                    <span class="message"
-                          :class="{'font-italic': msg.deleted, 'text-danger': msg.deleted, 'chat-mentioned': mentioned(msg.mentions)}">{{msg.message}}
+                    <span class="message"><ChatMessage :message="msg" />
                         <button class="text-danger"
                                 :style="{opacity: showDelete ? 1 : 0}"
                                 @click="deleteMessage(msg.id)"><i class="fas fa-times" /></button>
@@ -29,7 +29,6 @@
         </div>
 
         <!-- Active users -->
-
         <div class="users rounded chat-container d-flex flex-column scrollbar chat-scrollbar"
              style="position:relative;">
             <i class="fas fa-question-circle whoishelp"
@@ -61,7 +60,8 @@
                               :rank="user.chatRank"
                               :sparkle="user.sparkle"
                               v-for="user in cActiveUsers"
-                              :key="user.displayName" />
+                              :key="user.displayName"
+                              @click.native="addMention(user.username)" />
             </div>
         </div>
 
@@ -73,6 +73,7 @@
                placeholder=" Votre message..."
                v-model="message"
                @keyup.enter="sendMessage" />
+
         <button class="btn btn-outline-success sub" @click="sendMessage">
             Envoyer&nbsp;&nbsp;&nbsp;<i class="fas fa-paper-plane" /></button>
 
@@ -83,13 +84,14 @@
 <script lang="ts">
     import axios from 'axios';
     import ChatUsername from './ChatUsername.vue';
+    import ChatMessage from './ChatMessage.vue';
     import { UserEntity } from '../../../src/user/user.entity';
 
     const BSN = window['BSN'];
 
     export default {
         name: 'Chat',
-        components: { ChatUsername },
+        components: { ChatUsername, ChatMessage },
         props: {
             messages: {
                 type: Array,
@@ -154,8 +156,8 @@
                 chat.scrollTo({ top: chat.scrollHeight, behavior: 'smooth' });
             },
 
-            mentioned(mentions: any[]): boolean {
-                return mentions.includes(window['id']);
+            addMention(username) {
+                this.message += ` @${username}`;
             },
 
             sendMessage() {

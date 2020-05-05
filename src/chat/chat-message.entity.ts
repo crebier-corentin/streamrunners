@@ -4,13 +4,13 @@ import {
     Column,
     CreateDateColumn,
     Entity,
-    JoinTable,
-    ManyToMany,
     ManyToOne,
+    OneToMany,
     PrimaryGeneratedColumn,
     UpdateDateColumn,
 } from 'typeorm';
 import { UserEntity } from '../user/user.entity';
+import { ChatMentionEntity } from './chat-mention.entity';
 import moment = require('moment');
 
 @Entity('chat_message')
@@ -32,10 +32,13 @@ export class ChatMessageEntity {
     @Column('text')
     public message: string;
 
-    @Transform(value => value.map(u => u.id))
-    @JoinTable({ name: 'chat_mentions' })
-    @ManyToMany(type => UserEntity)
-    public mentions: UserEntity[];
+    @Type(type => ChatMentionEntity)
+    @OneToMany(
+        type => ChatMentionEntity,
+        m => m.message,
+        { cascade: true }
+    )
+    public mentions: ChatMentionEntity[];
 
     @Exclude()
     @ManyToOne(type => UserEntity, { nullable: true })

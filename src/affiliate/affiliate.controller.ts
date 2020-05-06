@@ -12,7 +12,10 @@ export class AffiliateController {
     @UseGuards(AuthenticatedGuard)
     @Render('affiliate')
     @Get()
-    public index(@User() user: UserEntity): { affiliatesTotal: number; affiliatesValidated: number } {
+    public async index(@User() user: UserEntity): Promise<{ affiliatesTotal: number; affiliatesValidated: number }> {
+        //Load relations
+        user = await this.userService.byId(user.id, ['affiliates', 'affiliatedTo']);
+
         return {
             affiliatesTotal: user.affiliates.length,
             affiliatesValidated: user.affiliates.filter(u => u.gotAffiliateCase).length,

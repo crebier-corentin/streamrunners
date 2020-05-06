@@ -45,12 +45,12 @@
         </div>
         <h3 class="text-center">AFFILIÉS :</h3>
         <div style="float:right; display:flex;">
-            <p>{{ affiliatesValidated }}/{{ affiliatesTotal }}  </p>
+            <p>{{ affiliatesValidated }}/{{ affiliates.length }}  </p>
         </div>
         <br>
         <br>
         <ul class="giveaway-winner-list">
-            {% for affiliate in req.user.affiliates %}
+            {% for affiliate in affiliates %}
                 <li class="giveaway-winner">
                     <small class="date">{{ affiliate.createdAt | date('LL') }}</small>
                     <img src="{{ affiliate.avatar }}" alt="avatar" class="avatar" />
@@ -95,7 +95,7 @@
         const copyButton = document.getElementById('copy-btn');
 
         copyButton.addEventListener('click', async () => {
-		
+
 			await navigator.clipboard.writeText("{{ HOSTNAME }}/affiliate/{{ req.user.displayName }}");
         });
 

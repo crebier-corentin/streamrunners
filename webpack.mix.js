@@ -1,19 +1,24 @@
 const mix = require('laravel-mix');
 require('laravel-mix-purgecss');
 const webpack = require('webpack');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 mix.disableNotifications();
 
 if (process.env.NODE_ENV === 'development') {
     mix.sourceMaps();
 }
+
 mix.webpackConfig({
     plugins: [
         // Ignore all locale files of moment.js
         new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
+		
+		new BundleAnalyzerPlugin({analyzerMode: 'static', openAnalyzer: false, reportFilename: 'assets-report.html'})
     ],
 
 });
+
 mix.options({
     processCssUrls: false,
     terser: {

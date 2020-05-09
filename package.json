@@ -124,6 +124,7 @@
     "typescript": "^3.7.4",
     "vue": "^2.6.11",
     "vue-loader": "^15.4.0",
-    "vue-template-compiler": "^2.6.11"
+    "vue-template-compiler": "^2.6.11",
+    "webpack-bundle-analyzer": "^3.7.0"
   }
 }

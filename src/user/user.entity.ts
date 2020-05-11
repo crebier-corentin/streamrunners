@@ -66,6 +66,9 @@ export class UserEntity {
     @Column('datetime', { default: () => 'CURRENT_TIMESTAMP' })
     public lastOnWatchPage: Date;
 
+    /*
+     * chatRank requires properties 'admin', 'moderator', 'partner', the relation 'currentSubscription' and 'subscriptionLevel' loaded by UserSubscriber
+     */
     @Expose()
     public get chatRank(): ChatRank {
         if (this.admin) return ChatRank.Admin;

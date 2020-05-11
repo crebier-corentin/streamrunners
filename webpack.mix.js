@@ -13,7 +13,7 @@ mix.webpackConfig({
     plugins: [
         // Ignore all locale files of moment.js
         new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
-		
+
 		new BundleAnalyzerPlugin({analyzerMode: 'static', openAnalyzer: false, reportFilename: 'assets-report.html'})
     ],
 
@@ -39,6 +39,7 @@ mix.ts('asset/js/watch.ts', 'public/js/');
 mix.ts('asset/js/coupon.ts', 'public/js/');
 mix.ts('asset/js/raffle.ts', 'public/js/');
 mix.ts('asset/js/case.ts', 'public/js/');
+mix.ts('asset/js/admin-users.ts', 'public/js/');
 
 const postCss = [];
 if (process.env.NODE_ENV === 'production') {

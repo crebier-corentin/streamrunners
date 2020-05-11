@@ -62,11 +62,4 @@ export class AppController {
     public async morepoints(): Promise<void> {
         //
     }
-
-    @UseGuards(AuthenticatedGuard)
-    @Render('usertab')
-    @Get('usertab')
-    public async usertab(): Promise<void> {
-        //
-    }
 }

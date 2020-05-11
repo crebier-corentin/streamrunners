@@ -2,6 +2,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { UserErrorException } from '../common/exception/user-error.exception';
 import { DiscordBotService } from '../discord/discord-bot.service';
 import { TwitchUser } from '../twitch/twitch.interfaces';
 import { TwitchService } from '../twitch/twitch.service';
@@ -238,6 +239,41 @@ describe('UserService', () => {
             await service.ban(userToBeBanned, bannedBy);
 
             expect(spySave).toHaveBeenCalledWith(expected);
+        });
+    });
+
+    describe('unban', () => {
+        it('should set banned to false, bannedBy and banDate to null', async () => {
+            const userToBeUnbanned = new UserEntity();
+            userToBeUnbanned.id = 1;
+            userToBeUnbanned.username = 'a';
+            userToBeUnbanned.banned = true;
+            userToBeUnbanned.bannedBy = new UserEntity();
+            userToBeUnbanned.banDate = new Date('2020-01-01 12:00:00');
+
+            const spySave = jest.spyOn(repo, 'save');
+
+            const expected = new UserEntity();
+            expected.id = 1;
+            expected.username = 'a';
+            expected.banned = false;
+            expected.bannedBy = null;
+            expected.banDate = null;
+
+            await service.unban(userToBeUnbanned);
+
+            expect(spySave).toHaveBeenCalledWith(expected);
+        });
+
+        it('should throw if user is not banned', () => {
+            const userToBeUnbanned = new UserEntity();
+            userToBeUnbanned.id = 1;
+            userToBeUnbanned.username = 'a';
+            userToBeUnbanned.banned = false;
+            userToBeUnbanned.bannedBy = null;
+            userToBeUnbanned.banDate = null;
+
+            expect(service.unban(userToBeUnbanned)).rejects.toBeInstanceOf(UserErrorException);
         });
     });
 

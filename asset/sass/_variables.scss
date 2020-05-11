@@ -1,6 +1,8 @@
 $twitch-color: #6441A4;
 
+$white: #fff;
+
 $primary: $twitch-color;
 $light: lighten($twitch-color, 15);
 
-
+$popover-body-color: $white;

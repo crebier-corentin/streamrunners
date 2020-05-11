@@ -1,0 +1,71 @@
+{# Taken here https://gist.github.com/thommyhh/98ba1acf349016e455b85487ab22a040#file-less-more-pagination-njk #}
+{#
+Pagination template code to create a pagination with a maximum number of links
+plus first and last link and more and less indicators.
+
+Adjust the page link/button markup to fit your needs. This would create a paginations like the following:
+_1_ 2 3
+1 2 _3_ 4 5 6
+1 2 _3_ 5 6 ... 7
+1 ... 5 6 _7_ 8 9 ... 13
+
+`numberOfButtons` is the number of page links that should be displayed, e.g. 5
+`pages` is the actual number of pages, e.g. 13
+`currentPage` is the current page number
+`url` is the base url, the page number will be added at the end
+
+#}
+{% macro paginate(pages, currentPage, url, numberOfButtons=5) %}
+    {% if numberOfButtons > pages %}
+        {% set numberOfButtons = pages %}
+    {% endif %}
+    {% set delta = (numberOfButtons / 2)|round(0, 'floor') %}
+    {% set visibleRangeStart = currentPage - delta %}
+    {% set visibleRangeEnd = currentPage + delta %}
+    {% if numberOfPages % 2 == 0 %}
+        {% set visibleRangeEnd = visibleRangeEnd - 1 %}
+    {% endif %}
+    {% if visibleRangeStart < 1 %}
+        {% set visibleRangeEnd = visibleRangeEnd - visibleRangeStart + 1 %}
+    {% endif %}
+    {% if visibleRangeEnd > pages %}
+        {% set visibleRangeStart = visibleRangeStart - visibleRangeEnd + pages %}
+    {% endif %}
+    {% if 1 > visibleRangeStart %}
+        {% set visibleRangeStart = 1 %}
+    {% endif %}
+    {% if pages < visibleRangeEnd %}
+        {% set visibleRangeEnd = pages %}
+    {% endif %}
+    {% if visibleRangeStart > 2 %}
+        {% set hasLess = true %}
+    {% endif %}
+    {% if visibleRangeEnd + 1 < pages %}
+        {% set hasMore = true %}
+    {% endif %}
+    <nav class="d-flex justify-content-center">
+        <ul class="pagination">
+
+            {% for i in range(1, pages + 1) %}
+                {% if i >= visibleRangeStart  and i <= visibleRangeEnd %}
+                    {% if i == visibleRangeStart and visibleRangeStart != 1 %}
+                        <li class="page-item"><a class="page-link" href="{{ url }}1">1</a></li>
+                        {% if hasLess %}
+                            <li class="page-item disabled"><span class="page-link">...</span></li>
+                        {% endif %}
+                    {% endif %}
+                    <li class="page-item {{ 'active' if i == currentPage }}"><a class="page-link"
+                                                                                href="{{ url }}{{ i }}">{{ i }}</a></li>
+                    {% if i == visibleRangeEnd and visibleRangeEnd != pages %}
+                        {% if hasMore %}
+                            <li class="page-item disabled"><span class="page-link">...</span></li>
+                        {% endif %}
+                        <li class="page-item"><a class="page-link" href="{{ url }}{{ pages }}">{{ pages }}</a></li>
+                    {% endif %}
+                {% endif %}
+            {% endfor %}
+
+        </ul>
+    </nav>
+
+{% endmacro %}

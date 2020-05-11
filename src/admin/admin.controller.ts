@@ -4,6 +4,7 @@ import {
     Get,
     ParseIntPipe,
     Post,
+    Query,
     Redirect,
     Render,
     Req,
@@ -14,6 +15,7 @@ import { Request } from 'express';
 import { User } from '../common/decorator/user.decorator';
 import { UserErrorException } from '../common/exception/user-error.exception';
 import { FlashAndRedirectUserErrorFilter } from '../common/filter/flash-and-redirect-user-error.filter';
+import { JsonUserErrorFilter } from '../common/filter/json-user-error.filter';
 import { AuthenticatedGuard } from '../common/guard/authenticated.guard';
 import { ModeratorGuard } from '../common/guard/moderator.guard';
 import { SubscriptionLevelInfoService } from '../subscription/subscription-level-info.service';
@@ -47,30 +49,29 @@ export class AdminController {
         };
     }
 
-    @UseFilters(new FlashAndRedirectUserErrorFilter('/admin'))
+    @UseFilters(JsonUserErrorFilter)
     @Post('ban')
-    @Redirect('/admin')
-    public async ban(@Body('username') username: string, @User() user: UserEntity, @Req() req: Request): Promise<void> {
-        await this.adminService.ban(username, user);
-
-        req.flash('success', 'Utilisateur banni avec succès.');
+    public async ban(@Body('userId', ParseIntPipe) userId: number, @User() user: UserEntity): Promise<void> {
+        await this.adminService.ban(userId, user);
     }
 
-    @UseFilters(new FlashAndRedirectUserErrorFilter('/admin'))
+    @UseFilters(JsonUserErrorFilter)
+    @Post('unban')
+    public async unban(@Body('userId', ParseIntPipe) userId: number): Promise<void> {
+        const userToBeUnbanned = await this.userService.byIdOrFail(userId);
+        await this.userService.unban(userToBeUnbanned);
+    }
+
+    @UseFilters(JsonUserErrorFilter)
     @Post('partner')
     @Redirect('/admin')
-    public async partner(@Body('username') username: string, @Req() req: Request): Promise<void> {
-        const user = await this.userService.byUsernameOrFail(
-            username,
+    public async partner(@Body('userId', ParseIntPipe) userId: number): Promise<void> {
+        const user = await this.userService.byIdOrFail(
+            userId,
             [],
-            new UserErrorException(`Impossible de trouver l'utilisateur "${username}".`)
+            new UserErrorException(`Impossible de trouver l'utilisateur.`)
         );
         await this.userService.togglePartner(user);
-
-        req.flash(
-            'success',
-            `Utilisateur ${user.partner ? 'ajouté dans' : 'enlevé de'} la liste des partneraires avec succès.`
-        );
     }
 
     @UseFilters(new FlashAndRedirectUserErrorFilter('/admin'))
@@ -84,5 +85,29 @@ export class AdminController {
         await this.subLevelInfoService.setPlaceLimit(level, limit);
 
         req.flash('success', 'Limite mis à jour.');
+    }
+
+    @Get('users')
+    @Render('admin/users')
+    public async users(
+        @Query('page') page: number,
+        @Query('search') search: string
+    ): Promise<{ search: string; totalPages: number; currentPage: number; users: UserEntity[]; url: string }> {
+        //Defaults to page 1
+        page = Number(page);
+        page = (page <= 0 || Number.isNaN(page) ? 1 : page) ?? 1;
+
+        //Defaults search to empty string
+        search = search ?? '';
+
+        const [users, totalUsers] = await this.userService.searchPaginate(page, 20, search);
+
+        return {
+            users,
+            totalPages: Math.ceil(totalUsers / 20),
+            currentPage: page,
+            search,
+            url: `/admin/users?search=${encodeURIComponent(search)}&page=`,
+        };
     }
 }

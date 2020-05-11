@@ -15,7 +15,7 @@ describe('AdminService', () => {
                 {
                     provide: UserService,
                     useValue: {
-                        byUsernameOrFail: jest.fn(),
+                        byIdOrFail: jest.fn(),
                         ban: jest.fn(),
                     },
                 },
@@ -47,13 +47,13 @@ describe('AdminService', () => {
             user.bannedBy = null;
             user.banDate = null;
 
-            jest.spyOn(userService, 'byUsernameOrFail').mockResolvedValue(user);
+            jest.spyOn(userService, 'byIdOrFail').mockResolvedValue(user);
         });
 
         it('should fail if the user is a moderator', () => {
             user.moderator = true;
 
-            expect(service.ban('a', bannedBy)).rejects.toBeInstanceOf(UserErrorException);
+            expect(service.ban(1, bannedBy)).rejects.toBeInstanceOf(UserErrorException);
         });
 
         it('should fail if the user is already banned', () => {
@@ -61,13 +61,13 @@ describe('AdminService', () => {
             user.bannedBy = bannedBy;
             user.banDate = new Date();
 
-            expect(service.ban('a', bannedBy)).rejects.toBeInstanceOf(UserErrorException);
+            expect(service.ban(1, bannedBy)).rejects.toBeInstanceOf(UserErrorException);
         });
 
         it('should ban the user', async () => {
             const spyBan = jest.spyOn(userService, 'ban');
 
-            await service.ban('a', bannedBy);
+            await service.ban(1, bannedBy);
 
             expect(spyBan).toHaveBeenCalledWith(user, bannedBy);
         });

@@ -1,0 +1,150 @@
+{% set title = "StreamRunners - Gestion des Utilisateurs" %}
+{% extends "../master.nunj" %}
+{% from "../less-more-pagination.nunj" import paginate %}
+
+{% block content %}
+    <div class="container">
+
+        <div class="jumbotron text-center">
+
+            <h2 class="display-4">Gestion des Utilisateurs</h2>
+            <hr>
+            <form class="form-inline my-2 my-lg-0" method="get" action="/admin/users">
+                <div class="w-100">
+                    <input name="search"
+                           style="width: 70%;"
+                           class="form-control mr-sm-2"
+                           type="search"
+                           placeholder="Pseudo de l'utilisateur"
+                           value="{{ search }}"
+                           aria-label="rechercher">
+                    <button style="margin-bottom: 1rem; line-height: 2.39;" class="btn btn-success" type="submit">
+                        Rechercher
+                    </button>
+                </div>
+            </form>
+            <hr>
+            <br>
+            <ul class="giveaway-winner-list">
+
+                {% for user in users %}
+                    <li class="row w-100">
+                        <div class="col-2">
+                            <img src="{{ user.avatar }}" alt="avatar" class="avatar" width="96" height="96">
+                        </div>
+                        <div class="col-6">
+
+                            {# rankClass and pawn #}
+                            {% switch user.chatRank %}
+
+                            {% case ChatRank.Member %}
+                                {% set rankClass = 'chat-name-member' %}
+                                {% set rankPawn = 'fa-user' %}
+                            {% case ChatRank.VIP %}
+                                {% set rankClass = 'chat-name-vip' %}
+                                {% set rankPawn = 'fa-star' %}
+                            {% case ChatRank.Diamond %}
+                                {% set rankClass = 'chat-name-diamond' %}
+                                {% set rankPawn = 'fa-gem' %}
+                            {% case ChatRank.Partner %}
+                                {% set rankClass = 'chat-name-partner' %}
+                                {% set rankPawn = 'fa-handshake' %}
+                            {% case ChatRank.Moderator %}
+                                {% set rankClass = 'chat-name-moderator' %}
+                                {% set rankPawn = 'fa-user-shield' %}
+                            {% case ChatRank.Admin %}
+                                {% set rankClass = 'chat-name-admin' %}
+                                {% set rankPawn = 'fa-user-secret' %}
+
+                            {% endswitch %}
+
+                            <p style="font-weight: 900;" class="{{ rankClass }}"><i class="fas {{ rankPawn }}"
+                                                                                    aria-hidden="true"></i>
+                                {{ user.displayName }} ({{ user.username }})</p>
+                            <span id="points-counter" class="text-small text-white">{{ user.points }}</span>
+                            <img src="/img/po.png" alt="points" width="16px" height="16px">
+
+                            {# Ban info #}
+                            {% if user.banned %}
+                                <p class="text-danger font-weight-bold">
+                                    Banni le {{ user.banDate | date('LLL') }} par {{ user.bannedBy.displayName }}
+                                </p>
+                            {% endif %}
+                        </div>
+                        <div class="col-4">
+                            <button type="button"
+                                    class="btn btn-warning js-points"
+                                    disabled
+                                    data-user-id="{{ user.id }}"
+                                    data-display-name="{{ user.displayName }}"
+                                    data-toggle="popover"
+                                    data-trigger="hover"
+                                    data-content="Modifier le solde de pièces"><i class="fas fa-coins"
+                                                                                  aria-hidden="true"></i></button>
+                            {# Partner #}
+                            {% if not user.partner %}
+                                <button type="button"
+                                        class="btn btn-primary js-partner"
+                                        data-user-id="{{ user.id }}"
+                                        data-display-name="{{ user.displayName }}"
+                                        data-toggle="popover"
+                                        data-trigger="hover"
+                                        data-content="Rendre Partenaire"><i class="fas fa-handshake"></i></button>
+                                {# Remove partner #}
+                            {% else %}
+                                <button type="button"
+                                        class="btn btn-primary js-remove-partner"
+                                        data-user-id="{{ user.id }}"
+                                        data-display-name="{{ user.displayName }}"
+                                        data-toggle="popover"
+                                        data-trigger="hover"
+                                        data-content="Enlever des Partenaires"><i class="fas fa-handshake-slash"></i></button>
+                            {% endif %}
+
+                            {# Ban #}
+                            {% if not user.banned %}
+                                <button type="button"
+                                        class="btn btn-danger js-ban"
+                                        data-user-id="{{ user.id }}"
+                                        data-display-name="{{ user.displayName }}"
+                                        data-toggle="popover"
+                                        data-trigger="hover"
+                                        data-content="Bannir la chaine"><i class="fas fa-skull-crossbones"></i></button>
+                                {# Unban #}
+                            {% else %}
+                                <button type="button"
+                                        class="btn btn-danger js-unban"
+                                        data-user-id="{{ user.id }}"
+                                        data-display-name="{{ user.displayName }}"
+                                        data-toggle="popover"
+                                        data-trigger="hover"
+                                        data-content="Débannir la chaine"><i class="fas fa-balance-scale"></i></button>
+                            {% endif %}
+                            <button type="button"
+                                    class="btn btn-success js-mod"
+                                    disabled
+                                    data-user-id="{{ user.id }}"
+                                    data-display-name="{{ user.displayName }}"
+                                    data-toggle="popover"
+                                    data-trigger="hover"
+                                    data-content="Passer Modérateur"><i class="fas fa-shield-alt"></i></button>
+
+                        </div>
+                    </li>
+                {% endfor %}
+
+            </ul>
+            <hr>
+            <br>
+
+            {{ paginate(totalPages, currentPage, url) }}
+
+        </div>
+
+    </div>
+
+{% endblock %}
+
+{% block script %}
+    <script src="/js/admin-users.js"></script>
+{% endblock %}

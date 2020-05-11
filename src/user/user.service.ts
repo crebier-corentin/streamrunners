@@ -3,6 +3,7 @@ import { Cron, CronExpression } from '@nestjs/schedule';
 import { InjectRepository } from '@nestjs/typeorm';
 import * as moment from 'moment';
 import { Repository } from 'typeorm';
+import { UserErrorException } from '../common/exception/user-error.exception';
 import { EntityService } from '../common/utils/entity-service';
 import { formatDatetimeSQL } from '../common/utils/utils';
 import { DiscordBotService } from '../discord/discord-bot.service';
@@ -255,8 +256,35 @@ export class UserService extends EntityService<UserEntity> {
         await this.repo.save(userToBeBanned);
     }
 
+    public async unban(userToBeUnbanned: UserEntity): Promise<void> {
+        if (!userToBeUnbanned.banned) throw new UserErrorException(`${userToBeUnbanned.displayName} n'est pas banni.`);
+
+        userToBeUnbanned.banned = false;
+        userToBeUnbanned.bannedBy = null;
+        userToBeUnbanned.banDate = null;
+
+        await this.repo.save(userToBeUnbanned);
+    }
+
     public async togglePartner(user: UserEntity): Promise<void> {
         user.partner = !user.partner;
         await this.repo.save(user);
+    }
+
+    public searchPaginate(page: number, perPage: number, search = ''): Promise<[UserEntity[], number]> {
+        const query = this.repo
+            .createQueryBuilder('user')
+            .leftJoinAndSelect('user.currentSubscription', 'sub')
+            .leftJoinAndSelect('user.bannedBy', 'bannedBy')
+            .skip((page - 1) * perPage)
+            .take(perPage);
+
+        if (search.length > 0) {
+            query
+                .where('user.username LIKE :username', { username: `%${search}%` })
+                .orWhere('user.displayName LIKE :displayName', { displayName: `%${search}%` });
+        }
+
+        return query.getManyAndCount();
     }
 }

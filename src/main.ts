@@ -17,6 +17,7 @@ import { ViewFilter } from './common/filter/view.filter';
 import { BanGuard } from './common/guard/ban.guard';
 import { VIEW_DIR_PATH } from './common/utils/constants';
 import { PartnerService } from './partner/partner.service';
+import { ChatRank } from './shared/types';
 import { SubscriptionLevel, SubscriptionLevelToFrench } from './subscription/subscription.interfaces';
 import { UserEntity } from './user/user.entity';
 import { UserService } from './user/user.service';
@@ -67,6 +68,7 @@ async function bootstrap(): Promise<void> {
         .addGlobal('SubscriptionLevelToFrench', SubscriptionLevelToFrench)
         .addGlobal('SubscriptionLevel', SubscriptionLevel)
         .addGlobal('CaseContentType', CaseContentType)
+        .addGlobal('ChatRank', ChatRank)
         //Await nunjucks (https://www.npmjs.com/package/nunjucks-await-filter)
         .addFilter(
             'await',

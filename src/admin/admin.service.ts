@@ -7,11 +7,11 @@ import { UserService } from '../user/user.service';
 export class AdminService {
     public constructor(private readonly userService: UserService) {}
 
-    public async ban(username: string, bannedBy: UserEntity): Promise<void> {
-        const user = await this.userService.byUsernameOrFail(
-            username,
+    public async ban(userId: number, bannedBy: UserEntity): Promise<void> {
+        const user = await this.userService.byIdOrFail(
+            userId,
             ['bannedBy'],
-            new UserErrorException(`Impossible de trouver l'utilisateur "${username}".`)
+            new UserErrorException(`Impossible de trouver l'utilisateur.`)
         );
 
         //Can't ban moderator

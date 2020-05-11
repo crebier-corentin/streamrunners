@@ -75,20 +75,6 @@
             </div>
         {% endif %}
 
-        {# Ban #}
-        <form action="/admin/ban" method="post">
-            <input name="username" type="text" placeholder="Chaine a Bannir (Nom d'utilisateur)" />
-            <button type="submit" class="btn btn-danger">Bannir</button>
-        </form>
-
-        {# Partner #}
-        <form action="/admin/partner" method="post">
-            <input name="username"
-                   type="text"
-                   placeholder="Chaine a ajouté/enlevé des partenaires (Nom d'utilisateur)" />
-            <button type="submit" class="btn btn-primary">Ajouté/Enlevé des partenaires</button>
-        </form>
-
         <hr>
         {# Place Limits #}
         {% macro placeLimit(level, limit) %}

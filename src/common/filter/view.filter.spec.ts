@@ -11,6 +11,7 @@ describe('ErrorViewFilter', () => {
         host = {
             switchToHttp: jest.fn().mockReturnThis(),
             getResponse: jest.fn().mockReturnThis(),
+            status: jest.fn().mockReturnThis(),
             render: jest.fn(),
         } as ArgumentsHost;
     });

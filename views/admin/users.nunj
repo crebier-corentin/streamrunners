@@ -72,11 +72,12 @@
                             {% endif %}
                         </div>
                         <div class="col-4">
+                            {# Set points #}
                             <button type="button"
                                     class="btn btn-warning js-points"
-                                    disabled
                                     data-user-id="{{ user.id }}"
                                     data-display-name="{{ user.displayName }}"
+                                    data-points="{{ user.points }}"
                                     data-toggle="popover"
                                     data-trigger="hover"
                                     data-content="Modifier le solde de pièces"><i class="fas fa-coins"
@@ -98,7 +99,8 @@
                                         data-display-name="{{ user.displayName }}"
                                         data-toggle="popover"
                                         data-trigger="hover"
-                                        data-content="Enlever des Partenaires"><i class="fas fa-handshake-slash"></i></button>
+                                        data-content="Enlever des Partenaires"><i class="fas fa-handshake-slash"></i>
+                                </button>
                             {% endif %}
 
                             {# Ban #}
@@ -120,14 +122,29 @@
                                         data-trigger="hover"
                                         data-content="Débannir la chaine"><i class="fas fa-balance-scale"></i></button>
                             {% endif %}
-                            <button type="button"
-                                    class="btn btn-success js-mod"
-                                    disabled
-                                    data-user-id="{{ user.id }}"
-                                    data-display-name="{{ user.displayName }}"
-                                    data-toggle="popover"
-                                    data-trigger="hover"
-                                    data-content="Passer Modérateur"><i class="fas fa-shield-alt"></i></button>
+                            {# Moderator #}
+                            {# Only accessible to admins #}
+                            {% if req.user.admin and not user.admin %}
+                                {% if not user.moderator %}
+                                    <button type="button"
+                                            class="btn btn-success js-mod"
+                                            data-user-id="{{ user.id }}"
+                                            data-display-name="{{ user.displayName }}"
+                                            data-toggle="popover"
+                                            data-trigger="hover"
+                                            data-content="Passer Modérateur"><i class="fas fa-shield-alt"></i></button>
+                                    {# Unmod #}
+                                {% else %}
+                                    <button type="button"
+                                            class="btn btn-success js-unmod"
+                                            data-user-id="{{ user.id }}"
+                                            data-display-name="{{ user.displayName }}"
+                                            data-toggle="popover"
+                                            data-trigger="hover"
+                                            data-content="Enlever des Modérateurs"><i class="fas fa-shield-virus"></i>
+                                    </button>
+                                {% endif %}
+                            {% endif %}
 
                         </div>
                     </li>

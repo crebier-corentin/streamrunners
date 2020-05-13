@@ -28,6 +28,6 @@ export class ViewFilter<T> implements ExceptionFilter {
 
         //Default to 500.nunj if specific error page does not exist
         const view = this.errorViews.has(status.toString()) ? status.toString() : '500';
-        response.render(`error/${view}`);
+        response.status(status).render(`error/${view}`);
     }
 }

@@ -16,6 +16,7 @@ import { User } from '../common/decorator/user.decorator';
 import { UserErrorException } from '../common/exception/user-error.exception';
 import { FlashAndRedirectUserErrorFilter } from '../common/filter/flash-and-redirect-user-error.filter';
 import { JsonUserErrorFilter } from '../common/filter/json-user-error.filter';
+import { AdminGuard } from '../common/guard/admin.guard';
 import { AuthenticatedGuard } from '../common/guard/authenticated.guard';
 import { ModeratorGuard } from '../common/guard/moderator.guard';
 import { SubscriptionLevelInfoService } from '../subscription/subscription-level-info.service';
@@ -47,31 +48,6 @@ export class AdminController {
             success: req.flash('success'),
             error: req.flash('error'),
         };
-    }
-
-    @UseFilters(JsonUserErrorFilter)
-    @Post('ban')
-    public async ban(@Body('userId', ParseIntPipe) userId: number, @User() user: UserEntity): Promise<void> {
-        await this.adminService.ban(userId, user);
-    }
-
-    @UseFilters(JsonUserErrorFilter)
-    @Post('unban')
-    public async unban(@Body('userId', ParseIntPipe) userId: number): Promise<void> {
-        const userToBeUnbanned = await this.userService.byIdOrFail(userId);
-        await this.userService.unban(userToBeUnbanned);
-    }
-
-    @UseFilters(JsonUserErrorFilter)
-    @Post('partner')
-    @Redirect('/admin')
-    public async partner(@Body('userId', ParseIntPipe) userId: number): Promise<void> {
-        const user = await this.userService.byIdOrFail(
-            userId,
-            [],
-            new UserErrorException(`Impossible de trouver l'utilisateur.`)
-        );
-        await this.userService.togglePartner(user);
     }
 
     @UseFilters(new FlashAndRedirectUserErrorFilter('/admin'))
@@ -109,5 +85,54 @@ export class AdminController {
             search,
             url: `/admin/users?search=${encodeURIComponent(search)}&page=`,
         };
+    }
+
+    @UseFilters(JsonUserErrorFilter)
+    @Post('set-points')
+    public async setPoints(
+        @Body('userId', ParseIntPipe) userId: number,
+        @Body('value', ParseIntPipe) value: number
+    ): Promise<void> {
+        const user = await this.userService.byIdOrFail(
+            userId,
+            [],
+            new UserErrorException(`Impossible de trouver l'utilisateur.`)
+        );
+
+        if (value < 0) throw new UserErrorException("Impossible d'avoir moins de 0 points.");
+
+        user.points = value;
+        await this.userService.save(user);
+    }
+
+    @UseFilters(JsonUserErrorFilter)
+    @Post('partner')
+    public async partner(@Body('userId', ParseIntPipe) userId: number): Promise<void> {
+        const user = await this.userService.byIdOrFail(
+            userId,
+            [],
+            new UserErrorException(`Impossible de trouver l'utilisateur.`)
+        );
+        await this.userService.togglePartner(user);
+    }
+
+    @UseFilters(JsonUserErrorFilter)
+    @Post('ban')
+    public async ban(@Body('userId', ParseIntPipe) userId: number, @User() user: UserEntity): Promise<void> {
+        await this.adminService.ban(userId, user);
+    }
+
+    @UseFilters(JsonUserErrorFilter)
+    @Post('unban')
+    public async unban(@Body('userId', ParseIntPipe) userId: number): Promise<void> {
+        const userToBeUnbanned = await this.userService.byIdOrFail(userId);
+        await this.userService.unban(userToBeUnbanned);
+    }
+
+    @UseFilters(JsonUserErrorFilter)
+    @UseGuards(AdminGuard)
+    @Post('moderator')
+    public async moderator(@Body('userId', ParseIntPipe) userId: number): Promise<void> {
+        await this.adminService.toggleModerator(userId);
     }
 }

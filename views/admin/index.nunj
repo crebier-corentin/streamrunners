@@ -75,6 +75,8 @@
             </div>
         {% endif %}
 
+        <a href="/admin/users" class="btn btn-secondary">Gestion des Utilisateurs</a>
+
         <hr>
         {# Place Limits #}
         {% macro placeLimit(level, limit) %}

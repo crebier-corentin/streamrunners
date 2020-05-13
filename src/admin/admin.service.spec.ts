@@ -16,6 +16,7 @@ describe('AdminService', () => {
                     provide: UserService,
                     useValue: {
                         byIdOrFail: jest.fn(),
+                        save: jest.fn(),
                         ban: jest.fn(),
                     },
                 },
@@ -70,6 +71,45 @@ describe('AdminService', () => {
             await service.ban(1, bannedBy);
 
             expect(spyBan).toHaveBeenCalledWith(user, bannedBy);
+        });
+    });
+
+    describe('toggleModerator', () => {
+        it('should set moderator to false if the current value is true', async () => {
+            const user = new UserEntity();
+            user.id = 1;
+            user.admin = false;
+            user.moderator = false;
+
+            jest.spyOn(userService, 'byIdOrFail').mockResolvedValue(user);
+
+            await service.toggleModerator(1);
+
+            expect(user.moderator).toBe(true);
+        });
+
+        it('should set moderator to true if the current value is false', async () => {
+            const user = new UserEntity();
+            user.id = 1;
+            user.admin = false;
+            user.moderator = true;
+
+            jest.spyOn(userService, 'byIdOrFail').mockResolvedValue(user);
+
+            await service.toggleModerator(1);
+
+            expect(user.moderator).toBe(false);
+        });
+
+        it('should throw if the user if an admin', () => {
+            const user = new UserEntity();
+            user.id = 1;
+            user.admin = true;
+            user.moderator = true;
+
+            jest.spyOn(userService, 'byIdOrFail').mockResolvedValue(user);
+
+            expect(service.toggleModerator(1)).rejects.toBeInstanceOf(UserErrorException);
         });
     });
 });

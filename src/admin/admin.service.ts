@@ -24,4 +24,18 @@ export class AdminService {
 
         await this.userService.ban(user, bannedBy);
     }
+
+    public async toggleModerator(userId: number): Promise<void> {
+        const user = await this.userService.byIdOrFail(
+            userId,
+            [],
+            new UserErrorException(`Impossible de trouver l'utilisateur.`)
+        );
+
+        if (user.admin)
+            throw new UserErrorException('Impossible de rajouter/enlever un administrateur des modérateurs.');
+
+        user.moderator = !user.moderator;
+        await this.userService.save(user);
+    }
 }

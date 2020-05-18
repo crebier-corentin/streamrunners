@@ -54,7 +54,7 @@
                 <li class="giveaway-winner">
                     <small class="date">{{ affiliate.createdAt | date('LL') }}</small>
                     <img src="{{ affiliate.avatar }}" alt="avatar" class="avatar" />
-                    <p class="username">{{ affiliate.displayName }}</p>
+                    <p class="username">{{ affiliate.username }}</p>
                     <div>
                         <figure>
                             <img class="caisseaffiliate" src="/img/case/affiliate/close.png" alt="Caisse">
@@ -96,7 +96,7 @@
 
         copyButton.addEventListener('click', async () => {
 
-			await navigator.clipboard.writeText("{{ HOSTNAME }}/affiliate/{{ req.user.displayName }}");
+			await navigator.clipboard.writeText("{{ HOSTNAME }}/affiliate/{{ req.user.username }}");
         });
 
     </script>

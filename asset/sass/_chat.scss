@@ -50,9 +50,9 @@
 
 .chat-grid {
   display: grid;
-  grid-template-columns: 5fr 1fr;
+  grid-template-columns: 5fr auto 1fr;
   grid-template-rows: 1fr auto;
-  grid-template-areas: "messages users" "input button";
+  grid-template-areas: "messages messages users" "input emoji button";
   grid-gap: map_get($spacers, 2);
 
   .messages {
@@ -65,6 +65,10 @@
 
   .input {
     grid-area: input;
+  }
+
+  .emoji {
+    grid-area: emoji;
   }
 
   .button {

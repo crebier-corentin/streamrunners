@@ -1,43 +1,43 @@
 <template>
+    <div>
+        <section class="chat-grid">
+            <!-- Messages -->
+            <div class="messages rounded chat-container scrollbar chat-scrollbar" ref="chat">
+                <div class="d-flex flex-column p-0 m-0 force-overflow">
+                    <div class="chat-message" v-for="msg in cMessages" :key="msg.id">
 
-    <section class="chat-grid">
-        <!-- Messages -->
-        <div class="messages rounded chat-container scrollbar chat-scrollbar" ref="chat">
-            <div class="d-flex flex-column p-0 m-0 force-overflow">
-                <div class="chat-message" v-for="msg in cMessages" :key="msg.id">
+                        <img class="avatar" :src="msg.author.avatar" :alt="msg.author.displayName">
 
-                    <img class="avatar" :src="msg.author.avatar" :alt="msg.author.displayName">
+                        <ChatUsername class="username"
+                                      :name="msg.author.displayName"
+                                      :rank="msg.author.chatRank"
+                                      :sparkle="msg.author.sparkle"
+                                      @click.native="addMention(msg.author.username)" />
 
-                    <ChatUsername class="username"
-                                  :name="msg.author.displayName"
-                                  :rank="msg.author.chatRank"
-                                  :sparkle="msg.author.sparkle"
-                                  @click.native="addMention(msg.author.username)" />
+                        <small class="timestamp">{{msg.createdAt}} </small>
 
-                    <small class="timestamp">{{msg.createdAt}} </small>
-
-                    <span class="message"><ChatMessage :message="msg" />
+                        <span class="message"><ChatMessage :message="msg" />
                         <button class="text-danger"
                                 :style="{opacity: showDelete ? 1 : 0}"
                                 @click="deleteMessage(msg.id)"><i class="fas fa-times" /></button>
                     </span>
 
 
+                    </div>
                 </div>
+
             </div>
 
-        </div>
-
-        <!-- Active users -->
-        <div class="users rounded chat-container d-flex flex-column scrollbar chat-scrollbar"
-             style="position:relative;">
-            <i class="fas fa-question-circle whoishelp"
-               aria-hidden="true"
-               data-placement="right"
-               data-html="true"
-               data-toggle="popover"
-               data-title="Les rôles"
-               data-content='
+            <!-- Active users -->
+            <div class="users rounded chat-container d-flex flex-column scrollbar chat-scrollbar"
+                 style="position:relative;">
+                <i class="fas fa-question-circle whoishelp"
+                   aria-hidden="true"
+                   data-placement="right"
+                   data-html="true"
+                   data-toggle="popover"
+                   data-title="Les rôles"
+                   data-content='
 
 
 
@@ -55,29 +55,43 @@
 
 
             '></i>
-            <div class="d-flex flex-column p-0 m-0 force-overflow">
-                <ChatUsername :name="user.displayName"
-                              :rank="user.chatRank"
-                              :sparkle="user.sparkle"
-                              v-for="user in cActiveUsers"
-                              :key="user.displayName"
-                              @click.native="addMention(user.username)" />
+                <div class="d-flex flex-column p-0 m-0 force-overflow">
+                    <ChatUsername :name="user.displayName"
+                                  :rank="user.chatRank"
+                                  :sparkle="user.sparkle"
+                                  v-for="user in cActiveUsers"
+                                  :key="user.displayName"
+                                  @click.native="addMention(user.username)" />
+                </div>
             </div>
-        </div>
 
-        <!-- Input-->
-        <input id="text"
-               class="input rounded border"
-               style="border-color: #8c6dc5!important;"
-               type="text"
-               placeholder=" Votre message..."
-               v-model="message"
-               @keyup.enter="sendMessage" />
+            <!-- Input-->
+            <input id="text"
+                   class="input rounded border"
+                   style="border-color: #8c6dc5!important;"
+                   type="text"
+                   placeholder=" Votre message..."
+                   v-model="message"
+                   @keyup.enter="sendMessage" />
+            <!-- Emoji toggle -->
+            <button class="emoji btn btn-primary w-100 h-100" v-popover:emoji.top><i class="far fa-smile"></i></button>
 
-        <button class="btn btn-outline-success sub" @click="sendMessage">
-            Envoyer&nbsp;&nbsp;&nbsp;<i class="fas fa-paper-plane" /></button>
 
-    </section>
+            <button class="btn btn-outline-success sub" @click="sendMessage">
+                Envoyer&nbsp;&nbsp;&nbsp;<i class="fas fa-paper-plane" /></button>
+
+        </section>
+
+        <popover name="emoji">
+            <Picker :native="true"
+                    :data="emojiIndex"
+                    @select="addEmoji"
+                    :i18n="emojiPickerI18n"
+                    title="Emojis"
+                    emoji="joy" />
+        </popover>
+
+    </div>
 
 </template>
 
@@ -86,12 +100,17 @@
     import ChatUsername from './ChatUsername.vue';
     import ChatMessage from './ChatMessage.vue';
     import { UserEntity } from '../../../src/user/user.entity';
+    import * as emojiData from 'emoji-mart-vue-fast/data/all.json';
+    import { EmojiIndex, Picker } from 'emoji-mart-vue-fast';
+    import 'emoji-mart-vue-fast/css/emoji-mart.css';
+
+    const emojiIndex = new EmojiIndex(emojiData);
 
     const BSN = window['BSN'];
 
     export default {
         name: 'Chat',
-        components: { ChatUsername, ChatMessage },
+        components: { ChatUsername, ChatMessage, Picker },
         props: {
             messages: {
                 type: Array,
@@ -109,6 +128,24 @@
 
         data() {
             return {
+                emojiIndex,
+                emojiPickerI18n: {
+                    search: 'Recherche', notfound: 'Aucun resultat', categories: {
+                        search: 'Résultats de recherche',
+                        recent: 'Récents',
+                        smileys: 'Smileys & Emotions',
+                        people: 'Smileys & Personnes',
+                        nature: 'Animaux & Nature',
+                        foods: 'Nourritures & Boissons',
+                        activity: 'Activités',
+                        places: 'Voyage & endroits',
+                        objects: 'Objets',
+                        symbols: 'Symboles',
+                        flags: 'Drapeaux',
+                        custom: 'Custom',
+                    },
+                },
+
                 message: '',
 
                 chatAddUrl: '/chat/add',
@@ -158,6 +195,10 @@
 
             addMention(username) {
                 this.message += ` @${username}`;
+            },
+
+            addEmoji(emoji) {
+                this.message += emoji.native;
             },
 
             sendMessage() {

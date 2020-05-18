@@ -83,76 +83,69 @@
 <img src="/img/meteores.gif" alt="meteore" class="meteore">
 
 {# Navbar #}
-<div class="">
-    <div class="custom-navbar">
-        <div class="brand-logo">
-            <a href="https://streamrunners.fr"><img alt="Logo StreamRunners"
-                                                    title="Logo StreamRunners"
-                                                    src="/img/navbrand.png"
-                                                    width="160px"></a>
-        </div>
-        <div class="navbar-links">
-            <ul>
-                <li><a href="/"><i class="fas fa-home"></i> Accueil</a></li>
-                <li><a href="/leaderboard"><i class="fas fa-trophy"></i> Classement</a></li>
-
-                {% if req.isAuthenticated() %}
-
-                    <li><a href="/case/shop"><i class="fas fa-shopping-cart"></i> Boutique</a></li>
-                    <li><a href="/coupon"><i class="fas fa-ticket-alt"></i> Coupon</a></li>
-                    <li><a href="/raffle"><i class="fas fa-boxes"></i> GiveAway</a></li>
-
-                    {% if req.user.moderator %}
-
-                        <li><a href="/admin" class="btn-request"><i class="fas fa-lock"></i> Admin</a></li>
-
-                    {% endif %}
-                {% endif %}
-
-                {% if req.isAuthenticated() %}
-                    <li class="nav-item dropdown">
-                        <img src="{{ req.user.avatar }}" alt="avatar" class="loggedImage">
-                        <a class="nav-link d-inline-block dropdown-toggle"
-                           id="navbarDropdown"
-                           data-toggle="dropdown"
-                           aria-haspopup="true"
-                           aria-expanded="false"
-                           href="#">
-                            <div class="loggedPseudo">{{ req.user.displayName }}</div>
-                            <div>
-                                <span id="points-counter" class="text-small text-white">{{ req.user.points }}</span>
-                                <img src="/img/po.png" alt="points" width="16px" height="16px" />
-                            </div>
-                            <div>
-                                <span class="text-small text-white">{{ req.user.meteores }}</span>
-                                <img src="/img/mt.png" alt="points" width="16px" height="16px" />
-                            </div>
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a href="/inventory"><i class="fas fa-suitcase"></i> Inventaire</a>
-                            <div class="dropdown-divider"></div>
-                            <a href="/subscription"><i class="fas fa-star"></i> Abonnements</a>
-                            <div class="dropdown-divider"></div>
-                            <a href="/affiliate"><i class="fas fa-plus"></i> Affiliation</a>
-                            <div class="dropdown-divider"></div>
-                            <a href="/option"><i class="fas fa-cogs"></i> Paramètres</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="nav-link" href="/auth/logout"><i class="fas fa-sign-out-alt"></i> Se
-                                déconnecter</a>
-                        </div>
-                    </li>
-                {% endif %}
-
-            </ul>
-        </div>
+<div class="custom-navbar">
+    <div class="brand-logo">
+        <a href="https://streamrunners.fr"><img alt="Logo StreamRunners"
+                                                title="Logo StreamRunners"
+                                                src="/img/navbrand.png"
+                                                width="160px"></a>
     </div>
-    <!-- <div class="glowing_stars">
-        <div class="star"></div>
-        <div class="star"></div>
-        <div class="star"></div>
-        <div class="star"></div>
-        <div class="star"></div> -->
+    <div class="navbar-links">
+        <ul>
+            <li><a href="/"><i class="fas fa-home"></i> Accueil</a></li>
+            <li><a href="/leaderboard"><i class="fas fa-trophy"></i> Classement</a></li>
+
+            {% if req.isAuthenticated() %}
+
+                <li><a href="/case/shop"><i class="fas fa-shopping-cart"></i> Boutique</a></li>
+                <li><a href="/coupon"><i class="fas fa-ticket-alt"></i> Coupon</a></li>
+                <li><a href="/raffle"><i class="fas fa-boxes"></i> GiveAway</a></li>
+
+                {% if req.user.moderator %}
+
+                    <li><a href="/admin" class="btn-request"><i class="fas fa-lock"></i> Admin</a></li>
+
+                {% endif %}
+            {% endif %}
+
+            {% if req.isAuthenticated() %}
+                <li class="nav-item dropdown">
+                    <img src="{{ req.user.avatar }}" alt="avatar" class="loggedImage">
+                    <a class="nav-link d-inline-block dropdown-toggle"
+                       id="navbarDropdown"
+                       data-toggle="dropdown"
+                       aria-haspopup="true"
+                       aria-expanded="false"
+                       href="#">
+                        <div class="loggedPseudo">{{ req.user.displayName }}</div>
+                        <div>
+                            <span id="points-counter" class="text-small text-white">{{ req.user.points }}</span>
+                            <img src="/img/po.png" alt="points" width="16px" height="16px" />
+                        </div>
+                        <div>
+                            <span class="text-small text-white">{{ req.user.meteores }}</span>
+                            <img src="/img/mt.png" alt="points" width="16px" height="16px" />
+                        </div>
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a href="/inventory"><i class="fas fa-suitcase"></i> Inventaire</a>
+                        <div class="dropdown-divider"></div>
+                        <a href="/subscription"><i class="fas fa-star"></i> Abonnements</a>
+                        <div class="dropdown-divider"></div>
+                        <a href="/affiliate"><i class="fas fa-plus"></i> Affiliation</a>
+                        <div class="dropdown-divider"></div>
+                        <a href="/option"><i class="fas fa-cogs"></i> Paramètres</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="nav-link" href="/auth/logout"><i class="fas fa-sign-out-alt"></i> Se
+                            déconnecter</a>
+                    </div>
+                </li>
+            {% endif %}
+
+        </ul>
+    </div>
 </div>
+
 {# Announcement #}
 {% if req.isAuthenticated() %}
     {% if announcement != undefined %}

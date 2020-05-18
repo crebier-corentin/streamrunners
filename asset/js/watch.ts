@@ -1,9 +1,9 @@
 import Vue from 'vue/dist/vue.esm.js';
 import TwitchViewer from './component/TwitchViewer.vue';
 import Chat from './component/Chat.vue';
-
 import axios from 'axios';
 import swal from 'sweetalert2';
+import Popover from 'vue-js-popover';
 import { sleep } from '../../src/shared/shared-utils';
 import { updatePoints } from './points';
 
@@ -11,6 +11,7 @@ window['swal'] = swal;
 
 Vue.component(TwitchViewer.name, TwitchViewer);
 Vue.component(Chat.name, Chat);
+Vue.use(Popover);
 
 window['vm'] = new Vue({
     el: '#app',

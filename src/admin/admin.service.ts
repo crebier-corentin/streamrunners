@@ -32,9 +32,9 @@ export class AdminService {
             new UserErrorException(`Impossible de trouver l'utilisateur.`)
         );
 
-        if (user.admin)
+        if (user.admin) {
             throw new UserErrorException('Impossible de rajouter/enlever un administrateur des modérateurs.');
-
+        }
         user.moderator = !user.moderator;
         await this.userService.save(user);
     }

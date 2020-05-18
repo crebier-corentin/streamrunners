@@ -10,7 +10,8 @@
     "outDir": "./dist",
     "baseUrl": "./",
     "incremental": true,
-    "lib": ["DOM", "ES2019"]
+    "lib": ["DOM", "ES2019"],
+    "resolveJsonModule": true
   },
   "exclude": ["node_modules", "dist"]
 }

@@ -43,9 +43,9 @@ export class CouponService extends EntityService<CouponEntity> {
 
         //Coupon is valid
         coupon.users.push(user);
-        this.repo.save(coupon);
+        await this.repo.save(coupon);
 
-        this.userService.changePointsSave(user, coupon.amount);
+        await this.userService.changePointsSave(user, coupon.amount);
 
         return coupon;
     }

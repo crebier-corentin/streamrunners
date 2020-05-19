@@ -110,6 +110,14 @@ describe('CouponService', () => {
                 where: jest.fn().mockReturnThis(),
                 andWhere: jest.fn().mockReturnThis(),
                 getCount: jest.fn().mockResolvedValue(0),
+                //Mock relation save
+                relation: jest.fn().mockImplementation((path: string) => ({
+                    of: jest.fn().mockImplementation(entity => ({
+                        add: jest.fn().mockImplementation(value => {
+                            entity[path].push(value);
+                        }),
+                    })),
+                })),
             });
 
             const user = new UserEntity();

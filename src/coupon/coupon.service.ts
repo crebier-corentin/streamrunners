@@ -42,8 +42,11 @@ export class CouponService extends EntityService<CouponEntity> {
         if (await this.couponUsed(coupon, user)) throw new UserErrorException('Le coupon est déjà utilisé.');
 
         //Coupon is valid
-        coupon.users.push(user);
-        await this.repo.save(coupon);
+        await this.repo
+            .createQueryBuilder()
+            .relation('users')
+            .of(coupon)
+            .add(user);
 
         await this.userService.changePointsSave(user, coupon.amount);
 

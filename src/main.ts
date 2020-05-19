@@ -32,7 +32,7 @@ async function bootstrap(): Promise<void> {
     const announcementService = app.get(AnnouncementService);
     const partnerService = app.get(PartnerService);
 
-    app.useGlobalFilters(new ViewFilter(isDev));
+    app.useGlobalFilters(new ViewFilter());
     app.useGlobalFilters(new BanFilter());
 
     app.useGlobalGuards(new BanGuard());

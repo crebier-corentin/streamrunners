@@ -8,7 +8,7 @@ import { VIEW_DIR_PATH } from '../utils/constants';
 export class ViewFilter<T> implements ExceptionFilter {
     private readonly errorViews: Set<string>;
 
-    public constructor(private readonly isDev: boolean = false) {
+    public constructor() {
         const viewErrorDirPath = join(VIEW_DIR_PATH, 'error/');
         const files = readdirSync(viewErrorDirPath);
 
@@ -20,7 +20,7 @@ export class ViewFilter<T> implements ExceptionFilter {
         const ctx = host.switchToHttp();
         const response = ctx.getResponse<Response>();
 
-        if (this.isDev && !(exception instanceof HttpException)) {
+        if (!(exception instanceof HttpException)) {
             console.error(exception);
         }
 

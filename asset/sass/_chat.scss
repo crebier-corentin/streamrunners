@@ -45,6 +45,10 @@
     &.chat-mentioned {
       background-color: lighten($primary, 10);
     }
+
+    * {
+      display: inline;
+    }
   }
 }
 
@@ -187,6 +191,7 @@
   padding: 2px 8px !important;
   border-radius: 2em;
 }
+
 .chat-mention {
   background-color: #3d2665;
   font-size: 14px !important;

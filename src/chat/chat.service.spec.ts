@@ -66,6 +66,35 @@ describe('ChatService', () => {
             expect(message.author.id).toBe(1);
         });
 
+        it('should escape html in the message', async () => {
+            const message = await service.addMessage('<script src="evil.js"></script> \'&', user1);
+            expect(message.message).toBe('&lt;script src=&quot;evil.js&quot;&gt;&lt;/script&gt; &#039;&amp;');
+        });
+
+        it('should not replace an url with a link for users', async () => {
+            user1.moderator = false;
+            user1.admin = false;
+
+            const message = await service.addMessage('A https://www.example.com B', user1);
+            expect(message.message).toBe('A https://www.example.com B');
+        });
+
+        it('should replace an url with a link for moderators', async () => {
+            user1.moderator = true;
+            user1.admin = false;
+
+            const message = await service.addMessage('A https://www.example.com B', user1);
+            expect(message.message).toBe('A <a href="https://www.example.com">https://www.example.com</a> B');
+        });
+
+        it('should replace an url with a link for admins', async () => {
+            user1.moderator = false;
+            user1.admin = true;
+
+            const message = await service.addMessage('A https://www.example.com B', user1);
+            expect(message.message).toBe('A <a href="https://www.example.com">https://www.example.com</a> B');
+        });
+
         it('should detect a mention at the start', async () => {
             const message = await service.addMessage('@user1 haha', user1);
 

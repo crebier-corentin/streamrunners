@@ -20,3 +20,12 @@ export function formatDatetimeSQL(date: moment.Moment | Date): string {
 export function isAxiosError(error: unknown): error is AxiosError {
     return (error as AxiosError).isAxiosError === true; //isAxiosError could be undefined
 }
+
+export function escapeHtml(str: string): string {
+    return str
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+}

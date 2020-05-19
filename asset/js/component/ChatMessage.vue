@@ -1,6 +1,6 @@
 <template>
 <span :class="{'font-italic': message.deleted, 'text-danger': message.deleted}">
-<span v-for="fragment in fragments" :class="fragment.classes">{{fragment.text}}</span>
+<span v-for="fragment in fragments" :class="fragment.classes" v-html="fragment.text"></span>
 </span>
 </template>
 

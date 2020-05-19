@@ -1,5 +1,5 @@
 import { AxiosError } from 'axios';
-import { formatDatetimeSQL, isAxiosError, shuffledArray } from './utils';
+import { escapeHtml, formatDatetimeSQL, isAxiosError, shuffledArray } from './utils';
 import moment = require('moment');
 
 describe('shuffledArray', () => {
@@ -69,5 +69,13 @@ describe('isAxiosError', () => {
         };
 
         expect(isAxiosError(error)).toBe(false);
+    });
+});
+
+describe('escapeHtml', () => {
+    it('should escape ampersand, brackets and quotes', () => {
+        expect(escapeHtml('<script src="evil.js"></script> \'&')).toBe(
+            '&lt;script src=&quot;evil.js&quot;&gt;&lt;/script&gt; &#039;&amp;'
+        );
     });
 });

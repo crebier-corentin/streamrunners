@@ -13,7 +13,7 @@
 * Run `yarn install` (You may have errors installing `node-canvas`, follow the instructions here: [https://github.com/Automattic/node-canvas](https://github.com/Automattic/node-canvas)).
 * Copy `.env.exemple` and rename it to `.env`.
 * Set `COOKIE_SECRET` to a random string (that will be used for encrypting cookies).
-###### Database.
+###### Database
 * Create a new database with `utf8mb4_unicode_ci` collation.
 * Set `DB_HOST` to your database address (most likely `localhost`).
 * Set `DB_USERNAME` and `DB_PASSWORD` to your database username and password respectively.

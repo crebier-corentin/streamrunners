@@ -126,7 +126,7 @@ export class CaseService extends EntityService<CaseEntity> {
             .leftJoinAndSelect('case.content', 'content')
             .leftJoinAndSelect('case.key', 'key')
             .where('user.id = :userId', { userId: user.id })
-            .where('case.content IS NOT NULL')
+            .andWhere('case.content IS NOT NULL')
             .getMany();
     }
 
@@ -138,7 +138,7 @@ export class CaseService extends EntityService<CaseEntity> {
             .leftJoinAndSelect('case.content', 'content')
             .leftJoinAndSelect('case.key', 'key')
             .where('user.id = :userId', { userId: user.id })
-            .where('case.content IS NULL')
+            .andWhere('case.content IS NULL')
             .getMany();
     }
 }

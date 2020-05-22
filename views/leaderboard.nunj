@@ -12,10 +12,9 @@
 {% block content %}
     <div class="container">
 
-    	<center>
-        <h1>Classement</h1>
-        <br>
-      </center>
+        <div class="text-center">
+            <h1>Classement</h1><br>
+        </div>
 
         <ul class="nav nav-tabs justify-content-center">
             <li class="nav-item">
@@ -63,7 +62,7 @@
                      data-ad-format="auto"
                      data-full-width-responsive="true"></ins>
                 <script>
-                     (adsbygoogle = window.adsbygoogle || []).push({});
+                    (adsbygoogle = window.adsbygoogle || []).push({});
                 </script>
             </div>
         {% endif %}

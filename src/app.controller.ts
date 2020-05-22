@@ -1,12 +1,20 @@
 import { Controller, Get, Render, Req, Res, UseGuards } from '@nestjs/common';
+import { CaseEntity } from './case/case.entity';
+import { CaseService } from './case/case.service';
+import { User } from './common/decorator/user.decorator';
 import { AuthenticatedGuard } from './common/guard/authenticated.guard';
 import { RaffleService } from './raffle/raffle.service';
+import { UserEntity } from './user/user.entity';
 import { UserService } from './user/user.service';
 import Request = Express.Request;
 
 @Controller()
 export class AppController {
-    public constructor(private readonly userService: UserService, private readonly raffleService: RaffleService) {}
+    public constructor(
+        private readonly userService: UserService,
+        private readonly raffleService: RaffleService,
+        private readonly caseService: CaseService
+    ) {}
 
     @Get()
     public async index(@Req() req, @Res() res): Promise<void> {
@@ -43,8 +51,18 @@ export class AppController {
     @UseGuards(AuthenticatedGuard)
     @Render('inventory')
     @Get('inventory')
-    public inventory(@Req() req: Request): { success: any } {
+    public async inventory(
+        @Req() req: Request | any,
+        @User() user: UserEntity
+    ): Promise<{ openedCases: CaseEntity[]; closedCases: CaseEntity[]; success: any }> {
+        req.user = await this.userService.byId(req.user.id, ['currentSubscription', 'rafflesWon']); //Load raffle relation
+
+        const openedCases = await this.caseService.getOpenedCases(user);
+        const closedCases = await this.caseService.getClosedCases(user);
+
         return {
+            openedCases,
+            closedCases,
             success: req.flash('success'),
         };
     }

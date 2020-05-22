@@ -117,4 +117,28 @@ export class CaseService extends EntityService<CaseEntity> {
 
         await this.repo.save(_case);
     }
+
+    public getOpenedCases(user: UserEntity): Promise<CaseEntity[]> {
+        return this.repo
+            .createQueryBuilder('case')
+            .leftJoin('case.user', 'user')
+            .leftJoinAndSelect('case.type', 'type')
+            .leftJoinAndSelect('case.content', 'content')
+            .leftJoinAndSelect('case.key', 'key')
+            .where('user.id = :userId', { userId: user.id })
+            .where('case.content IS NOT NULL')
+            .getMany();
+    }
+
+    public getClosedCases(user: UserEntity): Promise<CaseEntity[]> {
+        return this.repo
+            .createQueryBuilder('case')
+            .leftJoin('case.user', 'user')
+            .leftJoinAndSelect('case.type', 'type')
+            .leftJoinAndSelect('case.content', 'content')
+            .leftJoinAndSelect('case.key', 'key')
+            .where('user.id = :userId', { userId: user.id })
+            .where('case.content IS NULL')
+            .getMany();
+    }
 }

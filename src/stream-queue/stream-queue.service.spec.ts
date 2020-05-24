@@ -2,7 +2,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { DiscordBotService } from '../discord/discord-bot.service';
 import { TwitchService } from '../twitch/twitch.service';
 import { UserEntity } from '../user/user.entity';
 import { StreamQueueEntity } from './stream-queue.entity';
@@ -12,7 +11,6 @@ import MockDate = require('mockdate');
 describe('StreamQueueService', () => {
     let service: StreamQueueService;
     let repo: Repository<StreamQueueEntity>;
-    let discord: DiscordBotService;
     let twitch: TwitchService;
 
     beforeEach(async () => {
@@ -22,10 +20,6 @@ describe('StreamQueueService', () => {
                 {
                     provide: getRepositoryToken(StreamQueueEntity),
                     useClass: Repository,
-                },
-                {
-                    provide: DiscordBotService,
-                    useValue: { sendStreamNotificationMessage: jest.fn() },
                 },
                 {
                     provide: TwitchService,
@@ -38,7 +32,6 @@ describe('StreamQueueService', () => {
 
         service = module.get<StreamQueueService>(StreamQueueService);
         repo = module.get<Repository<StreamQueueEntity>>(getRepositoryToken(StreamQueueEntity));
-        discord = module.get<DiscordBotService>(DiscordBotService);
         twitch = module.get<TwitchService>(TwitchService);
 
         MockDate.reset();
@@ -76,7 +69,6 @@ describe('StreamQueueService', () => {
         it('should create a new StreamQueueEntity and call DiscordBotService.sendStreamNotificationMessage', async () => {
             // @ts-ignore
             const mockedSave = jest.spyOn(repo, 'save').mockImplementation(entity => entity);
-            const mockedDiscord = jest.spyOn(discord, 'sendStreamNotificationMessage');
 
             const user = new UserEntity();
             user.id = 1;
@@ -89,7 +81,6 @@ describe('StreamQueueService', () => {
             await service.insert(1000, 600, user);
 
             expect(mockedSave).toHaveBeenCalledWith(expectedStreamQueue);
-            expect(mockedDiscord).toHaveBeenCalled();
         });
     });
 

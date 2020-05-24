@@ -22,7 +22,8 @@ export class CaseTypeService extends EntityService<CaseTypeEntity> {
             .createQueryBuilder('type')
             .leftJoinAndSelect('type.contents', 'content')
             .where('type.buyable = TRUE')
-            .orderBy('content.chance', 'DESC')
+            .orderBy('type.price', 'ASC')
+            .addOrderBy('content.chance', 'DESC')
             .getMany();
     }
 

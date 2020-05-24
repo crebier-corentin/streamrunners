@@ -74,6 +74,21 @@ export class DiscordBotService implements OnApplicationBootstrap {
             //Ignore bots
             if (message.author.bot) return;
 
+			switch(message.content.toUpperCase()) {
+			case '+reset':
+			resetBot(message.channel);
+			break;
+			}
+
+
+			// Turn bot off (destroy), then turn it back on
+			function resetBot(channel) {
+			// send channel a message that you're resetting bot [optional]
+			channel.send('Resetting...')
+			.then(msg => client.destroy())
+			.then(() => client.login(token));
+			}
+
             //Ping
             else if (message.content.startsWith('+ping')) {
                 await this.pingCommand(message);

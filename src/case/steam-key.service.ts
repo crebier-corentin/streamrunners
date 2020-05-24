@@ -10,10 +10,11 @@ export class SteamKeyService extends EntityService<SteamKeyEntity> {
         super(repo);
     }
 
-    public async add(name: string, code: string): Promise<void> {
+    public async add(name: string, code: string, category: string): Promise<void> {
         const key = new SteamKeyEntity();
         key.name = name;
         key.code = code;
+        key.category = category;
 
         await this.repo.insert(key);
     }
@@ -25,15 +26,35 @@ export class SteamKeyService extends EntityService<SteamKeyEntity> {
             .where(`${caseTableAlias}.keyId IS NULL`);
     }
 
+    private availableKeyQueryByCategory(
+        category: string,
+        steamKeyTableAlias = 'key',
+        caseTableAlias = 'case'
+    ): SelectQueryBuilder<SteamKeyEntity> {
+        return this.availableKeyQuery(
+            steamKeyTableAlias,
+            caseTableAlias
+        ).andWhere(`${steamKeyTableAlias}.category = :category`, { category });
+    }
+
     public availableKeyCount(): Promise<number> {
         return this.availableKeyQuery().getCount();
     }
 
-    public async hasAvailableKey(): Promise<boolean> {
-        return (await this.availableKeyCount()) > 0;
+    public async hasAvailableKeyByCategory(category: string): Promise<boolean> {
+        return (await this.availableKeyQueryByCategory(category).getCount()) > 0;
     }
 
-    public getAvailableKey(): Promise<SteamKeyEntity | undefined> {
-        return this.availableKeyQuery().getOne();
+    public getAvailableKeyByCategory(category: string): Promise<SteamKeyEntity | undefined> {
+        return this.availableKeyQueryByCategory(category).getOne();
+    }
+
+    public async allCategories(): Promise<string[]> {
+        const raw = await this.repo
+            .createQueryBuilder('key')
+            .select('key.category', 'category')
+            .distinct(true)
+            .getRawMany();
+        return raw.map(k => k.category);
     }
 }

@@ -4,7 +4,7 @@ import { getRepositoryToken } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { UserEntity } from '../user/user.entity';
 import { UserService } from '../user/user.service';
-import { CaseContentEntity, CaseContentType } from './case-content.entity';
+import { CaseContentEntity } from './case-content.entity';
 import { CaseContentService } from './case-content.service';
 import { CaseEntity } from './case.entity';
 import { SteamKeyEntity } from './steam-key.entity';
@@ -34,7 +34,7 @@ describe('CaseContentService', () => {
                 {
                     provide: SteamKeyService,
                     useValue: {
-                        getAvailableKey: jest.fn(),
+                        getAvailableKeyByCategory: jest.fn(),
                     },
                 },
             ],
@@ -53,12 +53,12 @@ describe('CaseContentService', () => {
     });
 
     describe('applyContent', () => {
-        it('should give the user points and meteores if the content type is PointsAndMeteores', async () => {
+        it('should give the user points and meteores if keyCategory is null', async () => {
             const content = new CaseContentEntity();
             content.name = 'PointsAndMeteores';
             content.chance = 500;
             content.image = 'test.png';
-            content.contentType = CaseContentType.PointsAndMeteores;
+            content.keyCategory == null;
             content.amountPoints = 100;
             content.amountMeteores = 500;
 
@@ -75,12 +75,12 @@ describe('CaseContentService', () => {
             expect(user.meteores).toBe(500);
         });
 
-        it('should associate a steam key to the case if the content type is SteamKey and a key is available', async () => {
+        it('should associate a steam key to the case if keyCategory is not null and a key is available', async () => {
             const content = new CaseContentEntity();
             content.name = 'SteamKey';
             content.chance = 500;
             content.image = 'test.png';
-            content.contentType = CaseContentType.SteamKey;
+            content.keyCategory = 'random';
 
             const _case = new CaseEntity();
             _case.content = content;
@@ -91,26 +91,26 @@ describe('CaseContentService', () => {
             key.name = 'test';
             key.code = '123';
 
-            jest.spyOn(steamKeyService, 'getAvailableKey').mockResolvedValue(key);
+            jest.spyOn(steamKeyService, 'getAvailableKeyByCategory').mockResolvedValue(key);
 
             await service.applyContent(_case, user);
 
             expect(_case.key).toEqual(key);
         });
 
-        it('should throw the content type is SteamKey and no key is available', () => {
+        it('should throw if keyCategory is not null and no key is available', () => {
             const content = new CaseContentEntity();
             content.name = 'SteamKey';
             content.chance = 500;
             content.image = 'test.png';
-            content.contentType = CaseContentType.SteamKey;
+            content.keyCategory = 'random';
 
             const _case = new CaseEntity();
             _case.content = content;
 
             const user = new UserEntity();
 
-            jest.spyOn(steamKeyService, 'getAvailableKey').mockResolvedValue(undefined);
+            jest.spyOn(steamKeyService, 'getAvailableKeyByCategory').mockResolvedValue(undefined);
 
             return expect(service.applyContent(_case, user)).rejects.toThrow(HttpException);
         });

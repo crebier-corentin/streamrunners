@@ -55,8 +55,6 @@ export class DiscordBotService implements OnApplicationBootstrap {
             siteUserCountChannelId: this.config.get('SITE_USER_COUNT_CHANNEL_ID'),
             discordMemberCountChannelId: this.config.get('DISCORD_MEMBER_COUNT_CHANNEL_ID'),
             raffleValueCountChannelId: this.config.get('RAFFLE_VALUE_CHANNEL_ID'),
-            streamNotificationChannelId: this.config.get('STREAM_NOTIFICATION_CHANNEL_ID'),
-            streamNotificationRoleId: this.config.get('STREAM_NOTIFICATION_ROLE_ID'),
             raffleNotificationChannelId: this.config.get('RAFFLE_NOTIFICATION_CHANNEL_ID'),
             raffleNotificationRoleId: this.config.get('RAFFLE_NOTIFICATION_ROLE_ID'),
         });
@@ -67,8 +65,6 @@ export class DiscordBotService implements OnApplicationBootstrap {
         siteUserCountChannelId,
         discordMemberCountChannelId,
         raffleValueCountChannelId,
-        streamNotificationChannelId,
-        streamNotificationRoleId,
         raffleNotificationChannelId,
         raffleNotificationRoleId,
     }: DiscordBotConstructor): Promise<Client> {
@@ -77,19 +73,6 @@ export class DiscordBotService implements OnApplicationBootstrap {
         this.client.on('message', async message => {
             //Ignore bots
             if (message.author.bot) return;
-
-            //Get discord user from db
-            const discordUser = await this.discordUserService.byDiscordIdOrCreate(message.author.id);
-
-            //Add xp
-            if (await this.discordUserService.increaseXp(discordUser)) {
-                message.reply('Bravo, tu montes de niveau !');
-            }
-
-            //Commands
-            if (message.content.startsWith('+niveau')) {
-                await this.levelCommand(message, discordUser);
-            }
 
             //Ping
             else if (message.content.startsWith('+ping')) {
@@ -101,8 +84,10 @@ export class DiscordBotService implements OnApplicationBootstrap {
                 await this.leaderboardCommand(message);
             }
         });
+
         this.client.on('ready', async () => {
             this.client.user.setActivity('https://streamrunners.fr', { type: 'WATCHING' });
+            this.client.user.setAvatar('https://streamrunners.fr/img/benoit.png');
 
             //User count
             this.siteUserCountChannel = this.client.channels.find(c => c.id === siteUserCountChannelId) as VoiceChannel;
@@ -119,14 +104,6 @@ export class DiscordBotService implements OnApplicationBootstrap {
                 c => c.id === raffleValueCountChannelId
             ) as VoiceChannel;
             await this.updateRaffleValueCount();
-
-            //Stream notification
-            this.streamNotificationChannel = this.client.channels.find(
-                c => c.id === streamNotificationChannelId
-            ) as TextChannel;
-            this.streamNotificationRole = this.streamNotificationChannel?.guild.roles.find(
-                r => r.id === streamNotificationRoleId
-            );
 
             //Raffle notification
             this.raffleNotificationChannel = this.client.channels.find(
@@ -174,22 +151,6 @@ export class DiscordBotService implements OnApplicationBootstrap {
                 ],
             },
         });
-    }
-
-    public async levelCommand(message: Message, discordUser: DiscordUserEntity): Promise<void> {
-        const mentionedMember = message.mentions.members.first();
-
-        //Self if mentionedMember is empty
-        const targetUser =
-            mentionedMember == null
-                ? discordUser
-                : await this.discordUserService.byDiscordIdOrCreate(mentionedMember.id);
-
-        const embed = new Discord.RichEmbed()
-            .setColor(0x4286f4)
-            .addField('Niveau', targetUser.level)
-            .addField('XP', targetUser.xp + '/100');
-        message.channel.send(embed);
     }
 
     public async leaderboardCommand(message: Message): Promise<void> {
@@ -246,17 +207,6 @@ export class DiscordBotService implements OnApplicationBootstrap {
         await this.raffleValueCountChannel?.setName(`💲 Total Cadeaux : ${await this.raffleService.totalValue()}€`);
     }
 
-    public async sendStreamNotificationMessage(): Promise<void> {
-        //Don't spam, only one message every hour
-        if (this.lastStreamMessageSent.add(1, 'hour') > moment()) return;
-        this.lastStreamMessageSent = moment();
-
-        await this.streamNotificationChannel?.send(`
-  Un stream viens d'être lancé sur StreamRunners ! Va vite récupérer des points !
-  https://streamrunners.fr/
-
-  ${this.streamNotificationRole}`);
-    }
 
     public async sendRaffleNotificationMessage(raffle: RaffleEntity): Promise<void> {
         await this.raffleNotificationChannel?.send(`

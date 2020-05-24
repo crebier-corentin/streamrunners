@@ -97,7 +97,7 @@ export class CaseController {
     public async shop(@Req() req: Request): Promise<{ error: any; caseTypes: CaseTypeEntity[] }> {
         return {
             error: req.flash('error'),
-            caseTypes: await this.caseTypeService.getBuyableCaseTypes(['contents']),
+            caseTypes: await this.caseTypeService.getBuyableCaseTypes(),
         };
     }
 

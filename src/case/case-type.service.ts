@@ -17,8 +17,13 @@ export class CaseTypeService extends EntityService<CaseTypeEntity> {
         super(repo);
     }
 
-    public getBuyableCaseTypes(relations: (keyof CaseTypeEntity)[] = []): Promise<CaseTypeEntity[]> {
-        return this.repo.find({ where: { buyable: true }, relations: relations });
+    public getBuyableCaseTypes(): Promise<CaseTypeEntity[]> {
+        return this.repo
+            .createQueryBuilder('type')
+            .leftJoinAndSelect('type.contents', 'content')
+            .where('type.buyable = TRUE')
+            .orderBy('content.chance', 'DESC')
+            .getMany();
     }
 
     public async buyCase(caseTypeId: number, user: UserEntity): Promise<void> {

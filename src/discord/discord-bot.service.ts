@@ -74,24 +74,14 @@ export class DiscordBotService implements OnApplicationBootstrap {
             //Ignore bots
             if (message.author.bot) return;
 
-			switch(message.content.toUpperCase()) {
-			case '+reset':
-			resetBot(message.channel);
-			break;
-			}
-
-
-			// Turn bot off (destroy), then turn it back on
-			function resetBot(channel) {
-			// send channel a message that you're resetting bot [optional]
-			channel.send('Resetting...')
-			.then(msg => client.destroy())
-			.then(() => client.login(token));
-			}
-
             //Ping
             else if (message.content.startsWith('+ping')) {
                 await this.pingCommand(message);
+            }
+
+            //Reset
+            else if (message.content.startsWith('+reset')){
+            	await this.resetCommand(message);
             }
 
             //Leaderboard
@@ -135,6 +125,14 @@ export class DiscordBotService implements OnApplicationBootstrap {
         await this.client.login(token);
 
         return this.client;
+    }
+
+    public async resetCommand(message: Message): Promise<void> {
+    	await message.channel.send("Bot restarting");
+			function resetBot(channel) {
+			.then(msg => client.destroy())
+			.then(() => client.login(token));
+			}
     }
 
     public async pingCommand(message: Message): Promise<void> {

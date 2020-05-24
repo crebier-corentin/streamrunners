@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { UserErrorException } from '../common/exception/user-error.exception';
 import { EntityService } from '../common/utils/entity-service';
 import { UserEntity } from '../user/user.entity';
-import { CaseContentEntity, CaseContentType } from './case-content.entity';
+import { CaseContentEntity } from './case-content.entity';
 import { CaseContentService } from './case-content.service';
 import { CaseTypeEntity } from './case-type.entity';
 import { CaseEntity } from './case.entity';
@@ -92,11 +92,13 @@ export class CaseService extends EntityService<CaseEntity> {
         }
 
         //Reload if no steam keys are available
-        const steamKeyAvailable = await this.steamKeyService.hasAvailableKey();
         let winning: CaseContentEntity;
         do {
             winning = await this.getRandomContent(_case.type.contents);
-        } while (!steamKeyAvailable && winning.contentType === CaseContentType.SteamKey);
+        } while (
+            winning.keyCategory != null &&
+            !(await this.steamKeyService.hasAvailableKeyByCategory(winning.keyCategory))
+        );
 
         _case.content = winning;
 

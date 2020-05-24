@@ -95,7 +95,7 @@
                         </div>
 
                         {# Modal #}
-                        {% if case.content.contentType == CaseContentType.SteamKey %}
+                        {% if case.key != null %}
                             <div id="modal-case-{{ case.id }}" class="modal" tabindex="-1" role="dialog">
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">

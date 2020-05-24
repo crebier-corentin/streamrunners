@@ -11,7 +11,6 @@ import * as nunjucks from 'nunjucks';
 import * as passport from 'passport';
 import { AnnouncementService } from './announcement/announcement.service';
 import { AppModule } from './app.module';
-import { CaseContentType } from './case/case-content.entity';
 import { BanFilter } from './common/filter/ban.filter';
 import { ViewFilter } from './common/filter/view.filter';
 import { BanGuard } from './common/guard/ban.guard';
@@ -67,7 +66,6 @@ async function bootstrap(): Promise<void> {
         .addGlobal('HOSTNAME', config.get('HOSTNAME'))
         .addGlobal('SubscriptionLevelToFrench', SubscriptionLevelToFrench)
         .addGlobal('SubscriptionLevel', SubscriptionLevel)
-        .addGlobal('CaseContentType', CaseContentType)
         .addGlobal('ChatRank', ChatRank)
         //Await nunjucks (https://www.npmjs.com/package/nunjucks-await-filter)
         .addFilter(

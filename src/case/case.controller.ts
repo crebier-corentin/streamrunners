@@ -46,10 +46,31 @@ export class CaseController {
 
         if (_case.isOpened()) new UnprocessableEntityException();
 
+        //For steamKeyAvailable we need to check every keyCategory in contents
+        const steamKeyAvailable = await (async (): Promise<boolean> => {
+            //Get all the unique categories
+            const keyCategories = _case.type.contents.reduce((categories, content) => {
+                if (content.keyCategory != null) {
+                    categories.add(content.keyCategory);
+                }
+
+                return categories;
+            }, new Set<string>());
+
+            //Check if a key is available for each category
+            for (const category of keyCategories) {
+                if (!(await this.steamKeyService.hasAvailableKeyByCategory(category))) {
+                    return false;
+                }
+            }
+
+            return true;
+        })();
+
         return {
             caseId: _case.id,
             caseContents: _case.type.contents,
-            steamKeyAvailable: await this.steamKeyService.hasAvailableKey(),
+            steamKeyAvailable,
         };
     }
 

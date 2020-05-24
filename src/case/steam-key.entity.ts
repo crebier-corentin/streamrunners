@@ -13,6 +13,9 @@ export class SteamKeyEntity {
     @Column({ unique: true })
     public code: string;
 
+    @Column({ default: 'random' })
+    public category: string;
+
     @OneToOne(
         type => CaseEntity,
         c => c.key

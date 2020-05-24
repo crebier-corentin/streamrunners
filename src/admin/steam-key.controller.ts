@@ -24,11 +24,14 @@ export class SteamKeyController {
 
     @Render('admin/steam')
     @Get()
-    public async coupon(@Req() req: Request): Promise<{ success: string[]; totalKeys: number; availableKeys: number }> {
+    public async coupon(
+        @Req() req: Request
+    ): Promise<{ success: string[]; totalKeys: number; availableKeys: number; categories: string[] }> {
         return {
             success: req.flash('success'),
             totalKeys: await this.steamKeyService.count(),
             availableKeys: await this.steamKeyService.availableKeyCount(),
+            categories: await this.steamKeyService.allCategories(),
         };
     }
 
@@ -36,7 +39,7 @@ export class SteamKeyController {
     @Post('add')
     @Redirect('/admin/steam')
     public async addCoupon(@Body() dto: AddSteamKeyDto, @Req() req: Request): Promise<void> {
-        await this.steamKeyService.add(dto.name, dto.code);
+        await this.steamKeyService.add(dto.name, dto.code, dto.category);
 
         req.flash('success', 'Clé steam ajouté avec succès!');
     }

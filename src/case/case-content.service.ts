@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { EntityService } from '../common/utils/entity-service';
 import { UserEntity } from '../user/user.entity';
 import { UserService } from '../user/user.service';
-import { CaseContentEntity, CaseContentType } from './case-content.entity';
+import { CaseContentEntity } from './case-content.entity';
 import { CaseEntity } from './case.entity';
 import { SteamKeyService } from './steam-key.service';
 
@@ -23,18 +23,15 @@ export class CaseContentService extends EntityService<CaseContentService> {
     }
 
     private async applySteamKey(_case: CaseEntity): Promise<void> {
-        const key = await this.steamKeyService.getAvailableKey();
+        const key = await this.steamKeyService.getAvailableKeyByCategory(_case.content.keyCategory);
         if (key == undefined) throw new InternalServerErrorException();
 
         _case.key = key;
     }
 
     public applyContent(_case: CaseEntity, user: UserEntity): Promise<void> {
-        switch (_case.content.contentType) {
-            case CaseContentType.PointsAndMeteores:
-                return this.applyPrizePointsAndMeteores(_case.content, user);
-            case CaseContentType.SteamKey:
-                return this.applySteamKey(_case);
-        }
+        return _case.content.keyCategory == null
+            ? this.applyPrizePointsAndMeteores(_case.content, user)
+            : this.applySteamKey(_case);
     }
 }

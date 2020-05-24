@@ -19,6 +19,16 @@
                     <input id="code" name="code" type="text" required="required" class="form-control">
                 </div>
             </div>
+            {# Category #}
+            <div class="form-group row">
+                <label class="col-4 col-form-label" for="category">Category</label>
+                <div class="col-8">
+                    <input id="category" name="category" type="text" required="required" class="form-control" placeholder="random">
+                </div>
+                <small class="form-text text-muted">
+                    Catégories existantes: {{ categories | join(", ") }}
+                </small>
+            </div>
 
             {# submit #}
             <div class="form-group row">

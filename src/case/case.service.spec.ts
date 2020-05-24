@@ -4,7 +4,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { UserEntity } from '../user/user.entity';
-import { CaseContentEntity, CaseContentType } from './case-content.entity';
+import { CaseContentEntity } from './case-content.entity';
 import { CaseContentService } from './case-content.service';
 import { CaseEntity } from './case.entity';
 import { CaseService } from './case.service';
@@ -33,7 +33,7 @@ describe('CaseService', () => {
                 {
                     provide: SteamKeyService,
                     useValue: {
-                        hasAvailableKey: jest.fn(),
+                        hasAvailableKeyByCategory: jest.fn(),
                     },
                 },
             ],
@@ -125,7 +125,7 @@ describe('CaseService', () => {
             winningMock.image = 'win.png';
             winningMock.amountPoints = 100;
             winningMock.amountMeteores = 500;
-            winningMock.contentType = CaseContentType.PointsAndMeteores;
+            winningMock.keyCategory = null;
 
             mockedGetRandomContent.mockReturnValueOnce(winningMock);
 
@@ -154,7 +154,7 @@ describe('CaseService', () => {
             winningMock1.name = 'win';
             winningMock1.chance = 500;
             winningMock1.image = 'win.png';
-            winningMock1.contentType = CaseContentType.SteamKey;
+            winningMock1.keyCategory = 'random';
 
             mockedGetRandomContent.mockReturnValueOnce(winningMock1);
 
@@ -162,7 +162,7 @@ describe('CaseService', () => {
             winningMock2.name = 'win';
             winningMock2.chance = 500;
             winningMock2.image = 'win.png';
-            winningMock2.contentType = CaseContentType.PointsAndMeteores;
+            winningMock2.keyCategory = null;
 
             mockedGetRandomContent.mockReturnValueOnce(winningMock2);
 
@@ -173,7 +173,7 @@ describe('CaseService', () => {
 
             const user = new UserEntity();
 
-            jest.spyOn(steamKeyService, 'hasAvailableKey').mockResolvedValue(false);
+            jest.spyOn(steamKeyService, 'hasAvailableKeyByCategory').mockResolvedValue(false);
 
             const { spin, winning } = await service.openCase(_case, user);
 

@@ -39,6 +39,7 @@ describe('ErrorViewFilter', () => {
     });
 
     it('should default to 500 if the exception is not HttpException', () => {
+        jest.spyOn(console, 'error').mockImplementation();
         // @ts-ignore
         jest.spyOn(fs, 'readdirSync').mockReturnValue(['500.nunj']);
 

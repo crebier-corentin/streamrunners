@@ -4,7 +4,6 @@ import { Cron, CronExpression } from '@nestjs/schedule';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { EntityService } from '../common/utils/entity-service';
-import { DiscordBotService } from '../discord/discord-bot.service';
 import { TwitchService } from '../twitch/twitch.service';
 import { UserEntity } from '../user/user.entity';
 import { StreamQueueEntity } from './stream-queue.entity';
@@ -14,7 +13,6 @@ import moment = require('moment');
 export class StreamQueueService extends EntityService<StreamQueueEntity> {
     public constructor(
         @InjectRepository(StreamQueueEntity) repo: Repository<StreamQueueEntity>,
-        private readonly discordBot: DiscordBotService,
         private readonly twitch: TwitchService
     ) {
         super(repo);
@@ -70,8 +68,6 @@ export class StreamQueueService extends EntityService<StreamQueueEntity> {
         stream.time = time;
         stream.user = user;
         await this.repo.save(stream);
-
-        await this.discordBot.sendStreamNotificationMessage();
     }
 
     public async skipCurrent(): Promise<void> {

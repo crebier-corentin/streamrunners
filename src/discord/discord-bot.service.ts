@@ -1,13 +1,10 @@
 import { forwardRef, Inject, Injectable, OnApplicationBootstrap } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { Client, Message, Role, TextChannel, VoiceChannel } from 'discord.js';
-import * as moment from 'moment';
 import { LeaderboardDrawerService } from '../leaderboard/leaderboard-drawer.service';
 import { RaffleEntity } from '../raffle/raffle.entity';
 import { RaffleService } from '../raffle/raffle.service';
 import { UserService } from '../user/user.service';
-import { DiscordUserEntity } from './discord-user.entity';
-import { DiscordUserService } from './discord-user.service';
 import Discord = require('discord.js');
 
 interface DiscordBotConstructor {
@@ -15,8 +12,6 @@ interface DiscordBotConstructor {
     siteUserCountChannelId: string;
     discordMemberCountChannelId: string;
     raffleValueCountChannelId: string;
-    streamNotificationChannelId: string;
-    streamNotificationRoleId: string;
     raffleNotificationChannelId: string;
     raffleNotificationRoleId: string;
 }
@@ -29,10 +24,6 @@ export class DiscordBotService implements OnApplicationBootstrap {
     private discordMemberCountChannel: VoiceChannel;
     private raffleValueCountChannel: VoiceChannel;
 
-    private streamNotificationChannel: TextChannel;
-    private streamNotificationRole: Role;
-    private lastStreamMessageSent: moment.Moment = moment().subtract(20, 'hours');
-
     private raffleNotificationChannel: TextChannel;
     private raffleNotificationRole: Role;
 
@@ -41,8 +32,7 @@ export class DiscordBotService implements OnApplicationBootstrap {
         @Inject(forwardRef(() => UserService)) private readonly userService: UserService,
         @Inject(forwardRef(() => LeaderboardDrawerService))
         private readonly leaderboardDrawer: LeaderboardDrawerService,
-        @Inject(forwardRef(() => RaffleService)) private readonly raffleService: RaffleService,
-        private readonly discordUserService: DiscordUserService
+        @Inject(forwardRef(() => RaffleService)) private readonly raffleService: RaffleService
     ) {}
 
     public async onApplicationBootstrap(): Promise<void> {
@@ -67,21 +57,20 @@ export class DiscordBotService implements OnApplicationBootstrap {
         raffleValueCountChannelId,
         raffleNotificationChannelId,
         raffleNotificationRoleId,
-    }: DiscordBotConstructor): Promise<Client> {
+    }: DiscordBotConstructor): Promise<void> {
         this.client = new Discord.Client();
 
         this.client.on('message', async message => {
             //Ignore bots
             if (message.author.bot) return;
-
             //Ping
             else if (message.content.startsWith('+ping')) {
                 await this.pingCommand(message);
             }
 
             //Reset
-            else if (message.content.startsWith('+reset')){
-            	await this.resetCommand(message);
+            else if (message.content.startsWith('+reset')) {
+                await this.resetCommand(message);
             }
 
             //Leaderboard
@@ -123,16 +112,13 @@ export class DiscordBotService implements OnApplicationBootstrap {
         this.client.on('guildMemberRemove', this.updateDiscordMemberCount.bind(this));
 
         await this.client.login(token);
-
-        return this.client;
     }
 
     public async resetCommand(message: Message): Promise<void> {
-    	await message.channel.send("Bot restarting");
-			function resetBot(channel) {
-			.then(msg => client.destroy())
-			.then(() => client.login(token));
-			}
+        await message.channel.send('Le bot redémarre');
+
+        await this.client.destroy();
+        await this.initFromConfig();
     }
 
     public async pingCommand(message: Message): Promise<void> {
@@ -219,7 +205,6 @@ export class DiscordBotService implements OnApplicationBootstrap {
     public async updateRaffleValueCount(): Promise<void> {
         await this.raffleValueCountChannel?.setName(`💲 Total Cadeaux : ${await this.raffleService.totalValue()}€`);
     }
-
 
     public async sendRaffleNotificationMessage(raffle: RaffleEntity): Promise<void> {
         await this.raffleNotificationChannel?.send(`

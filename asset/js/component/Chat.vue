@@ -72,6 +72,7 @@
                    type="text"
                    placeholder=" Votre message..."
                    v-model="message"
+                   autocomplete="off"
                    @keyup.enter="sendMessage" />
             <!-- Emoji toggle -->
             <button class="emoji btn btn-primary w-100 h-100" v-popover:emoji.top><i class="far fa-smile"></i></button>

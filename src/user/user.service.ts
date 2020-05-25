@@ -71,14 +71,27 @@ export class UserService extends EntityService<UserEntity> {
         return result;
     }
 
+    private async changeAmountSave<K extends keyof UserEntity>(
+        user: UserEntity,
+        column: K,
+        amount: number
+    ): Promise<void> {
+        await this.repo.increment({ id: user.id }, column, amount);
+        user[column] = (
+            await this.repo
+                .createQueryBuilder('user')
+                .select(`user.${column}`, column)
+                .where('user.id = :id', { id: user.id })
+                .getRawOne()
+        )[column];
+    }
+
     public async changePointsSave(user: UserEntity, amount: number): Promise<void> {
-        user.changePoints(amount);
-        await this.repo.save(user);
+        await this.changeAmountSave(user, 'points', amount);
     }
 
     public async changeMeteoresSave(user: UserEntity, amount: number): Promise<void> {
-        user.changeMeteores(amount);
-        await this.repo.save(user);
+        await this.changeAmountSave(user, 'meteores', amount);
     }
 
     public pickRaffleWinner(raffle: RaffleEntity): Promise<UserEntity> {

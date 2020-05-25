@@ -176,22 +176,6 @@ export class UserEntity {
     //Loaded from subscriber
     public subscriptionLevel: SubscriptionLevel;
 
-    public changePoints(amount: number): void {
-        if (this.points != undefined) {
-            this.points = Math.round(this.points + amount);
-        } else {
-            this.points = Math.round(amount);
-        }
-    }
-
-    public changeMeteores(amount: number): void {
-        if (this.meteores != undefined) {
-            this.meteores = Math.round(this.meteores + amount);
-        } else {
-            this.meteores = Math.round(amount);
-        }
-    }
-
     public canAffordPoints(cost: number): boolean {
         return this.points >= cost;
     }

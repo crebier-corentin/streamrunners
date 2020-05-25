@@ -104,6 +104,13 @@ describe('UserService', () => {
             const user = new UserEntity();
             user.points = 1000;
 
+            jest.spyOn(repo, 'increment').mockImplementation();
+            jest.spyOn(repo, 'createQueryBuilder').mockReturnValue({
+                select: jest.fn().mockReturnThis(),
+                where: jest.fn().mockReturnThis(),
+                getRawOne: jest.fn().mockResolvedValue({ points: 1400 }),
+            } as any);
+
             await service.changePointsSave(user, 400);
             expect(user.points).toBe(1400);
         });
@@ -113,6 +120,13 @@ describe('UserService', () => {
         it("should change the user's meteores", async () => {
             const user = new UserEntity();
             user.meteores = 1000;
+
+            jest.spyOn(repo, 'increment').mockImplementation();
+            jest.spyOn(repo, 'createQueryBuilder').mockReturnValue({
+                select: jest.fn().mockReturnThis(),
+                where: jest.fn().mockReturnThis(),
+                getRawOne: jest.fn().mockResolvedValue({ meteores: 1400 }),
+            } as any);
 
             await service.changeMeteoresSave(user, 400);
             expect(user.meteores).toBe(1400);

@@ -80,8 +80,7 @@ export class DiscordBotService implements OnApplicationBootstrap {
         });
 
         this.client.on('ready', async () => {
-            this.client.user.setActivity('https://streamrunners.fr', { type: 'WATCHING' });
-            this.client.user.setAvatar('https://streamrunners.fr/img/benoit.png');
+            await this.client.user.setActivity('https://streamrunners.fr', { type: 'WATCHING' });
 
             //User count
             this.siteUserCountChannel = this.client.channels.find(c => c.id === siteUserCountChannelId) as VoiceChannel;

@@ -2,8 +2,8 @@ export enum ChatRank {
     Member,
     VIP,
     Diamond,
-    Birthday,
     Partner,
+    Birthday,
     Moderator,
     Admin,
 }

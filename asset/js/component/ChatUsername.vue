@@ -34,10 +34,10 @@
                         return 'chat-name-vip';
                     case ChatRank.Diamond:
                         return 'chat-name-diamond';
-                    case ChatRank.Birthday:
-                        return 'chat-name-birthday';
                     case ChatRank.Partner:
                         return 'chat-name-partner';
+                    case ChatRank.Birthday:
+                        return 'chat-name-birthday';
                     case ChatRank.Moderator:
                         return 'chat-name-moderator';
                     case ChatRank.Admin:
@@ -53,10 +53,10 @@
                         return 'fa-star';
                     case ChatRank.Diamond:
                         return 'fa-gem';
-                    case ChatRank.Birthday:
-                        return 'fa-unicorn';
                     case ChatRank.Partner:
                         return 'fa-handshake';
+                    case ChatRank.Birthday:
+                        return 'fa-horse-head';
                     case ChatRank.Moderator:
                         return 'fa-user-shield';
                     case ChatRank.Admin:

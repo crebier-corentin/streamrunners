@@ -126,6 +126,7 @@ export class UserService extends EntityService<UserEntity> {
                 'user.moderator',
                 'user.admin',
                 'user.partner',
+                'user.birthday',
                 'user.sparkle',
                 'user.gotAffiliateCase',
             ])

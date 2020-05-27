@@ -35,6 +35,12 @@ describe('UserEntity', () => {
             expect(user.chatRank).toBe(ChatRank.Partner);
         });
 
+        it('should return ChatRank.Birthday if the user has birthday', () => {
+            user.birthday = true;
+
+            expect(user.chatRank).toBe(ChatRank.Birthday);
+        });
+
         it.each([
             [ChatRank.Member, SubscriptionLevel.None],
             [ChatRank.VIP, SubscriptionLevel.VIP],

@@ -4,7 +4,6 @@ import { Connection } from 'typeorm';
 import { SubscriptionLevel } from '../subscription/subscription.interfaces';
 import { UserEntity } from './user.entity';
 import { UserSubscriber } from './user.subscriber';
-import { SubscriptionService } from '../subscription/subscription.service';
 import { SubscriptionEntity } from '../subscription/subscription.entity';
 
 describe('UserSubscriber', () => {
@@ -49,6 +48,14 @@ describe('UserSubscriber', () => {
             user.id = 1;
             user.partner = false;
             sub = new SubscriptionEntity();
+        });
+
+        it('should return SubscriptionLevel.Diamond if the user has birthday', async () => {
+            user.currentSubscription = undefined;
+            user.birthday = true;
+            await subscriber.afterLoad(user);
+
+            expect(user.subscriptionLevel).toBe(SubscriptionLevel.Diamond);
         });
 
         it('should return SubscriptionLevel.Diamond if the user is a partner', async () => {

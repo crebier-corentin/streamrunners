@@ -102,6 +102,12 @@
   color: $diamond-color;
 }
 
+.chat-name-birthday {
+  background-image: linear-gradient(to left, violet, indigo, blue, green, yellow, orange, red);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
 .chat-name-partner {
   color: $purple;
 }

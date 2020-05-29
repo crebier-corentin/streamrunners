@@ -50,7 +50,7 @@ export class ContactController {
         //Send confirmation email
         await this.mailService.sendMail({
             to: body.email,
-            subject: 'Nous avons bien reçu votre message',
+            subject: 'StreamRunners | Nous avons bien reçu votre message !',
             text: 'Merci de nous avoir contacté.',
         });
 

@@ -14,6 +14,7 @@ import { ChatModule } from './chat/chat.module';
 import { CouponModule } from './coupon/coupon.module';
 import { DiscordModule } from './discord/discord.module';
 import { LeaderboardModule } from './leaderboard/leaderboard.module';
+import { MailModule } from './mail/mail.module';
 import { PartnerModule } from './partner/partner.module';
 import { RaffleModule } from './raffle/raffle.module';
 import { StreamQueueModule } from './stream-queue/stream-queue.module';
@@ -51,6 +52,7 @@ import ormconfig = require('./ormconfig');
         SubscriptionModule,
         CaseModule,
         AffiliateModule,
+        MailModule,
     ],
     controllers: [AppController],
 })

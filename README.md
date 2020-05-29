@@ -45,6 +45,12 @@ INSERT INTO case_content (name, image, chance, contentType, amountPoints, amount
 * For `SITE_USER_COUNT_CHANNEL_ID`, `DISCORD_MEMBER_COUNT_CHANNEL_ID` and `RAFFLE_VALUE_CHANNEL_ID` create a vocal channel and copy its id (right click on the channel -> copy id).
 * For `STREAM_NOTIFICATION_ROLE_ID` and `RAFFLE_NOTIFICATION_ROLE_ID` create a role and copy its id  (be careful to copy the id of the role and not the id of a message or an user).
 * For `STREAM_NOTIFICATION_CHANNEL_ID` and `RAFFLE_NOTIFICATION_CHANNEL_ID` create a text channel and copy its id.
+###### Mail
+The site uses [nodemailer](https://nodemailer.com/about/).  
+* Set `MAIL_SMTP_ADDRESS` to the email address you want to use. (Might be different from the username.)
+* Set `MAIL_SMTP_HOST` and `MAIL_SMTP_PORT` to the SMTP server host and port respectively.
+* Set `MAIL_SMTP_SECURE` to `true` or `false`. (Usually `true` if the port is 465.)
+* Set `MAIL_SMTP_USER` and `MAIL_SMTP_PASSWORD` to the username and password for your email account.
 ###### Paypal (optional, but required for the subscription part of the site)
 * Create a sandbox paypal app [https://developer.paypal.com/developer/applications](https://developer.paypal.com/developer/applications).
 * Set `PAYPAL_CLIENT_ID` and `PAYPAL_SECRET` to the client id and secret respectively.

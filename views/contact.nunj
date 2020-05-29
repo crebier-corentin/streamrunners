@@ -2,35 +2,60 @@
 {% extends "master.nunj" %}
 
 {% block meta %}
-	<meta name="description" content="Nous contacter" />
-	<meta property="og:image" content="/img/brand.png" />
-	<meta property="og:title" content="StreamRunners - Contact" />
-	<meta property="og:description" content="Nous contacter" />
-	<link rel="canonical" href="https://streamrunners.fr/contact" />
+    <meta name="description" content="Nous contacter" />
+    <meta property="og:image" content="/img/brand.png" />
+    <meta property="og:title" content="StreamRunners - Contact" />
+    <meta property="og:description" content="Nous contacter" />
+    <link rel="canonical" href="https://streamrunners.fr/contact" />
 {% endblock %}
 
 {% block content %}
-	<div class="container">
-		<center><h1>Nous Contacter</h1>
-		<hr>
-		<form>
-  			<div class="form-group">
-			    <label class="db" for="exampleInputEmail1">Votre Mail</label>
-			    <input type="text" class="input rounded border contact" placeholder="Votre Mail" />
-			    <small id="emailHelp" class="form-text text-muted">Nous ne le partagerons à personne.</small>
-		  	</div>
-		 	<div class="form-group">
-			    <label class="db" for="exampleInputPassword1">Objet</label>
-			    <input type="text" class="input rounded border contact" placeholder="Objet" />
-		  	</div>
-		  	<div class="form-group">
-			    <label class="db" for="exampleInputPassword1">Votre Message</label>
-			    <textarea type="text" class="input rounded border contact" placeholder="Votre Message..."></textarea>
-		  	</div>
-		  		<button class="btn btn-outline-success sub contact">Envoyer&nbsp;&nbsp;&nbsp;<i class="fas fa-paper-plane"></i></button>
-		</form>
-		<center>
-	</div>
+    <div class="container text-center">
+        <h1>Nous Contacter</h1>
 
+        {% if success | length %}
+            <div class="alert alert-success" style="white-space: pre-line;">{{ success }}</div>
+        {% endif %}
+
+        <hr>
+
+        {% if error | length %}
+            <div class="alert alert-danger" style="white-space: pre-line;">{{ error }}</div>
+        {% endif %}
+
+        <form method="post">
+            <div class="form-group">
+                <label class="d-block" for="email">Votre Mail</label>
+                <input id="email"
+                       name="email"
+                       type="email"
+                       class="input rounded border contact"
+                       placeholder="Votre Mail"
+                       required />
+                <small class="form-text text-muted">Nous ne le partagerons à personne.</small>
+            </div>
+            <div class="form-group">
+                <label class="d-block" for="subject">Objet</label>
+                <input id="subject"
+                       name="subject"
+                       type="text"
+                       class="input rounded border contact"
+                       placeholder="Objet"
+                       required />
+            </div>
+            <div class="form-group">
+                <label class="d-block" for="message">Votre Message</label>
+                <textarea id="message"
+                          name="message"
+                          type="text"
+                          class="input rounded border contact"
+                          placeholder="Votre Message..."
+                          required></textarea>
+            </div>
+            <button type="submit" class="btn btn-outline-success sub contact">
+                Envoyer&nbsp;&nbsp;&nbsp;<i class="fas fa-paper-plane"></i></button>
+        </form>
+
+    </div>
 
 {% endblock %}

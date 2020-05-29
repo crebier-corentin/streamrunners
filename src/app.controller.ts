@@ -42,12 +42,6 @@ export class AppController {
         //
     }
 
-    @Render('contact')
-    @Get('contact')
-    public contact(): void {
-        //
-    }
-
     @UseGuards(AuthenticatedGuard)
     @Render('inventory')
     @Get('inventory')

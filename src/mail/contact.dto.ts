@@ -19,4 +19,6 @@ export class ContactDto {
     @MaxLength(5000, { message: 'Le champ message ne peut pas avoir plus de 5000 caractères.' })
     @Trim()
     public message: string;
+
+    public 'g-recaptcha-response': string;
 }

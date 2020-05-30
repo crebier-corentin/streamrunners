@@ -64,6 +64,7 @@ async function bootstrap(): Promise<void> {
             express: app,
         })
         .addGlobal('HOSTNAME', config.get('HOSTNAME'))
+        .addGlobal('RECAPTCHA_PUBLIC', config.get('RECAPTCHA_PUBLIC'))
         .addGlobal('SubscriptionLevelToFrench', SubscriptionLevelToFrench)
         .addGlobal('SubscriptionLevel', SubscriptionLevel)
         .addGlobal('ChatRank', ChatRank)

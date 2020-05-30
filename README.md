@@ -51,6 +51,13 @@ The site uses [nodemailer](https://nodemailer.com/about/).
 * Set `MAIL_SMTP_HOST` and `MAIL_SMTP_PORT` to the SMTP server host and port respectively.
 * Set `MAIL_SMTP_SECURE` to `true` or `false`. (Usually `true` if the port is 465.)
 * Set `MAIL_SMTP_USER` and `MAIL_SMTP_PASSWORD` to the username and password for your email account.
+###### Recaptcha
+###### Dev
+* Set `RECAPTCHA_PUBLIC` to `6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI`
+* Set `RECAPTCHA_SECRET` to `6LeIxAcTAAAAAGG-vFI1TnRWxMZNFuojJ4WifJWe`
+###### Prod
+* Register a recaptcha v2 checkbox application [https://www.google.com/recaptcha/admin](https://www.google.com/recaptcha/admin).
+* Set `RECAPTCHA_PUBLIC` and `RECAPTCHA_SECRET` to the public token and secret token respectively.
 ###### Paypal (optional, but required for the subscription part of the site)
 * Create a sandbox paypal app [https://developer.paypal.com/developer/applications](https://developer.paypal.com/developer/applications).
 * Set `PAYPAL_CLIENT_ID` and `PAYPAL_SECRET` to the client id and secret respectively.

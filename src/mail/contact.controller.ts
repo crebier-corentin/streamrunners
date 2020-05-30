@@ -10,15 +10,17 @@ import {
     UsePipes,
     ValidationPipe,
 } from '@nestjs/common';
+import { UserErrorException } from '../common/exception/user-error.exception';
 import { ValidationErrorsException } from '../common/exception/validation-errors.exception';
 import { FlashAndRedirectUserErrorFilter } from '../common/filter/flash-and-redirect-user-error.filter';
 import { SanitizationPipe } from '../common/pipe/sanitization-pipe.service';
+import { RecaptchaService } from '../recaptcha/recaptcha.service';
 import { ContactDto } from './contact.dto';
 import { MailService } from './mail.service';
 
 @Controller('contact')
 export class ContactController {
-    public constructor(private readonly mailService: MailService) {}
+    public constructor(private readonly mailService: MailService, private readonly recaptcha: RecaptchaService) {}
 
     @Render('contact')
     @Get()
@@ -39,6 +41,10 @@ export class ContactController {
     @Redirect('/contact')
     @Post()
     public async contact(@Body() body: ContactDto, @Req() req): Promise<void> {
+        if (!(await this.recaptcha.validate(body['g-recaptcha-response']))) {
+            throw new UserErrorException('Erreur recaptcha.');
+        }
+
         //Send contact mail to self
         await this.mailService.sendMail({
             to: this.mailService.emailAddress,

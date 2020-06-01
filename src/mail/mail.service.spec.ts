@@ -86,6 +86,7 @@ describe('MailService', () => {
                     user: 'user',
                     pass: 'password',
                 },
+                tls: expect.anything(),
             });
             expect(service.emailAddress).toBe('user@example.com');
         });

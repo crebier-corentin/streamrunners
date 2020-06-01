@@ -18,6 +18,9 @@ export class MailService implements OnApplicationBootstrap {
                 user: config.get<string>('MAIL_SMTP_USER'),
                 pass: config.get<string>('MAIL_SMTP_PASSWORD'),
             },
+            tls: {
+                rejectUnauthorized: false,
+            },
         });
 
         this.emailAddress = config.get<string>('MAIL_SMTP_ADDRESS');

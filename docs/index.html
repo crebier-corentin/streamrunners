@@ -1,0 +1,560 @@
+<!doctype html>
+<html class="default no-js">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>streamrunners</title>
+	<meta name="description" content="Documentation for streamrunners">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body>
+<header>
+	<div class="tsd-page-toolbar">
+		<div class="container">
+			<div class="table-wrap">
+				<div class="table-cell" id="tsd-search" data-index="assets/js/search.json" data-base=".">
+					<div class="field">
+						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
+						<input id="tsd-search-field" type="text" />
+					</div>
+					<ul class="results">
+						<li class="state loading">Preparing search index...</li>
+						<li class="state failure">The search index is not available</li>
+					</ul>
+					<a href="index.html" class="title">streamrunners</a>
+				</div>
+				<div class="table-cell" id="tsd-widgets">
+					<div id="tsd-filter">
+						<a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a>
+						<div class="tsd-filter-group">
+							<div class="tsd-select" id="tsd-filter-visibility">
+								<span class="tsd-select-label">All</span>
+								<ul class="tsd-select-list">
+									<li data-value="public">Public</li>
+									<li data-value="protected">Public/Protected</li>
+									<li data-value="private" class="selected">All</li>
+								</ul>
+							</div>
+							<input type="checkbox" id="tsd-filter-inherited" checked />
+							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
+							<input type="checkbox" id="tsd-filter-externals" checked />
+							<label class="tsd-widget" for="tsd-filter-externals">Externals</label>
+							<input type="checkbox" id="tsd-filter-only-exported" />
+							<label class="tsd-widget" for="tsd-filter-only-exported">Only exported</label>
+						</div>
+					</div>
+					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="tsd-page-title">
+		<div class="container">
+			<ul class="tsd-breadcrumb">
+				<li>
+					<a href="globals.html">Globals</a>
+				</li>
+			</ul>
+			<h1>streamrunners</h1>
+		</div>
+	</div>
+</header>
+<div class="container container-main">
+	<div class="row">
+		<div class="col-8 col-content">
+			<div class="tsd-panel tsd-typography">
+				<a href="#manual-dependencies-dep" id="manual-dependencies-dep" style="color: inherit; text-decoration: none;">
+					<h3>Manual dependencies (/dep/)</h3>
+				</a>
+				<p><code>oauth</code> &amp; <code>passport-twitch</code>: patched to support twitch&#39;s new API  </p>
+				<a href="#installation" id="installation" style="color: inherit; text-decoration: none;">
+					<h1>Installation</h1>
+				</a>
+				<a href="#requirements" id="requirements" style="color: inherit; text-decoration: none;">
+					<h3>Requirements</h3>
+				</a>
+				<ul>
+					<li>node.js</li>
+					<li>yarn (not required but recommended)</li>
+					<li>mysql</li>
+				</ul>
+				<a href="#steps" id="steps" style="color: inherit; text-decoration: none;">
+					<h3>Steps</h3>
+				</a>
+				<ul>
+					<li>Run <code>yarn install</code> (You may have errors installing <code>node-canvas</code>, follow the instructions here: <a href="https://github.com/Automattic/node-canvas">https://github.com/Automattic/node-canvas</a>).</li>
+					<li>Copy <code>.env.exemple</code> and rename it to <code>.env</code>.</li>
+					<li>Set <code>COOKIE_SECRET</code> to a random string (that will be used for encrypting cookies).
+						<a href="#database" id="database" style="color: inherit; text-decoration: none;">
+							<h6>Database</h6>
+						</a>
+					</li>
+					<li>Create a new database with <code>utf8mb4_unicode_ci</code> collation.</li>
+					<li>Set <code>DB_HOST</code> to your database address (most likely <code>localhost</code>).</li>
+					<li>Set <code>DB_USERNAME</code> and <code>DB_PASSWORD</code> to your database username and password respectively.</li>
+					<li>Set <code>DB</code> to the name of the previously created database.</li>
+					<li>Run <code>yarn run typeorm:run</code> to apply migrations.</li>
+					<li>Insert a row into <code>case_type</code> to create the affiliated case. Example: <pre><code class="language-SQL"><span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> case_type (<span class="hljs-keyword">name</span>, openImage, closeImage, buyable, price) <span class="hljs-keyword">VALUES</span> (<span class="hljs-string">'affiliate'</span>, <span class="hljs-string">'/img/case/affiliate/open.png'</span>, <span class="hljs-string">'/img/case/affiliate/close.png'</span>, <span class="hljs-literal">FALSE</span>, <span class="hljs-number">100</span>);</code></pre>
+					</li>
+					<li>Insert a row into <code>case_content</code> to create a content for the affiliated case. Example (assuming the id of the affiliated case is 1):<pre><code class="language-SQL"><span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> case_content (<span class="hljs-keyword">name</span>, image, chance, contentType, amountPoints, amountMeteores, caseTypeId) <span class="hljs-keyword">VALUES</span> (<span class="hljs-string">'100'</span>, <span class="hljs-string">'/img/case/coin1.png'</span>, <span class="hljs-number">200</span>, <span class="hljs-string">'points_and_meteores'</span>, <span class="hljs-number">100</span>, <span class="hljs-number">0</span>, <span class="hljs-number">1</span>);
+<span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> case_content (<span class="hljs-keyword">name</span>, image, chance, contentType, amountPoints, amountMeteores, caseTypeId) <span class="hljs-keyword">VALUES</span> (<span class="hljs-string">'500'</span>, <span class="hljs-string">'/img/case/coin2.png'</span>, <span class="hljs-number">200</span>, <span class="hljs-string">'points_and_meteores'</span>, <span class="hljs-number">500</span>, <span class="hljs-number">0</span>, <span class="hljs-number">1</span>);
+<span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> case_content (<span class="hljs-keyword">name</span>, image, chance, contentType, amountPoints, amountMeteores, caseTypeId) <span class="hljs-keyword">VALUES</span> (<span class="hljs-string">'1000'</span>, <span class="hljs-string">'/img/case/coin3.png'</span>, <span class="hljs-number">200</span>, <span class="hljs-string">'points_and_meteores'</span>, <span class="hljs-number">1000</span>, <span class="hljs-number">0</span>, <span class="hljs-number">1</span>);
+<span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> case_content (<span class="hljs-keyword">name</span>, image, chance, contentType, amountPoints, amountMeteores, caseTypeId) <span class="hljs-keyword">VALUES</span> (<span class="hljs-string">'2000'</span>, <span class="hljs-string">'/img/case/coin4.png'</span>, <span class="hljs-number">200</span>, <span class="hljs-string">'points_and_meteores'</span>, <span class="hljs-number">2000</span>, <span class="hljs-number">0</span>, <span class="hljs-number">1</span>);
+<span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> case_content (<span class="hljs-keyword">name</span>, image, chance, contentType, amountPoints, amountMeteores, caseTypeId) <span class="hljs-keyword">VALUES</span> (<span class="hljs-string">'Clé steam'</span>, <span class="hljs-string">'/img/case/coin4.png'</span>, <span class="hljs-number">200</span>, <span class="hljs-string">'steam_key'</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">1</span>);</code></pre>
+					</li>
+					<li>Set <code>AFFILIATE_CASE_ID</code> to the id of the affiliated case.
+						<a href="#twitch" id="twitch" style="color: inherit; text-decoration: none;">
+							<h6>Twitch</h6>
+						</a>
+					</li>
+					<li>Create an app on twitch <a href="https://dev.twitch.tv/">https://dev.twitch.tv/</a>.</li>
+					<li>Set the callback url to <code>http://127.0.0.1:3000/auth/twitch/callback</code> (it must be equal to HOSTNAME + /auth/twitch/callback).</li>
+					<li>Set <code>TWITCH_CLIENT_ID</code> and <code>TWITCH_CLIENT_SECRET</code> to the twitch client id and secret respectively.
+						<a href="#discord" id="discord" style="color: inherit; text-decoration: none;">
+							<h6>Discord</h6>
+						</a>
+					</li>
+					<li>Create an app on discord <a href="https://discord.com/developers/applications">https://discord.com/developers/applications</a>.</li>
+					<li>Click on the <code>Bot</code> tab and on <code>Add Bot</code> button.</li>
+					<li>Set <code>DISCORD_TOKEN</code> to the bot&#39;s token.</li>
+					<li>On the discord <strong>desktop app</strong>, go to the settings &gt; Appearance &gt; Advanced &gt; check developer mode.</li>
+					<li>Create a new discord server .</li>
+					<li>For <code>SITE_USER_COUNT_CHANNEL_ID</code>, <code>DISCORD_MEMBER_COUNT_CHANNEL_ID</code> and <code>RAFFLE_VALUE_CHANNEL_ID</code> create a vocal channel and copy its id (right click on the channel -&gt; copy id).</li>
+					<li>For <code>STREAM_NOTIFICATION_ROLE_ID</code> and <code>RAFFLE_NOTIFICATION_ROLE_ID</code> create a role and copy its id  (be careful to copy the id of the role and not the id of a message or an user).</li>
+					<li>For <code>STREAM_NOTIFICATION_CHANNEL_ID</code> and <code>RAFFLE_NOTIFICATION_CHANNEL_ID</code> create a text channel and copy its id.
+						<a href="#mail" id="mail" style="color: inherit; text-decoration: none;">
+							<h6>Mail</h6>
+						</a>
+					The site uses <a href="https://nodemailer.com/about/">nodemailer</a>.  </li>
+					<li>Set <code>MAIL_SMTP_ADDRESS</code> to the email address you want to use. (Might be different from the username.)</li>
+					<li>Set <code>MAIL_SMTP_HOST</code> and <code>MAIL_SMTP_PORT</code> to the SMTP server host and port respectively.</li>
+					<li>Set <code>MAIL_SMTP_SECURE</code> to <code>true</code> or <code>false</code>. (Usually <code>true</code> if the port is 465.)</li>
+					<li>Set <code>MAIL_SMTP_USER</code> and <code>MAIL_SMTP_PASSWORD</code> to the username and password for your email account.
+						<a href="#recaptcha" id="recaptcha" style="color: inherit; text-decoration: none;">
+							<h6>Recaptcha</h6>
+						</a>
+						<a href="#dev" id="dev" style="color: inherit; text-decoration: none;">
+							<h6>Dev</h6>
+						</a>
+					</li>
+					<li>Set <code>RECAPTCHA_PUBLIC</code> to <code>6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI</code></li>
+					<li>Set <code>RECAPTCHA_SECRET</code> to <code>6LeIxAcTAAAAAGG-vFI1TnRWxMZNFuojJ4WifJWe</code>
+						<a href="#prod" id="prod" style="color: inherit; text-decoration: none;">
+							<h6>Prod</h6>
+						</a>
+					</li>
+					<li>Register a recaptcha v2 checkbox application <a href="https://www.google.com/recaptcha/admin">https://www.google.com/recaptcha/admin</a>.</li>
+					<li>Set <code>RECAPTCHA_PUBLIC</code> and <code>RECAPTCHA_SECRET</code> to the public token and secret token respectively.
+						<a href="#paypal-optional-but-required-for-the-subscription-part-of-the-site" id="paypal-optional-but-required-for-the-subscription-part-of-the-site" style="color: inherit; text-decoration: none;">
+							<h6>Paypal (optional, but required for the subscription part of the site)</h6>
+						</a>
+					</li>
+					<li>Create a sandbox paypal app <a href="https://developer.paypal.com/developer/applications">https://developer.paypal.com/developer/applications</a>.</li>
+					<li>Set <code>PAYPAL_CLIENT_ID</code> and <code>PAYPAL_SECRET</code> to the client id and secret respectively.</li>
+					<li>Using the API create 2 products and 2 plans (for VIP and diamond) (More info coming soon™). </li>
+					<li>Set <code>VIP_PLAN_ID</code> and <code>DIAMOND_PLAN_ID</code> to the id the paypal VIP plan and paypal diamond plan respectively.</li>
+				</ul>
+			</div>
+		</div>
+		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
+			<nav class="tsd-navigation primary">
+				<ul>
+					<li class="globals  ">
+						<a href="globals.html"><em>Globals</em></a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_admin_admin_controller_.html">&quot;admin/admin.controller&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_admin_admin_module_.html">&quot;admin/admin.module&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_admin_admin_service_.html">&quot;admin/admin.service&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_admin_announcement_controller_.html">&quot;admin/announcement.controller&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_admin_coupon_controller_.html">&quot;admin/coupon.controller&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_admin_dto_add_announcement_dto_.html">&quot;admin/dto/add-<wbr>announcement.dto&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_admin_dto_add_coupon_dto_.html">&quot;admin/dto/add-<wbr>coupon.dto&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_admin_dto_add_partner_dto_.html">&quot;admin/dto/add-<wbr>partner.dto&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_admin_dto_add_raffle_dto_.html">&quot;admin/dto/add-<wbr>raffle.dto&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_admin_dto_add_steam_key_dto_.html">&quot;admin/dto/add-<wbr>steam-<wbr>key.dto&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_admin_partner_controller_.html">&quot;admin/partner.controller&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_admin_raffle_controller_.html">&quot;admin/raffle.controller&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_admin_steam_key_controller_.html">&quot;admin/steam-<wbr>key.controller&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_affiliate_affiliate_controller_.html">&quot;affiliate/affiliate.controller&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_affiliate_affiliate_module_.html">&quot;affiliate/affiliate.module&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_announcement_announcement_entity_.html">&quot;announcement/announcement.entity&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_announcement_announcement_module_.html">&quot;announcement/announcement.module&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_announcement_announcement_service_.html">&quot;announcement/announcement.service&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_app_controller_.html">&quot;app.controller&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_app_module_.html">&quot;app.module&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_auth_auth_controller_.html">&quot;auth/auth.controller&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_auth_auth_module_.html">&quot;auth/auth.module&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_auth_session_serializer_.html">&quot;auth/session.serializer&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_auth_twitch_strategy_.html">&quot;auth/twitch.strategy&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_banner_banner_controller_.html">&quot;banner/banner.controller&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_banner_banner_module_.html">&quot;banner/banner.module&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_banner_banner_service_.html">&quot;banner/banner.service&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_case_case_content_entity_.html">&quot;case/case-<wbr>content.entity&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_case_case_content_service_.html">&quot;case/case-<wbr>content.service&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_case_case_type_entity_.html">&quot;case/case-<wbr>type.entity&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_case_case_type_service_.html">&quot;case/case-<wbr>type.service&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_case_case_controller_.html">&quot;case/case.controller&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_case_case_entity_.html">&quot;case/case.entity&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_case_case_module_.html">&quot;case/case.module&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_case_case_service_.html">&quot;case/case.service&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_case_steam_key_entity_.html">&quot;case/steam-<wbr>key.entity&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_case_steam_key_service_.html">&quot;case/steam-<wbr>key.service&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_chat_add_chat_message_dto_.html">&quot;chat/add-<wbr>chat-<wbr>message.dto&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_chat_chat_mention_entity_.html">&quot;chat/chat-<wbr>mention.entity&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_chat_chat_message_entity_.html">&quot;chat/chat-<wbr>message.entity&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_chat_chat_controller_.html">&quot;chat/chat.controller&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_chat_chat_module_.html">&quot;chat/chat.module&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_chat_chat_service_.html">&quot;chat/chat.service&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_common_decorator_user_decorator_.html">&quot;common/decorator/user.decorator&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_common_exception_banned_user_exception_.html">&quot;common/exception/banned-<wbr>user.exception&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_common_exception_user_error_exception_.html">&quot;common/exception/user-<wbr>error.exception&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_common_exception_validation_errors_exception_.html">&quot;common/exception/validation-<wbr>errors.exception&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_common_filter_ban_filter_.html">&quot;common/filter/ban.filter&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_common_filter_flash_and_redirect_user_error_filter_.html">&quot;common/filter/flash-<wbr>and-<wbr>redirect-<wbr>user-<wbr>error.filter&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_common_filter_json_user_error_filter_.html">&quot;common/filter/json-<wbr>user-<wbr>error.filter&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_common_filter_view_filter_.html">&quot;common/filter/view.filter&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_common_guard_admin_guard_.html">&quot;common/guard/admin.guard&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_common_guard_authenticated_guard_.html">&quot;common/guard/authenticated.guard&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_common_guard_ban_guard_.html">&quot;common/guard/ban.guard&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_common_guard_login_guard_.html">&quot;common/guard/login.guard&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_common_guard_moderator_guard_.html">&quot;common/guard/moderator.guard&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_common_guard_unauthenticated_guard_.html">&quot;common/guard/unauthenticated.guard&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_common_pipe_sanitization_pipe_service_.html">&quot;common/pipe/sanitization-<wbr>pipe.service&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_common_utils_cache_service_.html">&quot;common/utils/cache-<wbr>service&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_common_utils_constants_.html">&quot;common/utils/constants&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_common_utils_entity_service_.html">&quot;common/utils/entity-<wbr>service&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_common_utils_semaphore_.html">&quot;common/utils/semaphore&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_common_utils_utils_.html">&quot;common/utils/utils&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_coupon_coupon_controller_.html">&quot;coupon/coupon.controller&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_coupon_coupon_entity_.html">&quot;coupon/coupon.entity&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_coupon_coupon_module_.html">&quot;coupon/coupon.module&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_coupon_coupon_service_.html">&quot;coupon/coupon.service&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_discord_discord_bot_service_.html">&quot;discord/discord-<wbr>bot.service&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_discord_discord_user_entity_.html">&quot;discord/discord-<wbr>user.entity&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_discord_discord_user_service_.html">&quot;discord/discord-<wbr>user.service&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_discord_discord_module_.html">&quot;discord/discord.module&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_leaderboard_leaderboard_drawer_service_.html">&quot;leaderboard/leaderboard-<wbr>drawer.service&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_leaderboard_leaderboard_controller_.html">&quot;leaderboard/leaderboard.controller&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_leaderboard_leaderboard_module_.html">&quot;leaderboard/leaderboard.module&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_mail_contact_controller_.html">&quot;mail/contact.controller&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_mail_contact_dto_.html">&quot;mail/contact.dto&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_mail_mail_module_.html">&quot;mail/mail.module&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_mail_mail_service_.html">&quot;mail/mail.service&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_main_.html">&quot;main&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_ormconfig_.html">&quot;ormconfig&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_partner_partner_entity_.html">&quot;partner/partner.entity&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_partner_partner_module_.html">&quot;partner/partner.module&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_partner_partner_service_.html">&quot;partner/partner.service&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_raffle_raffle_participation_entity_.html">&quot;raffle/raffle-<wbr>participation.entity&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_raffle_raffle_participation_service_.html">&quot;raffle/raffle-<wbr>participation.service&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_raffle_raffle_controller_.html">&quot;raffle/raffle.controller&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_raffle_raffle_entity_.html">&quot;raffle/raffle.entity&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_raffle_raffle_module_.html">&quot;raffle/raffle.module&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_raffle_raffle_service_.html">&quot;raffle/raffle.service&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_recaptcha_recaptcha_module_.html">&quot;recaptcha/recaptcha.module&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_recaptcha_recaptcha_service_.html">&quot;recaptcha/recaptcha.service&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_shared_shared_utils_.html">&quot;shared/shared-<wbr>utils&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_shared_types_.html">&quot;shared/types&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_stream_queue_stream_queue_entity_.html">&quot;stream-<wbr>queue/stream-<wbr>queue.entity&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_stream_queue_stream_queue_module_.html">&quot;stream-<wbr>queue/stream-<wbr>queue.module&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_stream_queue_stream_queue_service_.html">&quot;stream-<wbr>queue/stream-<wbr>queue.service&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_subscription_paypal_interfaces_.html">&quot;subscription/paypal.interfaces&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_subscription_paypal_service_.html">&quot;subscription/paypal.service&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_subscription_subscription_level_info_entity_.html">&quot;subscription/subscription-<wbr>level-<wbr>info.entity&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_subscription_subscription_level_info_service_.html">&quot;subscription/subscription-<wbr>level-<wbr>info.service&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_subscription_subscription_controller_.html">&quot;subscription/subscription.controller&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_subscription_subscription_entity_.html">&quot;subscription/subscription.entity&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_subscription_subscription_interfaces_.html">&quot;subscription/subscription.interfaces&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_subscription_subscription_module_.html">&quot;subscription/subscription.module&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_subscription_subscription_service_.html">&quot;subscription/subscription.service&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_subscription_subscription_subscriber_.html">&quot;subscription/subscription.subscriber&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_twitch_twitch_interfaces_.html">&quot;twitch/twitch.interfaces&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_twitch_twitch_module_.html">&quot;twitch/twitch.module&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_twitch_twitch_service_.html">&quot;twitch/twitch.service&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_user_most_place_result_interface_.html">&quot;user/most-<wbr>place-<wbr>result.interface&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_user_user_entity_.html">&quot;user/user.entity&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_user_user_exception_.html">&quot;user/user.exception&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_user_user_module_.html">&quot;user/user.module&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_user_user_service_.html">&quot;user/user.service&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_user_user_subscriber_.html">&quot;user/user.subscriber&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_watch_watch_controller_.html">&quot;watch/watch.controller&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_watch_watch_module_.html">&quot;watch/watch.module&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_watch_watch_service_.html">&quot;watch/watch.service&quot;</a>
+					</li>
+				</ul>
+			</nav>
+			<nav class="tsd-navigation secondary menu-sticky">
+				<ul class="before-current">
+				</ul>
+			</nav>
+		</div>
+	</div>
+</div>
+<footer class="with-border-bottom">
+	<div class="container">
+		<h2>Legend</h2>
+		<div class="tsd-legend-group">
+			<ul class="tsd-legend">
+				<li class="tsd-kind-variable"><span class="tsd-kind-icon">Variable</span></li>
+				<li class="tsd-kind-function"><span class="tsd-kind-icon">Function</span></li>
+				<li class="tsd-kind-function tsd-has-type-parameter"><span class="tsd-kind-icon">Function with type parameter</span></li>
+				<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
+				<li class="tsd-kind-interface tsd-has-type-parameter"><span class="tsd-kind-icon">Interface with type parameter</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-class"><span class="tsd-kind-icon">Class</span></li>
+				<li class="tsd-kind-class tsd-has-type-parameter"><span class="tsd-kind-icon">Class with type parameter</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-enum"><span class="tsd-kind-icon">Enumeration</span></li>
+			</ul>
+		</div>
+	</div>
+</footer>
+<div class="container tsd-generator">
+	<p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p>
+</div>
+<div class="overlay"></div>
+<script src="assets/js/main.js"></script>
+<script>if (location.protocol == 'file:') document.write('<script src="assets/js/search.js"><' + '/script>');</script>
+</body>
+</html>

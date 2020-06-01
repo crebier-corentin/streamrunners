@@ -24,6 +24,7 @@ describe('PaypalService', () => {
             // @ts-ignore
             const service = new PaypalService(mockedConfig);
 
+            // @ts-ignore
             expect(service.baseUrl).toBe('https://api.paypal.com');
         });
 
@@ -44,6 +45,7 @@ describe('PaypalService', () => {
             // @ts-ignore
             const service = new PaypalService(mockedConfig);
 
+            // @ts-ignore
             expect(service.baseUrl).toBe('https://api.sandbox.paypal.com');
         });
     });

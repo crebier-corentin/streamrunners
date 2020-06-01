@@ -11,6 +11,7 @@
     "asset:prod": "npm run asset:production",
     "asset:production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
     "asset:watch": "npm run asset:development -- --watch",
+    "docs": "typedoc --tsconfig tsconfig.json",
     "prebuild": "rimraf dist",
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
@@ -30,7 +31,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm run test && npm run format && npm run lint && npm run asset:production && git add -u"
+      "pre-commit": "npm run test && npm run format && npm run lint && npm run asset:production && npm run docs && git add -u"
     }
   },
   "jest": {
@@ -124,7 +125,8 @@
     "ts-loader": "^6.2.1",
     "ts-node": "^8.6.0",
     "tsconfig-paths": "^3.9.0",
-    "typescript": "^3.7.4",
+    "typedoc": "^0.17.7",
+    "typescript": "^3.8.3",
     "vue": "^2.6.11",
     "vue-js-popover": "^1.2.1",
     "vue-loader": "^15.4.0",

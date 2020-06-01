@@ -45,12 +45,11 @@ describe('RecaptchaService', () => {
             .reply(500);
 
         //Mock console.error to avoid printing during the test
-        const originalConsoleError = console.error;
-        console.error = jest.fn();
+        jest.spyOn(console, 'error').mockImplementation();
 
         const tmp = expect(service.validate('test')).resolves.toBe(false);
 
-        console.error = originalConsoleError;
+        jest.spyOn(console, 'error').mockReset();
 
         return tmp;
     });

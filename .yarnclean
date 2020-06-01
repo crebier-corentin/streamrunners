@@ -44,3 +44,4 @@ wercker.yml
 # misc
 *.md
 !istanbul-reports/lib/html/assets
+!typedoc-default-themes/bin/default/assets

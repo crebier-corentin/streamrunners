@@ -50,7 +50,7 @@
                 <td>{{ totalKeys - availableKeys }}</td>
             </tr>
             <tr>
-                <td>Clés disponible :</td>
+                <td>Clés disponibles :</td>
                 <td>{{ availableKeys }}</td>
             </tr>
             <tr>

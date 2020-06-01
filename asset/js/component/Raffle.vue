@@ -45,9 +45,9 @@
             </button>
 
 
-            <small>{{ info.userTickets }} ticket{{ info.ticketCount > 1 ? 's' : '' }}
+            <small>{{ info.userTickets }} ticket {{ info.ticketCount > 1 ? 's' : '' }}
                 / {{ info.maxTickets <= 0 ? '∞' : info.maxTickets }}</small>
-            <small class="d-block">{{ info.totalTickets }} tickets au total</small>
+            <small class="d-block">{{ info.totalTickets }} ticket au total</small>
             <small class="d-block text-danger" v-if="error">{{ errorMessage }}</small>
 
         </div>

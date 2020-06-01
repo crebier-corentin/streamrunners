@@ -23,7 +23,7 @@
                         veulent plus de visibilité.
                         Il n'y a aucun frais caché ou abonnement obligatoire. L'<strong>inscription est rapide</strong>
                         et vous permettra d'accéder au site au complet sans restriction. Vous pourrez montrer votre
-                        stream a des gens qui parlent la même <strong>langue que vous</strong>. </p>
+                        stream à des gens qui parlent la même <strong>langue que vous</strong>. </p>
 
                     <a class="btn btn-primary" href="/auth/twitch">Se connecter avec Twitch.Tv
                         <i class="fab fa-twitch"></i></a>
@@ -71,7 +71,7 @@
             <div class="col-lg-4 d-flex flex-column align-items-center justify-content-center">
                 <img src="img/gift-solid.svg" alt="Generic placeholder image" width="140" height="140">
                 <h2>Cadeaux</h2>
-                <p>Des tonnes de cadeaux a gagner gratuitement tous les mois tout en soutenant des petits streameurs
+                <p>Des tonnes de cadeaux à gagner gratuitement tous les mois tout en soutenant des petits streameurs
                     francophones !</p>
             </div><!-- /.col-lg-4 -->
         </div><!-- /.row -->

@@ -21,7 +21,7 @@
                           cols="40"
                           rows="2"
                           class="form-control"
-                          placeholder="Optionnel"></textarea>
+                          placeholder="Optionnelle"></textarea>
                 </div>
             </div>
             {# icon #}
@@ -57,7 +57,7 @@
                            aria-describedby="maxTicketsHelpBlock"
                            required="required"
                            class="form-control">
-                    <span id="maxTicketsHelpBlock" class="form-text text-muted">-1 pour infinie</span>
+                    <span id="maxTicketsHelpBlock" class="form-text text-muted">-1 pour infini</span>
                 </div>
             </div>
             {# endingDate #}

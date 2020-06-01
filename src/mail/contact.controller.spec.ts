@@ -73,7 +73,7 @@ describe('Contact Controller', () => {
                 to: 'test@example.com',
                 replyTo: 'user@example.com',
                 subject: 'Test',
-                text: 'Testing',
+                text: expect.stringContaining('Testing'),
             });
 
             expect(mockedSendMail).toHaveBeenNthCalledWith(2, {

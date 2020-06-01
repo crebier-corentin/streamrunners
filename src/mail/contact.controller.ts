@@ -50,7 +50,7 @@ export class ContactController {
             to: this.mailService.emailAddress,
             replyTo: body.email,
             subject: body.subject,
-            text: body.message,
+            text: `De : ${body.email}\n-----\n${body.message}`,
         });
 
         //Send confirmation email

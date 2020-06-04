@@ -45,3 +45,4 @@ wercker.yml
 *.md
 !istanbul-reports/lib/html/assets
 !typedoc-default-themes/bin/default/assets
+!typedoc-default-themes/bin/default/assets/images

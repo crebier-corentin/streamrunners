@@ -4,6 +4,15 @@ import { ArgumentsHost, Catch, ExceptionFilter, HttpException, HttpStatus } from
 import { Response } from 'express';
 import { VIEW_DIR_PATH } from '../utils/constants';
 
+/**
+ * Catches all exceptions and renders a nunjucks view located in views/error/[status code].nunj.\
+ * If the exception is not an HttpException, the 500 status is used.\
+ * If the specific view doesn't exist, 500.nunj will be used instead.
+ *
+ * @remark
+ * This filter is global.
+ *
+ */
 @Catch()
 export class ViewFilter<T> implements ExceptionFilter {
     private readonly errorViews: Set<string>;

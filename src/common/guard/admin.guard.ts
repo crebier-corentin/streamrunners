@@ -1,5 +1,11 @@
 import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
 
+/**
+ * Only allows authenticated admins.
+ *
+ * @Category Guard
+ *
+ */
 @Injectable()
 export class AdminGuard implements CanActivate {
     public canActivate(context: ExecutionContext): boolean {

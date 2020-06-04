@@ -168,9 +168,14 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="_common_utils_entity_service_.entityservice.html">EntityService</a>.<a href="_common_utils_entity_service_.entityservice.html#repo">repo</a></p>
 						<ul>
-							<li>Defined in src/common/utils/entity-service.ts:8</li>
+							<li>Defined in src/common/utils/entity-service.ts:28</li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Typeorm repository for entity</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
 					<a name="userservice" class="tsd-anchor"></a>
@@ -196,10 +201,13 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_common_utils_entity_service_.entityservice.html">EntityService</a>.<a href="_common_utils_entity_service_.entityservice.html#all">all</a></p>
 								<ul>
-									<li>Defined in src/common/utils/entity-service.ts:37</li>
+									<li>Defined in src/common/utils/entity-service.ts:93</li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="_raffle_raffle_participation_entity_.raffleparticipationentity.html" class="tsd-signature-type">RaffleParticipationEntity</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<p>Every row of the table.</p>
 						</li>
 					</ul>
 				</section>
@@ -214,19 +222,28 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_common_utils_entity_service_.entityservice.html">EntityService</a>.<a href="_common_utils_entity_service_.entityservice.html#byid">byId</a></p>
 								<ul>
-									<li>Defined in src/common/utils/entity-service.ts:10</li>
+									<li>Defined in src/common/utils/entity-service.ts:37</li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>id: <span class="tsd-signature-type">number</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Searched id</p>
+									</div>
 								</li>
 								<li>
 									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> relations: <span class="tsd-signature-type">keyof T</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> = []</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Relations to load</p>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="_raffle_raffle_participation_entity_.raffleparticipationentity.html" class="tsd-signature-type">RaffleParticipationEntity</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<p>The entity with the searched id or undefined if not found</p>
 						</li>
 					</ul>
 				</section>
@@ -241,22 +258,37 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_common_utils_entity_service_.entityservice.html">EntityService</a>.<a href="_common_utils_entity_service_.entityservice.html#byidorfail">byIdOrFail</a></p>
 								<ul>
-									<li>Defined in src/common/utils/entity-service.ts:14</li>
+									<li>Defined in src/common/utils/entity-service.ts:51</li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Throws if entity is not found.</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>id: <span class="tsd-signature-type">number</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Searched id</p>
+									</div>
 								</li>
 								<li>
 									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> relations: <span class="tsd-signature-type">keyof T</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> = []</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Relations to load</p>
+									</div>
 								</li>
 								<li>
 									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> exception: <span class="tsd-signature-type">HttpException</span><span class="tsd-signature-symbol"> = new InternalServerErrorException()</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Exception to throw if entity is not found</p>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="_raffle_raffle_participation_entity_.raffleparticipationentity.html" class="tsd-signature-type">RaffleParticipationEntity</a><span class="tsd-signature-symbol">&gt;</span></h4>
+							<p>The entity with the searched id</p>
 						</li>
 					</ul>
 				</section>
@@ -271,10 +303,13 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_common_utils_entity_service_.entityservice.html">EntityService</a>.<a href="_common_utils_entity_service_.entityservice.html#count">count</a></p>
 								<ul>
-									<li>Defined in src/common/utils/entity-service.ts:33</li>
+									<li>Defined in src/common/utils/entity-service.ts:86</li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<p>The number of row in the table.</p>
 						</li>
 					</ul>
 				</section>
@@ -341,16 +376,27 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_common_utils_entity_service_.entityservice.html">EntityService</a>.<a href="_common_utils_entity_service_.entityservice.html#remove">remove</a></p>
 								<ul>
-									<li>Defined in src/common/utils/entity-service.ts:29</li>
+									<li>Defined in src/common/utils/entity-service.ts:79</li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Remove an entity.</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>entity: <a href="_raffle_raffle_participation_entity_.raffleparticipationentity.html" class="tsd-signature-type">RaffleParticipationEntity</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Entity to remove</p>
+									</div>
 								</li>
 								<li>
 									<h5><span class="tsd-flag ts-flagOptional">Optional</span> options: <span class="tsd-signature-type">RemoveOptions</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Remove options to pass to typeorm</p>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="_raffle_raffle_participation_entity_.raffleparticipationentity.html" class="tsd-signature-type">RaffleParticipationEntity</a><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -368,16 +414,27 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_common_utils_entity_service_.entityservice.html">EntityService</a>.<a href="_common_utils_entity_service_.entityservice.html#save">save</a></p>
 								<ul>
-									<li>Defined in src/common/utils/entity-service.ts:25</li>
+									<li>Defined in src/common/utils/entity-service.ts:69</li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Save an entity.</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>entity: <a href="_raffle_raffle_participation_entity_.raffleparticipationentity.html" class="tsd-signature-type">RaffleParticipationEntity</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Entity to save</p>
+									</div>
 								</li>
 								<li>
 									<h5><span class="tsd-flag ts-flagOptional">Optional</span> options: <span class="tsd-signature-type">SaveOptions</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Save options to pass to typeorm</p>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="_raffle_raffle_participation_entity_.raffleparticipationentity.html" class="tsd-signature-type">RaffleParticipationEntity</a><span class="tsd-signature-symbol">&gt;</span></h4>

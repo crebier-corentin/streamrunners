@@ -69,6 +69,24 @@
 <div class="container container-main">
 	<div class="row">
 		<div class="col-8 col-content">
+			<section class="tsd-panel tsd-comment">
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>Async semaphore to prevent race conditions.</p>
+					</div>
+					<p>Example:</p>
+					<pre><code class="language-typescript"><span class="hljs-keyword">const</span> semaphore = <span class="hljs-keyword">new</span> Semaphore(<span class="hljs-number">1</span>);
+
+<span class="hljs-comment">//Try finally is important to not deadlock in case of exception.</span>
+<span class="hljs-keyword">try</span> {
+    <span class="hljs-keyword">await</span> semaphore.acquire();
+    doImportantStuff();
+}
+<span class="hljs-keyword">finally</span> {
+    semaphore.release();
+}</code></pre>
+				</div>
+			</section>
 			<section class="tsd-panel tsd-hierarchy">
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
@@ -119,13 +137,20 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/common/utils/semaphore.ts:6</li>
+									<li>Defined in src/common/utils/semaphore.ts:23</li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>max: <span class="tsd-signature-type">number</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<div class="lead">
+											<p>Max number of concurrent access</p>
+										</div>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="_common_utils_semaphore_.semaphore.html" class="tsd-signature-type">Semaphore</a></h4>
@@ -141,7 +166,7 @@
 					<div class="tsd-signature tsd-kind-icon">counter<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> = 0</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in src/common/utils/semaphore.ts:4</li>
+							<li>Defined in src/common/utils/semaphore.ts:21</li>
 						</ul>
 					</aside>
 				</section>
@@ -151,7 +176,7 @@
 					<div class="tsd-signature tsd-kind-icon">max<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in src/common/utils/semaphore.ts:6</li>
+							<li>Defined in src/common/utils/semaphore.ts:23</li>
 						</ul>
 					</aside>
 				</section>
@@ -161,7 +186,7 @@
 					<div class="tsd-signature tsd-kind-icon">waiting<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">{ </span>err<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span>message<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">; </span>resolve<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> = []</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in src/common/utils/semaphore.ts:5</li>
+							<li>Defined in src/common/utils/semaphore.ts:22</li>
 						</ul>
 					</aside>
 				</section>
@@ -178,9 +203,14 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/common/utils/semaphore.ts:20</li>
+									<li>Defined in src/common/utils/semaphore.ts:45</li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Enter the protected code area.<br>Waits if max is full.</p>
+								</div>
+							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">unknown</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
@@ -195,9 +225,14 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/common/utils/semaphore.ts:38</li>
+									<li>Defined in src/common/utils/semaphore.ts:70</li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Empty the queue and reject all waiting promises.</p>
+								</div>
+							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
 						</li>
 					</ul>
@@ -212,9 +247,14 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/common/utils/semaphore.ts:33</li>
+									<li>Defined in src/common/utils/semaphore.ts:62</li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Exit the protected code area.<br>Frees up a space.</p>
+								</div>
+							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
 						</li>
 					</ul>
@@ -229,7 +269,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/common/utils/semaphore.ts:12</li>
+									<li>Defined in src/common/utils/semaphore.ts:33</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>

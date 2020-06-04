@@ -69,6 +69,16 @@
 <div class="container container-main">
 	<div class="row">
 		<div class="col-8 col-content">
+			<section class="tsd-panel tsd-comment">
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>Exception used to report validation error from ValidationPipe.</p>
+					</div>
+					<p>Will concat all of the error messages into <a href="_common_exception_validation_errors_exception_.validationerrorsexception.html#message">message</a>.</p>
+					<pre><code class="language-typescript"><span class="hljs-comment">//In some controller...</span>
+<span class="hljs-meta">@UsePipes</span>(<span class="hljs-keyword">new</span> ValidationPipe({exceptionFactory: (errors): <span class="hljs-function"><span class="hljs-params">ValidationErrorsException</span> =&gt;</span> <span class="hljs-keyword">new</span> ValidationErrorsException(errors)})</code></pre>
+				</div>
+			</section>
 			<section class="tsd-panel tsd-hierarchy">
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
@@ -126,7 +136,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides <a href="_common_exception_user_error_exception_.usererrorexception.html">UserErrorException</a>.<a href="_common_exception_user_error_exception_.usererrorexception.html#constructor">constructor</a></p>
 								<ul>
-									<li>Defined in src/common/exception/validation-errors.exception.ts:4</li>
+									<li>Defined in src/common/exception/validation-errors.exception.ts:17</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -183,7 +193,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="_common_exception_user_error_exception_.usererrorexception.html">UserErrorException</a>.<a href="_common_exception_user_error_exception_.usererrorexception.html#title">title</a></p>
 						<ul>
-							<li>Defined in src/common/exception/user-error.exception.ts:4</li>
+							<li>Defined in src/common/exception/user-error.exception.ts:21</li>
 						</ul>
 					</aside>
 				</section>

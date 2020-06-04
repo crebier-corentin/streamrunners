@@ -25,11 +25,11 @@ INSERT INTO case_type (name, openImage, closeImage, buyable, price) VALUES ('aff
 ```
 * Insert a row into `case_content` to create a content for the affiliated case. Example (assuming the id of the affiliated case is 1):
 ```SQL
-INSERT INTO case_content (name, image, chance, contentType, amountPoints, amountMeteores, caseTypeId) VALUES ('100', '/img/case/coin1.png', 200, 'points_and_meteores', 100, 0, 1);
-INSERT INTO case_content (name, image, chance, contentType, amountPoints, amountMeteores, caseTypeId) VALUES ('500', '/img/case/coin2.png', 200, 'points_and_meteores', 500, 0, 1);
-INSERT INTO case_content (name, image, chance, contentType, amountPoints, amountMeteores, caseTypeId) VALUES ('1000', '/img/case/coin3.png', 200, 'points_and_meteores', 1000, 0, 1);
-INSERT INTO case_content (name, image, chance, contentType, amountPoints, amountMeteores, caseTypeId) VALUES ('2000', '/img/case/coin4.png', 200, 'points_and_meteores', 2000, 0, 1);
-INSERT INTO case_content (name, image, chance, contentType, amountPoints, amountMeteores, caseTypeId) VALUES ('Clé steam', '/img/case/coin4.png', 200, 'steam_key', 0, 0, 1);
+INSERT INTO case_content (name, image, chance, keyCategory, amountPoints, amountMeteores, caseTypeId) VALUES ('100', '/img/case/coin1.png', 200, NULL, 100, 0, 1);
+INSERT INTO case_content (name, image, chance, keyCategory, amountPoints, amountMeteores, caseTypeId) VALUES ('500', '/img/case/coin2.png', 200, NULL, 500, 0, 1);
+INSERT INTO case_content (name, image, chance, keyCategory, amountPoints, amountMeteores, caseTypeId) VALUES ('1000', '/img/case/coin3.png', 200, NULL, 1000, 0, 1);
+INSERT INTO case_content (name, image, chance, keyCategory, amountPoints, amountMeteores, caseTypeId) VALUES ('2000', '/img/case/coin4.png', 200, NULL, 2000, 0, 1);
+INSERT INTO case_content (name, image, chance, keyCategory, amountPoints, amountMeteores, caseTypeId) VALUES ('Clé steam', '/img/case/coin4.png', 200, 'random', 0, 0, 1);
 ```
 * Set `AFFILIATE_CASE_ID` to the id of the affiliated case.
 ###### Twitch

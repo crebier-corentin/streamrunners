@@ -69,6 +69,28 @@
 <div class="container container-main">
 	<div class="row">
 		<div class="col-8 col-content">
+			<section class="tsd-panel tsd-comment">
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>Catches <a href="_common_exception_user_error_exception_.usererrorexception.html">UserErrorException</a>, flashes the message into &quot;error&quot; and redirect the user.<br><strong>Only</strong> uses message.</p>
+					</div>
+					<p>Example:</p>
+					<pre><code class="language-typescript"><span class="hljs-comment">//In some controller</span>
+
+<span class="hljs-meta">@Get</span>(<span class="hljs-string">"view"</span>)
+<span class="hljs-keyword">public</span> example(<span class="hljs-meta">@Req</span>() req: Request): <span class="hljs-built_in">void</span> {
+    <span class="hljs-keyword">const</span> errors = req.flash(<span class="hljs-string">"error"</span>);
+    <span class="hljs-comment">//Display the errors if there are any to the user...</span>
+}
+
+<span class="hljs-meta">@Post</span>(<span class="hljs-string">"Render"</span>)
+<span class="hljs-meta">@UseFilters</span>(<span class="hljs-keyword">new</span> FlashAndRedirectUserErrorFilter(<span class="hljs-string">"/view"</span>))
+<span class="hljs-keyword">public</span> example(<span class="hljs-meta">@Req</span>() req: Request): <span class="hljs-built_in">void</span> {
+    <span class="hljs-comment">//Do something...</span>
+    <span class="hljs-keyword">if</span>(condition) <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> UserErrorException(<span class="hljs-string">"oops"</span>);
+}</code></pre>
+				</div>
+			</section>
 			<section class="tsd-panel tsd-hierarchy">
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
@@ -120,13 +142,20 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/common/filter/flash-and-redirect-user-error.filter.ts:6</li>
+									<li>Defined in src/common/filter/flash-and-redirect-user-error.filter.ts:31</li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>redirectUrl: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<div class="lead">
+											<p>The url the user will be redirected to. (Full path starting with <code>/</code> needed.)</p>
+										</div>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="_common_filter_flash_and_redirect_user_error_filter_.flashandredirectusererrorfilter.html" class="tsd-signature-type">FlashAndRedirectUserErrorFilter</a></h4>
@@ -142,9 +171,14 @@
 					<div class="tsd-signature tsd-kind-icon">redirect<wbr>Url<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in src/common/filter/flash-and-redirect-user-error.filter.ts:7</li>
+							<li>Defined in src/common/filter/flash-and-redirect-user-error.filter.ts:36</li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>The url the user will be redirected to. (Full path starting with <code>/</code> needed.)</p>
+						</div>
+					</div>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
@@ -159,7 +193,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/common/filter/flash-and-redirect-user-error.filter.ts:9</li>
+									<li>Defined in src/common/filter/flash-and-redirect-user-error.filter.ts:38</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>

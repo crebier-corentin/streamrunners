@@ -69,6 +69,13 @@
 <div class="container container-main">
 	<div class="row">
 		<div class="col-8 col-content">
+			<section class="tsd-panel tsd-comment">
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>Entity service to manage <a href="_user_user_entity_.userentity.html">UserEntity</a>.</p>
+					</div>
+				</div>
+			</section>
 			<section class="tsd-panel tsd-hierarchy">
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
@@ -146,7 +153,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides <a href="_common_utils_entity_service_.entityservice.html">EntityService</a>.<a href="_common_utils_entity_service_.entityservice.html#constructor">constructor</a></p>
 								<ul>
-									<li>Defined in src/user/user.service.ts:17</li>
+									<li>Defined in src/user/user.service.ts:22</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -174,7 +181,7 @@
 					<div class="tsd-signature tsd-kind-icon">discord<wbr>Bot<span class="tsd-signature-symbol">:</span> <a href="_discord_discord_bot_service_.discordbotservice.html" class="tsd-signature-type">DiscordBotService</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in src/user/user.service.ts:23</li>
+							<li>Defined in src/user/user.service.ts:28</li>
 						</ul>
 					</aside>
 				</section>
@@ -190,7 +197,7 @@
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>Typeorm repository for entity</p>
+							<p>Typeorm repository for entity.</p>
 						</div>
 					</div>
 				</section>
@@ -200,7 +207,7 @@
 					<div class="tsd-signature tsd-kind-icon">twitch<wbr>Service<span class="tsd-signature-symbol">:</span> <a href="_twitch_twitch_service_.twitchservice.html" class="tsd-signature-type">TwitchService</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in src/user/user.service.ts:21</li>
+							<li>Defined in src/user/user.service.ts:26</li>
 						</ul>
 					</aside>
 				</section>
@@ -238,16 +245,22 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/user/user.service.ts:150</li>
+									<li>Defined in src/user/user.service.ts:227</li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>size: <span class="tsd-signature-type">number</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Size of a chunk</p>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">AsyncGenerator</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<p>An async generator who returns arrays of <a href="_user_user_entity_.userentity.html#twitchid">UserEntity.twitchId</a> of size chunk. Stops after processing every row.</p>
 						</li>
 					</ul>
 				</section>
@@ -261,23 +274,31 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/user/user.service.ts:265</li>
+									<li>Defined in src/user/user.service.ts:343</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Bans userToBeBanned, sets userToBeBanned.bannedBy to bannedBy and userToBeBanned.banDate to now.
-									Note: performs no check.</p>
+									<p>Bans userToBeBanned, sets userToBeBanned.bannedBy to bannedBy and userToBeBanned.banDate to now.</p>
 								</div>
+								<dl class="tsd-comment-tags">
+									<dt>remark</dt>
+									<dd><p>Performs no check for userToBeBanned and bannedBy. Use <a href="_admin_admin_service_.adminservice.html#ban">AdminService.ban</a> instead.</p>
+									</dd>
+								</dl>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>userToBeBanned: <a href="_user_user_entity_.userentity.html" class="tsd-signature-type">UserEntity</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>User to ban.</p>
+									</div>
 								</li>
 								<li>
 									<h5>bannedBy: <a href="_user_user_entity_.userentity.html" class="tsd-signature-type">UserEntity</a></h5>
 									<div class="tsd-comment tsd-typography">
+										<p>Admin or moderator that banned the user.</p>
 									</div>
 								</li>
 							</ul>
@@ -306,18 +327,18 @@
 								<li>
 									<h5>id: <span class="tsd-signature-type">number</span></h5>
 									<div class="tsd-comment tsd-typography">
-										<p>Searched id</p>
+										<p>Searched id.</p>
 									</div>
 								</li>
 								<li>
 									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> relations: <span class="tsd-signature-type">keyof T</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> = []</span></h5>
 									<div class="tsd-comment tsd-typography">
-										<p>Relations to load</p>
+										<p>Relations to load.</p>
 									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="_user_user_entity_.userentity.html" class="tsd-signature-type">UserEntity</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol">&gt;</span></h4>
-							<p>The entity with the searched id or undefined if not found</p>
+							<p>The entity with the searched id or undefined if not found.</p>
 						</li>
 					</ul>
 				</section>
@@ -345,24 +366,24 @@
 								<li>
 									<h5>id: <span class="tsd-signature-type">number</span></h5>
 									<div class="tsd-comment tsd-typography">
-										<p>Searched id</p>
+										<p>Searched id.</p>
 									</div>
 								</li>
 								<li>
 									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> relations: <span class="tsd-signature-type">keyof T</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> = []</span></h5>
 									<div class="tsd-comment tsd-typography">
-										<p>Relations to load</p>
+										<p>Relations to load.</p>
 									</div>
 								</li>
 								<li>
 									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> exception: <span class="tsd-signature-type">HttpException</span><span class="tsd-signature-symbol"> = new InternalServerErrorException()</span></h5>
 									<div class="tsd-comment tsd-typography">
-										<p>Exception to throw if entity is not found</p>
+										<p>Exception to throw if entity is not found.</p>
 									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="_user_user_entity_.userentity.html" class="tsd-signature-type">UserEntity</a><span class="tsd-signature-symbol">&gt;</span></h4>
-							<p>The entity with the searched id</p>
+							<p>The entity with the searched id.</p>
 						</li>
 					</ul>
 				</section>
@@ -376,19 +397,28 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/user/user.service.ts:28</li>
+									<li>Defined in src/user/user.service.ts:40</li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>username: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Username of the searched user.</p>
+									</div>
 								</li>
 								<li>
 									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> relations: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> = []</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Relations to load.</p>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="_user_user_entity_.userentity.html" class="tsd-signature-type">UserEntity</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<p>The user with the searched username or undefined if not found.</p>
 						</li>
 					</ul>
 				</section>
@@ -402,22 +432,37 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/user/user.service.ts:32</li>
+									<li>Defined in src/user/user.service.ts:54</li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Throws if no matching user is found.</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>username: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Username of the searched user.</p>
+									</div>
 								</li>
 								<li>
 									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> relations: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> = []</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Relations to load.</p>
+									</div>
 								</li>
 								<li>
 									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> exception: <span class="tsd-signature-type">HttpException</span><span class="tsd-signature-symbol"> = new InternalServerErrorException()</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Exception to throw when no matching user is found.</p>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="_user_user_entity_.userentity.html" class="tsd-signature-type">UserEntity</a><span class="tsd-signature-symbol">&gt;</span></h4>
+							<p>The user with the searched username.</p>
 						</li>
 					</ul>
 				</section>
@@ -431,9 +476,14 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/user/user.service.ts:74</li>
+									<li>Defined in src/user/user.service.ts:103</li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Increments a column and updates the entity with the new value.</p>
+								</div>
+							</div>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
 							<ul class="tsd-type-parameters">
 								<li>
@@ -444,12 +494,21 @@
 							<ul class="tsd-parameters">
 								<li>
 									<h5>user: <a href="_user_user_entity_.userentity.html" class="tsd-signature-type">UserEntity</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The user to modify.</p>
+									</div>
 								</li>
 								<li>
 									<h5>column: <span class="tsd-signature-type">K</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The column to increment/decrement.</p>
+									</div>
 								</li>
 								<li>
 									<h5>amount: <span class="tsd-signature-type">number</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>How much the column is incremented. (Can be negative for decrementing.)</p>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -466,16 +525,27 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/user/user.service.ts:93</li>
+									<li>Defined in src/user/user.service.ts:134</li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Increments the user&#39;s meteores and updates the entity with the new point value.</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>user: <a href="_user_user_entity_.userentity.html" class="tsd-signature-type">UserEntity</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The user to modify.</p>
+									</div>
 								</li>
 								<li>
 									<h5>amount: <span class="tsd-signature-type">number</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>How much meteores is incremented. (Can be negative for decrementing.)</p>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -492,16 +562,27 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/user/user.service.ts:89</li>
+									<li>Defined in src/user/user.service.ts:124</li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Increments the user&#39;s points and updates the entity with the new point value.</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>user: <a href="_user_user_entity_.userentity.html" class="tsd-signature-type">UserEntity</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The user to modify.</p>
+									</div>
 								</li>
 								<li>
 									<h5>amount: <span class="tsd-signature-type">number</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>How much points is incremented. (Can be negative for decrementing.)</p>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -539,7 +620,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/user/user.service.ts:226</li>
+									<li>Defined in src/user/user.service.ts:303</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -569,7 +650,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/user/user.service.ts:211</li>
+									<li>Defined in src/user/user.service.ts:288</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -590,10 +671,13 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/user/user.service.ts:140</li>
+									<li>Defined in src/user/user.service.ts:211</li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Pick</span><span class="tsd-signature-symbol">&lt;</span><a href="_user_user_entity_.userentity.html" class="tsd-signature-type">UserEntity</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">"username"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"displayName"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"avatar"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"twitchDescription"</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<p>Users who are partners. (Based on <a href="_user_user_entity_.userentity.html#partner">UserEntity.partner</a>.)</p>
 						</li>
 					</ul>
 				</section>
@@ -607,16 +691,25 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/user/user.service.ts:97</li>
+									<li>Defined in src/user/user.service.ts:146</li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Randomely picks a winner for a raffle.<br>Based on tickets bought. (More tickets = more chances to win.)</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>raffle: <a href="_raffle_raffle_entity_.raffleentity.html" class="tsd-signature-type">RaffleEntity</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The raffle to win.</p>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="_user_user_entity_.userentity.html" class="tsd-signature-type">UserEntity</a><span class="tsd-signature-symbol">&gt;</span></h4>
+							<p>The randomely picked winner.</p>
 						</li>
 					</ul>
 				</section>
@@ -630,16 +723,27 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/user/user.service.ts:107</li>
+									<li>Defined in src/user/user.service.ts:165</li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<dl class="tsd-comment-tags">
+									<dt>remark</dt>
+									<dd><p>Might return less than count.</p>
+									</dd>
+								</dl>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>count: <span class="tsd-signature-type">number</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Maximum number of avatars to return.</p>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="_user_user_entity_.userentity.html" class="tsd-signature-type">UserEntity</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<p>Random user avatars. Only the <a href="_user_user_entity_.userentity.html#avatar">UserEntity.avatar</a> column is loaded. (Default twitch avatars are excluded.)</p>
 						</li>
 					</ul>
 				</section>
@@ -667,13 +771,13 @@
 								<li>
 									<h5>entity: <a href="_user_user_entity_.userentity.html" class="tsd-signature-type">UserEntity</a></h5>
 									<div class="tsd-comment tsd-typography">
-										<p>Entity to remove</p>
+										<p>Entity to remove.</p>
 									</div>
 								</li>
 								<li>
 									<h5><span class="tsd-flag ts-flagOptional">Optional</span> options: <span class="tsd-signature-type">RemoveOptions</span></h5>
 									<div class="tsd-comment tsd-typography">
-										<p>Remove options to pass to typeorm</p>
+										<p>Remove options to pass to typeorm.</p>
 									</div>
 								</li>
 							</ul>
@@ -705,13 +809,13 @@
 								<li>
 									<h5>entity: <a href="_user_user_entity_.userentity.html" class="tsd-signature-type">UserEntity</a></h5>
 									<div class="tsd-comment tsd-typography">
-										<p>Entity to save</p>
+										<p>Entity to save.</p>
 									</div>
 								</li>
 								<li>
 									<h5><span class="tsd-flag ts-flagOptional">Optional</span> options: <span class="tsd-signature-type">SaveOptions</span></h5>
 									<div class="tsd-comment tsd-typography">
-										<p>Save options to pass to typeorm</p>
+										<p>Save options to pass to typeorm.</p>
 									</div>
 								</li>
 							</ul>
@@ -729,22 +833,34 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/user/user.service.ts:288</li>
+									<li>Defined in src/user/user.service.ts:391</li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>page: <span class="tsd-signature-type">number</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Current page.</p>
+									</div>
 								</li>
 								<li>
 									<h5>perPage: <span class="tsd-signature-type">number</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>How many users to return per page.</p>
+									</div>
 								</li>
 								<li>
 									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> search: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> = &quot;&quot;</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p><a href="_user_user_entity_.userentity.html#username">UserEntity.username</a> and <a href="_user_user_entity_.userentity.html#displayname">UserEntity.displayName</a> search query.</p>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><a href="_user_user_entity_.userentity.html" class="tsd-signature-type">UserEntity</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<p>An array of users based on the current page and the total number of users in the table.</p>
 						</li>
 					</ul>
 				</section>
@@ -758,13 +874,12 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/user/user.service.ts:180</li>
+									<li>Defined in src/user/user.service.ts:257</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Sync displayName and avatars from twitch
-									100 users at a time</p>
+									<p>Update <a href="_user_user_entity_.userentity.html#displayname">UserEntity.displayName</a>, <a href="_user_user_entity_.userentity.html#avatar">UserEntity.avatar</a> and <a href="_user_user_entity_.userentity.html#twitchdescription">UserEntity.twitchDescription</a> from twitch&#39;s API.<br>100 users at a time.</p>
 								</div>
 							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -781,13 +896,22 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/user/user.service.ts:283</li>
+									<li>Defined in src/user/user.service.ts:377</li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Toggles <a href="_user_user_entity_.userentity.html#partner">UserEntity.partner</a>.</p>
+								</div>
+								<p>If not partner, the user becomes one.<br>If partner, the users stops being one.</p>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>user: <a href="_user_user_entity_.userentity.html" class="tsd-signature-type">UserEntity</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>User to toggle partner.</p>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -804,13 +928,13 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/user/user.service.ts:249</li>
+									<li>Defined in src/user/user.service.ts:326</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">&gt;</span></h4>
-							<p>The sum of every user&#39;s points</p>
+							<p>The sum of every user&#39;s points.</p>
 						</li>
 					</ul>
 				</section>
@@ -824,13 +948,21 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/user/user.service.ts:273</li>
+									<li>Defined in src/user/user.service.ts:358</li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Unbans a user.<br>Sets <a href="_user_user_entity_.userentity.html#bannedby">UserEntity.bannedBy</a> and <a href="_user_user_entity_.userentity.html#bandate">UserEntity.banDate</a> to NULL;</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>userToBeUnbanned: <a href="_user_user_entity_.userentity.html" class="tsd-signature-type">UserEntity</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>User to unban.</p>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -847,13 +979,12 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/user/user.service.ts:50</li>
+									<li>Defined in src/user/user.service.ts:72</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Creates or update an user from twitch authentication
-									Updates the discord site user count in case of new user</p>
+									<p>Creates or update a user from twitch authentication.<br>Updates the discord site user count in case of new user.</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -861,12 +992,12 @@
 								<li>
 									<h5>data: <a href="../interfaces/_twitch_twitch_interfaces_.twitchuser.html" class="tsd-signature-type">TwitchUser</a></h5>
 									<div class="tsd-comment tsd-typography">
-										<p>Data from the twitch request</p>
+										<p>Data from the twitch request.</p>
 									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="_user_user_entity_.userentity.html" class="tsd-signature-type">UserEntity</a><span class="tsd-signature-symbol">&gt;</span></h4>
-							<p>The newly created or updated user</p>
+							<p>The newly created or updated user.</p>
 						</li>
 					</ul>
 				</section>
@@ -880,19 +1011,31 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/user/user.service.ts:117</li>
+									<li>Defined in src/user/user.service.ts:185</li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Used to find users who are currently watching the stream.</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>intervalInSeconds: <span class="tsd-signature-type">number</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Maximum amount of seconds to include in search</p>
+									</div>
 								</li>
 								<li>
 									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> excludeId: <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> = -1</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p><a href="_user_user_entity_.userentity.html#id">UserEntity.id</a> to exclude</p>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="_user_user_entity_.userentity.html" class="tsd-signature-type">UserEntity</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<p>Users who sent a request to /watch/update in the last intervalInSeconds seconds.</p>
 						</li>
 					</ul>
 				</section>

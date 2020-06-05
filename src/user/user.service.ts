@@ -13,6 +13,11 @@ import { TwitchService } from '../twitch/twitch.service';
 import { MostPlaceResult } from './most-place-result.interface';
 import { UserEntity } from './user.entity';
 
+/**
+ * Entity service to manage [[UserEntity]].
+ *
+ * @Category Service
+ */
 @Injectable()
 export class UserService extends EntityService<UserEntity> {
     public constructor(
@@ -25,10 +30,27 @@ export class UserService extends EntityService<UserEntity> {
         super(repo);
     }
 
+    /**
+     *
+     * @param username Username of the searched user.
+     * @param relations Relations to load.
+     *
+     * @returns The user with the searched username or undefined if not found.
+     */
     public byUsername(username: string, relations: string[] = []): Promise<UserEntity | undefined> {
         return this.repo.findOne({ where: { username }, relations });
     }
 
+    /**
+     *
+     * Throws if no matching user is found.
+     *
+     * @param username Username of the searched user.
+     * @param relations Relations to load.
+     * @param exception Exception to throw when no matching user is found.
+     *
+     * @returns The user with the searched username.
+     */
     public async byUsernameOrFail(
         username: string,
         relations: string[] = [],
@@ -41,11 +63,11 @@ export class UserService extends EntityService<UserEntity> {
     }
 
     /**
-     * Creates or update an user from twitch authentication
-     * Updates the discord site user count in case of new user
+     * Creates or update a user from twitch authentication.\
+     * Updates the discord site user count in case of new user.
      *
-     * @param data Data from the twitch request
-     * @return The newly created or updated user
+     * @param data Data from the twitch request.
+     * @return The newly created or updated user.
      */
     public async updateFromTwitch(data: TwitchUser): Promise<UserEntity> {
         //Find or create
@@ -71,6 +93,13 @@ export class UserService extends EntityService<UserEntity> {
         return result;
     }
 
+    /**
+     * Increments a column and updates the entity with the new value.
+     *
+     * @param user The user to modify.
+     * @param column The column to increment/decrement.
+     * @param amount How much the column is incremented. (Can be negative for decrementing.)
+     */
     private async changeAmountSave<K extends keyof UserEntity>(
         user: UserEntity,
         column: K,
@@ -86,14 +115,34 @@ export class UserService extends EntityService<UserEntity> {
         )[column];
     }
 
+    /**
+     * Increments the user's points and updates the entity with the new point value.
+     *
+     * @param user The user to modify.
+     * @param amount How much points is incremented. (Can be negative for decrementing.)
+     */
     public async changePointsSave(user: UserEntity, amount: number): Promise<void> {
         await this.changeAmountSave(user, 'points', amount);
     }
 
+    /**
+     * Increments the user's meteores and updates the entity with the new point value.
+     *
+     * @param user The user to modify.
+     * @param amount How much meteores is incremented. (Can be negative for decrementing.)
+     */
     public async changeMeteoresSave(user: UserEntity, amount: number): Promise<void> {
         await this.changeAmountSave(user, 'meteores', amount);
     }
 
+    /**
+     * Randomely picks a winner for a raffle.\
+     * Based on tickets bought. (More tickets = more chances to win.)
+     *
+     * @param raffle The raffle to win.
+     *
+     * @returns The randomely picked winner.
+     */
     public pickRaffleWinner(raffle: RaffleEntity): Promise<UserEntity> {
         return this.repo
             .createQueryBuilder('user')
@@ -104,6 +153,15 @@ export class UserService extends EntityService<UserEntity> {
             .getOne();
     }
 
+    /**
+     *
+     * @remark
+     * Might return less than count.
+     *
+     * @param count Maximum number of avatars to return.
+     *
+     * @returns Random user avatars. Only the [[UserEntity.avatar]] column is loaded. (Default twitch avatars are excluded.)
+     */
     public pickRandomNonDefaultAvatars(count: number): Promise<UserEntity[]> {
         return this.repo
             .createQueryBuilder('user')
@@ -114,6 +172,16 @@ export class UserService extends EntityService<UserEntity> {
             .getMany();
     }
 
+    /**
+     *
+     * Used to find users who are currently watching the stream.
+     *
+     * @param intervalInSeconds Maximum amount of seconds to include in search
+     * @param excludeId [[UserEntity.id]] to exclude
+     *
+     * @returns Users who sent a request to /watch/update in the last intervalInSeconds seconds.
+     *
+     */
     public viewers(intervalInSeconds: number, excludeId = -1): Promise<UserEntity[]> {
         return this.repo
             .createQueryBuilder('user')
@@ -123,11 +191,11 @@ export class UserService extends EntityService<UserEntity> {
                 'user.username',
                 'user.displayName',
                 'user.avatar',
-                'user.moderator',
-                'user.admin',
-                'user.partner',
-                'user.birthday',
-                'user.sparkle',
+                'user.moderator', //For chatRank
+                'user.admin', //For chatRank
+                'user.partner', //For chatRank
+                'user.birthday', //For chatRank
+                'user.sparkle', //For chatRank
                 'user.gotAffiliateCase',
             ])
             .leftJoinAndSelect('user.currentSubscription', 'sub')
@@ -137,6 +205,9 @@ export class UserService extends EntityService<UserEntity> {
             .getMany();
     }
 
+    /**
+     * @returns Users who are partners. (Based on [[UserEntity.partner]].)
+     */
     public partners(): Promise<Pick<UserEntity, 'username' | 'displayName' | 'avatar' | 'twitchDescription'>[]> {
         return this.repo
             .createQueryBuilder('user')
@@ -147,6 +218,12 @@ export class UserService extends EntityService<UserEntity> {
     }
 
     //Twitch sync//
+    /**
+     *
+     * @param size Size of a chunk
+     *
+     * @returns An async generator who returns arrays of [[UserEntity.twitchId]] of size chunk. Stops after processing every row.
+     */
     private async *allTwitchIdChunk(size: number): AsyncGenerator<string[]> {
         let users: { twitchId: string }[];
         let offset = 0;
@@ -173,8 +250,8 @@ export class UserService extends EntityService<UserEntity> {
     }
 
     /**
-     * Sync displayName and avatars from twitch
-     * 100 users at a time
+     * Update [[UserEntity.displayName]], [[UserEntity.avatar]] and [[UserEntity.twitchDescription]] from twitch's API.\
+     * 100 users at a time.
      */
     @Cron(CronExpression.EVERY_HOUR)
     public async syncWithTwitch(): Promise<void> {
@@ -244,7 +321,7 @@ export class UserService extends EntityService<UserEntity> {
     //Admin//
 
     /**
-     * @return The sum of every user's points
+     * @return The sum of every user's points.
      */
     public async totalPoints(): Promise<number> {
         return (
@@ -257,10 +334,11 @@ export class UserService extends EntityService<UserEntity> {
 
     /**
      * Bans userToBeBanned, sets userToBeBanned.bannedBy to bannedBy and userToBeBanned.banDate to now.
-     * Note: performs no check.
+     * @remark
+     * Performs no check for userToBeBanned and bannedBy. Use [[AdminService.ban]] instead.
      *
-     * @param userToBeBanned
-     * @param bannedBy
+     * @param userToBeBanned User to ban.
+     * @param bannedBy Admin or moderator that banned the user.
      */
     public async ban(userToBeBanned: UserEntity, bannedBy: UserEntity): Promise<void> {
         userToBeBanned.banned = true;
@@ -270,6 +348,13 @@ export class UserService extends EntityService<UserEntity> {
         await this.repo.save(userToBeBanned);
     }
 
+    /**
+     *
+     * Unbans a user.\
+     * Sets [[UserEntity.bannedBy]] and [[UserEntity.banDate]] to NULL;
+     *
+     * @param userToBeUnbanned User to unban.
+     */
     public async unban(userToBeUnbanned: UserEntity): Promise<void> {
         if (!userToBeUnbanned.banned) throw new UserErrorException(`${userToBeUnbanned.displayName} n'est pas banni.`);
 
@@ -280,11 +365,29 @@ export class UserService extends EntityService<UserEntity> {
         await this.repo.save(userToBeUnbanned);
     }
 
+    /**
+     *
+     * Toggles [[UserEntity.partner]].
+     *
+     * If not partner, the user becomes one.\
+     * If partner, the users stops being one.
+     *
+     * @param user User to toggle partner.
+     */
     public async togglePartner(user: UserEntity): Promise<void> {
         user.partner = !user.partner;
         await this.repo.save(user);
     }
 
+    /**
+     *
+     * @param page Current page.
+     * @param perPage How many users to return per page.
+     * @param search [[UserEntity.username]] and [[UserEntity.displayName]] search query.
+     *
+     * @returns An array of users based on the current page and the total number of users in the table.
+     *
+     */
     public searchPaginate(page: number, perPage: number, search = ''): Promise<[UserEntity[], number]> {
         const query = this.repo
             .createQueryBuilder('user')

@@ -23,16 +23,16 @@ import { SaveOptions } from 'typeorm/repository/SaveOptions';
 export abstract class EntityService<T> {
     /**
      * You can use InjectRepository() to get the repository.
-     * @param repo Typeorm repository for entity
+     * @param repo Typeorm repository for entity.
      */
     public constructor(protected readonly repo: Repository<T>) {}
 
     /**
      *
-     * @param id Searched id
-     * @param relations Relations to load
+     * @param id Searched id.
+     * @param relations Relations to load.
      *
-     * @returns The entity with the searched id or undefined if not found
+     * @returns The entity with the searched id or undefined if not found.
      */
     public byId(id: number, relations: (keyof T)[] = []): Promise<T | undefined> {
         return this.repo.findOne(id, { relations: relations as string[] });
@@ -42,11 +42,11 @@ export abstract class EntityService<T> {
      *
      * Throws if entity is not found.
      *
-     * @param id Searched id
-     * @param relations Relations to load
-     * @param exception Exception to throw if entity is not found
+     * @param id Searched id.
+     * @param relations Relations to load.
+     * @param exception Exception to throw if entity is not found.
      *
-     * @returns The entity with the searched id
+     * @returns The entity with the searched id.
      */
     public async byIdOrFail(
         id: number,
@@ -63,8 +63,8 @@ export abstract class EntityService<T> {
      *
      * Save an entity.
      *
-     * @param entity Entity to save
-     * @param options Save options to pass to typeorm
+     * @param entity Entity to save.
+     * @param options Save options to pass to typeorm.
      */
     public save(entity: T, options?: SaveOptions): Promise<T> {
         return this.repo.save(entity, options);
@@ -73,8 +73,8 @@ export abstract class EntityService<T> {
     /**
      * Remove an entity.
      *
-     * @param entity Entity to remove
-     * @param options Remove options to pass to typeorm
+     * @param entity Entity to remove.
+     * @param options Remove options to pass to typeorm.
      */
     public remove(entity: T, options?: RemoveOptions): Promise<T> {
         return this.repo.remove(entity, options);

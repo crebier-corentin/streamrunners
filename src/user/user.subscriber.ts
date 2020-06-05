@@ -2,6 +2,13 @@ import { Connection, EntitySubscriberInterface, EventSubscriber } from 'typeorm'
 import { SubscriptionLevel } from '../subscription/subscription.interfaces';
 import { UserEntity } from './user.entity';
 
+/**
+ * Typeorm subscriber for [[UserEntity]] that loads [[UserEntity.currentSubscription]].\
+ * Requires [[UserEntity.birthday]], [[UserEntity.partner]], [[UserEntity.moderator]], [[UserEntity.admin]] and [[UserEntity.currentSubscription]] to obtain the correct subscription level.
+ *
+ * @Category Subscriber
+ *
+ */
 @EventSubscriber()
 export class UserSubscriber implements EntitySubscriberInterface<UserEntity> {
     public constructor(connection: Connection) {

@@ -69,6 +69,13 @@
 <div class="container container-main">
 	<div class="row">
 		<div class="col-8 col-content">
+			<section class="tsd-panel tsd-comment">
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>Entity representing a user.</p>
+					</div>
+				</div>
+			</section>
 			<section class="tsd-panel tsd-hierarchy">
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
@@ -141,12 +148,12 @@
 					<div class="tsd-signature tsd-kind-icon">admin<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in src/user/user.entity.ts:84</li>
+							<li>Defined in src/user/user.entity.ts:90</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>Gives admin privileges, ChatRank.Admin and diamond subscription level</p>
+							<p>Gives admin privileges, ChatRank.Admin and diamond subscription level.</p>
 						</div>
 					</div>
 				</section>
@@ -156,7 +163,7 @@
 					<div class="tsd-signature tsd-kind-icon">affiliated<wbr>To<span class="tsd-signature-symbol">:</span> <a href="_user_user_entity_.userentity.html" class="tsd-signature-type">UserEntity</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in src/user/user.entity.ts:244</li>
+							<li>Defined in src/user/user.entity.ts:254</li>
 						</ul>
 					</aside>
 				</section>
@@ -166,7 +173,7 @@
 					<div class="tsd-signature tsd-kind-icon">affiliates<span class="tsd-signature-symbol">:</span> <a href="_user_user_entity_.userentity.html" class="tsd-signature-type">UserEntity</a><span class="tsd-signature-symbol">[]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in src/user/user.entity.ts:238</li>
+							<li>Defined in src/user/user.entity.ts:248</li>
 						</ul>
 					</aside>
 				</section>
@@ -176,13 +183,12 @@
 					<div class="tsd-signature tsd-kind-icon">avatar<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in src/user/user.entity.ts:58</li>
+							<li>Defined in src/user/user.entity.ts:64</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>An url to the user&#39;s avatar
-							Obtained from twitch, look at UserService.syncWithTwitch()</p>
+							<p>An url to the user&#39;s avatar.<br>Obtained from twitch, look at <a href="_user_user_service_.userservice.html#syncwithtwitch">UserService.syncWithTwitch</a>.</p>
 						</div>
 					</div>
 				</section>
@@ -192,13 +198,12 @@
 					<div class="tsd-signature tsd-kind-icon">ban<wbr>Date<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Date</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in src/user/user.entity.ts:160</li>
+							<li>Defined in src/user/user.entity.ts:166</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>The date the user was banned
-							Will reset to null if unbanned</p>
+							<p>The date the user was banned.<br>Will reset to null if unbanned.</p>
 						</div>
 					</div>
 				</section>
@@ -208,13 +213,12 @@
 					<div class="tsd-signature tsd-kind-icon">banned<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in src/user/user.entity.ts:145</li>
+							<li>Defined in src/user/user.entity.ts:151</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>Is the user banned
-							Use AdminService.ban() to ban and UserService.unban() to unban</p>
+							<p>Is the user banned.<br>Use <a href="_admin_admin_service_.adminservice.html#ban">AdminService.ban</a> to ban and <a href="_user_user_service_.userservice.html#unban">UserService.unban</a> to unban.</p>
 						</div>
 					</div>
 				</section>
@@ -224,13 +228,12 @@
 					<div class="tsd-signature tsd-kind-icon">banned<wbr>By<span class="tsd-signature-symbol">:</span> <a href="_user_user_entity_.userentity.html" class="tsd-signature-type">UserEntity</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in src/user/user.entity.ts:153</li>
+							<li>Defined in src/user/user.entity.ts:159</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>Who banned the user
-							Will reset to null if unbanned</p>
+							<p>Who banned the user.<br>Will reset to null if unbanned.</p>
 						</div>
 					</div>
 				</section>
@@ -240,12 +243,12 @@
 					<div class="tsd-signature tsd-kind-icon">birthday<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in src/user/user.entity.ts:110</li>
+							<li>Defined in src/user/user.entity.ts:116</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>Gives ChatRank.Birthday and diamond subscription level</p>
+							<p>Gives ChatRank.Birthday and diamond subscription level.</p>
 						</div>
 					</div>
 				</section>
@@ -255,9 +258,14 @@
 					<div class="tsd-signature tsd-kind-icon">cases<span class="tsd-signature-symbol">:</span> <a href="_case_case_entity_.caseentity.html" class="tsd-signature-type">CaseEntity</a><span class="tsd-signature-symbol">[]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in src/user/user.entity.ts:232</li>
+							<li>Defined in src/user/user.entity.ts:242</li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Cases belonging to the user.<br>Use <a href="_case_case_service_.caseservice.html#givecase">CaseService.giveCase</a> to give a new case to the user.</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
 					<a name="chatmessages" class="tsd-anchor"></a>
@@ -265,12 +273,12 @@
 					<div class="tsd-signature tsd-kind-icon">chat<wbr>Messages<span class="tsd-signature-symbol">:</span> <a href="_chat_chat_message_entity_.chatmessageentity.html" class="tsd-signature-type">ChatMessageEntity</a><span class="tsd-signature-symbol">[]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in src/user/user.entity.ts:178</li>
+							<li>Defined in src/user/user.entity.ts:184</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>Chat messages sent</p>
+							<p>Chat messages sent.</p>
 						</div>
 					</div>
 				</section>
@@ -280,12 +288,12 @@
 					<div class="tsd-signature tsd-kind-icon">coupons<span class="tsd-signature-symbol">:</span> <a href="_coupon_coupon_entity_.couponentity.html" class="tsd-signature-type">CouponEntity</a><span class="tsd-signature-symbol">[]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in src/user/user.entity.ts:188</li>
+							<li>Defined in src/user/user.entity.ts:194</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>Coupon used</p>
+							<p>Coupon used.</p>
 						</div>
 					</div>
 				</section>
@@ -295,7 +303,7 @@
 					<div class="tsd-signature tsd-kind-icon">created<wbr>At<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Date</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in src/user/user.entity.ts:255</li>
+							<li>Defined in src/user/user.entity.ts:265</li>
 						</ul>
 					</aside>
 				</section>
@@ -305,12 +313,12 @@
 					<div class="tsd-signature tsd-kind-icon">current<wbr>Subscription<span class="tsd-signature-symbol">:</span> <a href="_subscription_subscription_entity_.subscriptionentity.html" class="tsd-signature-type">SubscriptionEntity</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in src/user/user.entity.ts:226</li>
+							<li>Defined in src/user/user.entity.ts:232</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>Current active subscription</p>
+							<p>Current active subscription.</p>
 						</div>
 					</div>
 				</section>
@@ -320,12 +328,12 @@
 					<div class="tsd-signature tsd-kind-icon">display<wbr>Name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in src/user/user.entity.ts:50</li>
+							<li>Defined in src/user/user.entity.ts:56</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>Obtained from twitch, look at UserService.syncWithTwitch()</p>
+							<p>Obtained from twitch, look at <a href="_user_user_service_.userservice.html#syncwithtwitch">UserService.syncWithTwitch</a>.</p>
 						</div>
 					</div>
 				</section>
@@ -335,7 +343,7 @@
 					<div class="tsd-signature tsd-kind-icon">got<wbr>Affiliate<wbr>Case<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in src/user/user.entity.ts:251</li>
+							<li>Defined in src/user/user.entity.ts:261</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -351,7 +359,7 @@
 					<div class="tsd-signature tsd-kind-icon">id<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in src/user/user.entity.ts:30</li>
+							<li>Defined in src/user/user.entity.ts:36</li>
 						</ul>
 					</aside>
 				</section>
@@ -361,13 +369,12 @@
 					<div class="tsd-signature tsd-kind-icon">last<wbr>OnWatch<wbr>Page<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Date</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in src/user/user.entity.ts:104</li>
+							<li>Defined in src/user/user.entity.ts:110</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>Last time the user sent a request to /watch/update
-							Useful to see who is currently on the page</p>
+							<p>Last time the user sent a request to /watch/update.<br>Useful to see who is currently on the page.</p>
 						</div>
 					</div>
 				</section>
@@ -377,13 +384,12 @@
 					<div class="tsd-signature tsd-kind-icon">meteores<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in src/user/user.entity.ts:78</li>
+							<li>Defined in src/user/user.entity.ts:84</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>Meteores, can never go below 0
-							Use UserService.changePointsSave() to increment/decrement it</p>
+							<p>Meteores, can never go below 0.<br>Use <a href="_user_user_service_.userservice.html#changepointssave">UserService.changePointsSave</a> to increment/decrement it.</p>
 						</div>
 					</div>
 				</section>
@@ -393,12 +399,12 @@
 					<div class="tsd-signature tsd-kind-icon">moderator<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in src/user/user.entity.ts:90</li>
+							<li>Defined in src/user/user.entity.ts:96</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>Gives moderator privileges, ChatRank.Moderator and diamond subscription level</p>
+							<p>Gives moderator privileges, ChatRank.Moderator and diamond subscription level.</p>
 						</div>
 					</div>
 				</section>
@@ -408,13 +414,12 @@
 					<div class="tsd-signature tsd-kind-icon">partner<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in src/user/user.entity.ts:117</li>
+							<li>Defined in src/user/user.entity.ts:123</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>User shows up on partner slider on the index page
-							Gives ChatRank.Partner and diamond subscription level</p>
+							<p>User shows up on partner slider on the index page.<br>Gives ChatRank.Partner and diamond subscription level.</p>
 						</div>
 					</div>
 				</section>
@@ -424,13 +429,12 @@
 					<div class="tsd-signature tsd-kind-icon">points<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in src/user/user.entity.ts:71</li>
+							<li>Defined in src/user/user.entity.ts:77</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>Steamcoins, can never go below 0
-							Use UserService.changePointsSave() to increment/decrement it</p>
+							<p>Steamcoins, can never go below 0.<br>Use <a href="_user_user_service_.userservice.html#changepointssave">UserService.changePointsSave</a> to increment/decrement it.</p>
 						</div>
 					</div>
 				</section>
@@ -440,12 +444,12 @@
 					<div class="tsd-signature tsd-kind-icon">raffle<wbr>Participations<span class="tsd-signature-symbol">:</span> <a href="_raffle_raffle_participation_entity_.raffleparticipationentity.html" class="tsd-signature-type">RaffleParticipationEntity</a><span class="tsd-signature-symbol">[]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in src/user/user.entity.ts:207</li>
+							<li>Defined in src/user/user.entity.ts:213</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>Raffles participated in (with amount of ticket bought)</p>
+							<p>Raffles participated in (with amount of ticket bought).</p>
 						</div>
 					</div>
 				</section>
@@ -455,12 +459,12 @@
 					<div class="tsd-signature tsd-kind-icon">raffles<wbr>Won<span class="tsd-signature-symbol">:</span> <a href="_raffle_raffle_entity_.raffleentity.html" class="tsd-signature-type">RaffleEntity</a><span class="tsd-signature-symbol">[]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in src/user/user.entity.ts:198</li>
+							<li>Defined in src/user/user.entity.ts:204</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>Raffles won</p>
+							<p>Raffles won.</p>
 						</div>
 					</div>
 				</section>
@@ -470,12 +474,12 @@
 					<div class="tsd-signature tsd-kind-icon">sparkle<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in src/user/user.entity.ts:97</li>
+							<li>Defined in src/user/user.entity.ts:103</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>Shows a sparkle background behind username in chat</p>
+							<p>Shows a sparkle background behind username in chat.</p>
 						</div>
 					</div>
 				</section>
@@ -485,12 +489,12 @@
 					<div class="tsd-signature tsd-kind-icon">streams<wbr>Queued<span class="tsd-signature-symbol">:</span> <a href="_stream_queue_stream_queue_entity_.streamqueueentity.html" class="tsd-signature-type">StreamQueueEntity</a><span class="tsd-signature-symbol">[]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in src/user/user.entity.ts:169</li>
+							<li>Defined in src/user/user.entity.ts:175</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>Streams queued</p>
+							<p>Streams queued.</p>
 						</div>
 					</div>
 				</section>
@@ -500,12 +504,12 @@
 					<div class="tsd-signature tsd-kind-icon">subscription<wbr>Level<span class="tsd-signature-symbol">:</span> <a href="../enums/_subscription_subscription_interfaces_.subscriptionlevel.html" class="tsd-signature-type">SubscriptionLevel</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in src/user/user.entity.ts:264</li>
+							<li>Defined in src/user/user.entity.ts:274</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>Loaded by UserSubscriber</p>
+							<p>Loaded by <a href="_user_user_subscriber_.usersubscriber.html">UserSubscriber</a></p>
 						</div>
 					</div>
 				</section>
@@ -515,12 +519,12 @@
 					<div class="tsd-signature tsd-kind-icon">subscriptions<span class="tsd-signature-symbol">:</span> <a href="_subscription_subscription_entity_.subscriptionentity.html" class="tsd-signature-type">SubscriptionEntity</a><span class="tsd-signature-symbol">[]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in src/user/user.entity.ts:216</li>
+							<li>Defined in src/user/user.entity.ts:222</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>Subscriptions created</p>
+							<p>Subscriptions created.</p>
 						</div>
 					</div>
 				</section>
@@ -530,12 +534,12 @@
 					<div class="tsd-signature tsd-kind-icon">twitch<wbr>Description<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in src/user/user.entity.ts:64</li>
+							<li>Defined in src/user/user.entity.ts:70</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>Obtained from twitch, look at UserService.syncWithTwitch()</p>
+							<p>Obtained from twitch, look at <a href="_user_user_service_.userservice.html#syncwithtwitch">UserService.syncWithTwitch</a>.</p>
 						</div>
 					</div>
 				</section>
@@ -545,12 +549,12 @@
 					<div class="tsd-signature tsd-kind-icon">twitch<wbr>Id<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in src/user/user.entity.ts:36</li>
+							<li>Defined in src/user/user.entity.ts:42</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>Obtained from twitch, look at UserService.syncWithTwitch()</p>
+							<p>Obtained from twitch, look at <a href="_user_user_service_.userservice.html#syncwithtwitch">UserService.syncWithTwitch</a>.</p>
 						</div>
 					</div>
 				</section>
@@ -560,7 +564,7 @@
 					<div class="tsd-signature tsd-kind-icon">updated<wbr>At<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Date</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in src/user/user.entity.ts:259</li>
+							<li>Defined in src/user/user.entity.ts:269</li>
 						</ul>
 					</aside>
 				</section>
@@ -570,12 +574,12 @@
 					<div class="tsd-signature tsd-kind-icon">username<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in src/user/user.entity.ts:43</li>
+							<li>Defined in src/user/user.entity.ts:49</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>Obtained from twitch, look at UserService.syncWithTwitch()</p>
+							<p>Obtained from twitch, look at <a href="_user_user_service_.userservice.html#syncwithtwitch">UserService.syncWithTwitch</a>.</p>
 						</div>
 					</div>
 				</section>
@@ -592,7 +596,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/user/user.entity.ts:123</li>
+									<li>Defined in src/user/user.entity.ts:129</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="../enums/_shared_types_.chatrank.html" class="tsd-signature-type">ChatRank</a></h4>
@@ -612,7 +616,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/user/user.entity.ts:278</li>
+									<li>Defined in src/user/user.entity.ts:288</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -642,7 +646,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/user/user.entity.ts:270</li>
+									<li>Defined in src/user/user.entity.ts:280</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">

@@ -23,6 +23,12 @@ import { StreamQueueEntity } from '../stream-queue/stream-queue.entity';
 import { SubscriptionEntity } from '../subscription/subscription.entity';
 import { SubscriptionLevel } from '../subscription/subscription.interfaces';
 
+/**
+ * Entity representing a user.
+ *
+ * @Category Entity
+ *
+ */
 @Exclude()
 @Entity('user')
 export class UserEntity {
@@ -30,94 +36,94 @@ export class UserEntity {
     public id: number;
 
     /**
-     * Obtained from twitch, look at UserService.syncWithTwitch()
+     * Obtained from twitch, look at [[UserService.syncWithTwitch]].
      */
     @Column()
     public twitchId: string;
 
     /**
-     * Obtained from twitch, look at UserService.syncWithTwitch()
+     * Obtained from twitch, look at [[UserService.syncWithTwitch]].
      */
     @Expose()
     @Column()
     public username: string;
 
     /**
-     * Obtained from twitch, look at UserService.syncWithTwitch()
+     * Obtained from twitch, look at [[UserService.syncWithTwitch]].
      */
     @Expose()
     @Column()
     public displayName: string;
 
     /**
-     * An url to the user's avatar
-     * Obtained from twitch, look at UserService.syncWithTwitch()
+     * An url to the user's avatar.\
+     * Obtained from twitch, look at [[UserService.syncWithTwitch]].
      */
     @Expose()
     @Column()
     public avatar: string;
 
     /**
-     * Obtained from twitch, look at UserService.syncWithTwitch()
+     * Obtained from twitch, look at [[UserService.syncWithTwitch]].
      */
     @Column({ type: 'text' })
     public twitchDescription: string;
 
     /**
-     * Steamcoins, can never go below 0
-     * Use UserService.changePointsSave() to increment/decrement it
+     * Steamcoins, can never go below 0.\
+     * Use [[UserService.changePointsSave]] to increment/decrement it.
      */
     @Column({ default: 0 })
     public points: number;
 
     /**
-     * Meteores, can never go below 0
-     * Use UserService.changePointsSave() to increment/decrement it
+     * Meteores, can never go below 0.\
+     * Use [[UserService.changePointsSave]] to increment/decrement it.
      */
     @Column({ default: 0 })
     public meteores: number;
 
     /**
-     * Gives admin privileges, ChatRank.Admin and diamond subscription level
+     * Gives admin privileges, ChatRank.Admin and diamond subscription level.
      */
     @Column({ default: false })
     public admin: boolean;
 
     /**
-     * Gives moderator privileges, ChatRank.Moderator and diamond subscription level
+     * Gives moderator privileges, ChatRank.Moderator and diamond subscription level.
      */
     @Column({ default: false })
     public moderator: boolean;
 
     /**
-     * Shows a sparkle background behind username in chat
+     * Shows a sparkle background behind username in chat.
      */
     @Expose()
     @Column({ default: false })
     public sparkle: boolean;
 
     /**
-     * Last time the user sent a request to /watch/update
-     * Useful to see who is currently on the page
+     * Last time the user sent a request to /watch/update.\
+     * Useful to see who is currently on the page.
      */
     @Column('datetime', { default: () => 'CURRENT_TIMESTAMP' })
     public lastOnWatchPage: Date;
 
     /**
-     * Gives ChatRank.Birthday and diamond subscription level
+     * Gives ChatRank.Birthday and diamond subscription level.
      */
     @Column({ default: false })
     public birthday: boolean;
 
     /**
-     * User shows up on partner slider on the index page
-     * Gives ChatRank.Partner and diamond subscription level
+     * User shows up on partner slider on the index page.\
+     * Gives ChatRank.Partner and diamond subscription level.
      */
     @Column({ default: false })
     public partner: boolean;
 
     /*
-     * chatRank requires properties 'admin', 'moderator', 'partner', 'birthday' the relation 'currentSubscription' and 'subscriptionLevel' loaded by UserSubscriber
+     * chatRank requires properties 'admin', 'moderator', 'partner', 'birthday' the relation 'currentSubscription' and 'subscriptionLevel' loaded by UserSubscriber.
      */
     @Expose()
     public get chatRank(): ChatRank {
@@ -138,29 +144,29 @@ export class UserEntity {
 
     //Ban
     /**
-     * Is the user banned
-     * Use AdminService.ban() to ban and UserService.unban() to unban
+     * Is the user banned.\
+     * Use [[AdminService.ban]] to ban and [[UserService.unban]] to unban.
      */
     @Column({ default: false })
     public banned: boolean;
 
     /**
-     * Who banned the user
-     * Will reset to null if unbanned
+     * Who banned the user.\
+     * Will reset to null if unbanned.
      */
     @ManyToOne(type => UserEntity, { nullable: true })
     @JoinColumn({ name: 'bannedById' })
     public bannedBy: UserEntity | null;
 
     /**
-     * The date the user was banned
-     * Will reset to null if unbanned
+     * The date the user was banned.\
+     * Will reset to null if unbanned.
      */
     @Column({ type: 'datetime', nullable: true, default: null })
     public banDate: Date | null;
 
     /**
-     * Streams queued
+     * Streams queued.
      */
     @OneToMany(
         type => StreamQueueEntity,
@@ -169,7 +175,7 @@ export class UserEntity {
     public streamsQueued: StreamQueueEntity[];
 
     /**
-     * Chat messages sent
+     * Chat messages sent.
      */
     @OneToMany(
         type => ChatMessageEntity,
@@ -178,7 +184,7 @@ export class UserEntity {
     public chatMessages: ChatMessageEntity[];
 
     /**
-     * Coupon used
+     * Coupon used.
      */
     @ManyToMany(
         type => CouponEntity,
@@ -188,7 +194,7 @@ export class UserEntity {
     public coupons: CouponEntity[];
 
     /**
-     * Raffles won
+     * Raffles won.
      */
     @OneToMany(
         type => RaffleEntity,
@@ -198,7 +204,7 @@ export class UserEntity {
     public rafflesWon: RaffleEntity[];
 
     /**
-     * Raffles participated in (with amount of ticket bought)
+     * Raffles participated in (with amount of ticket bought).
      */
     @OneToMany(
         type => RaffleParticipationEntity,
@@ -207,7 +213,7 @@ export class UserEntity {
     public raffleParticipations: RaffleParticipationEntity[];
 
     /**
-     * Subscriptions created
+     * Subscriptions created.
      */
     @OneToMany(
         type => SubscriptionEntity,
@@ -216,7 +222,7 @@ export class UserEntity {
     public subscriptions: SubscriptionEntity[];
 
     /**
-     * Current active subscription
+     * Current active subscription.
      */
     @OneToOne(
         type => SubscriptionEntity,
@@ -225,6 +231,10 @@ export class UserEntity {
     )
     public currentSubscription: SubscriptionEntity | null;
 
+    /**
+     * Cases belonging to the user.\
+     * Use [[CaseService.giveCase]] to give a new case to the user.
+     */
     @OneToMany(
         type => CaseEntity,
         c => c.user
@@ -259,7 +269,7 @@ export class UserEntity {
     public updatedAt: Date;
 
     /**
-     * Loaded by UserSubscriber
+     * Loaded by [[UserSubscriber]]
      */
     public subscriptionLevel: SubscriptionLevel;
 

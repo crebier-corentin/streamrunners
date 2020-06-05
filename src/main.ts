@@ -112,7 +112,7 @@ async function bootstrap(): Promise<void> {
         next();
     });
 
-    await app.listen(3000);
+    await app.listen(Number(config.get<string>('PORT') ?? 3000)); //PORT or defaults to 3000
 }
 
 bootstrap();

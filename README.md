@@ -1,6 +1,18 @@
-### Manual dependencies (/dep/)
+#VPS
+###Web Server
+The node server is located in `/var/www/streamrunners`. It's run using [pm2](https://pm2.keymetrics.io/docs/usage/pm2-doc-single-page/).  
+Some useful commands are:
+* `pm2 restart streamrunners`
+* `pm2 stop streamrunners`
+* `pm2 logs`
+* `pm2 logs --err`
 
-`oauth` & `passport-twitch`: patched to support twitch's new API  
+The server uses nginx with a reverse proxy to the node server (configuration is `/etc/nginx/sites-available/default`).  
+Nginx takes care of static assets (`/public/`) and of https (using [certbot](https://certbot.eff.org/)) and http2.
+
+###Cron
+The vps has an hourly databse backup script (located in `/etc/cron.hourly/`). The dumps are saved to `/root/mysql-backup/`. Backups older than 3 days are automatically deleted.  
+The vps restarts the node server hourly (used as a workaround for a strange deadlock issue.) It's accessible with `crontab -e`.  
 
 # Commands
 `yarn run asset:dev`, `yarn run asset:development`: Generate frontend assets using development configuration (no minification, no purge-css...).  
@@ -91,6 +103,7 @@ The site uses [nodemailer](https://nodemailer.com/about/).
 * Set `PAYPAL_CLIENT_ID` and `PAYPAL_SECRET` to the client id and secret respectively.
 * Using the API create 2 products and 2 plans (for VIP and diamond) [https://developer.paypal.com/docs/api/catalog-products/v1/](https://developer.paypal.com/docs/api/catalog-products/v1/) [https://developer.paypal.com/docs/api/subscriptions/v1/#plans_create](https://developer.paypal.com/docs/api/subscriptions/v1/#plans_create). 
 * Set `VIP_PLAN_ID` and `DIAMOND_PLAN_ID` to the id the paypal VIP plan and paypal diamond plan respectively.
-       
-     
+          
+# Manual dependencies (/dep/)
 
+`oauth` & `passport-twitch`: patched to support twitch's new API  

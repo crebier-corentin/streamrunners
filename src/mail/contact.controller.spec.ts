@@ -50,7 +50,12 @@ describe('Contact Controller', () => {
                         message: 'Testing',
                         'g-recaptcha-response': '',
                     },
-                    { flash: jest.fn() } as any
+                    { flash: jest.fn() } as any,
+                    {
+                        render: jest.fn((view, data, callback) => {
+                            callback(undefined, 'test');
+                        }),
+                    } as any
                 )
             ).rejects.toBeInstanceOf(UserErrorException);
         });
@@ -66,7 +71,12 @@ describe('Contact Controller', () => {
                     message: 'Testing',
                     'g-recaptcha-response': '',
                 },
-                { flash: jest.fn() } as any
+                { flash: jest.fn() } as any,
+                {
+                    render: jest.fn((view, data, callback) => {
+                        callback(undefined, 'render-test');
+                    }),
+                } as any
             );
 
             expect(mockedSendMail).toHaveBeenNthCalledWith(1, {
@@ -74,12 +84,14 @@ describe('Contact Controller', () => {
                 replyTo: 'user@example.com',
                 subject: 'Test',
                 text: expect.stringContaining('Testing'),
+                html: 'render-test',
             });
 
             expect(mockedSendMail).toHaveBeenNthCalledWith(2, {
                 to: 'user@example.com',
                 subject: expect.any(String),
                 text: expect.any(String),
+                html: 'render-test',
             });
         });
     });

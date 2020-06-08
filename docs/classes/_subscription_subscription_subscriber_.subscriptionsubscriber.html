@@ -69,6 +69,15 @@
 <div class="container container-main">
 	<div class="row">
 		<div class="col-8 col-content">
+			<section class="tsd-panel tsd-comment">
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>Typeorm subscriber for <a href="_subscription_subscription_entity_.subscriptionentity.html">SubscriptionEntity</a>.<br>Updates <a href="_subscription_subscription_entity_.subscriptionentity.html#details">SubscriptionEntity.details</a> every hour.<br>Sets <a href="_subscription_subscription_entity_.subscriptionentity.html#isactive">SubscriptionEntity.isActive</a>.</p>
+					</div>
+					<p>Deletes the subscription if it does not exist on paypal (404 error while trying to get details).
+					Removes the <a href="_subscription_subscription_entity_.subscriptionentity.html#currentuser">SubscriptionEntity.currentUser</a> relation if the subscription is not active and expired.</p>
+				</div>
+			</section>
 			<section class="tsd-panel tsd-hierarchy">
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
@@ -122,7 +131,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/subscription/subscription.subscriber.ts:9</li>
+									<li>Defined in src/subscription/subscription.subscriber.ts:19</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -147,7 +156,7 @@
 					<div class="tsd-signature tsd-kind-icon">paypal<span class="tsd-signature-symbol">:</span> <a href="_subscription_paypal_service_.paypalservice.html" class="tsd-signature-type">PaypalService</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in src/subscription/subscription.subscriber.ts:10</li>
+							<li>Defined in src/subscription/subscription.subscriber.ts:20</li>
 						</ul>
 					</aside>
 				</section>
@@ -164,7 +173,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/subscription/subscription.subscriber.ts:18</li>
+									<li>Defined in src/subscription/subscription.subscriber.ts:28</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -195,7 +204,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/subscription/subscription.subscriber.ts:14</li>
+									<li>Defined in src/subscription/subscription.subscriber.ts:24</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Function</span></h4>
@@ -212,7 +221,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/subscription/subscription.subscriber.ts:70</li>
+									<li>Defined in src/subscription/subscription.subscriber.ts:80</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>

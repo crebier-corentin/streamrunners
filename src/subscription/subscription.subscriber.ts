@@ -5,6 +5,16 @@ import { PaypalService } from './paypal.service';
 import { SubscriptionEntity } from './subscription.entity';
 import moment = require('moment');
 
+/**
+ * Typeorm subscriber for [[SubscriptionEntity]].\
+ * Updates [[SubscriptionEntity.details]] every hour.\
+ * Sets [[SubscriptionEntity.isActive]].
+ *
+ * Deletes the subscription if it does not exist on paypal (404 error while trying to get details).
+ * Removes the [[SubscriptionEntity.currentUser]] relation if the subscription is not active and expired.
+ *
+ * @category Subscriber
+ */
 @EventSubscriber()
 export class SubscriptionSubscriber implements EntitySubscriberInterface<SubscriptionEntity> {
     public constructor(connection: Connection, private readonly paypal: PaypalService) {

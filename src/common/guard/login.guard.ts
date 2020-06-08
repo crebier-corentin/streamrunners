@@ -4,7 +4,7 @@ import { AuthGuard } from '@nestjs/passport';
 /**
  * Redirects the user to twitch's login api page and logs them in the site.
  *
- * @Category Guard
+ * @category Guard
  *
  */
 @Injectable()

@@ -26,7 +26,7 @@ import { SubscriptionLevel } from '../subscription/subscription.interfaces';
 /**
  * Entity representing a user.
  *
- * @Category Entity
+ * @category Entity
  *
  */
 @Exclude()

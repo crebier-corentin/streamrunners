@@ -9,6 +9,12 @@ import { PaypalService } from './paypal.service';
 import { SubscriptionEntity } from './subscription.entity';
 import { SubscriptionLevel, SubscriptionLevelToFrench, SubscriptionType } from './subscription.interfaces';
 
+/**
+ * Entity service for [[SubscriptionEntity]].
+ *
+ * @category Service
+ *
+ */
 @Injectable()
 export class SubscriptionService extends EntityService<SubscriptionEntity> {
     private plans: Map<SubscriptionType, string>;
@@ -31,6 +37,13 @@ export class SubscriptionService extends EntityService<SubscriptionEntity> {
         this.cancelUrl = `${config.get('HOSTNAME')}/subscription/paypal/cancel`;
     }
 
+    /**
+     *
+     * @param paypalId [[SubscriptionEntity.paypalId]] of the searched subscription.
+     * @param relations Relations to load.
+     *
+     * @returns The subscription with the searched paypal id or undefined if not found.
+     */
     private byPaypalId(
         paypalId: string,
         relations: (keyof SubscriptionEntity)[] = []
@@ -38,6 +51,16 @@ export class SubscriptionService extends EntityService<SubscriptionEntity> {
         return this.repo.findOne({ where: { paypalId }, relations });
     }
 
+    /**
+     *
+     * Throws if no matching subscription is found.
+     *
+     * @param paypalId [[SubscriptionEntity.paypalId]] of the searched subscription.
+     * @param relations Relations to load.
+     * @param exception Exception to throw when no matching subscription is found.
+     *
+     * @returns The subscription with the searched paypal id.
+     */
     private async byPaypalIdOrFail(
         paypalId: string,
         relations: (keyof SubscriptionEntity)[] = [],
@@ -50,6 +73,15 @@ export class SubscriptionService extends EntityService<SubscriptionEntity> {
         return entity;
     }
 
+    /**
+     * Creates a paypal subcription and an [[SubscriptionEntity]] associated to it.
+     *
+     * @param user The user who requested the subscription.
+     * @param type The type of the subscription [[SubscriptionType]].
+     * @param paypalRequestKey A unique generated string idempotency key. [https://developer.paypal.com/docs/api/reference/api-requests/#paypal-request-id](https://developer.paypal.com/docs/api/reference/api-requests/#paypal-request-id)
+     *
+     * @returns The subscription's approve paypal url.
+     */
     public async createSubscriptionAndGetRedirectUrl(
         user: UserEntity,
         type: string,
@@ -99,6 +131,12 @@ export class SubscriptionService extends EntityService<SubscriptionEntity> {
         return details.links.find(l => l.rel === 'approve').href;
     }
 
+    /**
+     * Cancel a pending subscription.\
+     * Will not work if the subscription's status is not APPROVAL_PENDING
+     * @param user The user who requested the cancel.
+     * @param paypalId The [[SubscriptionEntity.paypalId]] of the subscription to cancel.
+     */
     public async cancelPending(user: UserEntity, paypalId: string): Promise<void> {
         const sub = await this.byPaypalIdOrFail(paypalId, ['user'], new BadRequestException());
 
@@ -111,6 +149,10 @@ export class SubscriptionService extends EntityService<SubscriptionEntity> {
         await this.repo.save(sub);
     }
 
+    /**
+     * Cancel the user's [[UserEntity.currentSubscription]].
+     * @param user The user who requested the cancel.
+     */
     public async cancelCurrent(user: UserEntity): Promise<void> {
         if (user.currentSubscription == undefined) throw new UserErrorException("Vous n'avez pas d'abonnement actif.");
 
@@ -123,14 +165,13 @@ export class SubscriptionService extends EntityService<SubscriptionEntity> {
         await this.save(user.currentSubscription);
     }
 
-    public async disableCurrent(sub: SubscriptionEntity): Promise<void> {
-        await this.repo
-            .createQueryBuilder()
-            .relation('currentUser')
-            .of(sub)
-            .set(null);
-    }
-
+    /**
+     * Updates [[SubscriptionEntity.details]].\
+     * Throws if the subscription does not exist, does not belong to the user or is not active.
+     *
+     * @param user The owner of the subscription.
+     * @param paypalId The [[SubscriptionEntity.paypalId]] of the subscription to check.
+     */
     public async isActiveOrFail(user: UserEntity, paypalId: string): Promise<void> {
         const sub = await this.byPaypalIdOrFail(paypalId, ['user'], new BadRequestException());
 

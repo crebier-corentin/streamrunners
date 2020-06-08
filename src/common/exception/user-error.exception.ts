@@ -14,7 +14,7 @@ import { HttpException } from '@nestjs/common';
  * new UserErrorException("title", "message", 400); //title == "title", message == "message" and status == 400
  * ```
  *
- * @Category Exception
+ * @category Exception
  *
  */
 export class UserErrorException extends HttpException {

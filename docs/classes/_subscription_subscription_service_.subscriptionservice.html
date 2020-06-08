@@ -69,6 +69,13 @@
 <div class="container container-main">
 	<div class="row">
 		<div class="col-8 col-content">
+			<section class="tsd-panel tsd-comment">
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>Entity service for <a href="_subscription_subscription_entity_.subscriptionentity.html">SubscriptionEntity</a>.</p>
+					</div>
+				</div>
+			</section>
 			<section class="tsd-panel tsd-hierarchy">
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
@@ -114,7 +121,6 @@
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_subscription_subscription_service_.subscriptionservice.html#cancelpending" class="tsd-kind-icon">cancel<wbr>Pending</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_subscription_subscription_service_.subscriptionservice.html#count" class="tsd-kind-icon">count</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_subscription_subscription_service_.subscriptionservice.html#createsubscriptionandgetredirecturl" class="tsd-kind-icon">create<wbr>Subscription<wbr>And<wbr>Get<wbr>Redirect<wbr>Url</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_subscription_subscription_service_.subscriptionservice.html#disablecurrent" class="tsd-kind-icon">disable<wbr>Current</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_subscription_subscription_service_.subscriptionservice.html#isactiveorfail" class="tsd-kind-icon">is<wbr>Active<wbr>OrFail</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_subscription_subscription_service_.subscriptionservice.html#remove" class="tsd-kind-icon">remove</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_subscription_subscription_service_.subscriptionservice.html#save" class="tsd-kind-icon">save</a></li>
@@ -136,7 +142,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides <a href="_common_utils_entity_service_.entityservice.html">EntityService</a>.<a href="_common_utils_entity_service_.entityservice.html#constructor">constructor</a></p>
 								<ul>
-									<li>Defined in src/subscription/subscription.service.ts:17</li>
+									<li>Defined in src/subscription/subscription.service.ts:23</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -164,7 +170,7 @@
 					<div class="tsd-signature tsd-kind-icon">cancel<wbr>Url<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in src/subscription/subscription.service.ts:17</li>
+							<li>Defined in src/subscription/subscription.service.ts:23</li>
 						</ul>
 					</aside>
 				</section>
@@ -174,7 +180,7 @@
 					<div class="tsd-signature tsd-kind-icon">paypal<span class="tsd-signature-symbol">:</span> <a href="_subscription_paypal_service_.paypalservice.html" class="tsd-signature-type">PaypalService</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in src/subscription/subscription.service.ts:22</li>
+							<li>Defined in src/subscription/subscription.service.ts:28</li>
 						</ul>
 					</aside>
 				</section>
@@ -184,7 +190,7 @@
 					<div class="tsd-signature tsd-kind-icon">plans<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Map</span><span class="tsd-signature-symbol">&lt;</span><a href="../modules/_subscription_subscription_interfaces_.html#subscriptiontype" class="tsd-signature-type">SubscriptionType</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in src/subscription/subscription.service.ts:14</li>
+							<li>Defined in src/subscription/subscription.service.ts:20</li>
 						</ul>
 					</aside>
 				</section>
@@ -210,7 +216,7 @@
 					<div class="tsd-signature tsd-kind-icon">return<wbr>Url<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in src/subscription/subscription.service.ts:16</li>
+							<li>Defined in src/subscription/subscription.service.ts:22</li>
 						</ul>
 					</aside>
 				</section>
@@ -329,19 +335,28 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/subscription/subscription.service.ts:34</li>
+									<li>Defined in src/subscription/subscription.service.ts:47</li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>paypalId: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p><a href="_subscription_subscription_entity_.subscriptionentity.html#paypalid">SubscriptionEntity.paypalId</a> of the searched subscription.</p>
+									</div>
 								</li>
 								<li>
 									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> relations: <span class="tsd-signature-symbol">(</span><span class="tsd-signature-type">"user"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"id"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"createdAt"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"updatedAt"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"level"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"paypalId"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"details"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"lastDetailsUpdate"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"currentUser"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"isActive"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"expirationDate"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"isExpired"</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> = []</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Relations to load.</p>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="_subscription_subscription_entity_.subscriptionentity.html" class="tsd-signature-type">SubscriptionEntity</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<p>The subscription with the searched paypal id or undefined if not found.</p>
 						</li>
 					</ul>
 				</section>
@@ -355,22 +370,37 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/subscription/subscription.service.ts:41</li>
+									<li>Defined in src/subscription/subscription.service.ts:64</li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Throws if no matching subscription is found.</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>paypalId: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p><a href="_subscription_subscription_entity_.subscriptionentity.html#paypalid">SubscriptionEntity.paypalId</a> of the searched subscription.</p>
+									</div>
 								</li>
 								<li>
 									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> relations: <span class="tsd-signature-symbol">(</span><span class="tsd-signature-type">"user"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"id"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"createdAt"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"updatedAt"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"level"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"paypalId"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"details"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"lastDetailsUpdate"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"currentUser"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"isActive"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"expirationDate"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"isExpired"</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> = []</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Relations to load.</p>
+									</div>
 								</li>
 								<li>
 									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> exception: <span class="tsd-signature-type">HttpException</span><span class="tsd-signature-symbol"> = new InternalServerErrorException()</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Exception to throw when no matching subscription is found.</p>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="_subscription_subscription_entity_.subscriptionentity.html" class="tsd-signature-type">SubscriptionEntity</a><span class="tsd-signature-symbol">&gt;</span></h4>
+							<p>The subscription with the searched paypal id.</p>
 						</li>
 					</ul>
 				</section>
@@ -384,13 +414,21 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/subscription/subscription.service.ts:114</li>
+									<li>Defined in src/subscription/subscription.service.ts:156</li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Cancel the user&#39;s <a href="_user_user_entity_.userentity.html#currentsubscription">UserEntity.currentSubscription</a>.</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>user: <a href="_user_user_entity_.userentity.html" class="tsd-signature-type">UserEntity</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The user who requested the cancel.</p>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -407,16 +445,27 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/subscription/subscription.service.ts:102</li>
+									<li>Defined in src/subscription/subscription.service.ts:140</li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Cancel a pending subscription.<br>Will not work if the subscription&#39;s status is not APPROVAL_PENDING</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>user: <a href="_user_user_entity_.userentity.html" class="tsd-signature-type">UserEntity</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The user who requested the cancel.</p>
+									</div>
 								</li>
 								<li>
 									<h5>paypalId: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The <a href="_subscription_subscription_entity_.subscriptionentity.html#paypalid">SubscriptionEntity.paypalId</a> of the subscription to cancel.</p>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -454,45 +503,37 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/subscription/subscription.service.ts:53</li>
+									<li>Defined in src/subscription/subscription.service.ts:85</li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Creates a paypal subcription and an <a href="_subscription_subscription_entity_.subscriptionentity.html">SubscriptionEntity</a> associated to it.</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>user: <a href="_user_user_entity_.userentity.html" class="tsd-signature-type">UserEntity</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The user who requested the subscription.</p>
+									</div>
 								</li>
 								<li>
 									<h5>type: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The type of the subscription <a href="../modules/_subscription_subscription_interfaces_.html#subscriptiontype">SubscriptionType</a>.</p>
+									</div>
 								</li>
 								<li>
 									<h5>paypalRequestKey: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>A unique generated string idempotency key. <a href="https://developer.paypal.com/docs/api/reference/api-requests/#paypal-request-id">https://developer.paypal.com/docs/api/reference/api-requests/#paypal-request-id</a></p>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></h4>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-					<a name="disablecurrent" class="tsd-anchor"></a>
-					<h3>disable<wbr>Current</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">disable<wbr>Current<span class="tsd-signature-symbol">(</span>sub<span class="tsd-signature-symbol">: </span><a href="_subscription_subscription_entity_.subscriptionentity.html" class="tsd-signature-type">SubscriptionEntity</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in src/subscription/subscription.service.ts:126</li>
-								</ul>
-							</aside>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>sub: <a href="_subscription_subscription_entity_.subscriptionentity.html" class="tsd-signature-type">SubscriptionEntity</a></h5>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<p>The subscription&#39;s approve paypal url.</p>
 						</li>
 					</ul>
 				</section>
@@ -506,16 +547,27 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/subscription/subscription.service.ts:134</li>
+									<li>Defined in src/subscription/subscription.service.ts:175</li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Updates <a href="_subscription_subscription_entity_.subscriptionentity.html#details">SubscriptionEntity.details</a>.<br>Throws if the subscription does not exist, does not belong to the user or is not active.</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>user: <a href="_user_user_entity_.userentity.html" class="tsd-signature-type">UserEntity</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The owner of the subscription.</p>
+									</div>
 								</li>
 								<li>
 									<h5>paypalId: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The <a href="_subscription_subscription_entity_.subscriptionentity.html#paypalid">SubscriptionEntity.paypalId</a> of the subscription to check.</p>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -662,9 +714,6 @@
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="_subscription_subscription_service_.subscriptionservice.html#createsubscriptionandgetredirecturl" class="tsd-kind-icon">create<wbr>Subscription<wbr>And<wbr>Get<wbr>Redirect<wbr>Url</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="_subscription_subscription_service_.subscriptionservice.html#disablecurrent" class="tsd-kind-icon">disable<wbr>Current</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="_subscription_subscription_service_.subscriptionservice.html#isactiveorfail" class="tsd-kind-icon">is<wbr>Active<wbr>OrFail</a>

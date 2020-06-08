@@ -6,7 +6,7 @@ import { UserEntity } from './user.entity';
  * Typeorm subscriber for [[UserEntity]] that loads [[UserEntity.currentSubscription]].\
  * Requires [[UserEntity.birthday]], [[UserEntity.partner]], [[UserEntity.moderator]], [[UserEntity.admin]] and [[UserEntity.currentSubscription]] to obtain the correct subscription level.
  *
- * @Category Subscriber
+ * @category Subscriber
  *
  */
 @EventSubscriber()

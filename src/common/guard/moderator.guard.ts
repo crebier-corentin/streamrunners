@@ -3,7 +3,7 @@ import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
 /**
  * Only allows authenticated moderators and admins.
  *
- * @Category Guard
+ * @category Guard
  *
  */
 @Injectable()

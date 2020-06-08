@@ -4,6 +4,12 @@ import { EntityService } from '../common/utils/entity-service';
 import { SubscriptionLevelInfoEntity } from './subscription-level-info.entity';
 import { SubscriptionLevel } from './subscription.interfaces';
 
+/**
+ * Entity service for [[SubscriptionLevelInfoEntity]].
+ *
+ * @category Service
+ *
+ */
 @Injectable()
 export class SubscriptionLevelInfoService extends EntityService<SubscriptionLevelInfoEntity>
     implements OnApplicationBootstrap {
@@ -22,14 +28,33 @@ export class SubscriptionLevelInfoService extends EntityService<SubscriptionLeve
         }
     }
 
+    /**
+     *
+     * @param level The searched subscription level.
+     *
+     * @returns The matching entity for level.
+     */
     public byLevel(level: SubscriptionLevel): Promise<SubscriptionLevelInfoEntity | undefined> {
         return this.repo.findOne({ where: { level } });
     }
 
+    /**
+     *
+     * @param level
+     *
+     * @returns The [[SubscriptionLevelInfoEntity.maxPlaces]] for the level.
+     */
     public getPlaceLimit(level: SubscriptionLevel): number {
         return this.placeCache.get(level);
     }
 
+    /**
+     *
+     * @param level
+     * @param limit Value to set.
+     *
+     * Sets the [[SubscriptionLevelInfoEntity.maxPlaces]] for the entity of the corresponding level.
+     */
     public async setPlaceLimit(level: SubscriptionLevel, limit: number): Promise<void> {
         await this.repo.update({ level }, { maxPlaces: limit });
         this.placeCache.set(level, limit);

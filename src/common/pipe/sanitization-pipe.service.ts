@@ -4,7 +4,7 @@ import { sanitize } from 'class-sanitizer';
 /**
  * Sanitize the body according to [class-sanitizer](https://github.com/typestack/class-sanitizer#sanity-decorators) rules.
  *
- * @Category Pipe
+ * @category Pipe
  *
  */
 @Injectable()

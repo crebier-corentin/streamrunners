@@ -9,7 +9,7 @@ import { BannedUserException } from '../exception/banned-user.exception';
  * @remark
  * This filter is global.
  *
- * @Category Filter
+ * @category Filter
  */
 @Catch(BannedUserException)
 export class BanFilter<T> implements ExceptionFilter {

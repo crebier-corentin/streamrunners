@@ -69,6 +69,13 @@
 <div class="container container-main">
 	<div class="row">
 		<div class="col-8 col-content">
+			<section class="tsd-panel tsd-comment">
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>Service used to send request to paypal&#39;s API.</p>
+					</div>
+				</div>
+			</section>
 			<section class="tsd-panel tsd-hierarchy">
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
@@ -123,7 +130,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/subscription/paypal.service.ts:18</li>
+									<li>Defined in src/subscription/paypal.service.ts:23</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -145,7 +152,7 @@
 					<div class="tsd-signature tsd-kind-icon">base<wbr>Url<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in src/subscription/paypal.service.ts:11</li>
+							<li>Defined in src/subscription/paypal.service.ts:16</li>
 						</ul>
 					</aside>
 				</section>
@@ -155,7 +162,7 @@
 					<div class="tsd-signature tsd-kind-icon">basic<wbr>Auth<wbr>Token<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in src/subscription/paypal.service.ts:13</li>
+							<li>Defined in src/subscription/paypal.service.ts:18</li>
 						</ul>
 					</aside>
 				</section>
@@ -165,7 +172,7 @@
 					<div class="tsd-signature tsd-kind-icon">bearer<wbr>Token<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in src/subscription/paypal.service.ts:15</li>
+							<li>Defined in src/subscription/paypal.service.ts:20</li>
 						</ul>
 					</aside>
 				</section>
@@ -175,7 +182,7 @@
 					<div class="tsd-signature tsd-kind-icon">lock<span class="tsd-signature-symbol">:</span> <a href="_common_utils_semaphore_.semaphore.html" class="tsd-signature-type">Semaphore</a><span class="tsd-signature-symbol"> = new Semaphore(1)</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in src/subscription/paypal.service.ts:18</li>
+							<li>Defined in src/subscription/paypal.service.ts:23</li>
 						</ul>
 					</aside>
 				</section>
@@ -185,7 +192,7 @@
 					<div class="tsd-signature tsd-kind-icon">token<wbr>Expire<wbr>Date<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Moment</span><span class="tsd-signature-symbol"> = moment()</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in src/subscription/paypal.service.ts:16</li>
+							<li>Defined in src/subscription/paypal.service.ts:21</li>
 						</ul>
 					</aside>
 				</section>
@@ -202,16 +209,27 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/subscription/paypal.service.ts:133</li>
+									<li>Defined in src/subscription/paypal.service.ts:153</li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p><a href="https://developer.paypal.com/docs/api/subscriptions/v1/#subscriptions_activate">https://developer.paypal.com/docs/api/subscriptions/v1/#subscriptions_activate</a></p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>subscriptionId: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The paypal id of the subscription. (Most likely <a href="_subscription_subscription_entity_.subscriptionentity.html#paypalid">SubscriptionEntity.paypalId</a>.)</p>
+									</div>
 								</li>
 								<li>
 									<h5><span class="tsd-flag ts-flagOptional">Optional</span> reason: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Reason for activating the subscription (can be empty).</p>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -228,16 +246,27 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/subscription/paypal.service.ts:148</li>
+									<li>Defined in src/subscription/paypal.service.ts:175</li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p><a href="https://developer.paypal.com/docs/api/subscriptions/v1/#subscriptions_cancel">https://developer.paypal.com/docs/api/subscriptions/v1/#subscriptions_cancel</a></p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>subscriptionId: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The paypal id of the subscription. (Most likely <a href="_subscription_subscription_entity_.subscriptionentity.html#paypalid">SubscriptionEntity.paypalId</a>.)</p>
+									</div>
 								</li>
 								<li>
 									<h5>reason: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Reason for cancelling the subscription (can be empty).</p>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -256,13 +285,20 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/subscription/paypal.service.ts:78</li>
+									<li>Defined in src/subscription/paypal.service.ts:87</li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p><a href="https://developer.paypal.com/docs/api/subscriptions/v1/#subscriptions_create">https://developer.paypal.com/docs/api/subscriptions/v1/#subscriptions_create</a></p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>data: <a href="../interfaces/_subscription_paypal_interfaces_.paypalsubscriptioncreate.html" class="tsd-signature-type">PaypalSubscriptionCreate</a></h5>
+									<div class="tsd-comment tsd-typography">
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Pick</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/_subscription_paypal_interfaces_.paypalsubscriptiondetails.html" class="tsd-signature-type">PaypalSubscriptionDetails</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">"id"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"status"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"links"</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -270,7 +306,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/subscription/paypal.service.ts:80</li>
+									<li>Defined in src/subscription/paypal.service.ts:89</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -290,7 +326,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/subscription/paypal.service.ts:82</li>
+									<li>Defined in src/subscription/paypal.service.ts:91</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -320,13 +356,21 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/subscription/paypal.service.ts:110</li>
+									<li>Defined in src/subscription/paypal.service.ts:124</li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p><a href="https://developer.paypal.com/docs/api/subscriptions/v1/#subscriptions_get">https://developer.paypal.com/docs/api/subscriptions/v1/#subscriptions_get</a></p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>subscriptionId: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The paypal id of the subscription. (Most likely <a href="_subscription_subscription_entity_.subscriptionentity.html#paypalid">SubscriptionEntity.paypalId</a>.)</p>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/_subscription_paypal_interfaces_.paypalsubscriptiondetails.html" class="tsd-signature-type">PaypalSubscriptionDetails</a><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -334,7 +378,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/subscription/paypal.service.ts:112</li>
+									<li>Defined in src/subscription/paypal.service.ts:126</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -366,7 +410,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/subscription/paypal.service.ts:53</li>
+									<li>Defined in src/subscription/paypal.service.ts:58</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -395,7 +439,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/subscription/paypal.service.ts:32</li>
+									<li>Defined in src/subscription/paypal.service.ts:37</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>

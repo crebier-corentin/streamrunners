@@ -64,9 +64,13 @@
 	<div class="row">
 		<div class="col-8 col-content">
 			<div class="tsd-panel tsd-typography">
-				<p>#VPS
-					###Web Server
-					The node server is located in <code>/var/www/streamrunners</code>. It&#39;s run using <a href="https://pm2.keymetrics.io/docs/usage/pm2-doc-single-page/">pm2</a>.
+				<a href="#vps" id="vps" style="color: inherit; text-decoration: none;">
+					<h1>VPS</h1>
+				</a>
+				<a href="#web-server" id="web-server" style="color: inherit; text-decoration: none;">
+					<h3>Web Server</h3>
+				</a>
+				<p>The node server is located in <code>/var/www/streamrunners</code>. It&#39;s run using <a href="https://pm2.keymetrics.io/docs/usage/pm2-doc-single-page/">pm2</a>.
 				Some useful commands are:</p>
 				<ul>
 					<li><code>pm2 restart streamrunners</code></li>
@@ -75,8 +79,10 @@
 					<li><code>pm2 logs --err</code></li>
 				</ul>
 				<p>The server uses nginx with a reverse proxy to the node server (configuration is <code>/etc/nginx/sites-available/default</code>).<br>Nginx takes care of static assets (<code>/public/</code>) and of https (using <a href="https://certbot.eff.org/">certbot</a>) and http2.</p>
-				<p>###Cron
-				The vps has an hourly databse backup script (located in <code>/etc/cron.hourly/</code>). The dumps are saved to <code>/root/mysql-backup/</code>. Backups older than 3 days are automatically deleted.<br>The vps restarts the node server hourly (used as a workaround for a strange deadlock issue.) It&#39;s accessible with <code>crontab -e</code>.  </p>
+				<a href="#cron" id="cron" style="color: inherit; text-decoration: none;">
+					<h3>Cron</h3>
+				</a>
+				<p>The vps has an hourly databse backup script (located in <code>/etc/cron.hourly/</code>). The dumps are saved to <code>/root/mysql-backup/</code>. Backups older than 3 days are automatically deleted.<br>The vps restarts the node server hourly (used as a workaround for a strange deadlock issue.) It&#39;s accessible with <code>crontab -e</code>.  </p>
 				<a href="#commands" id="commands" style="color: inherit; text-decoration: none;">
 					<h1>Commands</h1>
 				</a>
@@ -84,7 +90,7 @@
 				<p><code>yarn run docs</code>: Generate docs/ using typedoc.<br><code>yarn run format</code>: Format the backend code using prettier.<br><code>yarn run lint</code>: Lint the backend code using eslint.  </p>
 				<p><code>yarn run prebuild</code>: Delete dist/.<br><code>yarn run build</code>: Build the backend app.  </p>
 				<p><code>yarn run start</code>: Start the backend app.<br><code>yarn run start:dev</code>: Start the backend app and watch for changes.<br><code>yarn run start:debug</code>: Start the backend app in debug mode and watch for changes.<br><code>yarn run start:prod</code>: Start the backend app from file in dist/ (requires <code>yarn run build</code> first).  </p>
-				<p><code>yarn run test</code>: Run backend tests. (.spec.ts files.)<br><code>yarn run test:cov</code>: Run backend tests and outputs coverage info in cov/.  </p>
+				<p><code>yarn run test</code>: Run backend tests. (.spec.ts files.)<br><code>yarn run test:cov</code>: Run backend tests and outputs coverage info in coverage/.  </p>
 				<p><code>yarn run typeorm [command]</code>: Run a <a href="https://github.com/typeorm/typeorm/blob/master/docs/using-cli.md">typeorm CLI</a> command.<br><code>yarn run typeorm:gen [MigrationName]</code>: Generates a new migration in src/migrations based on changes in entities.
 				<strong>Always manually look and edit the migration files,</strong> typeorm has a tendency to include some useless and/or destructive stuff.<br><code>yarn run typeorm:run</code>: Apply migrations to the database.  </p>
 				<p><strong>Note:</strong> The pre-commit git hook runs <code>test</code>, <code>format</code>, <code>lint</code>, <code>asset:production</code>, <code>docs</code> and <code>git add -u</code> (adds all the changes to the commit).<br>You can bypass it with <code>-n</code>. (<code>git commit -n -m &quot;commit message</code>.)</p>

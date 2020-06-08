@@ -69,6 +69,13 @@
 <div class="container container-main">
 	<div class="row">
 		<div class="col-8 col-content">
+			<section class="tsd-panel tsd-comment">
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>Entity service for <a href="_subscription_subscription_level_info_entity_.subscriptionlevelinfoentity.html">SubscriptionLevelInfoEntity</a>.</p>
+					</div>
+				</div>
+			</section>
 			<section class="tsd-panel tsd-hierarchy">
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
@@ -136,7 +143,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides <a href="_common_utils_entity_service_.entityservice.html">EntityService</a>.<a href="_common_utils_entity_service_.entityservice.html#constructor">constructor</a></p>
 								<ul>
-									<li>Defined in src/subscription/subscription-level-info.service.ts:10</li>
+									<li>Defined in src/subscription/subscription-level-info.service.ts:16</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -158,7 +165,7 @@
 					<div class="tsd-signature tsd-kind-icon">place<wbr>Cache<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Map</span><span class="tsd-signature-symbol">&lt;</span><a href="../enums/_subscription_subscription_interfaces_.subscriptionlevel.html" class="tsd-signature-type">SubscriptionLevel</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> = new Map&lt;SubscriptionLevel, number&gt;()</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in src/subscription/subscription-level-info.service.ts:10</li>
+							<li>Defined in src/subscription/subscription-level-info.service.ts:16</li>
 						</ul>
 					</aside>
 				</section>
@@ -293,16 +300,22 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/subscription/subscription-level-info.service.ts:25</li>
+									<li>Defined in src/subscription/subscription-level-info.service.ts:37</li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>level: <a href="../enums/_subscription_subscription_interfaces_.subscriptionlevel.html" class="tsd-signature-type">SubscriptionLevel</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The searched subscription level.</p>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="_subscription_subscription_level_info_entity_.subscriptionlevelinfoentity.html" class="tsd-signature-type">SubscriptionLevelInfoEntity</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<p>The matching entity for level.</p>
 						</li>
 					</ul>
 				</section>
@@ -337,16 +350,21 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/subscription/subscription-level-info.service.ts:29</li>
+									<li>Defined in src/subscription/subscription-level-info.service.ts:47</li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>level: <a href="../enums/_subscription_subscription_interfaces_.subscriptionlevel.html" class="tsd-signature-type">SubscriptionLevel</a></h5>
+									<div class="tsd-comment tsd-typography">
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
+							<p>The <a href="_subscription_subscription_level_info_entity_.subscriptionlevelinfoentity.html#maxplaces">SubscriptionLevelInfoEntity.maxPlaces</a> for the level.</p>
 						</li>
 					</ul>
 				</section>
@@ -360,7 +378,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/subscription/subscription-level-info.service.ts:16</li>
+									<li>Defined in src/subscription/subscription-level-info.service.ts:22</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -453,9 +471,11 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/subscription/subscription-level-info.service.ts:33</li>
+									<li>Defined in src/subscription/subscription-level-info.service.ts:58</li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -463,6 +483,10 @@
 								</li>
 								<li>
 									<h5>limit: <span class="tsd-signature-type">number</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Value to set.</p>
+										<p>Sets the <a href="_subscription_subscription_level_info_entity_.subscriptionlevelinfoentity.html#maxplaces">SubscriptionLevelInfoEntity.maxPlaces</a> for the entity of the corresponding level.</p>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>

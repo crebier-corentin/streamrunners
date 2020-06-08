@@ -11,7 +11,7 @@ import { UserErrorException } from './user-error.exception';
  * @UsePipes(new ValidationPipe({exceptionFactory: (errors): ValidationErrorsException => new ValidationErrorsException(errors)})
  * ```
  *
- * @Category Exception
+ * @category Exception
  *
  */
 export class ValidationErrorsException extends UserErrorException {

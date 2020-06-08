@@ -16,7 +16,7 @@ import { UserEntity } from './user.entity';
 /**
  * Entity service to manage [[UserEntity]].
  *
- * @Category Service
+ * @category Service
  */
 @Injectable()
 export class UserService extends EntityService<UserEntity> {

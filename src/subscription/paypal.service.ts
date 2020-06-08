@@ -6,6 +6,11 @@ import * as moment from 'moment';
 import { Semaphore } from '../common/utils/semaphore';
 import { PaypalOauthTokenResponse, PaypalSubscriptionCreate, PaypalSubscriptionDetails } from './paypal.interfaces';
 
+/**
+ * Service used to send request to paypal's API.
+ *
+ * @category Service
+ */
 @Injectable()
 export class PaypalService {
     private readonly baseUrl: string;
@@ -74,6 +79,10 @@ export class PaypalService {
         }
     }
 
+    /**
+     * [https://developer.paypal.com/docs/api/subscriptions/v1/#subscriptions_create](https://developer.paypal.com/docs/api/subscriptions/v1/#subscriptions_create)
+     * @param data
+     */
     //prettier-ignore
     public async createSubscription(data: PaypalSubscriptionCreate): Promise<Pick<PaypalSubscriptionDetails, 'id' | 'status' | 'links'>>;
     //prettier-ignore
@@ -106,6 +115,11 @@ export class PaypalService {
         return response.data;
     }
 
+    /**
+     * [https://developer.paypal.com/docs/api/subscriptions/v1/#subscriptions_get](https://developer.paypal.com/docs/api/subscriptions/v1/#subscriptions_get)
+     *
+     * @param subscriptionId The paypal id of the subscription. (Most likely [[SubscriptionEntity.paypalId]].)
+     */
     //prettier-ignore
     public async getSubscriptionDetails(subscriptionId: string): Promise<PaypalSubscriptionDetails>;
     //prettier-ignore
@@ -130,6 +144,12 @@ export class PaypalService {
 
     }
 
+    /**
+     * [https://developer.paypal.com/docs/api/subscriptions/v1/#subscriptions_activate](https://developer.paypal.com/docs/api/subscriptions/v1/#subscriptions_activate)
+     *
+     * @param subscriptionId The paypal id of the subscription. (Most likely [[SubscriptionEntity.paypalId]].)
+     * @param reason Reason for activating the subscription (can be empty).
+     */
     public async activateSubscription(subscriptionId: string, reason?: string): Promise<void> {
         let data = {};
         if (reason != undefined) {
@@ -145,6 +165,13 @@ export class PaypalService {
         await this.makeRequest(request);
     }
 
+    /**
+     *
+     * [https://developer.paypal.com/docs/api/subscriptions/v1/#subscriptions_cancel](https://developer.paypal.com/docs/api/subscriptions/v1/#subscriptions_cancel)
+     *
+     * @param subscriptionId The paypal id of the subscription. (Most likely [[SubscriptionEntity.paypalId]].)
+     * @param reason Reason for cancelling the subscription (can be empty).
+     */
     public async cancelSubscription(subscriptionId: string, reason: string): Promise<void> {
         const request: AxiosRequestConfig = {
             url: `${this.baseUrl}/v1/billing/subscriptions/${subscriptionId}/cancel`,

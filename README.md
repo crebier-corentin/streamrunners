@@ -1,5 +1,5 @@
-#VPS
-###Web Server
+# VPS
+### Web Server
 The node server is located in `/var/www/streamrunners`. It's run using [pm2](https://pm2.keymetrics.io/docs/usage/pm2-doc-single-page/).  
 Some useful commands are:
 * `pm2 restart streamrunners`
@@ -10,7 +10,7 @@ Some useful commands are:
 The server uses nginx with a reverse proxy to the node server (configuration is `/etc/nginx/sites-available/default`).  
 Nginx takes care of static assets (`/public/`) and of https (using [certbot](https://certbot.eff.org/)) and http2.
 
-###Cron
+### Cron
 The vps has an hourly databse backup script (located in `/etc/cron.hourly/`). The dumps are saved to `/root/mysql-backup/`. Backups older than 3 days are automatically deleted.  
 The vps restarts the node server hourly (used as a workaround for a strange deadlock issue.) It's accessible with `crontab -e`.  
 
@@ -32,7 +32,7 @@ The vps restarts the node server hourly (used as a workaround for a strange dead
 `yarn run start:prod`: Start the backend app from file in dist/ (requires `yarn run build` first).  
 
 `yarn run test`: Run backend tests. (.spec.ts files.)  
-`yarn run test:cov`: Run backend tests and outputs coverage info in cov/.  
+`yarn run test:cov`: Run backend tests and outputs coverage info in coverage/.  
 
 `yarn run typeorm [command]`: Run a [typeorm CLI](https://github.com/typeorm/typeorm/blob/master/docs/using-cli.md) command.  
 `yarn run typeorm:gen [MigrationName]`: Generates a new migration in src/migrations based on changes in entities.

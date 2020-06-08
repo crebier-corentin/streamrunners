@@ -11,7 +11,7 @@ import { UserEntity } from './user.entity';
  * throw new NotEnoughPointsException(user, 500, "La place"); //message = "La place coûte 500 points et vous n'avez que 400 points."
  * ```
  *
- * @Category Exception
+ * @category Exception
  *
  */
 export class NotEnoughPointsException extends UserErrorException {

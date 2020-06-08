@@ -5,7 +5,7 @@ import { BannedUserException } from '../exception/banned-user.exception';
  * Only allows non-banned users.\
  * Throws [[BannedUserException]]. Caught by [[BanFilter]].
  *
- * @Category Guard
+ * @category Guard
  *
  */
 @Injectable()

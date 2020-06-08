@@ -69,6 +69,13 @@
 <div class="container container-main">
 	<div class="row">
 		<div class="col-8 col-content">
+			<section class="tsd-panel tsd-comment">
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>Entity representing a paypal subscription.</p>
+					</div>
+				</div>
+			</section>
 			<section class="tsd-panel tsd-hierarchy">
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
@@ -119,7 +126,7 @@
 					<div class="tsd-signature tsd-kind-icon">created<wbr>At<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Date</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in src/subscription/subscription.entity.ts:54</li>
+							<li>Defined in src/subscription/subscription.entity.ts:78</li>
 						</ul>
 					</aside>
 				</section>
@@ -129,9 +136,14 @@
 					<div class="tsd-signature tsd-kind-icon">current<wbr>User<span class="tsd-signature-symbol">:</span> <a href="_user_user_entity_.userentity.html" class="tsd-signature-type">UserEntity</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in src/subscription/subscription.entity.ts:51</li>
+							<li>Defined in src/subscription/subscription.entity.ts:75</li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Owner if the current subscription is the active subscription.</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
 					<a name="details" class="tsd-anchor"></a>
@@ -139,9 +151,14 @@
 					<div class="tsd-signature tsd-kind-icon">details<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_subscription_paypal_interfaces_.paypalsubscriptiondetails.html" class="tsd-signature-type">PaypalSubscriptionDetails</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in src/subscription/subscription.entity.ts:28</li>
+							<li>Defined in src/subscription/subscription.entity.ts:40</li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Details of the subscription from paypal.<br>Updated at lest every hour by <a href="_subscription_subscription_subscriber_.subscriptionsubscriber.html">SubscriptionSubscriber</a>.</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
 					<a name="id" class="tsd-anchor"></a>
@@ -149,7 +166,7 @@
 					<div class="tsd-signature tsd-kind-icon">id<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in src/subscription/subscription.entity.ts:22</li>
+							<li>Defined in src/subscription/subscription.entity.ts:27</li>
 						</ul>
 					</aside>
 				</section>
@@ -159,9 +176,15 @@
 					<div class="tsd-signature tsd-kind-icon">is<wbr>Active<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> = false</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in src/subscription/subscription.entity.ts:60</li>
+							<li>Defined in src/subscription/subscription.entity.ts:87</li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Is the subscription active (paypal status is ACTIVE or CANCELLED and not expired).
+							Loaded by <a href="_subscription_subscription_subscriber_.subscriptionsubscriber.html">SubscriptionSubscriber</a>.</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
 					<a name="lastdetailsupdate" class="tsd-anchor"></a>
@@ -169,9 +192,14 @@
 					<div class="tsd-signature tsd-kind-icon">last<wbr>Details<wbr>Update<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Date</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in src/subscription/subscription.entity.ts:31</li>
+							<li>Defined in src/subscription/subscription.entity.ts:46</li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Last time <a href="_subscription_subscription_entity_.subscriptionentity.html#details">details</a> was updated.</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
 					<a name="level" class="tsd-anchor"></a>
@@ -179,9 +207,14 @@
 					<div class="tsd-signature tsd-kind-icon">level<span class="tsd-signature-symbol">:</span> <a href="../enums/_subscription_subscription_interfaces_.subscriptionlevel.html" class="tsd-signature-type">SubscriptionLevel</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in src/subscription/subscription.entity.ts:43</li>
+							<li>Defined in src/subscription/subscription.entity.ts:64</li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Subscription level, affects privileges.</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
 					<a name="paypalid" class="tsd-anchor"></a>
@@ -189,9 +222,14 @@
 					<div class="tsd-signature tsd-kind-icon">paypal<wbr>Id<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in src/subscription/subscription.entity.ts:25</li>
+							<li>Defined in src/subscription/subscription.entity.ts:33</li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Subscription id from paypal.</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
 					<a name="updatedat" class="tsd-anchor"></a>
@@ -199,7 +237,7 @@
 					<div class="tsd-signature tsd-kind-icon">updated<wbr>At<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Date</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in src/subscription/subscription.entity.ts:57</li>
+							<li>Defined in src/subscription/subscription.entity.ts:81</li>
 						</ul>
 					</aside>
 				</section>
@@ -209,9 +247,14 @@
 					<div class="tsd-signature tsd-kind-icon">user<span class="tsd-signature-symbol">:</span> <a href="_user_user_entity_.userentity.html" class="tsd-signature-type">UserEntity</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in src/subscription/subscription.entity.ts:37</li>
+							<li>Defined in src/subscription/subscription.entity.ts:55</li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Owner of the subscription (even if subscription is inactive).</p>
+						</div>
+					</div>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
@@ -226,9 +269,14 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/subscription/subscription.entity.ts:62</li>
+									<li>Defined in src/subscription/subscription.entity.ts:92</li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>When the subscription will expire if not ACTIVE</p>
+								</div>
+							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Moment</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span></h4>
 						</li>
 					</ul>
@@ -246,10 +294,16 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/subscription/subscription.entity.ts:71</li>
+									<li>Defined in src/subscription/subscription.entity.ts:106</li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Use <a href="_subscription_subscription_entity_.subscriptionentity.html#isactive">isActive</a> instead. This function does not check for status.</p>
+								</div>
+							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+							<p>if the subscription is expired based on <a href="_subscription_subscription_entity_.subscriptionentity.html#expirationdate">expirationDate</a>.</p>
 						</li>
 					</ul>
 				</section>

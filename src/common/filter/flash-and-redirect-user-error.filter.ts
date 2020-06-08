@@ -24,7 +24,7 @@ import { UserErrorException } from '../exception/user-error.exception';
  * }
  * ```
  *
- * @Category Filter
+ * @category Filter
  *
  */
 @Catch(UserErrorException)

@@ -2,6 +2,34 @@
 
 `oauth` & `passport-twitch`: patched to support twitch's new API  
 
+# Commands
+`yarn run asset:dev`, `yarn run asset:development`: Generate frontend assets using development configuration (no minification, no purge-css...).  
+`yarn run asset:watch`: Generate frontend assets using development configuration (no minification, no purge-css...) and watch for changes.  
+`yarn run asset:prod`, `yarn run asset:production`: Generate frontend assets using production configuration (minification, purge-css...).  
+
+`yarn run docs`: Generate docs/ using typedoc.  
+`yarn run format`: Format the backend code using prettier.  
+`yarn run lint`: Lint the backend code using eslint.  
+
+`yarn run prebuild`: Delete dist/.  
+`yarn run build`: Build the backend app.  
+
+`yarn run start`: Start the backend app.  
+`yarn run start:dev`: Start the backend app and watch for changes.  
+`yarn run start:debug`: Start the backend app in debug mode and watch for changes.  
+`yarn run start:prod`: Start the backend app from file in dist/ (requires `yarn run build` first).  
+
+`yarn run test`: Run backend tests. (.spec.ts files.)  
+`yarn run test:cov`: Run backend tests and outputs coverage info in cov/.  
+
+`yarn run typeorm [command]`: Run a [typeorm CLI](https://github.com/typeorm/typeorm/blob/master/docs/using-cli.md) command.  
+`yarn run typeorm:gen [MigrationName]`: Generates a new migration in src/migrations based on changes in entities.
+**Always manually look and edit the migration files,** typeorm has a tendency to include some useless and/or destructive stuff.  
+`yarn run typeorm:run`: Apply migrations to the database.  
+
+**Note:** The pre-commit git hook runs `test`, `format`, `lint`, `asset:production`, `docs` and `git add -u` (adds all the changes to the commit).  
+You can bypass it with `-n`. (`git commit -n -m "commit message`.)
+
 # Installation
 
 ### Requirements
@@ -61,7 +89,7 @@ The site uses [nodemailer](https://nodemailer.com/about/).
 ###### Paypal (optional, but required for the subscription part of the site)
 * Create a sandbox paypal app [https://developer.paypal.com/developer/applications](https://developer.paypal.com/developer/applications).
 * Set `PAYPAL_CLIENT_ID` and `PAYPAL_SECRET` to the client id and secret respectively.
-* Using the API create 2 products and 2 plans (for VIP and diamond) (More info coming soon™). 
+* Using the API create 2 products and 2 plans (for VIP and diamond) [https://developer.paypal.com/docs/api/catalog-products/v1/](https://developer.paypal.com/docs/api/catalog-products/v1/) [https://developer.paypal.com/docs/api/subscriptions/v1/#plans_create](https://developer.paypal.com/docs/api/subscriptions/v1/#plans_create). 
 * Set `VIP_PLAN_ID` and `DIAMOND_PLAN_ID` to the id the paypal VIP plan and paypal diamond plan respectively.
        
      

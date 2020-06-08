@@ -68,6 +68,17 @@
 					<h3>Manual dependencies (/dep/)</h3>
 				</a>
 				<p><code>oauth</code> &amp; <code>passport-twitch</code>: patched to support twitch&#39;s new API  </p>
+				<a href="#commands" id="commands" style="color: inherit; text-decoration: none;">
+					<h1>Commands</h1>
+				</a>
+				<p><code>yarn run asset:dev</code>, <code>yarn run asset:development</code>: Generate frontend assets using development configuration (no minification, no purge-css...).<br><code>yarn run asset:watch</code>: Generate frontend assets using development configuration (no minification, no purge-css...) and watch for changes.<br><code>yarn run asset:prod</code>, <code>yarn run asset:production</code>: Generate frontend assets using production configuration (minification, purge-css...).  </p>
+				<p><code>yarn run docs</code>: Generate docs/ using typedoc.<br><code>yarn run format</code>: Format the backend code using prettier.<br><code>yarn run lint</code>: Lint the backend code using eslint.  </p>
+				<p><code>yarn run prebuild</code>: Delete dist/.<br><code>yarn run build</code>: Build the backend app.  </p>
+				<p><code>yarn run start</code>: Start the backend app.<br><code>yarn run start:dev</code>: Start the backend app and watch for changes.<br><code>yarn run start:debug</code>: Start the backend app in debug mode and watch for changes.<br><code>yarn run start:prod</code>: Start the backend app from file in dist/ (requires <code>yarn run build</code> first).  </p>
+				<p><code>yarn run test</code>: Run backend tests. (.spec.ts files.)<br><code>yarn run test:cov</code>: Run backend tests and outputs coverage info in cov/.  </p>
+				<p><code>yarn run typeorm [command]</code>: Run a <a href="https://github.com/typeorm/typeorm/blob/master/docs/using-cli.md">typeorm CLI</a> command.<br><code>yarn run typeorm:gen [MigrationName]</code>: Generates a new migration in src/migrations based on changes in entities.
+				<strong>Always manually look and edit the migration files,</strong> typeorm has a tendency to include some useless and/or destructive stuff.<br><code>yarn run typeorm:run</code>: Apply migrations to the database.  </p>
+				<p><strong>Note:</strong> The pre-commit git hook runs <code>test</code>, <code>format</code>, <code>lint</code>, <code>asset:production</code>, <code>docs</code> and <code>git add -u</code> (adds all the changes to the commit).<br>You can bypass it with <code>-n</code>. (<code>git commit -n -m &quot;commit message</code>.)</p>
 				<a href="#installation" id="installation" style="color: inherit; text-decoration: none;">
 					<h1>Installation</h1>
 				</a>
@@ -152,7 +163,7 @@
 					</li>
 					<li>Create a sandbox paypal app <a href="https://developer.paypal.com/developer/applications">https://developer.paypal.com/developer/applications</a>.</li>
 					<li>Set <code>PAYPAL_CLIENT_ID</code> and <code>PAYPAL_SECRET</code> to the client id and secret respectively.</li>
-					<li>Using the API create 2 products and 2 plans (for VIP and diamond) (More info coming soon™). </li>
+					<li>Using the API create 2 products and 2 plans (for VIP and diamond) <a href="https://developer.paypal.com/docs/api/catalog-products/v1/">https://developer.paypal.com/docs/api/catalog-products/v1/</a> <a href="https://developer.paypal.com/docs/api/subscriptions/v1/#plans_create">https://developer.paypal.com/docs/api/subscriptions/v1/#plans_create</a>. </li>
 					<li>Set <code>VIP_PLAN_ID</code> and <code>DIAMOND_PLAN_ID</code> to the id the paypal VIP plan and paypal diamond plan respectively.</li>
 				</ul>
 			</div>

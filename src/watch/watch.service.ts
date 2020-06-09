@@ -13,6 +13,12 @@ import { UserEntity } from '../user/user.entity';
 import { NotEnoughPointsException } from '../user/user.exception';
 import { UserService } from '../user/user.service';
 
+/**
+ * Service taking care of updating points, adding and removing from the stream queue.
+ *
+ * @category Service
+ *
+ */
 @Injectable()
 export class WatchService implements OnApplicationBootstrap {
     //Stores the id first, and then loads the entity in onApplicationBootstrap()
@@ -48,6 +54,9 @@ export class WatchService implements OnApplicationBootstrap {
     //Workaround for 1.5x points
     private shouldUseCeil = false;
 
+    /**
+     * Rewards user watching the current stream with points and handle giving affiliated case.
+     */
     @Cron(CronExpression.EVERY_SECOND)
     public async updatePoints(): Promise<void> {
         //Check if stream is online
@@ -62,7 +71,6 @@ export class WatchService implements OnApplicationBootstrap {
 
             //To deal with 1.5x points, switch between floor and ceil each call
             const points = this.shouldUseCeil ? Math.ceil(multiplier) : Math.floor(multiplier);
-            this.shouldUseCeil = !this.shouldUseCeil;
 
             await this.userService.changePointsSave(user, points);
 
@@ -75,8 +83,16 @@ export class WatchService implements OnApplicationBootstrap {
                 await this.userService.save(user);
             }
         }
+
+        this.shouldUseCeil = !this.shouldUseCeil;
     }
 
+    /**
+     * Add a new stream to the queue.\
+     * Throws if the user has reached the maximum simultaneous places, if the user can't afford the place or if the user's stream isn't online.
+     *
+     * @param user Owner of the stream place.
+     */
     public async addStreamToQueue(user: UserEntity): Promise<void> {
         //Check number of places
         const placesCount = await this.streamQueueService.placesCount(user);
@@ -108,6 +124,18 @@ export class WatchService implements OnApplicationBootstrap {
         await this.userService.changePointsSave(user, -cost);
     }
 
+    /**
+     *
+     * Remove a stream from the queue and refund the user.
+     *
+     * @remark
+     * Cannot remove a stream that is in first place.
+     *
+     * @param streamId [[StreamQueueEntity.id]] of the stream.
+     * @param user Owner of the stream.
+     *
+     * @returns if the stream was successfully removed.
+     */
     public async removeFromQueue(streamId: number, user: UserEntity): Promise<boolean> {
         const stream = await this.streamQueueService.byIdAndUserIdOrFail(streamId, user.id);
 

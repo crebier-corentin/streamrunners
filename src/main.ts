@@ -22,6 +22,11 @@ import { UserEntity } from './user/user.entity';
 import { UserService } from './user/user.service';
 import flash = require('connect-flash');
 
+/*
+* The starting point of the application.\
+* Takes care of starting nestjs, configuring the global filters, guards, pipes and middlewares.\
+* Also configures nunjucks and global view functions/values.
+ */
 async function bootstrap(): Promise<void> {
     const app = await NestFactory.create<NestExpressApplication>(AppModule);
     const config = app.get(ConfigService);
@@ -79,13 +84,14 @@ async function bootstrap(): Promise<void> {
 
                     // Then we call the Nunjucks async filter callback
                     callback(null, result);
-                } catch (error) {
+                }
+                catch (error) {
                     // And if the `functionPromise` throws an error
                     // Nunjucks will pick it up here
                     callback(error);
                 }
             },
-            true
+            true,
         )
         .addFilter('date', function(date: Date | moment.Moment | string, format: string) {
             return moment(date)
@@ -94,7 +100,7 @@ async function bootstrap(): Promise<void> {
         });
     app.setViewEngine('nunj');
 
-    //Pass req to template engine
+    //Pass variables to template engine
     app.use(async (req, res, next) => {
         res.locals.req = req;
         res.locals.announcement = await announcementService.current();
@@ -105,7 +111,7 @@ async function bootstrap(): Promise<void> {
             res.locals.affiliateDisplayName = (await userService.byId(req.session.affiliateUserId)).displayName;
         }
 
-        //Shows add only to non subscribed users
+        //Shows ads only to non subscribed users
         res.locals.showAds =
             req.user == undefined || (req.user as UserEntity).subscriptionLevel === SubscriptionLevel.None;
 

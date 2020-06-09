@@ -10,6 +10,8 @@ Some useful commands are:
 The server uses nginx with a reverse proxy to the node server (configuration is `/etc/nginx/sites-available/default`).  
 Nginx takes care of static assets (`/public/`) and of https (using [certbot](https://certbot.eff.org/)) and http2.
 
+You can use the `update.sh` script to update the site from the git repo. It will take care of migration, dependencies, building and restarting. (Including clearing cloudflare's cache.)
+
 ### Cron
 The vps has an hourly databse backup script (located in `/etc/cron.hourly/`). The dumps are saved to `/root/mysql-backup/`. Backups older than 3 days are automatically deleted.  
 The vps restarts the node server hourly (used as a workaround for a strange deadlock issue.) It's accessible with `crontab -e`.  

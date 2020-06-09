@@ -18,6 +18,16 @@ export class StreamQueueService extends EntityService<StreamQueueEntity> {
         super(repo);
     }
 
+    /**
+     *
+     * @remark
+     * Will load the [[StreamQueueEntity.user]] relation.
+     *
+     * @param streamId Searched [[StreamQueueEntity.id]].
+     * @param userId The [[UserEntity.id]] of the stream's owner ([[StreamQueueEntity.user]]).
+     *
+     * @returns The matched [[StreamQueueEntity]] or undefined if no match was found.
+     */
     public byIdAndUserId(streamId: number, userId: number): Promise<StreamQueueEntity | undefined> {
         return this.repo
             .createQueryBuilder('queue')
@@ -27,6 +37,17 @@ export class StreamQueueService extends EntityService<StreamQueueEntity> {
             .getOne();
     }
 
+    /**
+     *
+     * @remark
+     * Will load the [[StreamQueueEntity.user]] relation.
+     *
+     * @param streamId Searched [[StreamQueueEntity.id]].
+     * @param userId The [[UserEntity.id]] of the stream's owner ([[StreamQueueEntity.user]]).
+     * @param exception The exception to throw when no matching entities have been found.
+     *
+     * @returns The matched [[StreamQueueEntity]].
+     */
     public async byIdAndUserIdOrFail(
         streamId: number,
         userId: number,
@@ -38,6 +59,9 @@ export class StreamQueueService extends EntityService<StreamQueueEntity> {
         return entity;
     }
 
+    /**
+     * @returns The current shown stream or undefined if the queue is empty.
+     */
     public currentStream(): Promise<StreamQueueEntity | undefined> {
         return this.repo
             .createQueryBuilder('queue')
@@ -47,6 +71,9 @@ export class StreamQueueService extends EntityService<StreamQueueEntity> {
             .getOne();
     }
 
+    /**
+     * @returns The current shown stream and the queue.
+     */
     public currentAndNextStreams(): Promise<StreamQueueEntity[]> {
         return this.repo
             .createQueryBuilder('queue')
@@ -58,10 +85,21 @@ export class StreamQueueService extends EntityService<StreamQueueEntity> {
             .getMany();
     }
 
+    /**
+     * @returns if no current stream is shown and the queue is empty.
+     */
     public async isEmpty(): Promise<boolean> {
         return (await this.currentStream()) == undefined;
     }
 
+    /**
+     *
+     * Insert a new [[StreamQueueEntity]].
+     *
+     * @param cost [[StreamQueueEntity.amount]].
+     * @param time [[StreamQueueEntity.time]].
+     * @param user [[StreamQueueEntity.user]].
+     */
     public async insert(cost: number, time: number, user: UserEntity): Promise<void> {
         const stream = new StreamQueueEntity();
         stream.amount = cost;
@@ -70,6 +108,9 @@ export class StreamQueueService extends EntityService<StreamQueueEntity> {
         await this.repo.save(stream);
     }
 
+    /**
+     * Skip the current shown stream.
+     */
     public async skipCurrent(): Promise<void> {
         const stream = await this.currentStream();
         if (stream == undefined) return;
@@ -95,6 +136,10 @@ export class StreamQueueService extends EntityService<StreamQueueEntity> {
             .getCount();
     }
 
+    /**
+     * Updates the stream queue.\
+     * Updates [[StreamQueueEntity.current]] of the current shown stream and start a new stream once the old one is over.
+     */
     @Cron(CronExpression.EVERY_SECOND)
     private async updateQueue(): Promise<void> {
         const currentStream = await this.currentStream();

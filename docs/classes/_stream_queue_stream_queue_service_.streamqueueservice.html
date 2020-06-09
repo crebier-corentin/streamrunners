@@ -250,19 +250,33 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/stream-queue/stream-queue.service.ts:21</li>
+									<li>Defined in src/stream-queue/stream-queue.service.ts:31</li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<dl class="tsd-comment-tags">
+									<dt>remark</dt>
+									<dd><p>Will load the <a href="_stream_queue_stream_queue_entity_.streamqueueentity.html#user">StreamQueueEntity.user</a> relation.</p>
+									</dd>
+								</dl>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>streamId: <span class="tsd-signature-type">number</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Searched <a href="_stream_queue_stream_queue_entity_.streamqueueentity.html#id">StreamQueueEntity.id</a>.</p>
+									</div>
 								</li>
 								<li>
 									<h5>userId: <span class="tsd-signature-type">number</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The <a href="_user_user_entity_.userentity.html#id">UserEntity.id</a> of the stream&#39;s owner (<a href="_stream_queue_stream_queue_entity_.streamqueueentity.html#user">StreamQueueEntity.user</a>).</p>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="_stream_queue_stream_queue_entity_.streamqueueentity.html" class="tsd-signature-type">StreamQueueEntity</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<p>The matched <a href="_stream_queue_stream_queue_entity_.streamqueueentity.html">StreamQueueEntity</a> or undefined if no match was found.</p>
 						</li>
 					</ul>
 				</section>
@@ -276,22 +290,39 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/stream-queue/stream-queue.service.ts:30</li>
+									<li>Defined in src/stream-queue/stream-queue.service.ts:51</li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<dl class="tsd-comment-tags">
+									<dt>remark</dt>
+									<dd><p>Will load the <a href="_stream_queue_stream_queue_entity_.streamqueueentity.html#user">StreamQueueEntity.user</a> relation.</p>
+									</dd>
+								</dl>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>streamId: <span class="tsd-signature-type">number</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Searched <a href="_stream_queue_stream_queue_entity_.streamqueueentity.html#id">StreamQueueEntity.id</a>.</p>
+									</div>
 								</li>
 								<li>
 									<h5>userId: <span class="tsd-signature-type">number</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The <a href="_user_user_entity_.userentity.html#id">UserEntity.id</a> of the stream&#39;s owner (<a href="_stream_queue_stream_queue_entity_.streamqueueentity.html#user">StreamQueueEntity.user</a>).</p>
+									</div>
 								</li>
 								<li>
 									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> exception: <span class="tsd-signature-type">HttpException</span><span class="tsd-signature-symbol"> = new InternalServerErrorException()</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The exception to throw when no matching entities have been found.</p>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="_stream_queue_stream_queue_entity_.streamqueueentity.html" class="tsd-signature-type">StreamQueueEntity</a><span class="tsd-signature-symbol">&gt;</span></h4>
+							<p>The matched <a href="_stream_queue_stream_queue_entity_.streamqueueentity.html">StreamQueueEntity</a>.</p>
 						</li>
 					</ul>
 				</section>
@@ -371,10 +402,13 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/stream-queue/stream-queue.service.ts:50</li>
+									<li>Defined in src/stream-queue/stream-queue.service.ts:77</li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="_stream_queue_stream_queue_entity_.streamqueueentity.html" class="tsd-signature-type">StreamQueueEntity</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<p>The current shown stream and the queue.</p>
 						</li>
 					</ul>
 				</section>
@@ -388,10 +422,13 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/stream-queue/stream-queue.service.ts:41</li>
+									<li>Defined in src/stream-queue/stream-queue.service.ts:65</li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="_stream_queue_stream_queue_entity_.streamqueueentity.html" class="tsd-signature-type">StreamQueueEntity</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<p>The current shown stream or undefined if the queue is empty.</p>
 						</li>
 					</ul>
 				</section>
@@ -405,19 +442,33 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/stream-queue/stream-queue.service.ts:65</li>
+									<li>Defined in src/stream-queue/stream-queue.service.ts:103</li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Insert a new <a href="_stream_queue_stream_queue_entity_.streamqueueentity.html">StreamQueueEntity</a>.</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>cost: <span class="tsd-signature-type">number</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p><a href="_stream_queue_stream_queue_entity_.streamqueueentity.html#amount">StreamQueueEntity.amount</a>.</p>
+									</div>
 								</li>
 								<li>
 									<h5>time: <span class="tsd-signature-type">number</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p><a href="_stream_queue_stream_queue_entity_.streamqueueentity.html#time">StreamQueueEntity.time</a>.</p>
+									</div>
 								</li>
 								<li>
 									<h5>user: <a href="_user_user_entity_.userentity.html" class="tsd-signature-type">UserEntity</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p><a href="_stream_queue_stream_queue_entity_.streamqueueentity.html#user">StreamQueueEntity.user</a>.</p>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -434,10 +485,13 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/stream-queue/stream-queue.service.ts:61</li>
+									<li>Defined in src/stream-queue/stream-queue.service.ts:91</li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<p>if no current stream is shown and the queue is empty.</p>
 						</li>
 					</ul>
 				</section>
@@ -452,7 +506,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/stream-queue/stream-queue.service.ts:84</li>
+									<li>Defined in src/stream-queue/stream-queue.service.ts:125</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -469,7 +523,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/stream-queue/stream-queue.service.ts:85</li>
+									<li>Defined in src/stream-queue/stream-queue.service.ts:126</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -568,9 +622,14 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/stream-queue/stream-queue.service.ts:73</li>
+									<li>Defined in src/stream-queue/stream-queue.service.ts:114</li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Skip the current shown stream.</p>
+								</div>
+							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
@@ -585,9 +644,14 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/stream-queue/stream-queue.service.ts:99</li>
+									<li>Defined in src/stream-queue/stream-queue.service.ts:144</li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Updates the stream queue.<br>Updates <a href="_stream_queue_stream_queue_entity_.streamqueueentity.html#current">StreamQueueEntity.current</a> of the current shown stream and start a new stream once the old one is over.</p>
+								</div>
+							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>

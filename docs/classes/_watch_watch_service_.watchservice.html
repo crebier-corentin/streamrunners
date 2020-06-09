@@ -69,6 +69,13 @@
 <div class="container container-main">
 	<div class="row">
 		<div class="col-8 col-content">
+			<section class="tsd-panel tsd-comment">
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>Service taking care of updating points, adding and removing from the stream queue.</p>
+					</div>
+				</div>
+			</section>
 			<section class="tsd-panel tsd-hierarchy">
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
@@ -131,7 +138,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/watch/watch.service.ts:19</li>
+									<li>Defined in src/watch/watch.service.ts:25</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -171,7 +178,7 @@
 					<div class="tsd-signature tsd-kind-icon">affiliate<wbr>Case<wbr>Type<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><a href="_case_case_type_entity_.casetypeentity.html" class="tsd-signature-type">CaseTypeEntity</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in src/watch/watch.service.ts:19</li>
+							<li>Defined in src/watch/watch.service.ts:25</li>
 						</ul>
 					</aside>
 				</section>
@@ -181,7 +188,7 @@
 					<div class="tsd-signature tsd-kind-icon">case<wbr>Service<span class="tsd-signature-symbol">:</span> <a href="_case_case_service_.caseservice.html" class="tsd-signature-type">CaseService</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in src/watch/watch.service.ts:25</li>
+							<li>Defined in src/watch/watch.service.ts:31</li>
 						</ul>
 					</aside>
 				</section>
@@ -191,7 +198,7 @@
 					<div class="tsd-signature tsd-kind-icon">case<wbr>Type<wbr>Service<span class="tsd-signature-symbol">:</span> <a href="_case_case_type_service_.casetypeservice.html" class="tsd-signature-type">CaseTypeService</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in src/watch/watch.service.ts:26</li>
+							<li>Defined in src/watch/watch.service.ts:32</li>
 						</ul>
 					</aside>
 				</section>
@@ -201,7 +208,7 @@
 					<div class="tsd-signature tsd-kind-icon">should<wbr>Use<wbr>Ceil<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> = false</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in src/watch/watch.service.ts:49</li>
+							<li>Defined in src/watch/watch.service.ts:55</li>
 						</ul>
 					</aside>
 				</section>
@@ -211,7 +218,7 @@
 					<div class="tsd-signature tsd-kind-icon">stream<wbr>Queue<wbr>Service<span class="tsd-signature-symbol">:</span> <a href="_stream_queue_stream_queue_service_.streamqueueservice.html" class="tsd-signature-type">StreamQueueService</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in src/watch/watch.service.ts:22</li>
+							<li>Defined in src/watch/watch.service.ts:28</li>
 						</ul>
 					</aside>
 				</section>
@@ -221,7 +228,7 @@
 					<div class="tsd-signature tsd-kind-icon">sub<wbr>Level<wbr>Info<wbr>Service<span class="tsd-signature-symbol">:</span> <a href="_subscription_subscription_level_info_service_.subscriptionlevelinfoservice.html" class="tsd-signature-type">SubscriptionLevelInfoService</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in src/watch/watch.service.ts:27</li>
+							<li>Defined in src/watch/watch.service.ts:33</li>
 						</ul>
 					</aside>
 				</section>
@@ -231,7 +238,7 @@
 					<div class="tsd-signature tsd-kind-icon">twitch<span class="tsd-signature-symbol">:</span> <a href="_twitch_twitch_service_.twitchservice.html" class="tsd-signature-type">TwitchService</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in src/watch/watch.service.ts:24</li>
+							<li>Defined in src/watch/watch.service.ts:30</li>
 						</ul>
 					</aside>
 				</section>
@@ -241,7 +248,7 @@
 					<div class="tsd-signature tsd-kind-icon">user<wbr>Service<span class="tsd-signature-symbol">:</span> <a href="_user_user_service_.userservice.html" class="tsd-signature-type">UserService</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in src/watch/watch.service.ts:23</li>
+							<li>Defined in src/watch/watch.service.ts:29</li>
 						</ul>
 					</aside>
 				</section>
@@ -258,13 +265,21 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/watch/watch.service.ts:80</li>
+									<li>Defined in src/watch/watch.service.ts:96</li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Add a new stream to the queue.<br>Throws if the user has reached the maximum simultaneous places, if the user can&#39;t afford the place or if the user&#39;s stream isn&#39;t online.</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>user: <a href="_user_user_entity_.userentity.html" class="tsd-signature-type">UserEntity</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Owner of the stream place.</p>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -281,7 +296,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/watch/watch.service.ts:33</li>
+									<li>Defined in src/watch/watch.service.ts:39</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -298,19 +313,36 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/watch/watch.service.ts:111</li>
+									<li>Defined in src/watch/watch.service.ts:139</li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Remove a stream from the queue and refund the user.</p>
+								</div>
+								<dl class="tsd-comment-tags">
+									<dt>remark</dt>
+									<dd><p>Cannot remove a stream that is in first place.</p>
+									</dd>
+								</dl>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>streamId: <span class="tsd-signature-type">number</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p><a href="_stream_queue_stream_queue_entity_.streamqueueentity.html#id">StreamQueueEntity.id</a> of the stream.</p>
+									</div>
 								</li>
 								<li>
 									<h5>user: <a href="_user_user_entity_.userentity.html" class="tsd-signature-type">UserEntity</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Owner of the stream.</p>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<p>if the stream was successfully removed.</p>
 						</li>
 					</ul>
 				</section>
@@ -324,9 +356,14 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/watch/watch.service.ts:52</li>
+									<li>Defined in src/watch/watch.service.ts:61</li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Rewards user watching the current stream with points and handle giving affiliated case.</p>
+								</div>
+							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
@@ -341,7 +378,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/watch/watch.service.ts:37</li>
+									<li>Defined in src/watch/watch.service.ts:43</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>

@@ -51,8 +51,7 @@ export class ContactController {
             return new Promise((resolve, reject) => {
                 res.render(view, data, (err, html) => {
                     if (err) reject(err);
-
-                    resolve(html);
+                    else resolve(html);
                 });
             });
         }

@@ -4,6 +4,9 @@ import { UserErrorException } from '../exception/user-error.exception';
 
 /**
  * Catches [[UserErrorException]] and sends a json response with title and message.
+ *
+ * @category Filter
+ *
  */
 @Catch(UserErrorException)
 export class JsonUserErrorFilter implements ExceptionFilter {

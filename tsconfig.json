@@ -22,7 +22,7 @@
   ],
   "typedocOptions": {
     "inputFiles": ["src"],
-    "mode": "modules",
+    "mode": "file",
     "out": "docs",
     "exclude": ["**/*+(.spec|.e2e).ts", "src/migrations"],
     "disableOutputCheck": true

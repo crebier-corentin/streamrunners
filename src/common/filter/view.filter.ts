@@ -12,6 +12,8 @@ import { VIEW_DIR_PATH } from '../utils/constants';
  * @remark
  * This filter is global.
  *
+ * @category Filter
+ *
  */
 @Catch()
 export class ViewFilter<T> implements ExceptionFilter {

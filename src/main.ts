@@ -23,9 +23,9 @@ import { UserService } from './user/user.service';
 import flash = require('connect-flash');
 
 /*
-* The starting point of the application.\
-* Takes care of starting nestjs, configuring the global filters, guards, pipes and middlewares.\
-* Also configures nunjucks and global view functions/values.
+ * The starting point of the application.\
+ * Takes care of starting nestjs, configuring the global filters, guards, pipes and middlewares.\
+ * Also configures nunjucks and global view functions/values.
  */
 async function bootstrap(): Promise<void> {
     const app = await NestFactory.create<NestExpressApplication>(AppModule);
@@ -84,14 +84,13 @@ async function bootstrap(): Promise<void> {
 
                     // Then we call the Nunjucks async filter callback
                     callback(null, result);
-                }
-                catch (error) {
+                } catch (error) {
                     // And if the `functionPromise` throws an error
                     // Nunjucks will pick it up here
                     callback(error);
                 }
             },
-            true,
+            true
         )
         .addFilter('date', function(date: Date | moment.Moment | string, format: string) {
             return moment(date)

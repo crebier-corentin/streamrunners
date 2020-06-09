@@ -8,6 +8,12 @@ import { PUBLIC_DIR_PATH } from '../common/utils/constants';
 import { MostPlaceResult } from '../user/most-place-result.interface';
 import { UserService } from '../user/user.service';
 
+/**
+ * Service taking care of generating leaderboard images for the discord bot and the site.
+ *
+ * @category Service
+ *
+ */
 @Injectable()
 export class LeaderboardDrawerService implements OnApplicationBootstrap {
     private cache = new CacheService(5);
@@ -47,6 +53,12 @@ export class LeaderboardDrawerService implements OnApplicationBootstrap {
         registerFont(path.join(PUBLIC_DIR_PATH, 'font/dosis/Dosis-Bold.ttf'), { family: 'Dosis', weight: 'bold' });
     }
 
+    /**
+     * Generates a leaderboard image.
+     *
+     * @param users Users to display in the list.
+     * @param headerTimeName Name of the header.
+     */
     private draw(users: MostPlaceResult[], headerTimeName = ''): Promise<Buffer> {
         const canvas = createCanvas(this.width, this.height);
         const ctx = canvas.getContext('2d');
@@ -131,6 +143,12 @@ export class LeaderboardDrawerService implements OnApplicationBootstrap {
         });
     }
 
+    /**
+     *
+     * @param unitOfTime Unit name to translate.
+     *
+     * @returns moment.js unit of time to french name.
+     */
     private unitOfTimeToFrenchName(unitOfTime: 'day' | 'isoWeek' | 'month' | 'year' | null): string {
         switch (unitOfTime) {
             case 'day':
@@ -146,6 +164,15 @@ export class LeaderboardDrawerService implements OnApplicationBootstrap {
         }
     }
 
+    /**
+     *
+     * @remark
+     * Uses a [[cache]].
+     *
+     * @param unitOfTime Max range to account for in the leaderboard.
+     *
+     * @returns PNG buffer leaderboard image.
+     */
     public async getLeaderboardFor(
         unitOfTime: 'day' | 'isoWeek' | 'month' | 'year' | null | undefined = null
     ): Promise<Buffer> {

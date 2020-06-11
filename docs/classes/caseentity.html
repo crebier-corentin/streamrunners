@@ -66,6 +66,13 @@
 <div class="container container-main">
 	<div class="row">
 		<div class="col-8 col-content">
+			<section class="tsd-panel tsd-comment">
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>Entity representing a case belonging to a user.<br>Use <a href="caseservice.html#givecase">CaseService.giveCase</a> to give a new case to a user.</p>
+					</div>
+				</div>
+			</section>
 			<section class="tsd-panel tsd-hierarchy">
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
@@ -107,9 +114,16 @@
 					<div class="tsd-signature tsd-kind-icon">content<span class="tsd-signature-symbol">:</span> <a href="casecontententity.html" class="tsd-signature-type">CaseContentEntity</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in src/case/case.entity.ts:32</li>
+							<li>Defined in src/case/case.entity.ts:54</li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Prize won in the case.<br>If the prize is a key, it&#39;s set to <a href="caseentity.html#key">key</a>.</p>
+						</div>
+						<p>null if the case hasn&#39;t been opened yet.</p>
+						<p>Set by <a href="caseservice.html#opencase">CaseService.openCase</a>.</p>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
 					<a name="createdat" class="tsd-anchor"></a>
@@ -117,7 +131,7 @@
 					<div class="tsd-signature tsd-kind-icon">created<wbr>At<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Date</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in src/case/case.entity.ts:43</li>
+							<li>Defined in src/case/case.entity.ts:68</li>
 						</ul>
 					</aside>
 				</section>
@@ -127,7 +141,7 @@
 					<div class="tsd-signature tsd-kind-icon">id<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in src/case/case.entity.ts:19</li>
+							<li>Defined in src/case/case.entity.ts:26</li>
 						</ul>
 					</aside>
 				</section>
@@ -137,9 +151,14 @@
 					<div class="tsd-signature tsd-kind-icon">key<span class="tsd-signature-symbol">:</span> <a href="steamkeyentity.html" class="tsd-signature-type">SteamKeyEntity</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in src/case/case.entity.ts:40</li>
+							<li>Defined in src/case/case.entity.ts:65</li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Key won if the prize is a key.</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
 					<a name="type" class="tsd-anchor"></a>
@@ -147,9 +166,14 @@
 					<div class="tsd-signature tsd-kind-icon">type<span class="tsd-signature-symbol">:</span> <a href="casetypeentity.html" class="tsd-signature-type">CaseTypeEntity</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in src/case/case.entity.ts:29</li>
+							<li>Defined in src/case/case.entity.ts:43</li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Type of case.<br>Determines it&#39;s name, images, possible prizes, etc...</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
 					<a name="updatedat" class="tsd-anchor"></a>
@@ -157,7 +181,7 @@
 					<div class="tsd-signature tsd-kind-icon">updated<wbr>At<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Date</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in src/case/case.entity.ts:46</li>
+							<li>Defined in src/case/case.entity.ts:71</li>
 						</ul>
 					</aside>
 				</section>
@@ -167,9 +191,14 @@
 					<div class="tsd-signature tsd-kind-icon">user<span class="tsd-signature-symbol">:</span> <a href="userentity.html" class="tsd-signature-type">UserEntity</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in src/case/case.entity.ts:26</li>
+							<li>Defined in src/case/case.entity.ts:36</li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Owner of the case.</p>
+						</div>
+					</div>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
@@ -184,10 +213,13 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/case/case.entity.ts:48</li>
+									<li>Defined in src/case/case.entity.ts:76</li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+							<p>If the case has been opened or not.</p>
 						</li>
 					</ul>
 				</section>

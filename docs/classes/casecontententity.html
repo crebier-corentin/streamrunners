@@ -66,6 +66,13 @@
 <div class="container container-main">
 	<div class="row">
 		<div class="col-8 col-content">
+			<section class="tsd-panel tsd-comment">
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>Entity representing a prize for a case type.</p>
+					</div>
+				</div>
+			</section>
 			<section class="tsd-panel tsd-hierarchy">
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
@@ -110,9 +117,14 @@
 					<div class="tsd-signature tsd-kind-icon">amount<wbr>Meteores<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in src/case/case-content.entity.ts:23</li>
+							<li>Defined in src/case/case-content.entity.ts:48</li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Meteores won.<br>Will be ignored if <a href="casecontententity.html#keycategory">keyCategory</a> is not null.</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
 					<a name="amountpoints" class="tsd-anchor"></a>
@@ -120,9 +132,14 @@
 					<div class="tsd-signature tsd-kind-icon">amount<wbr>Points<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in src/case/case-content.entity.ts:20</li>
+							<li>Defined in src/case/case-content.entity.ts:41</li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Points won.<br>Will be ignored if <a href="casecontententity.html#keycategory">keyCategory</a> is not null.</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
 					<a name="casetype" class="tsd-anchor"></a>
@@ -130,9 +147,14 @@
 					<div class="tsd-signature tsd-kind-icon">case<wbr>Type<span class="tsd-signature-symbol">:</span> <a href="casetypeentity.html" class="tsd-signature-type">CaseTypeEntity</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in src/case/case-content.entity.ts:33</li>
+							<li>Defined in src/case/case-content.entity.ts:65</li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Case type the prize belongs to.</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
 					<a name="chance" class="tsd-anchor"></a>
@@ -140,9 +162,14 @@
 					<div class="tsd-signature tsd-kind-icon">chance<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in src/case/case-content.entity.ts:17</li>
+							<li>Defined in src/case/case-content.entity.ts:34</li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Chance of obtaining this prize in per-mille.<br>The total of chances of a <a href="casetypeentity.html">CaseTypeEntity</a> should be 1000.</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
 					<a name="createdat" class="tsd-anchor"></a>
@@ -150,7 +177,7 @@
 					<div class="tsd-signature tsd-kind-icon">created<wbr>At<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Date</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in src/case/case-content.entity.ts:36</li>
+							<li>Defined in src/case/case-content.entity.ts:68</li>
 						</ul>
 					</aside>
 				</section>
@@ -160,7 +187,7 @@
 					<div class="tsd-signature tsd-kind-icon">id<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in src/case/case-content.entity.ts:8</li>
+							<li>Defined in src/case/case-content.entity.ts:15</li>
 						</ul>
 					</aside>
 				</section>
@@ -170,19 +197,29 @@
 					<div class="tsd-signature tsd-kind-icon">image<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in src/case/case-content.entity.ts:14</li>
+							<li>Defined in src/case/case-content.entity.ts:27</li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Url (can be relative) to the prize&#39;s image.</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
 					<a name="keycategory" class="tsd-anchor"></a>
 					<h3>key<wbr>Category</h3>
-					<div class="tsd-signature tsd-kind-icon">key<wbr>Category<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span></div>
+					<div class="tsd-signature tsd-kind-icon">key<wbr>Category<span class="tsd-signature-symbol">:</span> <a href="steamkeycategoryentity.html" class="tsd-signature-type">SteamKeyCategoryEntity</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in src/case/case-content.entity.ts:26</li>
+							<li>Defined in src/case/case-content.entity.ts:55</li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Category of the key to win.<br>The key will be selected randomly among the available ones.</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
 					<a name="name" class="tsd-anchor"></a>
@@ -190,9 +227,14 @@
 					<div class="tsd-signature tsd-kind-icon">name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in src/case/case-content.entity.ts:11</li>
+							<li>Defined in src/case/case-content.entity.ts:21</li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Name of the prize, will be display to the user.</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
 					<a name="updatedat" class="tsd-anchor"></a>
@@ -200,7 +242,7 @@
 					<div class="tsd-signature tsd-kind-icon">updated<wbr>At<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Date</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in src/case/case-content.entity.ts:39</li>
+							<li>Defined in src/case/case-content.entity.ts:71</li>
 						</ul>
 					</aside>
 				</section>
@@ -217,10 +259,13 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/case/case-content.entity.ts:41</li>
+									<li>Defined in src/case/case-content.entity.ts:76</li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
+							<p>An hexadecimal color code based on the rarity of obtaining this prize.</p>
 						</li>
 					</ul>
 				</section>

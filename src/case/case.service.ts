@@ -7,8 +7,14 @@ import { CaseContentEntity } from './case-content.entity';
 import { CaseContentService } from './case-content.service';
 import { CaseTypeEntity } from './case-type.entity';
 import { CaseEntity } from './case.entity';
-import { SteamKeyService } from './steam-key.service';
+import { SteamKeyService } from './steam-key/steam-key.service';
 
+/**
+ * Entity service for [[CaseEntity]].
+ *
+ * @category Service
+ *
+ */
 @Injectable()
 export class CaseService extends EntityService<CaseEntity> {
     public constructor(
@@ -19,6 +25,13 @@ export class CaseService extends EntityService<CaseEntity> {
         super(repo);
     }
 
+    /**
+     * @param id Searched [[CaseEntity.id]]
+     * @param userId Searched [[UserEntity.id]]
+     * @param loadTypeAndContentRelations Should load the relations [[CaseEntity.type]], [[CaseTypeEntity.contents]] and [[CaseContentEntity.keyCategory]].
+     *
+     * @returns The matching case or undefined if not found.
+     */
     public byIdAndUserId(
         id: number,
         userId: number,
@@ -32,12 +45,25 @@ export class CaseService extends EntityService<CaseEntity> {
             .andWhere('user.id = :userId', { userId });
 
         if (loadTypeAndContentRelations) {
-            query.leftJoinAndSelect('case.type', 'type').leftJoinAndSelect('type.contents', 'contents');
+            query
+                .leftJoinAndSelect('case.type', 'type')
+                .leftJoinAndSelect('type.contents', 'contents')
+                .leftJoinAndSelect('contents.keyCategory', 'keyCategory');
         }
 
         return query.getOne();
     }
 
+    /**
+     * Throws when no matching case found.
+     *
+     * @param id Searched [[CaseEntity.id]]
+     * @param userId Searched [[UserEntity.id]]
+     * @param loadTypeAndContentRelations Should load the relations [[CaseEntity.type]], [[CaseTypeEntity.contents]] and [[CaseContentEntity.keyCategory]].
+     * @param exception Exceptrion to throw when no matching case found.
+     *
+     * @returns The matching case.
+     */
     public async byIdAndUserIdOrFail(
         id: number,
         userId: number,
@@ -53,6 +79,15 @@ export class CaseService extends EntityService<CaseEntity> {
         return entity;
     }
 
+    /**
+     *
+     * @remark
+     * Randomly selected based on [[CaseContentEntity.chance]].
+     *
+     * @param contents All possible prizes.
+     *
+     * @returns A random prize.
+     */
     private getRandomContent(contents: CaseContentEntity[]): CaseContentEntity {
         const weights = []; //Probabilities
         for (const content of contents) {
@@ -110,6 +145,12 @@ export class CaseService extends EntityService<CaseEntity> {
         return { spin, winning: { name: winning.name, color: winning.color, image: winning.image } };
     }
 
+    /**
+     * Gives a new closed case to a user.
+     *
+     * @param type Type of the case.
+     * @param user User to give the case to.
+     */
     public async giveCase(type: CaseTypeEntity, user: UserEntity): Promise<void> {
         const _case = new CaseEntity();
         _case.type = type;
@@ -120,6 +161,11 @@ export class CaseService extends EntityService<CaseEntity> {
         await this.repo.save(_case);
     }
 
+    /**
+     * @param user Owner of the cases.
+     *
+     * @returns All opened cases belonging to the user.
+     */
     public getOpenedCases(user: UserEntity): Promise<CaseEntity[]> {
         return this.repo
             .createQueryBuilder('case')
@@ -132,6 +178,11 @@ export class CaseService extends EntityService<CaseEntity> {
             .getMany();
     }
 
+    /**
+     * @param user Owner of the cases.
+     *
+     * @returns All closed cases belonging to the user.
+     */
     public getClosedCases(user: UserEntity): Promise<CaseEntity[]> {
         return this.repo
             .createQueryBuilder('case')

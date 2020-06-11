@@ -8,7 +8,8 @@ import { CaseContentEntity } from './case-content.entity';
 import { CaseContentService } from './case-content.service';
 import { CaseEntity } from './case.entity';
 import { CaseService } from './case.service';
-import { SteamKeyService } from './steam-key.service';
+import { SteamKeyCategoryEntity } from './steam-key/steam-key-category.entity';
+import { SteamKeyService } from './steam-key/steam-key.service';
 
 describe('CaseService', () => {
     let service: CaseService;
@@ -154,7 +155,8 @@ describe('CaseService', () => {
             winningMock1.name = 'win';
             winningMock1.chance = 500;
             winningMock1.image = 'win.png';
-            winningMock1.keyCategory = 'random';
+            winningMock1.keyCategory = new SteamKeyCategoryEntity();
+            winningMock1.keyCategory.id = 1;
 
             mockedGetRandomContent.mockReturnValueOnce(winningMock1);
 

@@ -11,7 +11,8 @@ import {
     ValidationPipe,
 } from '@nestjs/common';
 import { Request } from 'express';
-import { SteamKeyService } from '../case/steam-key.service';
+import { SteamKeyCategoryService } from '../case/steam-key/steam-key-category.service';
+import { SteamKeyService } from '../case/steam-key/steam-key.service';
 import { AuthenticatedGuard } from '../common/guard/authenticated.guard';
 import { ModeratorGuard } from '../common/guard/moderator.guard';
 import { SanitizationPipe } from '../common/pipe/sanitization-pipe.service';
@@ -20,7 +21,10 @@ import { AddSteamKeyDto } from './dto/add-steam-key.dto';
 @UseGuards(AuthenticatedGuard, ModeratorGuard)
 @Controller('admin/steam')
 export class SteamKeyController {
-    public constructor(private readonly steamKeyService: SteamKeyService) {}
+    public constructor(
+        private readonly steamKeyService: SteamKeyService,
+        private readonly steamKeyCategoryService: SteamKeyCategoryService
+    ) {}
 
     @Render('admin/steam')
     @Get()
@@ -31,7 +35,7 @@ export class SteamKeyController {
             success: req.flash('success'),
             totalKeys: await this.steamKeyService.count(),
             availableKeys: await this.steamKeyService.availableKeyCount(),
-            categories: await this.steamKeyService.allCategories(),
+            categories: await this.steamKeyCategoryService.allCategoriesNames(),
         };
     }
 

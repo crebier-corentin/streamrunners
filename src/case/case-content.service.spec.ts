@@ -7,8 +7,9 @@ import { UserService } from '../user/user.service';
 import { CaseContentEntity } from './case-content.entity';
 import { CaseContentService } from './case-content.service';
 import { CaseEntity } from './case.entity';
-import { SteamKeyEntity } from './steam-key.entity';
-import { SteamKeyService } from './steam-key.service';
+import { SteamKeyCategoryEntity } from './steam-key/steam-key-category.entity';
+import { SteamKeyEntity } from './steam-key/steam-key.entity';
+import { SteamKeyService } from './steam-key/steam-key.service';
 
 describe('CaseContentService', () => {
     let service: CaseContentService;
@@ -80,7 +81,8 @@ describe('CaseContentService', () => {
             content.name = 'SteamKey';
             content.chance = 500;
             content.image = 'test.png';
-            content.keyCategory = 'random';
+            content.keyCategory = new SteamKeyCategoryEntity();
+            content.keyCategory.id = 1;
 
             const _case = new CaseEntity();
             _case.content = content;
@@ -103,7 +105,8 @@ describe('CaseContentService', () => {
             content.name = 'SteamKey';
             content.chance = 500;
             content.image = 'test.png';
-            content.keyCategory = 'random';
+            content.keyCategory = new SteamKeyCategoryEntity();
+            content.keyCategory.id = 1;
 
             const _case = new CaseEntity();
             _case.content = content;

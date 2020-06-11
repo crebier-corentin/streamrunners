@@ -66,6 +66,13 @@
 <div class="container container-main">
 	<div class="row">
 		<div class="col-8 col-content">
+			<section class="tsd-panel tsd-comment">
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>Entity representing a case type.<br>Stores global info like the name, images, prizes, if the case is buyable and the price...</p>
+					</div>
+				</div>
+			</section>
 			<section class="tsd-panel tsd-hierarchy">
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
@@ -103,9 +110,14 @@
 					<div class="tsd-signature tsd-kind-icon">buyable<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in src/case/case-type.entity.ts:26</li>
+							<li>Defined in src/case/case-type.entity.ts:48</li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>If the case is buyable in the shop.</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
 					<a name="closeimage" class="tsd-anchor"></a>
@@ -113,9 +125,14 @@
 					<div class="tsd-signature tsd-kind-icon">close<wbr>Image<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in src/case/case-type.entity.ts:17</li>
+							<li>Defined in src/case/case-type.entity.ts:33</li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Url (can be relative) to the image shown when the case is closed.</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
 					<a name="contents" class="tsd-anchor"></a>
@@ -123,9 +140,14 @@
 					<div class="tsd-signature tsd-kind-icon">contents<span class="tsd-signature-symbol">:</span> <a href="casecontententity.html" class="tsd-signature-type">CaseContentEntity</a><span class="tsd-signature-symbol">[]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in src/case/case-type.entity.ts:23</li>
+							<li>Defined in src/case/case-type.entity.ts:42</li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Possible prizes to win.</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
 					<a name="createdat" class="tsd-anchor"></a>
@@ -133,7 +155,7 @@
 					<div class="tsd-signature tsd-kind-icon">created<wbr>At<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Date</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in src/case/case-type.entity.ts:32</li>
+							<li>Defined in src/case/case-type.entity.ts:58</li>
 						</ul>
 					</aside>
 				</section>
@@ -143,7 +165,7 @@
 					<div class="tsd-signature tsd-kind-icon">id<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in src/case/case-type.entity.ts:8</li>
+							<li>Defined in src/case/case-type.entity.ts:14</li>
 						</ul>
 					</aside>
 				</section>
@@ -153,9 +175,14 @@
 					<div class="tsd-signature tsd-kind-icon">name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in src/case/case-type.entity.ts:11</li>
+							<li>Defined in src/case/case-type.entity.ts:21</li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Name of the case.<br>Will be displayed to the user.</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
 					<a name="openimage" class="tsd-anchor"></a>
@@ -163,9 +190,14 @@
 					<div class="tsd-signature tsd-kind-icon">open<wbr>Image<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in src/case/case-type.entity.ts:14</li>
+							<li>Defined in src/case/case-type.entity.ts:27</li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Url (can be relative) to the image shown when the case is opened.</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
 					<a name="price" class="tsd-anchor"></a>
@@ -173,9 +205,14 @@
 					<div class="tsd-signature tsd-kind-icon">price<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in src/case/case-type.entity.ts:29</li>
+							<li>Defined in src/case/case-type.entity.ts:55</li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Price in points for the shop.<br>Useless if <a href="casetypeentity.html#buyable">buyable</a> is false.</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
 					<a name="updatedat" class="tsd-anchor"></a>
@@ -183,7 +220,7 @@
 					<div class="tsd-signature tsd-kind-icon">updated<wbr>At<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Date</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in src/case/case-type.entity.ts:35</li>
+							<li>Defined in src/case/case-type.entity.ts:61</li>
 						</ul>
 					</aside>
 				</section>

@@ -66,6 +66,13 @@
 <div class="container container-main">
 	<div class="row">
 		<div class="col-8 col-content">
+			<section class="tsd-panel tsd-comment">
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>Entity service for <a href="caseentity.html">CaseEntity</a>.</p>
+					</div>
+				</div>
+			</section>
 			<section class="tsd-panel tsd-hierarchy">
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
@@ -131,7 +138,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides <a href="entityservice.html">EntityService</a>.<a href="entityservice.html#constructor">constructor</a></p>
 								<ul>
-									<li>Defined in src/case/case.service.ts:13</li>
+									<li>Defined in src/case/case.service.ts:19</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -159,7 +166,7 @@
 					<div class="tsd-signature tsd-kind-icon">case<wbr>Content<wbr>Service<span class="tsd-signature-symbol">:</span> <a href="casecontentservice.html" class="tsd-signature-type">CaseContentService</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in src/case/case.service.ts:16</li>
+							<li>Defined in src/case/case.service.ts:22</li>
 						</ul>
 					</aside>
 				</section>
@@ -185,7 +192,7 @@
 					<div class="tsd-signature tsd-kind-icon">steam<wbr>Key<wbr>Service<span class="tsd-signature-symbol">:</span> <a href="steamkeyservice.html" class="tsd-signature-type">SteamKeyService</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in src/case/case.service.ts:17</li>
+							<li>Defined in src/case/case.service.ts:23</li>
 						</ul>
 					</aside>
 				</section>
@@ -259,22 +266,34 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/case/case.service.ts:22</li>
+									<li>Defined in src/case/case.service.ts:35</li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>id: <span class="tsd-signature-type">number</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Searched <a href="caseentity.html#id">CaseEntity.id</a></p>
+									</div>
 								</li>
 								<li>
 									<h5>userId: <span class="tsd-signature-type">number</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Searched <a href="userentity.html#id">UserEntity.id</a></p>
+									</div>
 								</li>
 								<li>
 									<h5>loadTypeAndContentRelations: <span class="tsd-signature-type">boolean</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Should load the relations <a href="caseentity.html#type">CaseEntity.type</a>, <a href="casetypeentity.html#contents">CaseTypeEntity.contents</a> and <a href="casecontententity.html#keycategory">CaseContentEntity.keyCategory</a>.</p>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="caseentity.html" class="tsd-signature-type">CaseEntity</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<p>The matching case or undefined if not found.</p>
 						</li>
 					</ul>
 				</section>
@@ -288,25 +307,43 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/case/case.service.ts:41</li>
+									<li>Defined in src/case/case.service.ts:67</li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Throws when no matching case found.</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>id: <span class="tsd-signature-type">number</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Searched <a href="caseentity.html#id">CaseEntity.id</a></p>
+									</div>
 								</li>
 								<li>
 									<h5>userId: <span class="tsd-signature-type">number</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Searched <a href="userentity.html#id">UserEntity.id</a></p>
+									</div>
 								</li>
 								<li>
 									<h5>loadTypeAndContentRelations: <span class="tsd-signature-type">boolean</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Should load the relations <a href="caseentity.html#type">CaseEntity.type</a>, <a href="casetypeentity.html#contents">CaseTypeEntity.contents</a> and <a href="casecontententity.html#keycategory">CaseContentEntity.keyCategory</a>.</p>
+									</div>
 								</li>
 								<li>
 									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> exception: <span class="tsd-signature-type">HttpException</span><span class="tsd-signature-symbol"> = new InternalServerErrorException()</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Exceptrion to throw when no matching case found.</p>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="caseentity.html" class="tsd-signature-type">CaseEntity</a><span class="tsd-signature-symbol">&gt;</span></h4>
+							<p>The matching case.</p>
 						</li>
 					</ul>
 				</section>
@@ -386,16 +423,22 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/case/case.service.ts:135</li>
+									<li>Defined in src/case/case.service.ts:186</li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>user: <a href="userentity.html" class="tsd-signature-type">UserEntity</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Owner of the cases.</p>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="caseentity.html" class="tsd-signature-type">CaseEntity</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<p>All closed cases belonging to the user.</p>
 						</li>
 					</ul>
 				</section>
@@ -409,16 +452,22 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/case/case.service.ts:123</li>
+									<li>Defined in src/case/case.service.ts:169</li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>user: <a href="userentity.html" class="tsd-signature-type">UserEntity</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Owner of the cases.</p>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="caseentity.html" class="tsd-signature-type">CaseEntity</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<p>All opened cases belonging to the user.</p>
 						</li>
 					</ul>
 				</section>
@@ -432,16 +481,27 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/case/case.service.ts:56</li>
+									<li>Defined in src/case/case.service.ts:91</li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<dl class="tsd-comment-tags">
+									<dt>remark</dt>
+									<dd><p>Randomly selected based on <a href="casecontententity.html#chance">CaseContentEntity.chance</a>.</p>
+									</dd>
+								</dl>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>contents: <a href="casecontententity.html" class="tsd-signature-type">CaseContentEntity</a><span class="tsd-signature-symbol">[]</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>All possible prizes.</p>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="casecontententity.html" class="tsd-signature-type">CaseContentEntity</a></h4>
+							<p>A random prize.</p>
 						</li>
 					</ul>
 				</section>
@@ -455,16 +515,27 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/case/case.service.ts:113</li>
+									<li>Defined in src/case/case.service.ts:154</li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Gives a new closed case to a user.</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>type: <a href="casetypeentity.html" class="tsd-signature-type">CaseTypeEntity</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Type of the case.</p>
+									</div>
 								</li>
 								<li>
 									<h5>user: <a href="userentity.html" class="tsd-signature-type">UserEntity</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>User to give the case to.</p>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -481,7 +552,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/case/case.service.ts:77</li>
+									<li>Defined in src/case/case.service.ts:112</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>

@@ -7,6 +7,11 @@ import { UserService } from '../user/user.service';
 import { CaseTypeEntity } from './case-type.entity';
 import { CaseService } from './case.service';
 
+/**
+ * Entity service for [[CaseTypeEntity]].
+ *
+ * @category Service
+ */
 @Injectable()
 export class CaseTypeService extends EntityService<CaseTypeEntity> {
     public constructor(
@@ -17,6 +22,9 @@ export class CaseTypeService extends EntityService<CaseTypeEntity> {
         super(repo);
     }
 
+    /**
+     * @returns All buyable case types to display in the shop.
+     */
     public getBuyableCaseTypes(): Promise<CaseTypeEntity[]> {
         return this.repo
             .createQueryBuilder('type')
@@ -27,6 +35,14 @@ export class CaseTypeService extends EntityService<CaseTypeEntity> {
             .getMany();
     }
 
+    /**
+     *
+     * Buys a case in points and adds to the user's inventory.
+     * Will throw if the case type is unknown, if the case type is not buyable or if the user can't afford the cas.
+     *
+     * @param caseTypeId [[CaseTypeEntity.id]] of the wanted case.
+     * @param user User who wants to buy a case.
+     */
     public async buyCase(caseTypeId: number, user: UserEntity): Promise<void> {
         const caseType = await this.byIdOrFail(caseTypeId, [], new UserErrorException('Type de caisse inconnu.', 404));
 

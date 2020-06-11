@@ -66,6 +66,13 @@
 <div class="container container-main">
 	<div class="row">
 		<div class="col-8 col-content">
+			<section class="tsd-panel tsd-comment">
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>Entity service for <a href="casetypeentity.html">CaseTypeEntity</a>.</p>
+					</div>
+				</div>
+			</section>
 			<section class="tsd-panel tsd-hierarchy">
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
@@ -126,7 +133,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides <a href="entityservice.html">EntityService</a>.<a href="entityservice.html#constructor">constructor</a></p>
 								<ul>
-									<li>Defined in src/case/case-type.service.ts:11</li>
+									<li>Defined in src/case/case-type.service.ts:16</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -154,7 +161,7 @@
 					<div class="tsd-signature tsd-kind-icon">case<wbr>Service<span class="tsd-signature-symbol">:</span> <a href="caseservice.html" class="tsd-signature-type">CaseService</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in src/case/case-type.service.ts:14</li>
+							<li>Defined in src/case/case-type.service.ts:19</li>
 						</ul>
 					</aside>
 				</section>
@@ -180,7 +187,7 @@
 					<div class="tsd-signature tsd-kind-icon">user<wbr>Service<span class="tsd-signature-symbol">:</span> <a href="userservice.html" class="tsd-signature-type">UserService</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in src/case/case-type.service.ts:15</li>
+							<li>Defined in src/case/case-type.service.ts:20</li>
 						</ul>
 					</aside>
 				</section>
@@ -218,16 +225,28 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/case/case-type.service.ts:30</li>
+									<li>Defined in src/case/case-type.service.ts:46</li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Buys a case in points and adds to the user&#39;s inventory.
+									Will throw if the case type is unknown, if the case type is not buyable or if the user can&#39;t afford the cas.</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>caseTypeId: <span class="tsd-signature-type">number</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p><a href="casetypeentity.html#id">CaseTypeEntity.id</a> of the wanted case.</p>
+									</div>
 								</li>
 								<li>
 									<h5>user: <a href="userentity.html" class="tsd-signature-type">UserEntity</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>User who wants to buy a case.</p>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -346,10 +365,13 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/case/case-type.service.ts:20</li>
+									<li>Defined in src/case/case-type.service.ts:28</li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="casetypeentity.html" class="tsd-signature-type">CaseTypeEntity</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<p>All buyable case types to display in the shop.</p>
 						</li>
 					</ul>
 				</section>

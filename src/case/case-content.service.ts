@@ -5,8 +5,14 @@ import { UserEntity } from '../user/user.entity';
 import { UserService } from '../user/user.service';
 import { CaseContentEntity } from './case-content.entity';
 import { CaseEntity } from './case.entity';
-import { SteamKeyService } from './steam-key.service';
+import { SteamKeyService } from './steam-key/steam-key.service';
 
+/**
+ * Entity service for [[CaseContentService]].
+ *
+ * @category Service
+ *
+ */
 @Injectable()
 export class CaseContentService extends EntityService<CaseContentService> {
     public constructor(
@@ -29,6 +35,13 @@ export class CaseContentService extends EntityService<CaseContentService> {
         _case.key = key;
     }
 
+    /**
+     * Apply a won prize.\
+     * Gives points and meteores to the user, or adds a key to the case.
+     *
+     * @param _case Case with contents to apply. (require [[CaseEntity.content]].)
+     * @param user Owner of the case.
+     */
     public applyContent(_case: CaseEntity, user: UserEntity): Promise<void> {
         return _case.content.keyCategory == null
             ? this.applyPrizePointsAndMeteores(_case.content, user)

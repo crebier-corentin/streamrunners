@@ -19,7 +19,8 @@ import { CaseContentEntity } from './case-content.entity';
 import { CaseTypeEntity } from './case-type.entity';
 import { CaseTypeService } from './case-type.service';
 import { CaseService } from './case.service';
-import { SteamKeyService } from './steam-key.service';
+import { SteamKeyCategoryEntity } from './steam-key/steam-key-category.entity';
+import { SteamKeyService } from './steam-key/steam-key.service';
 import Request = Express.Request;
 
 @UseGuards(AuthenticatedGuard)
@@ -55,7 +56,7 @@ export class CaseController {
                 }
 
                 return categories;
-            }, new Set<string>());
+            }, new Set<SteamKeyCategoryEntity>());
 
             //Check if a key is available for each category
             for (const category of keyCategories) {

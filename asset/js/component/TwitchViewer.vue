@@ -24,7 +24,7 @@
 
         computed: {
             chatUrl() {
-                return 'https://www.twitch.tv/embed/' + this.channel + '/chat?darkpopout';
+                return `https://www.twitch.tv/embed/${this.channel}/chat?parent=${window.location.hostname}&darkpopout`;
             },
         },
 

@@ -7,8 +7,9 @@ Some useful commands are:
 * `pm2 logs`
 * `pm2 logs --err`
 
-The server uses nginx with a reverse proxy to the node server (configuration is `/etc/nginx/sites-available/default`).  
+The server uses nginx with a reverse proxy to the node server (configuration is `/etc/nginx/sites-available/streamrunners.fr`).  
 Nginx takes care of static assets (`/public/`) and of https (using [certbot](https://certbot.eff.org/)) and http2.
+Note: You might to disable cloudflare proxy for certbot to work.
 
 You can use the `update.sh` script to update the site from the git repo. It will take care of migration, dependencies, building and restarting. (Including clearing cloudflare's cache.)
 

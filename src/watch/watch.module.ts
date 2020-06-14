@@ -19,7 +19,7 @@ export class WatchModule implements NestModule {
         //1 request/second per user
         // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
         // @ts-ignore
-        const rateLimit = ExpressRateLimit({ keyGenerator: req => req.user.id ?? req.ip, max: 1, windowMs: 1000 });
+        const rateLimit = ExpressRateLimit({ keyGenerator: req => req.user?.id ?? req.ip, max: 1, windowMs: 1000 });
 
         consumer.apply(rateLimit).forRoutes('/watch/update');
     }

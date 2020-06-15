@@ -78,7 +78,8 @@
 					<li><code>pm2 logs</code></li>
 					<li><code>pm2 logs --err</code></li>
 				</ul>
-				<p>The server uses nginx with a reverse proxy to the node server (configuration is <code>/etc/nginx/sites-available/default</code>).<br>Nginx takes care of static assets (<code>/public/</code>) and of https (using <a href="https://certbot.eff.org/">certbot</a>) and http2.</p>
+				<p>The server uses nginx with a reverse proxy to the node server (configuration is <code>/etc/nginx/sites-available/streamrunners.fr</code>).<br>Nginx takes care of static assets (<code>/public/</code>) and of https (using <a href="https://certbot.eff.org/">certbot</a>) and http2.
+				Note: You might to disable cloudflare proxy for certbot to work.</p>
 				<p>You can use the <code>update.sh</code> script to update the site from the git repo. It will take care of migration, dependencies, building and restarting. (Including clearing cloudflare&#39;s cache.)</p>
 				<a href="#cron" id="cron" style="color: inherit; text-decoration: none;">
 					<h3>Cron</h3>

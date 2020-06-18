@@ -36,7 +36,6 @@ export class CaseTypeService extends EntityService<CaseTypeEntity> {
     }
 
     /**
-     *
      * Buys a case in points and adds to the user's inventory.
      * Will throw if the case type is unknown, if the case type is not buyable or if the user can't afford the cas.
      *

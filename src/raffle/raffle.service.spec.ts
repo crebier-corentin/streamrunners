@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/ban-ts-ignore */
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
+import MockDate = require('mockdate');
 import { Repository } from 'typeorm';
 import { DiscordBotService } from '../discord/discord-bot.service';
 import { UserEntity } from '../user/user.entity';
@@ -10,7 +11,6 @@ import { RaffleParticipationEntity } from './raffle-participation.entity';
 import { RaffleParticipationService } from './raffle-participation.service';
 import { RaffleEntity } from './raffle.entity';
 import { RaffleService } from './raffle.service';
-import MockDate = require('mockdate');
 
 describe('RaffleService', () => {
     let service: RaffleService;

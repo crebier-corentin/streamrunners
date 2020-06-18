@@ -72,10 +72,10 @@
 						<p>Exception used to represent an error that should be displayed to the user.<br>Be it via json using <a href="jsonusererrorfilter.html">JsonUserErrorFilter</a> or flashing the error with <a href="flashandredirectusererrorfilter.html">FlashAndRedirectUserErrorFilter</a>.</p>
 					</div>
 					<p><a href="jsonusererrorfilter.html">JsonUserErrorFilter</a> uses both <a href="usererrorexception.html#title">title</a> and <a href="usererrorexception.html#message">message</a>.<br><a href="flashandredirectusererrorfilter.html">FlashAndRedirectUserErrorFilter</a> <strong>only</strong> uses <a href="usererrorexception.html#message">message</a>.</p>
-					<pre><code class="language-typescript"><span class="hljs-keyword">new</span> UserErrorException(<span class="hljs-string">"message"</span>); <span class="hljs-comment">//message == "message" and status == 422</span>
-<span class="hljs-keyword">new</span> UserErrorException(<span class="hljs-string">"message"</span>, <span class="hljs-number">400</span>); <span class="hljs-comment">//message == "message" and status == 400</span>
-<span class="hljs-keyword">new</span> UserErrorException(<span class="hljs-string">"title"</span>, <span class="hljs-string">"message"</span>); <span class="hljs-comment">//title == "title", message == "message" and status == 422</span>
-<span class="hljs-keyword">new</span> UserErrorException(<span class="hljs-string">"title"</span>, <span class="hljs-string">"message"</span>, <span class="hljs-number">400</span>); <span class="hljs-comment">//title == "title", message == "message" and status == 400</span></code></pre>
+					<pre><code class="language-typescript"><span class="hljs-keyword">new</span> UserErrorException(<span class="hljs-string">&quot;message&quot;</span>); <span class="hljs-comment">//message == &quot;message&quot; and status == 422</span>
+<span class="hljs-keyword">new</span> UserErrorException(<span class="hljs-string">&quot;message&quot;</span>, <span class="hljs-number">400</span>); <span class="hljs-comment">//message == &quot;message&quot; and status == 400</span>
+<span class="hljs-keyword">new</span> UserErrorException(<span class="hljs-string">&quot;title&quot;</span>, <span class="hljs-string">&quot;message&quot;</span>); <span class="hljs-comment">//title == &quot;title&quot;, message == &quot;message&quot; and status == 422</span>
+<span class="hljs-keyword">new</span> UserErrorException(<span class="hljs-string">&quot;title&quot;</span>, <span class="hljs-string">&quot;message&quot;</span>, <span class="hljs-number">400</span>); <span class="hljs-comment">//title == &quot;title&quot;, message == &quot;message&quot; and status == 400</span></code></pre>
 				</div>
 			</section>
 			<section class="tsd-panel tsd-hierarchy">

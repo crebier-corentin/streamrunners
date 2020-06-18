@@ -15,6 +15,7 @@ import { CouponModule } from './coupon/coupon.module';
 import { DiscordModule } from './discord/discord.module';
 import { LeaderboardModule } from './leaderboard/leaderboard.module';
 import { MailModule } from './mail/mail.module';
+import ormconfig = require('./ormconfig');
 import { PartnerModule } from './partner/partner.module';
 import { RaffleModule } from './raffle/raffle.module';
 import { StreamQueueModule } from './stream-queue/stream-queue.module';
@@ -22,7 +23,6 @@ import { SubscriptionModule } from './subscription/subscription.module';
 import { TwitchModule } from './twitch/twitch.module';
 import { UserModule } from './user/user.module';
 import { WatchModule } from './watch/watch.module';
-import ormconfig = require('./ormconfig');
 
 @Module({
     imports: [

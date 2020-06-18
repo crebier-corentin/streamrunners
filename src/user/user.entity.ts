@@ -14,6 +14,7 @@ import {
     UpdateDateColumn,
 } from 'typeorm';
 import { CaseEntity } from '../case/case.entity';
+import { SteamKeyEntity } from '../case/steam-key/steam-key.entity';
 import { ChatMessageEntity } from '../chat/chat-message.entity';
 import { CouponEntity } from '../coupon/coupon.entity';
 import { RaffleParticipationEntity } from '../raffle/raffle-participation.entity';
@@ -240,6 +241,15 @@ export class UserEntity {
         c => c.user
     )
     public cases: CaseEntity[];
+
+    /**
+     * Keys bought from the shop.
+     */
+    @OneToMany(
+        type => SteamKeyEntity,
+        key => key.user
+    )
+    public keys: SteamKeyEntity[];
 
     @OneToMany(
         type => UserEntity,

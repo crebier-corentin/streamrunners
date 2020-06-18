@@ -1,13 +1,13 @@
 /* eslint-disable @typescript-eslint/camelcase,@typescript-eslint/ban-ts-ignore */
 import { Test, TestingModule } from '@nestjs/testing';
 import { AxiosError } from 'axios';
+import MockDate = require('mockdate');
 import { Connection, EntityManager } from 'typeorm';
 import { UserEntity } from '../user/user.entity';
 import { PaypalSubscriptionDetails } from './paypal.interfaces';
 import { PaypalService } from './paypal.service';
 import { SubscriptionEntity } from './subscription.entity';
 import { SubscriptionSubscriber } from './subscription.subscriber';
-import MockDate = require('mockdate');
 
 describe('SubscriptionSubscriber', () => {
     let subscriber: SubscriptionSubscriber;

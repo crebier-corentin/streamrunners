@@ -1,6 +1,6 @@
 import { AxiosError } from 'axios';
-import { escapeHtml, formatDatetimeSQL, isAxiosError, shuffledArray } from './utils';
 import moment = require('moment');
+import { escapeHtml, formatDatetimeSQL, isAxiosError, shuffledArray } from './utils';
 
 describe('shuffledArray', () => {
     beforeEach(() => {

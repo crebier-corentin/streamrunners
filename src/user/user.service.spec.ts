@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/camelcase,@typescript-eslint/ban-ts-ignore */
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
+import MockDate = require('mockdate');
 import { Repository } from 'typeorm';
 import { UserErrorException } from '../common/exception/user-error.exception';
 import { DiscordBotService } from '../discord/discord-bot.service';
@@ -8,7 +9,6 @@ import { TwitchUser } from '../twitch/twitch.interfaces';
 import { TwitchService } from '../twitch/twitch.service';
 import { UserEntity } from './user.entity';
 import { UserService } from './user.service';
-import MockDate = require('mockdate');
 
 describe('UserService', () => {
     let service: UserService;

@@ -11,6 +11,7 @@
         {% endif %}
 
         <section class="row">
+            {# Cases #}
             {% for type in caseTypes %}
                 <div class="col-sm-3">
 
@@ -25,7 +26,7 @@
                                data-title="Contenu"
                                data-content='<div class="d-flex flex-column p-0 m-0 text-white">
     {% for content in type.contents %}
-    <span><img src="{{ content.image }}" alt="{{content.name}}" width="16px" height="16px"><strong> {{content.name}}</strong> : {{ content.chance / 10 }} %</span>
+    <span><img src="{{ content.image }}" alt="{{ content.name }}" width="16px" height="16px"><strong> {{ content.name }}</strong> : {{ content.chance / 10 }} %</span>
     {% endfor %}
 </div>
 '></i>
@@ -33,7 +34,7 @@
                         <div class="card-body">
                             <h5 class="card-title">{{ type.name }}</h5>
                             {% if req.user.points < type.price %}
-                                <span class="text-danger small">Vous n'avez pas assez de points.</span>
+                                <span class="text-danger small">Vous n'avez pas assez de steamcoins.</span>
                             {% endif %}
                             <form action="/case/buy" method="post">
                                 <input type="hidden" name="caseTypeId" value="{{ type.id }}">
@@ -46,34 +47,61 @@
 
                 </div>
             {% endfor %}
+
+            {# Keys #}
+            {% for category in keyCategories %}
+                <div class="col-sm-3">
+
+                    <div class="card" style="width: 14rem;">
+                        <div class="resizeimg">
+                            <img class="card-img-top" src="{{ category.image }}" alt="{{ category.name }}">
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">{{ category.name }}</h5>
+                            {% if req.user.points < category.cost %}
+                                <span class="text-danger small">Vous n'avez pas assez de steamcoins.</span>
+                            {% endif %}
+                            <form action="/key/buy" method="post">
+                                <input type="hidden" name="steamKeyCategoryId" value="{{ category.id }}">
+                                <button class="btn btn-primary" {{ 'disabled' if req.user.points < category.cost }}>
+                                    {{ category.cost }} <img src="/img/po.png" alt="points" width="32px" height="32px" />
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+            {% endfor %}
+
             {% if showAds %}
-            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-            <!-- case -->
-            <ins class="adsbygoogle"
-                 style="display:block"
-                 data-ad-client="ca-pub-7690571679670706"
-                 data-ad-slot="6307813628"
-                 data-ad-format="auto"
-                 data-full-width-responsive="true"></ins>
-            <script>
-                 (adsbygoogle = window.adsbygoogle || []).push({});
-            </script>
+                <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                <!-- case -->
+                <ins class="adsbygoogle"
+                     style="display:block"
+                     data-ad-client="ca-pub-7690571679670706"
+                     data-ad-slot="6307813628"
+                     data-ad-format="auto"
+                     data-full-width-responsive="true"></ins>
+                <script>
+                    (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
             {% endif %}
         </section>
+
         {% if showAds %}
-        <div class="jumbotron text-center">
-            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-            <!-- Container Ads -->
-            <ins class="adsbygoogle"
-                 style="display:block"
-                 data-ad-client="ca-pub-7690571679670706"
-                 data-ad-slot="5055754781"
-                 data-ad-format="auto"
-                 data-full-width-responsive="true"></ins>
-            <script>
-                 (adsbygoogle = window.adsbygoogle || []).push({});
-            </script>
-        </div>
+            <div class="jumbotron text-center">
+                <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                <!-- Container Ads -->
+                <ins class="adsbygoogle"
+                     style="display:block"
+                     data-ad-client="ca-pub-7690571679670706"
+                     data-ad-slot="5055754781"
+                     data-ad-format="auto"
+                     data-full-width-responsive="true"></ins>
+                <script>
+                    (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            </div>
         {% endif %}
     </div>
 

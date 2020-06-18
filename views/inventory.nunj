@@ -1,6 +1,24 @@
 {% set title = "StreamRunners - Inventaire" %}
 {% extends "master.nunj" %}
 
+{% macro modal(id, code) %}
+    <div id="{{ id }}" class="modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Code</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>{{ code }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endmacro %}
+
 {% block content %}
     <div class="container">
 
@@ -22,6 +40,9 @@
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#raffle" data-toggle="tab" data-height="true">Giveaway</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#key" data-toggle="tab" data-height="true">Clés achetées</a>
             </li>
         </ul>
 
@@ -96,21 +117,7 @@
 
                         {# Modal #}
                         {% if case.key != null %}
-                            <div id="modal-case-{{ case.id }}" class="modal" tabindex="-1" role="dialog">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title">Code</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <p>{{ case.key.code }}</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            {{ modal("modal-case-" + case.id, case.key.code) }}
                         {% endif %}
                     {% else %}
                         <h3 class="text-center w-100">Rien ici.</h3>
@@ -144,22 +151,35 @@
 
                         {# Modal #}
                         {% if raffle.code %}
-                            <div id="modal-raffle-{{ raffle.id }}" class="modal" tabindex="-1" role="dialog">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title">Code</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <p>{{ raffle.code }}</p>
-                                        </div>
-                                    </div>
+                            {{ modal("modal-raffle-" + raffle.id, raffle.code) }}
+                        {% endif %}
+
+                    {% else %}
+                        <h3 class="text-center w-100">Rien ici.</h3>
+                    {% endfor %}
+                </section>
+            </div>
+
+            {# Keys #}
+            <div class="tab-pane fade" id="key">
+                <section class="row">
+                    {% for key in req.user.keys %}
+                        <div class="col-sm-3">
+                            <div class="card" style="width: 14rem;">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ key.name }}</h5>
+                                    <button type="button"
+                                            class="btn btn-primary"
+                                            data-toggle="modal"
+                                            data-target="#modal-key-{{ key.id }}">
+                                        Voir le code
+                                    </button>
                                 </div>
                             </div>
-                        {% endif %}
+                        </div>
+
+                        {# Modal #}
+                        {{ modal("modal-key-" + key.id, key.code) }}
 
                     {% else %}
                         <h3 class="text-center w-100">Rien ici.</h3>

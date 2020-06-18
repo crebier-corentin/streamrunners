@@ -49,7 +49,7 @@ export class AppController {
         @Req() req: Request | any,
         @User() user: UserEntity
     ): Promise<{ openedCases: CaseEntity[]; closedCases: CaseEntity[]; success: any }> {
-        req.user = await this.userService.byId(req.user.id, ['currentSubscription', 'rafflesWon']); //Load raffle relation
+        req.user = await this.userService.byId(req.user.id, ['currentSubscription', 'rafflesWon', 'keys']); //Load raffle relation
 
         const openedCases = await this.caseService.getOpenedCases(user);
         const closedCases = await this.caseService.getClosedCases(user);

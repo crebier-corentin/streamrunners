@@ -10,6 +10,7 @@ import { CaseEntity } from './case.entity';
 import { CaseService } from './case.service';
 import { SteamKeyCategoryEntity } from './steam-key/steam-key-category.entity';
 import { SteamKeyCategoryService } from './steam-key/steam-key-category.service';
+import { SteamKeyController } from './steam-key/steam-key.controller';
 import { SteamKeyEntity } from './steam-key/steam-key.entity';
 import { SteamKeyService } from './steam-key/steam-key.service';
 
@@ -25,7 +26,7 @@ import { SteamKeyService } from './steam-key/steam-key.service';
         UserModule,
     ],
     providers: [CaseService, CaseTypeService, CaseContentService, SteamKeyService, SteamKeyCategoryService],
-    controllers: [CaseController],
+    controllers: [CaseController, SteamKeyController],
     exports: [CaseService, CaseTypeService, SteamKeyService, SteamKeyCategoryService],
 })
 export class CaseModule {}

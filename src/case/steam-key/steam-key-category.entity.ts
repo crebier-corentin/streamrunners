@@ -23,6 +23,12 @@ export class SteamKeyCategoryEntity {
     public name: string;
 
     /**
+     * Url (can be relative) to the image shown in the shop.
+     */
+    @Column()
+    public image: string;
+
+    /**
      * Keys belonging to this category.-
      */
     @OneToMany(

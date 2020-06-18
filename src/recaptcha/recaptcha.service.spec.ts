@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { RecaptchaService } from './recaptcha.service';
 import nock = require('nock');
+import { RecaptchaService } from './recaptcha.service';
 
 describe('RecaptchaService', () => {
     let service: RecaptchaService;

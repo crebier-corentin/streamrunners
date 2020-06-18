@@ -1,8 +1,8 @@
 import { Test, TestingModule } from '@nestjs/testing';
+import MockDate = require('mockdate');
 import { UserEntity } from '../user/user.entity';
 import { UserService } from '../user/user.service';
 import { AuthController } from './auth.controller';
-import MockDate = require('mockdate');
 
 describe('AuthController', () => {
     let controller: AuthController;

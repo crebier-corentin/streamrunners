@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { Exclude, Expose, Transform, Type } from 'class-transformer';
+import moment = require('moment');
 import {
     Column,
     CreateDateColumn,
@@ -11,7 +12,6 @@ import {
 } from 'typeorm';
 import { UserEntity } from '../user/user.entity';
 import { ChatMentionEntity } from './chat-mention.entity';
-import moment = require('moment');
 
 @Entity('chat_message')
 @Expose()

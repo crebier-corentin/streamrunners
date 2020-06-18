@@ -3,6 +3,7 @@ import { ServiceUnavailableException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
 import { NestExpressApplication } from '@nestjs/platform-express';
+import flash = require('connect-flash');
 import * as cookieParser from 'cookie-parser';
 import * as cookieSession from 'cookie-session';
 import * as helmet from 'helmet';
@@ -20,7 +21,6 @@ import { ChatRank } from './shared/types';
 import { SubscriptionLevel, SubscriptionLevelToFrench } from './subscription/subscription.interfaces';
 import { UserEntity } from './user/user.entity';
 import { UserService } from './user/user.service';
-import flash = require('connect-flash');
 
 /*
  * The starting point of the application.\

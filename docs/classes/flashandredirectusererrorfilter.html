@@ -74,17 +74,17 @@
 					<p>Example:</p>
 					<pre><code class="language-typescript"><span class="hljs-comment">//In some controller</span>
 
-<span class="hljs-meta">@Get</span>(<span class="hljs-string">"view"</span>)
+<span class="hljs-meta">@Get</span>(<span class="hljs-string">&quot;view&quot;</span>)
 <span class="hljs-keyword">public</span> example(<span class="hljs-meta">@Req</span>() req: Request): <span class="hljs-built_in">void</span> {
-    <span class="hljs-keyword">const</span> errors = req.flash(<span class="hljs-string">"error"</span>);
+    <span class="hljs-keyword">const</span> errors = req.flash(<span class="hljs-string">&quot;error&quot;</span>);
     <span class="hljs-comment">//Display the errors if there are any to the user...</span>
 }
 
-<span class="hljs-meta">@Post</span>(<span class="hljs-string">"Render"</span>)
-<span class="hljs-meta">@UseFilters</span>(<span class="hljs-keyword">new</span> FlashAndRedirectUserErrorFilter(<span class="hljs-string">"/view"</span>))
+<span class="hljs-meta">@Post</span>(<span class="hljs-string">&quot;Render&quot;</span>)
+<span class="hljs-meta">@UseFilters</span>(<span class="hljs-keyword">new</span> FlashAndRedirectUserErrorFilter(<span class="hljs-string">&quot;/view&quot;</span>))
 <span class="hljs-keyword">public</span> example(<span class="hljs-meta">@Req</span>() req: Request): <span class="hljs-built_in">void</span> {
     <span class="hljs-comment">//Do something...</span>
-    <span class="hljs-keyword">if</span>(condition) <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> UserErrorException(<span class="hljs-string">"oops"</span>);
+    <span class="hljs-keyword">if</span>(condition) <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> UserErrorException(<span class="hljs-string">&quot;oops&quot;</span>);
 }</code></pre>
 				</div>
 			</section>

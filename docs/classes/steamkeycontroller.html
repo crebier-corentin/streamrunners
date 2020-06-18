@@ -95,6 +95,7 @@
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="steamkeycontroller.html#addcoupon" class="tsd-kind-icon">add<wbr>Coupon</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="steamkeycontroller.html#buy" class="tsd-kind-icon">buy</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="steamkeycontroller.html#coupon" class="tsd-kind-icon">coupon</a></li>
 							</ul>
 						</section>
@@ -113,7 +114,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/admin/steam-key.controller.ts:23</li>
+									<li>Defined in src/case/steam-key/steam-key.controller.ts:13</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -138,6 +139,7 @@
 					<div class="tsd-signature tsd-kind-icon">steam<wbr>Key<wbr>Category<wbr>Service<span class="tsd-signature-symbol">:</span> <a href="steamkeycategoryservice.html" class="tsd-signature-type">SteamKeyCategoryService</a></div>
 					<aside class="tsd-sources">
 						<ul>
+							<li>Defined in src/case/steam-key/steam-key.controller.ts:16</li>
 							<li>Defined in src/admin/steam-key.controller.ts:26</li>
 						</ul>
 					</aside>
@@ -148,6 +150,7 @@
 					<div class="tsd-signature tsd-kind-icon">steam<wbr>Key<wbr>Service<span class="tsd-signature-symbol">:</span> <a href="steamkeyservice.html" class="tsd-signature-type">SteamKeyService</a></div>
 					<aside class="tsd-sources">
 						<ul>
+							<li>Defined in src/case/steam-key/steam-key.controller.ts:15</li>
 							<li>Defined in src/admin/steam-key.controller.ts:25</li>
 						</ul>
 					</aside>
@@ -172,6 +175,35 @@
 							<ul class="tsd-parameters">
 								<li>
 									<h5>dto: <a href="addsteamkeydto.html" class="tsd-signature-type">AddSteamKeyDto</a></h5>
+								</li>
+								<li>
+									<h5>req: <span class="tsd-signature-type">Request</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="buy" class="tsd-anchor"></a>
+					<h3>buy</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">buy<span class="tsd-signature-symbol">(</span>steamKeyCategoryId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, user<span class="tsd-signature-symbol">: </span><a href="userentity.html" class="tsd-signature-type">UserEntity</a>, req<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Request</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in src/case/steam-key/steam-key.controller.ts:22</li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>steamKeyCategoryId: <span class="tsd-signature-type">number</span></h5>
+								</li>
+								<li>
+									<h5>user: <a href="userentity.html" class="tsd-signature-type">UserEntity</a></h5>
 								</li>
 								<li>
 									<h5>req: <span class="tsd-signature-type">Request</span></h5>
@@ -232,6 +264,9 @@
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="steamkeycontroller.html#addcoupon" class="tsd-kind-icon">add<wbr>Coupon</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="steamkeycontroller.html#buy" class="tsd-kind-icon">buy</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="steamkeycontroller.html#coupon" class="tsd-kind-icon">coupon</a>

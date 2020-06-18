@@ -57,4 +57,11 @@ export class SteamKeyCategoryService extends EntityService<SteamKeyCategoryEntit
     public async allCategoriesNames(): Promise<string[]> {
         return (await this.repo.find({ select: ['name'] })).map(c => c.name);
     }
+
+    /**
+     * @returns Every buyable key category.
+     */
+    public allBuyable(): Promise<SteamKeyCategoryEntity[]> {
+        return this.repo.find({ where: { buyable: true } });
+    }
 }

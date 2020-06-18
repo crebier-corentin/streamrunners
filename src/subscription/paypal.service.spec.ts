@@ -2,8 +2,8 @@
 import { ConfigService } from '@nestjs/config';
 import { Test, TestingModule } from '@nestjs/testing';
 import { AxiosRequestConfig } from 'axios';
-import { PaypalService } from './paypal.service';
 import nock = require('nock');
+import { PaypalService } from './paypal.service';
 
 describe('PaypalService', () => {
     describe('baseUrl', () => {

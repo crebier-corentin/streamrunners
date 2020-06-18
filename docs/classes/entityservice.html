@@ -78,7 +78,7 @@ imports: [TypeOrmModule.forFeature([ExampleEntity])],
 <span class="hljs-comment">//In some service</span>
 <span class="hljs-keyword">class</span> ExampleService <span class="hljs-keyword">extends</span> EntityService&lt;ExampleEntity&gt; {
     <span class="hljs-keyword">public</span> <span class="hljs-keyword">constructor</span>(<span class="hljs-params"><span class="hljs-meta">@InjectRepository</span>(ExampleEntity) repo: Repository&lt;ExampleEntity&gt;</span>) {
-        <span class="hljs-keyword">super</span>(repo);
+        <span class="hljs-built_in">super</span>(repo);
     }
 }</code></pre>
 				</div>

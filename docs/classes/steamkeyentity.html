@@ -95,6 +95,7 @@
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="steamkeyentity.html#id" class="tsd-kind-icon">id</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="steamkeyentity.html#name" class="tsd-kind-icon">name</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="steamkeyentity.html#updatedat" class="tsd-kind-icon">updated<wbr>At</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="steamkeyentity.html#user" class="tsd-kind-icon">user</a></li>
 							</ul>
 						</section>
 					</div>
@@ -108,12 +109,12 @@
 					<div class="tsd-signature tsd-kind-icon">case<span class="tsd-signature-symbol">:</span> <a href="caseentity.html" class="tsd-signature-type">CaseEntity</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in src/case/steam-key/steam-key.entity.ts:55</li>
+							<li>Defined in src/case/steam-key/steam-key.entity.ts:57</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>Case containing this key.<br>null if key available.</p>
+							<p>Case containing this key.<br>If <a href="steamkeyentity.html#case">case</a> and <a href="steamkeyentity.html#user">user</a> are null, the key is available.</p>
 						</div>
 					</div>
 				</section>
@@ -123,7 +124,7 @@
 					<div class="tsd-signature tsd-kind-icon">category<span class="tsd-signature-symbol">:</span> <a href="steamkeycategoryentity.html" class="tsd-signature-type">SteamKeyCategoryEntity</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in src/case/steam-key/steam-key.entity.ts:45</li>
+							<li>Defined in src/case/steam-key/steam-key.entity.ts:47</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -138,7 +139,7 @@
 					<div class="tsd-signature tsd-kind-icon">code<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in src/case/steam-key/steam-key.entity.ts:36</li>
+							<li>Defined in src/case/steam-key/steam-key.entity.ts:38</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -153,7 +154,7 @@
 					<div class="tsd-signature tsd-kind-icon">created<wbr>At<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Date</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in src/case/steam-key/steam-key.entity.ts:58</li>
+							<li>Defined in src/case/steam-key/steam-key.entity.ts:71</li>
 						</ul>
 					</aside>
 				</section>
@@ -163,7 +164,7 @@
 					<div class="tsd-signature tsd-kind-icon">id<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in src/case/steam-key/steam-key.entity.ts:23</li>
+							<li>Defined in src/case/steam-key/steam-key.entity.ts:25</li>
 						</ul>
 					</aside>
 				</section>
@@ -173,7 +174,7 @@
 					<div class="tsd-signature tsd-kind-icon">name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in src/case/steam-key/steam-key.entity.ts:30</li>
+							<li>Defined in src/case/steam-key/steam-key.entity.ts:32</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -188,9 +189,24 @@
 					<div class="tsd-signature tsd-kind-icon">updated<wbr>At<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Date</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in src/case/steam-key/steam-key.entity.ts:61</li>
+							<li>Defined in src/case/steam-key/steam-key.entity.ts:74</li>
 						</ul>
 					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="user" class="tsd-anchor"></a>
+					<h3>user</h3>
+					<div class="tsd-signature tsd-kind-icon">user<span class="tsd-signature-symbol">:</span> <a href="userentity.html" class="tsd-signature-type">UserEntity</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in src/case/steam-key/steam-key.entity.ts:68</li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>User who bought the key from the shop.<br>If <a href="steamkeyentity.html#case">case</a> and <a href="steamkeyentity.html#user">user</a> are null, the key is available.</p>
+						</div>
+					</div>
 				</section>
 			</section>
 		</div>
@@ -229,6 +245,9 @@
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class">
 								<a href="steamkeyentity.html#updatedat" class="tsd-kind-icon">updated<wbr>At</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="steamkeyentity.html#user" class="tsd-kind-icon">user</a>
 							</li>
 						</ul>
 					</li>

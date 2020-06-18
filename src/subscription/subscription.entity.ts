@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { Expose } from 'class-transformer';
+import moment = require('moment');
 import {
     Column,
     CreateDateColumn,
@@ -13,7 +14,6 @@ import {
 import { UserEntity } from '../user/user.entity';
 import { PaypalSubscriptionDetails } from './paypal.interfaces';
 import { SubscriptionLevel } from './subscription.interfaces';
-import moment = require('moment');
 
 /**
  * Entity representing a paypal subscription.

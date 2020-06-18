@@ -2,12 +2,12 @@ import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { HttpException } from '@nestjs/common/exceptions/http.exception';
 import { Cron, CronExpression } from '@nestjs/schedule';
 import { InjectRepository } from '@nestjs/typeorm';
+import moment = require('moment');
 import { Repository } from 'typeorm';
 import { EntityService } from '../common/utils/entity-service';
 import { TwitchService } from '../twitch/twitch.service';
 import { UserEntity } from '../user/user.entity';
 import { StreamQueueEntity } from './stream-queue.entity';
-import moment = require('moment');
 
 @Injectable()
 export class StreamQueueService extends EntityService<StreamQueueEntity> {

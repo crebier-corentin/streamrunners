@@ -1,9 +1,9 @@
+import moment = require('moment');
 import { Connection, EntitySubscriberInterface, EventSubscriber } from 'typeorm';
 import { LoadEvent } from 'typeorm/subscriber/event/LoadEvent';
 import { isAxiosError } from '../common/utils/utils';
 import { PaypalService } from './paypal.service';
 import { SubscriptionEntity } from './subscription.entity';
-import moment = require('moment');
 
 /**
  * Typeorm subscriber for [[SubscriptionEntity]].\

@@ -20,6 +20,7 @@ import { CaseTypeEntity } from './case-type.entity';
 import { CaseTypeService } from './case-type.service';
 import { CaseService } from './case.service';
 import { SteamKeyCategoryEntity } from './steam-key/steam-key-category.entity';
+import { SteamKeyCategoryService } from './steam-key/steam-key-category.service';
 import { SteamKeyService } from './steam-key/steam-key.service';
 import Request = Express.Request;
 
@@ -29,7 +30,8 @@ export class CaseController {
     public constructor(
         private readonly caseService: CaseService,
         private readonly caseTypeService: CaseTypeService,
-        private readonly steamKeyService: SteamKeyService
+        private readonly steamKeyService: SteamKeyService,
+        private readonly steamKeyCategoryService: SteamKeyCategoryService
     ) {}
 
     @Render('case')
@@ -95,10 +97,14 @@ export class CaseController {
 
     @Render('case-shop')
     @Get('shop')
-    public async shop(@Req() req: Request): Promise<{ error: any; caseTypes: CaseTypeEntity[] }> {
+    public async shop(
+        @Req() req: Request
+    ): Promise<{ error: any; caseTypes: CaseTypeEntity[]; keyCategories: SteamKeyCategoryEntity[] }> {
+        const keyCategories = await this.steamKeyCategoryService.allBuyable();
         return {
             error: req.flash('error'),
             caseTypes: await this.caseTypeService.getBuyableCaseTypes(),
+            keyCategories: keyCategories,
         };
     }
 

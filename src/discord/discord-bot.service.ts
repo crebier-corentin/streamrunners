@@ -1,11 +1,11 @@
 import { forwardRef, Inject, Injectable, OnApplicationBootstrap } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { Client, Message, Role, TextChannel, VoiceChannel } from 'discord.js';
+import Discord = require('discord.js');
 import { LeaderboardDrawerService } from '../leaderboard/leaderboard-drawer.service';
 import { RaffleEntity } from '../raffle/raffle.entity';
 import { RaffleService } from '../raffle/raffle.service';
 import { UserService } from '../user/user.service';
-import Discord = require('discord.js');
 
 interface DiscordBotConstructor {
     token: string;

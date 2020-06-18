@@ -1,7 +1,10 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { SelectQueryBuilder } from 'typeorm';
+import { UserErrorException } from '../../common/exception/user-error.exception';
 import { EntityService } from '../../common/utils/entity-service';
+import { UserEntity } from '../../user/user.entity';
+import { UserService } from '../../user/user.service';
 import { SteamKeyCategoryEntity } from './steam-key-category.entity';
 import { SteamKeyCategoryService } from './steam-key-category.service';
 import { SteamKeyEntity } from './steam-key.entity';
@@ -16,7 +19,8 @@ import { SteamKeyEntity } from './steam-key.entity';
 export class SteamKeyService extends EntityService<SteamKeyEntity> {
     public constructor(
         @InjectRepository(SteamKeyEntity) repo,
-        private readonly categoryService: SteamKeyCategoryService
+        private readonly categoryService: SteamKeyCategoryService,
+        private readonly userService: UserService
     ) {
         super(repo);
     }
@@ -41,7 +45,8 @@ export class SteamKeyService extends EntityService<SteamKeyEntity> {
         return this.repo
             .createQueryBuilder(steamKeyTableAlias)
             .leftJoin(`${steamKeyTableAlias}.case`, caseTableAlias)
-            .where(`${caseTableAlias}.keyId IS NULL`);
+            .where(`${caseTableAlias}.keyId IS NULL`)
+            .andWhere(`${steamKeyTableAlias}.userId IS NULL`);
     }
 
     private availableKeyQueryByCategory(
@@ -81,5 +86,46 @@ export class SteamKeyService extends EntityService<SteamKeyEntity> {
      */
     public getAvailableKeyByCategory(category: SteamKeyCategoryEntity): Promise<SteamKeyEntity | undefined> {
         return this.availableKeyQueryByCategory(category).getOne();
+    }
+
+    /**
+     * Gives a key to a user.
+     *
+     * @remark
+     * Will throw if the key already belongs to a case or user.
+     *
+     * @param user User to give the key to.
+     * @param key Key to give.
+     */
+    public async giveKey(user: UserEntity, key: SteamKeyEntity): Promise<void> {
+        if (key.case != null || key.user != null) {
+            throw new InternalServerErrorException('La clé appartient déjà à un autre utilisateur ou caisse.');
+        }
+
+        //Set relations in entities
+        user.keys?.push(key);
+        key.user = user;
+
+        await this.repo.save(key);
+    }
+
+    /**
+     * Buys a key in points and gives it to the user's inventory.\
+     * Will throw if the key category is not buyable, if the user can't afford a key or if no keys of this category are available.
+     *
+     * @param user User wants to buy the key.
+     * @param category Category of the key to buy.
+     */
+    public async buyKey(user: UserEntity, category: SteamKeyCategoryEntity): Promise<void> {
+        if (!category.buyable) throw new UserErrorException("Ce type de clé n'est pas achetable.");
+        if (!user.canAffordPoints(category.cost))
+            throw new UserErrorException("Vous n'avez pas assez de steamcoins pour acheter cette clé.");
+
+        const key = await this.getAvailableKeyByCategory(category);
+        if (key == undefined) throw new UserErrorException('Aucune clé disponible.');
+
+        await this.userService.changePointsSave(user, -category.cost);
+
+        await this.giveKey(user, key);
     }
 }

@@ -16,18 +16,19 @@
             <div class="form-group row">
                 <label class="col-4 col-form-label" for="code">Code</label>
                 <div class="col-8">
-                    <input id="code" name="code" type="text" required="required" class="form-control">
+                    <input id="code" name="code" type="text" required="required" class="form-control" autocomplete="off">
                 </div>
             </div>
             {# Category #}
             <div class="form-group row">
                 <label class="col-4 col-form-label" for="category">Category</label>
                 <div class="col-8">
-                    <input id="category" name="category" type="text" required="required" class="form-control" placeholder="random">
+                    <select id="category" name="categoryId" class="form-control" required>
+                        {% for category in categories %}
+                            <option value="{{ category.id }}">{{ category.name }}</option>
+                        {% endfor %}
+                    </select>
                 </div>
-                <small class="form-text text-muted">
-                    Catégories existantes: {{ categories | join(", ") }}
-                </small>
             </div>
 
             {# submit #}

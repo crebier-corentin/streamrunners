@@ -30,13 +30,13 @@ export class SteamKeyService extends EntityService<SteamKeyEntity> {
      *
      * @param name [[SteamKeyEntity.name]]
      * @param code [[SteamKeyEntity.code]]
-     * @param category [[SteamKeyCategoryEntity.name]]
+     * @param category [[SteamKeyCategoryEntity.id]]
      */
-    public async add(name: string, code: string, category: string): Promise<void> {
+    public async add(name: string, code: string, category: number): Promise<void> {
         const key = new SteamKeyEntity();
         key.name = name;
         key.code = code;
-        key.category = await this.categoryService.byNameOrFail(category);
+        key.category = await this.categoryService.byIdOrFail(category);
 
         await this.repo.insert(key);
     }

@@ -11,6 +11,7 @@ import {
     ValidationPipe,
 } from '@nestjs/common';
 import { Request } from 'express';
+import { SteamKeyCategoryEntity } from '../case/steam-key/steam-key-category.entity';
 import { SteamKeyCategoryService } from '../case/steam-key/steam-key-category.service';
 import { SteamKeyService } from '../case/steam-key/steam-key.service';
 import { AuthenticatedGuard } from '../common/guard/authenticated.guard';
@@ -30,12 +31,12 @@ export class SteamKeyController {
     @Get()
     public async coupon(
         @Req() req: Request
-    ): Promise<{ success: string[]; totalKeys: number; availableKeys: number; categories: string[] }> {
+    ): Promise<{ success: any; totalKeys: number; categories: SteamKeyCategoryEntity[]; availableKeys: number }> {
         return {
             success: req.flash('success'),
             totalKeys: await this.steamKeyService.count(),
             availableKeys: await this.steamKeyService.availableKeyCount(),
-            categories: await this.steamKeyCategoryService.allCategoriesNames(),
+            categories: await this.steamKeyCategoryService.all(),
         };
     }
 
@@ -43,7 +44,7 @@ export class SteamKeyController {
     @Post('add')
     @Redirect('/admin/steam')
     public async addCoupon(@Body() dto: AddSteamKeyDto, @Req() req: Request): Promise<void> {
-        await this.steamKeyService.add(dto.name, dto.code, dto.category);
+        await this.steamKeyService.add(dto.name, dto.code, dto.categoryId);
 
         req.flash('success', 'Clé steam ajouté avec succès!');
     }

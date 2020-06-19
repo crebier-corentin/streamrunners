@@ -1,5 +1,5 @@
-import { Trim } from 'class-sanitizer';
-import { IsAlphanumeric, IsNotEmpty, IsString } from 'class-validator';
+import { ToInt, Trim } from 'class-sanitizer';
+import { IsInt, IsNotEmpty, IsString } from 'class-validator';
 
 export class AddSteamKeyDto {
     @IsNotEmpty()
@@ -13,8 +13,7 @@ export class AddSteamKeyDto {
     public code: string;
 
     @IsNotEmpty()
-    @IsString()
-    @IsAlphanumeric()
-    @Trim()
-    public category: string;
+    @IsInt()
+    @ToInt()
+    public categoryId: number;
 }

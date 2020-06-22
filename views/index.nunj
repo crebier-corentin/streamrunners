@@ -12,93 +12,83 @@
 {% endblock %}
 
 {% block content %}
-    <div id="app">
-        <div class="photo-wall">
-            <div class="gradient"></div>
-            <div class="container">
-                <div class="row">
-                    <div class="g12">
-                        <h1>Le N#1 des sites pour faire connaitre votre Twitch</h1>
-                        <p class="mb-5 text-shadow">
-                            <strong>StreamRunners</strong> est un site <strong>gratuit</strong> pour les streamers qui
-                            veulent plus de visibilité.
-                            Il n'y a aucun frais caché ou abonnement obligatoire. L'<strong>inscription est
-                                rapide</strong>
-                            et vous permettra d'accéder au site au complet sans restriction. Vous pourrez montrer votre
-                            stream à des gens qui parlent la même <strong>langue que vous</strong>. </p>
-
-                        <a class="btn btn-primary" href="/auth/twitch">Se connecter avec Twitch.Tv
-                            <i class="fab fa-twitch"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="clear"></div>
-        </div>
-
-        {# Affiliate #}
-        {% if affiliateDisplayName %}
-            <div class="container">
-                <div style="margin-top: 2rem;" class="alert alert-primary" role="alert">
-                    Vous êtes invité par {{ affiliateDisplayName }}.
-                </div>
-            </div>
-        {% endif %}
-
+    <div class="photo-wall">
+        <div class="gradient"></div>
         <div class="container">
-            <span class="online"><i class="fas fa-circle"></i> {{ viewers }} En ligne</span>
-            <span class="register"><i class="fas fa-users"></i> <span id="users-count">0</span> Inscrits</span>
-            <span class="giveaway"><i class="fas fa-gifts"></i> <span id="gift-value-count">0</span> € de Cadeaux</span>
-
-            {% if currentStreamer %}
-                <twitch-viewer channel="{{ currentStreamer.username }}"></twitch-viewer>
-            {% endif %}
-
-        </div>
-        <div class="container marketing">
-            <hr>
-            <br>
             <div class="row">
-                <div class="col-lg-4 d-flex flex-column align-items-center justify-content-center">
-                    <img class="rounded-circle brandred"
-                         src="img/eye-solid.svg"
-                         alt="Generic placeholder image"
-                         width="140"
-                         height="140">
-                    <h2>Vues Réelles !</h2>
-                    <p>Des vues 100% réelles ! Toutes nos vues proviennent d'utilisateurs Twitch 100% réels, nous
-                        chassons
-                        les
-                        bots du site !</p>
-                </div><!-- /.col-lg-4 -->
-                <div class="col-lg-4 d-flex flex-column align-items-center justify-content-center">
-                    <img class="rounded-circle"
-                         src="img/free.svg"
-                         alt="Generic placeholder image"
-                         width="140"
-                         height="140">
-                    <h2>Gratuit</h2>
-                    <p>Le site est gratuit ! Des abonnements sont proposés pour améliorer l'expérience mais aucunement
-                        obligatoires !</p>
-                </div><!-- /.col-lg-4 -->
-                <div class="col-lg-4 d-flex flex-column align-items-center justify-content-center">
-                    <img src="img/gift-solid.svg" alt="Generic placeholder image" width="140" height="140">
-                    <h2>Cadeaux</h2>
-                    <p>Des tonnes de cadeaux à gagner gratuitement tous les mois tout en soutenant des petits streameurs
-                        francophones !</p>
-                </div><!-- /.col-lg-4 -->
-            </div><!-- /.row -->
-            <hr>
+                <div class="g12">
+                    <h1>Le N#1 des sites pour faire connaitre votre Twitch</h1>
+                    <p class="mb-5 text-shadow">
+                        <strong>StreamRunners</strong> est un site <strong>gratuit</strong> pour les streamers qui
+                        veulent plus de visibilité.
+                        Il n'y a aucun frais caché ou abonnement obligatoire. L'<strong>inscription est rapide</strong>
+                        et vous permettra d'accéder au site au complet sans restriction. Vous pourrez montrer votre
+                        stream à des gens qui parlent la même <strong>langue que vous</strong>. </p>
+
+                    <a class="btn btn-primary" href="/auth/twitch">Se connecter avec Twitch.Tv
+                        <i class="fab fa-twitch"></i></a>
+                </div>
+            </div>
         </div>
+        <div class="clear"></div>
+    </div>
+
+    {# Affiliate #}
+    {% if affiliateDisplayName %}
+        <div class="container">
+            <div style="margin-top: 2rem;" class="alert alert-primary" role="alert">
+                Vous êtes invité par {{ affiliateDisplayName }}.
+            </div>
+        </div>
+    {% endif %}
+
+    <div class="container">
+        <span class="online"><i class="fas fa-circle"></i> {{ viewers }} En ligne</span>
+        <span class="register"><i class="fas fa-users"></i> <span id="users-count">0</span> Inscrits</span>
+        <span class="giveaway"><i class="fas fa-gifts"></i> <span id="gift-value-count">0</span> € de Cadeaux</span>
+    </div>
+    <div class="container marketing">
+        <hr>
+        <br>
+        <div class="row">
+            <div class="col-lg-4 d-flex flex-column align-items-center justify-content-center">
+                <img class="rounded-circle brandred"
+                     src="img/eye-solid.svg"
+                     alt="Generic placeholder image"
+                     width="140"
+                     height="140">
+                <h2>Vues Réelles !</h2>
+                <p>Des vues 100% réelles ! Toutes nos vues proviennent d'utilisateurs Twitch 100% réels, nous chassons
+                    les
+                    bots du site !</p>
+            </div><!-- /.col-lg-4 -->
+            <div class="col-lg-4 d-flex flex-column align-items-center justify-content-center">
+                <img class="rounded-circle" src="img/free.svg" alt="Generic placeholder image" width="140" height="140">
+                <h2>Gratuit</h2>
+                <p>Le site est gratuit ! Des abonnements sont proposés pour améliorer l'expérience mais aucunement
+                    obligatoires !</p>
+            </div><!-- /.col-lg-4 -->
+            <div class="col-lg-4 d-flex flex-column align-items-center justify-content-center">
+                <img src="img/gift-solid.svg" alt="Generic placeholder image" width="140" height="140">
+                <h2>Cadeaux</h2>
+                <p>Des tonnes de cadeaux à gagner gratuitement tous les mois tout en soutenant des petits streameurs
+                    francophones !</p>
+            </div><!-- /.col-lg-4 -->
+        </div><!-- /.row -->
+        <hr>
+    </div>
+
+    <section id="partners">
 
         <streamer-partners :streamers="streamerPartners" />
 
-    </div>
+    </section>
+
 
 {% endblock %}
 
 {% block script %}
 
-    <script src="https://player.twitch.tv/js/embed/v1.js"></script>
     <script type="text/javascript">
         window['defaultStreamerPartners'] = {{ streamerPartners | safe }};
     </script>

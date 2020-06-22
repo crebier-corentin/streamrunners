@@ -4,6 +4,7 @@ import { CaseService } from './case/case.service';
 import { User } from './common/decorator/user.decorator';
 import { AuthenticatedGuard } from './common/guard/authenticated.guard';
 import { RaffleService } from './raffle/raffle.service';
+import { StreamQueueService } from './stream-queue/stream-queue.service';
 import { UserEntity } from './user/user.entity';
 import { UserService } from './user/user.service';
 import Request = Express.Request;
@@ -13,7 +14,8 @@ export class AppController {
     public constructor(
         private readonly userService: UserService,
         private readonly raffleService: RaffleService,
-        private readonly caseService: CaseService
+        private readonly caseService: CaseService,
+        private readonly streamQueueService: StreamQueueService
     ) {}
 
     @Get()
@@ -26,6 +28,7 @@ export class AppController {
                 totalUsers: await this.userService.count(),
                 raffleTotalValue: await this.raffleService.totalValue(),
                 streamerPartners: JSON.stringify(await this.userService.partners()),
+                currentStreamer: (await this.streamQueueService.currentStream())?.user,
             });
         }
     }

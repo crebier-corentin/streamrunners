@@ -1,6 +1,7 @@
 import { sleep } from '../../src/shared/shared-utils';
 import Vue from 'vue/dist/vue.esm.js';
 import StreamerPartners from './component/StreamerPartners.vue';
+import TwitchViewer from './component/TwitchViewer.vue';
 
 
 window['countdown'] = async function countdown(el: HTMLElement, countStart: number, countEnd: number, seconds: number = 20): Promise<void> {
@@ -17,9 +18,11 @@ window['countdown'] = async function countdown(el: HTMLElement, countStart: numb
 
 //Partners
 Vue.component(StreamerPartners.name, StreamerPartners);
+//TwitchView
+Vue.component(TwitchViewer.name, TwitchViewer);
 
 new Vue({
-    el: '#partners',
+    el: '#app',
 
     data() {
         return {

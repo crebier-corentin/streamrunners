@@ -29,19 +29,19 @@
             rankClass(): string {
                 switch (this.rank as ChatRank) {
                     case ChatRank.Member:
-                        return 'chat-name-member';
+                        return 'user-member';
                     case ChatRank.VIP:
-                        return 'chat-name-vip';
+                        return 'user-vip';
                     case ChatRank.Diamond:
-                        return 'chat-name-diamond';
+                        return 'user-diamond';
                     case ChatRank.Partner:
-                        return 'chat-name-partner';
+                        return 'user-partner';
                     case ChatRank.Birthday:
-                        return 'chat-name-birthday';
+                        return 'user-birthday';
                     case ChatRank.Moderator:
-                        return 'chat-name-moderator';
+                        return 'user-moderator';
                     case ChatRank.Admin:
-                        return 'chat-name-admin';
+                        return 'user-admin';
 
                 }
             },

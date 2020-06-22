@@ -5,14 +5,16 @@
     <div class="container" id="app">
         <div class="container marketing">
 
-            <div class="row mb-3">
-                <div class="col d-flex flex-column align-items-center" v-for="(q, index) of queue.slice(0, 4)">
-                    <a :href="'https://www.twitch.tv/' + q.user.username" target="_blank">
-                        <img class="rounded-circle perso mb-2"
-                             :src="q.user.avatar"
-                             :alt="q.user.displayName"
-                             width="90"
-                             height="90"></a>
+            <!-- Three columns of text below the carousel -->
+            <div class="row">
+
+                <div class="col-lg-2 d-flex flex-column align-items-center" v-for="(q, index) of queue.slice(0, 4)">
+                    <a :href="'https://www.twitch.tv/' + q.user.username"
+                       target="_blank"><img class="rounded-circle perso"
+                                            :src="q.user.avatar"
+                                            :alt="q.user.displayName"
+                                            width="90"
+                                            height="90"></a>
 
                     <div>
                         <a :href="'https://www.twitch.tv/' + q.user.username"
@@ -24,28 +26,27 @@
                            @click="makeRequestDelete(q.id)"
                            v-if="q.user.username === '{{ req.user.username }}' && index !== 0"></a>
                     </div>
+
                 </div>
-                <div class="col d-flex flex-column align-items-center">
-                    <img src="{{ req.user.avatar }}"
+
+                <div class="col-lg-2 d-flex flex-column align-items-center">
+                    <img class="rounded-circle perso"
+                         src="{{ req.user.avatar }}"
                          alt="{{ req.user.displayName }}"
                          width="90"
-                         height="90"
-                         class="rounded-circle perso mb-2">
+                         height="90">
                     <div>
-                        <a href="#" @click.prevent="makeRequestAdd">
-                            <i aria-hidden="true" class="fas fa-plus"></i> S'ajouter
-                        </a>
+                        <a href="#" @click.prevent="makeRequestAdd"><i class="fas fa-plus"></i> S'ajouter</a>
                     </div>
                 </div>
             </div>
+
             <div class="d-flex justify-content-center">
-                <h5>
-                    <span class="badge badge-secondary badge-button">Taille de la file : {% raw %}{{ queueLength }}{% endraw %} utilisateurs</span>
-                </h5>      <h5>
-                    <span class="badge badge-secondary badge-button" v-if="positions.length > 0">Positions dans la file :
+                <span class="badge badge-secondary">Taille de la file : {% raw %}{{ queueLength }}{% endraw %}
+                    utilisateurs</span>
+                <span class="badge badge-secondary" v-if="positions.length > 0">Positions dans la file :
                     {% raw %}{{ positionsText }}{% endraw %}
                 </span>
-                </h5>
             </div>
 
         </div>
@@ -76,75 +77,43 @@
 
         {# If queue is not empty#}
         <template v-else>
-            <div class="my-2 text-center">
-                <a class="btn btn-secondary left-radius" id="follow-live" :href="'https://www.twitch.tv/' + channel"><i
-                            class="fas fa-heart"
-                            aria-hidden="true"></i> Follow</a>
-                <a class="btn btn-secondary right-radius" id="sub-live" :href="'https://www.twitch.tv/subs/' + channel"><i
-                            class="fas fa-plus"
-                            aria-hidden="true"></i> S'abonner</a>
+            <a :href="'https://www.twitch.tv/' + channel" target="_blank" class="btn btn-outline-success follow"><i
+                        class="fas fa-heart"></i>&nbsp;&nbsp;&nbsp;Follow</a>
+            <a :href="'https://www.twitch.tv/subs/' + channel" target="_blank" class="btn btn-outline-success sub"><i
+                        class="fas fa-plus"></i>&nbsp;&nbsp;&nbsp;S'abonner</a>
 
-                {% if req.user.moderator %}
-                    <button class="btn btn-outline-success skip" @click="makeRequestSkip"><i class="fas fa-forward"></i>&nbsp;&nbsp;&nbsp;Passer
-                    </button>
-                {% endif %}
+            {% if req.user.moderator %}
+                <button class="btn btn-outline-success skip" @click="makeRequestSkip"><i class="fas fa-forward"></i>&nbsp;&nbsp;&nbsp;Passer
+                </button>
+            {% endif %}
+            <!-- <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank" class="btn golden-btn"><i class="fas fa-coins"></i>&nbsp;&nbsp;&nbsp;Points Illimités
+            </a> -->
 
-                {# Rickroll #}
-                <!-- <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank" class="btn golden-btn"><i class="fas fa-coins"></i>&nbsp;&nbsp;&nbsp;Points Illimités
-         </a> -->
+            <twitch-viewer :channel="channel" @playing="isPaused = false" @paused="isPaused = true"></twitch-viewer>
+            <div class="alert alert-danger" v-if="isPaused">Le stream est en pause. Vous ne gagnerez pas de points.
             </div>
-
-            <div id="player-user">
-                <twitch-viewer :channel="channel" @playing="isPaused = false" @paused="isPaused = true"></twitch-viewer>
-            </div>
-
-            <div class="alert alert-danger mt-3" v-if="isPaused">Le stream est en pause. Vous ne gagnerez pas de points.
-            </div>
-
             <hr>
+            <div class="d-flex justify-content-center">
+                <span class="badge badge-secondary">{% raw %}{{ timeLeft }}{% endraw %}s <i class="fas fa-clock"
+                                                                                            width="16px"
+                                                                                            height="16px"></i></span>
+                <span class="badge badge-secondary">{% raw %}{{ points }}{% endraw %} <img src="/img/po.png"
+                                                                                           width="16px"
+                                                                                           height="16px" /></span>
+                <span class="badge badge-secondary">
+                {% if req.user.subscriptionLevel === SubscriptionLevel.VIP %}<p class="glow">x1.5</p>
+                    {% elif req.user.subscriptionLevel === SubscriptionLevel.Diamond %}<p class="glow">x2</p>
+                {% else %} x1
+                {% endif %}
+                </span>
 
-            {# Stream info #}
-            <div id="sr-char-container">
-                <div class="d-flex justify-content-center">
-                    <h5><span class="badge badge-secondary chat-badges number-mono left-radius">
-                            <i width="16px"
-                               height="16px"
-                               class="fas fa-clock"
-                               aria-hidden="true"></i> {% raw %}{{ timeLeft }}{% endraw %}s
-                        </span>
-                    </h5>
-                    <h5><span class="badge badge-secondary chat-badges number-mono">
-                            <img src="/img/po.png"
-                                 alt="points"
-                                 width="16px"
-                                 height="16px"><span class="coins-counter">{% raw %}{{ points }}{% endraw %}</span>
-                        </span>
-                    </h5>
-                    <h5><span class="badge badge-secondary chat-badges number-mono">
-                            {% if req.user.subscriptionLevel === SubscriptionLevel.VIP %}
-                                <p class="glow">x1.5</p>
-                            {% elif req.user.subscriptionLevel === SubscriptionLevel.Diamond %}
-                                <p class="glow">x2</p>
-                            {% else %}
-                                x1
-                            {% endif %}
-                        </span></h5>
-                    <h5><span class="badge badge-secondary chat-badges number-mono right-radius">
-                            <i width="15px"
-                               height="15px"
-                               class="fas fa-eye"
-                               aria-hidden="true"></i> {% raw %}{{ viewers.length }}{% endraw %}
-                        </span></h5>
-                </div>
+                <span class="badge badge-secondary">{% raw %}{{ viewers.length }}{% endraw %} <i class="fas fa-eye"
+                                                                                                 width="16px"
+                                                                                                 height="16px"></i></span>
             </div>
         </template>
 
-        {# Chat #}
-        <Chat id="sr-char-container"
-              :messages="messages"
-              :active-users="viewers"
-              :show-delete="{{ req.user.moderator }}"></Chat>
-
+        <Chat :messages="messages" :active-users="viewers" :show-delete="{{ req.user.moderator }}"></Chat>
         {% if showAds %}
             <div class="jumbotron text-center">
                 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
@@ -166,9 +135,7 @@
 
 {% block script %}
     <script src="https://player.twitch.tv/js/embed/v1.js"></script>
-    <script>
-        window['username'] = "{{ req.user.username }}";
-        window['id'] = {{ req.user.id }};
-    </script>
+    <script>window['username'] = "{{ req.user.username }}";
+        window['id'] = {{ req.user.id }};</script>
     <script src="/js/watch.js"></script>
 {% endblock %}

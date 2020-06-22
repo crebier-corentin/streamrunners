@@ -147,6 +147,8 @@ hr {
   color: #fff;
   text-align: center;
   font-weight: 600;
+  border-radius: 4px;
+  margin-bottom: 5px;
 }
 
 .sub {
@@ -377,6 +379,14 @@ hr {
   box-shadow: 26px 12px 47px -25px rgba(0, 0, 0, 0.75);
 }
 
+.rounded-circle {
+  margin: 15px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
 .jumbotron {
   margin-top: 15px;
   padding: 2rem 2rem !important;
@@ -408,6 +418,13 @@ hr {
 .badge-success {
   margin-top: -8px !important;
   margin-right: -15px !important;
+}
+
+.badge {
+  font-weight: 1000 !important;
+  padding: .20em .4em !important;
+  line-height: 2 !important;
+  font-size: 100% !important;
 }
 
 .headp {
@@ -994,6 +1011,13 @@ a:hover {
   }
 }
 
+.btn:hover {
+  background-color: #FFCB39;
+  border: #FFCB39 !important;
+  color: #fff;
+  border: solid 2px;
+}
+
 .margright {
   margin-right: 1rem;
 }
@@ -1064,7 +1088,10 @@ a:hover {
 }
 
 .dropdown-menu {
-  border-color: #ffffff80;
+  background-color: rgba(0, 0, 0, 0.4);
+  background: rgba(0, 0, 0, 0.4);
+  border-color: #f6c23c;
+  margin-left: 2rem;
 }
 
 .dropdown-menu-right {
@@ -1073,7 +1100,7 @@ a:hover {
 }
 
 .dropdown-divider {
-  border-color: #ffffff80;
+  border-color: rgba(246, 194, 60, 0.4);
 }
 
 .boy {
@@ -1175,22 +1202,4 @@ figure {
   display: flex;
   width: 100%;
   height: 200px;
-}
-
-.profile-pic{
-  max-width: 40px;
-  max-height: 40px;
-}
-
-.radius-0 { border-radius: 0; }
-.left-radius { border-top-left-radius: .5rem; border-bottom-left-radius: .5rem; } .right-radius { border-top-right-radius: .5rem; border-bottom-right-radius: .5rem; }
-.tl-radius { border-top-left-radius: .5rem; } .bl-radius { border-bottom-left-radius: .5rem; } .tr-radius { border-top-right-radius: .5rem; } .br-radius { border-bottom-right-radius: .5rem; }
-.tlr0 { border-top-left-radius: 0; } .blr0 { border-bottom-left-radius: 0; } .trr0Â { border-top-right-radius: 0; } .brr0 { border-bottom-right-radius: 0; }
-
-.nav-drop-item {
-  color: white !important;
-}
-
-.nav-drop-item:hover {
-  background-color: #ffffff30;
 }

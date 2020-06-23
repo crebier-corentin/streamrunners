@@ -83,68 +83,81 @@
 <img src="/img/meteores.gif" alt="meteore" class="meteore">
 
 {# Navbar #}
-<div class="custom-navbar">
-    <div class="brand-logo">
-        <a href="https://streamrunners.fr"><img alt="Logo StreamRunners"
-                                                title="Logo StreamRunners"
-                                                src="/img/navbrand.png"
-                                                width="160px"></a>
-    </div>
-    <div class="navbar-links">
-        <ul>
-            <li><a href="/"><i class="fas fa-home"></i> Accueil</a></li>
-            <li><a href="/leaderboard"><i class="fas fa-trophy"></i> Classement</a></li>
+<nav id="navbar" class="navbar navbar-expand-lg navbar-dark bg-transparent text-white sticky-top">
+    <a class="navbar-brand" href="/"><img src="../img/navbrand.png" width="auto" height="40px" alt=""></a>
+    <button class="navbar-toggler"
+            type="button"
+            data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent"
+            aria-expanded="false"
+            aria-label="Active la barre de navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ml-auto mr-2">
+            <li class="nav-item"> <!-- Pensez a remettre active -->
+                <a class="nav-link" href="/"><i class="fas fa-home"></i> Accueil </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/leaderboard"><i class="fas fa-trophy"></i> Classement</a>
+            </li>
 
             {% if req.isAuthenticated() %}
+            <li class="nav-item">
+                <a class="nav-link" href="/case/shop"><i class="fas fa-shopping-cart"></i> Boutique</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/coupon"><i class="fas fa-ticket-alt"></i> Coupons</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/raffle"><i class="fas fa-boxes"></i> Giveaway</a>
+            </li>
+            {% if req.user.moderator %}
 
-                <li><a href="/case/shop"><i class="fas fa-shopping-cart"></i> Boutique</a></li>
-                <li><a href="/coupon"><i class="fas fa-ticket-alt"></i> Coupon</a></li>
-                <li><a href="/raffle"><i class="fas fa-boxes"></i> GiveAway</a></li>
-
-                {% if req.user.moderator %}
-
-                    <li><a href="/admin" class="btn-request"><i class="fas fa-lock"></i> Admin</a></li>
-
-                {% endif %}
-            {% endif %}
-
-            {% if req.isAuthenticated() %}
-                <li class="nav-item dropdown">
-                    <img src="{{ req.user.avatar }}" alt="avatar" class="loggedImage">
-                    <a class="nav-link d-inline-block dropdown-toggle"
-                       id="navbarDropdown"
-                       data-toggle="dropdown"
-                       aria-haspopup="true"
-                       aria-expanded="false"
-                       href="#">
-                        <div class="loggedPseudo">{{ req.user.displayName }}</div>
-                        <div>
-                            <span id="points-counter" class="text-small text-white">{{ req.user.points }}</span>
-                            <img src="/img/po.png" alt="points" width="16px" height="16px" />
-                        </div>
-                        <div>
-                            <span class="text-small text-white">{{ req.user.meteores }}</span>
-                            <img src="/img/mt.png" alt="points" width="16px" height="16px" />
-                        </div>
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a href="/inventory"><i class="fas fa-suitcase"></i> Inventaire</a>
-                        <div class="dropdown-divider"></div>
-                        <a href="/subscription"><i class="fas fa-star"></i> Abonnements</a>
-                        <div class="dropdown-divider"></div>
-                        <a href="/affiliate"><i class="fas fa-plus"></i> Affiliation</a>
-                        <div class="dropdown-divider"></div>
-                        <a href="/option"><i class="fas fa-cogs"></i> Paramètres</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="nav-link" href="/auth/logout"><i class="fas fa-sign-out-alt"></i> Se
-                            déconnecter</a>
-                    </div>
+                <li class="nav-item">
+                    <a class="nav-link" href="/admin"><i class="fas fa-lock"></i> Admin</a>
                 </li>
+
             {% endif %}
 
         </ul>
+        <ul class="navbar-nav nav-flex-icons">
+            <li class="nav-item avatar p-0 dropdown">
+                <span style="cursor:pointer;" class="nav-link p-8 d-flex align-items-center dropdown-toggle"
+                   role="button"
+                   data-toggle="dropdown"
+                   aria-haspopup="true"
+                   aria-expanded="false">
+                        <span class="pr-3 user-span text-right">
+                            <strong>{{ req.user.displayName }}</strong><br>
+                            <img src="/img/po.png" alt="coins" width="16px" height="16px">
+                            <span id="points-counter" class="subtext-logged coins-counter">{{ req.user.points }}</span> -
+                            <img src="/img/mt.png" alt="meteores" width="16px" height="16px">
+                            <span class="subtext-logged" id="points2">{{ req.user.meteores }}</span>
+                        </span>
+                    <img src="{{ req.user.avatar }}"
+                         class="rounded-circle z-depth-0 p-0 m-0"
+                         alt="avatar image"
+                         height="40px">
+                </span>
+                <div class="dropdown-menu dropdown-menu-right bg-secondary" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item nav-drop-item" href="/inventory"><i class="fas fa-fw fa-suitcase"></i> Inventaire</a>
+                    <a class="dropdown-item nav-drop-item" href="/subscription"><i class="fa-fw fas fa-star"></i> Abonnements</a>
+                    <a class="dropdown-item nav-drop-item" href="/affiliate"><i class="fas fa-fw fa-plus"></i> Affiliation</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item nav-drop-item" href="/option"><i class="fas fa-fw fa-cogs"></i> Paramètres</a>
+                    <a class="dropdown-item nav-drop-item" href="/auth/logout"><i class="fa-fw fas fa-sign-out-alt"></i> Se
+                        déconnecter</a>
+                </div>
+            </li>
+        </ul>
+        {% endif %}
     </div>
-</div>
+</nav>
+
+<div id="scroll-start"></div>
 
 {# Announcement #}
 {% if req.isAuthenticated() %}
@@ -222,6 +235,29 @@
 {% block script %}
 
 {% endblock %}
+
+
+{# Scroll script #}
+    <script> 
+        document.addEventListener('DOMContentLoaded', function(){
+            let scroll;          
+            let navbar = document.querySelector('.navbar');
+            let scroll_tag = document.getElementById('scroll-start');
+            let offset = scroll_tag.offsetTop;
+                window.onscroll = function() {
+                    scroll = window.scrollY;
+                    if (scroll > offset) {
+                        navbar.classList.add('navbar-scroll');
+                        navbar.classList.remove('bg-transparent');
+                    } else {
+                        navbar.classList.add('bg-transparent');
+                        navbar.classList.remove('navbar-scroll');
+                    }
+                };
+        });
+    </script>
+
+
 
 
 </html>

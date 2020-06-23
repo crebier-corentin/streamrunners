@@ -1,6 +1,6 @@
 <template>
     <div class="d-flex flex-row">
-        <div id="twitch-embed" style="width: 100%"></div>
+        <div id="twitch-embed" class="embed-responsive embed-responsive-16by9"></div>
         <iframe :src="chatUrl" frameborder="0" scrolling="no" height="456" width="30%"></iframe>
     </div>
 </template>

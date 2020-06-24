@@ -12,6 +12,7 @@ import { ChatService } from './chat.service';
 describe('ChatService', () => {
     let service: ChatService;
     let repo: Repository<ChatMessageEntity>;
+    let mentionRepo: Repository<ChatMentionEntity>;
     let userService: UserService;
 
     beforeEach(async () => {
@@ -22,7 +23,10 @@ describe('ChatService', () => {
                     provide: getRepositoryToken(ChatMessageEntity),
                     useClass: Repository,
                 },
-                ChatService,
+                {
+                    provide: getRepositoryToken(ChatMentionEntity),
+                    useClass: Repository,
+                },
                 {
                     provide: UserService,
                     useValue: {
@@ -34,10 +38,12 @@ describe('ChatService', () => {
 
         service = module.get<ChatService>(ChatService);
         repo = module.get<Repository<ChatMessageEntity>>(getRepositoryToken(ChatMessageEntity));
+        mentionRepo = module.get<Repository<ChatMentionEntity>>(getRepositoryToken(ChatMentionEntity));
         userService = module.get<UserService>(UserService);
 
         // @ts-ignore
         jest.spyOn(repo, 'save').mockImplementation(entity => entity);
+        jest.spyOn(mentionRepo, 'remove').mockImplementation();
     });
 
     it('should be defined', () => {
@@ -174,6 +180,7 @@ describe('ChatService', () => {
             chatMessage.message = 'abc';
             chatMessage.author = user;
             chatMessage.deletedBy = null;
+            chatMessage.mentions = [new ChatMentionEntity()];
 
             // @ts-ignore
             jest.spyOn(repo, 'findOne').mockImplementation(id => (id === 1 ? chatMessage : undefined));
@@ -182,6 +189,7 @@ describe('ChatService', () => {
         it('should soft delete', async () => {
             const message = await service.softDeleteChat(1, mod);
             expect(message.deletedBy.id).toBe(40);
+            expect(message.mentions).toBeNull();
         });
 
         it("should throw when message doesn't exists", () => {

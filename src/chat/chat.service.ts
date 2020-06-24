@@ -12,7 +12,11 @@ import { ChatMessageEntity } from './chat-message.entity';
 export class ChatService extends EntityService<ChatMessageEntity> {
     private cache = new CacheService(2);
 
-    public constructor(@InjectRepository(ChatMessageEntity) repo, private readonly userService: UserService) {
+    public constructor(
+        @InjectRepository(ChatMessageEntity) repo,
+        @InjectRepository(ChatMentionEntity) private readonly mentionRepo,
+        private readonly userService: UserService
+    ) {
         super(repo);
     }
 
@@ -64,8 +68,12 @@ export class ChatService extends EntityService<ChatMessageEntity> {
     }
 
     public async softDeleteChat(messageId: number, deletedBy: UserEntity): Promise<ChatMessageEntity> {
-        const message = await this.byIdOrFail(messageId);
+        const message = await this.byIdOrFail(messageId, ['mentions']);
+
+        await this.mentionRepo.remove(message.mentions);
+
         message.deletedBy = deletedBy;
+        message.mentions = null;
         const tmp = this.repo.save(message);
 
         this.cache.del('messages');
